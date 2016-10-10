@@ -1,128 +1,15 @@
-NAnt
+pNAnt
 ====
 
 What is it? 
 -----------
-NAnt is a .NET-based build tool. In theory it is kind of like `make` without
-`make`'s wrinkles. In practice it's a lot like Ant. 
-  
-If you are not familiar with Jakarta Ant you can get more information at the
-Ant project web site (http://ant.apache.org/).
+pNAnt is a fork of NAnt that adds provides parallelization support and fixes some of the more serious shortcomings of NAnt.  You can find the original NAnt project here:
 
-
-Why NAnt?
----------
-Because Ant was too Java-specific.
-
-Because Ant needed the Java runtime. NAnt only needs the .NET or Mono runtime.
-
-
-The Latest Version
-------------------
-Details of the latest version can be found on the NAnt project web site
 http://nant.sourceforge.net/
 
+and the source here:
 
-Files
------
-|  File           |  Purpose                                        |
-| --------------- | ----------------------------------------------- |
-|  README.md/txt  |  This file                                      |
-|  Makefile       |  Makefile for compilation with GNU Make         |
-|  Makefile.nmake |  Makefile for compilation with Microsoft NMake  |
-
-Compilation and Installation
-============================
-* Windows (net-2.0): [![TeamCity CodeBetter](https://img.shields.io/teamcity/codebetter/bt387.svg)](http://teamcity.codebetter.com/project.html?projectId=NAnt&guest=1)
-* Windows (mono-2.0): [![TeamCity CodeBetter](https://img.shields.io/teamcity/codebetter/bt175.svg)](http://teamcity.codebetter.com/project.html?projectId=NAnt&guest=1)
-* Linux: [![Travis-ci.org](https://travis-ci.org/nant/nant.svg)](https://travis-ci.org/nant/nant)
- 
-Overview
---------
-The compilation process uses NAnt to build NAnt.
-
-The approach is to first compile a copy of NAnt (using `make`/`nmake`) for
-bootstrapping purpose. Next, the bootstrapped version of NAnt is used in
-conjunction with NAnt build file (`NAnt.build`) to build the full version.
-
-
-Prerequisites
--------------
-To build NAnt, you will need the following components:
-
-Windows
--------
-
-* A version of the Microsoft .NET Framework.
-
-  Available from http://msdn.microsoft.com/netframework/
-  
-  You will need the .NET Framework SDK as well as the runtime 
-  components if you intend to compile programs.
-
-  Note: NAnt currently supports versions 1.0, 1.1, 2.0, 3.5, and 4.0 
-  of the Microsoft .NET Framework. 
-
-or
-
-* Mono for Windows (version 2.0 or higher)
-
-  Available from http://www.mono-project.com/downloads/
-
-Linux/Unix
-----------
-
-* GNU toolchain - including GNU `make`
-
-* `pkg-config`
-
-    Available from: http://www.freedesktop.org/Software/pkgconfig
-
-* A working Mono installation and development libraries (version 2.0 or higher)
-
-    Available from: http://www.mono-project.com/downloads/
-
-        
-Building the Software
----------------------
-   
-Build NAnt using Microsoft .NET:     
-
-* GNU Make
-
-        make install MONO= MCS=csc prefix=<installation path> [DESTDIR=<staging path>] [TARGET=<nant target>]
-
-    eg. `make install MONO= MCS=csc prefix="c:\Program Files" TARGET=net-2.0`
-
-* NMake
-
-        nmake -f Makefile.nmake install prefix=<installation path> [DESTDIR=<staging path>] [TARGET=<nant target>]
-
-    eg. `nmake -f Makefile.nmake install prefix="c:\Program Files" TARGET=net-4.0`
-
-
-Building NAnt using Mono:
-
-* GNU Make
-
-        make install prefix=<installation path> [DESTDIR=<staging path>] [TARGET=<nant target>]
-
-    eg. `make install prefix="c:\Program Files" TARGET=mono-4.0`
-
-* NMake
-
-        nmake -f Makefile.nmake install MONO=mono CSC=mcs prefix=<installation path> [DESTDIR=<staging path>] [TARGET=<nant target>]
-
-    eg. `nmake -f Makefile.nmake install MONO=mono CSC=mcs prefix=/usr/local/`
-
-Note: These instructions only apply to the source distribution of NAnt, as the
-binary distribution contains pre-built assemblies.
-
-
-Documentation
--------------
-Documentation is available in HTML format, in the `doc/` directory.
-
+https://github.com/nant/nant
 
 License
 -------
