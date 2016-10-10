@@ -3,7 +3,7 @@ pNAnt
 
 What is it? 
 -----------
-pNAnt is a fork of NAnt that adds provides parallelization support and fixes some of the more serious shortcomings of NAnt.  You can find the original NAnt project here:
+pNAnt is a fork of NAnt that provides parallelization support and fixes some of the more serious shortcomings of NAnt.  You can find the original NAnt project here:
 
 http://nant.sourceforge.net/
 
