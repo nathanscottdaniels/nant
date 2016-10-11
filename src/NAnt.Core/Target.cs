@@ -28,12 +28,14 @@ using System.Xml;
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
 
-namespace NAnt.Core {
+namespace NAnt.Core
+{
     /// <summary>
     /// Class for handling NAnt targets.
     /// </summary>
     [Serializable()]
-    public sealed class Target : Element, ICloneable {
+    public sealed class Target : Element, ICloneable
+    {
         private string _name;
         private string _description;
         private string _ifCondition;
@@ -43,13 +45,16 @@ namespace NAnt.Core {
         /// <summary>
         /// Initializes a new instance of the <see cref="Target" /> class.
         /// </summary>
-        public Target() {
+        public Target()
+        {
         }
         /// <summary>
         /// This indicates whether the target has already executed.
         /// </summary>
-        public bool Executed {
-            get {
+        public bool Executed
+        {
+            get
+            {
                 return _executed;
             }
         }
@@ -67,19 +72,28 @@ namespace NAnt.Core {
         ///   Note: Properties are not allowed in the name.
         ///   </para>
         /// </remarks>
-        [TaskAttribute("name", Required=true, ExpandProperties=false)]
-        [StringValidator(AllowEmpty=false)]
-        public new string Name {
+        [TaskAttribute("name", Required = true, ExpandProperties = false)]
+        [StringValidator(AllowEmpty = false)]
+        public new string Name
+        {
             get { return _name; }
             set { _name = value; }
         }
 
         /// <summary>
+        /// Whether or not this target is locked to a single thread of execution at a time.
+        /// </summary>
+        [TaskAttribute("locked", Required = false, ExpandProperties = true)]
+        [BooleanValidator()]
+        public Boolean Locked { get; set; } = false;
+
+        /// <summary>
         /// If <see langword="true" /> then the target will be executed; 
         /// otherwise, skipped. The default is <see langword="true" />.
         /// </summary>
-        [TaskAttribute("if", ExpandProperties=false)]
-        public string IfCondition {
+        [TaskAttribute("if", ExpandProperties = false)]
+        public string IfCondition
+        {
             get { return _ifCondition; }
             set { _ifCondition = StringUtils.ConvertEmptyToNull(value); }
         }
@@ -91,17 +105,23 @@ namespace NAnt.Core {
         /// <see langword="true" /> if the target should be executed; otherwise, 
         /// <see langword="false" />.
         /// </value>
-        public bool IfDefined {
-            get {
+        public bool IfDefined
+        {
+            get
+            {
                 // expand properties in condition
                 string expandedCondition = Project.Properties.ExpandProperties(IfCondition, Location);
 
                 // if a condition is supplied, it should evaluate to a bool
-                if (!String.IsNullOrEmpty(expandedCondition)) {
-                    try {
+                if (!String.IsNullOrEmpty(expandedCondition))
+                {
+                    try
+                    {
                         return Convert.ToBoolean(expandedCondition, CultureInfo.InvariantCulture);
-                    } catch (FormatException) {
-                        throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
+                    }
+                    catch (FormatException)
+                    {
+                        throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                             ResourceUtils.GetString("NA1070"), expandedCondition), Location);
                     }
                 }
@@ -116,8 +136,9 @@ namespace NAnt.Core {
         /// then the target will be executed; otherwise, skipped. The default 
         /// is <see langword="false" />.
         /// </summary>
-        [TaskAttribute("unless", ExpandProperties=false)]
-        public string UnlessCondition {
+        [TaskAttribute("unless", ExpandProperties = false)]
+        public string UnlessCondition
+        {
             get { return _unlessCondition; }
             set { _unlessCondition = StringUtils.ConvertEmptyToNull(value); }
         }
@@ -129,18 +150,24 @@ namespace NAnt.Core {
         /// <see langword="true" /> if the target should NOT be executed;
         /// otherwise, <see langword="false" />.
         /// </value>
-        public bool UnlessDefined {
-            get {
+        public bool UnlessDefined
+        {
+            get
+            {
                 // expand properties in condition
                 string expandedCondition = Project.Properties.ExpandProperties(UnlessCondition, Location);
 
                 // if a condition is supplied, it should evaluate to a bool
-                if (!String.IsNullOrEmpty(expandedCondition)) {
-                    try {
+                if (!String.IsNullOrEmpty(expandedCondition))
+                {
+                    try
+                    {
                         return Convert.ToBoolean(expandedCondition, CultureInfo.InvariantCulture);
-                    } catch (FormatException) {
-                        throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                            ResourceUtils.GetString("NA1069"), expandedCondition), 
+                    }
+                    catch (FormatException)
+                    {
+                        throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                            ResourceUtils.GetString("NA1069"), expandedCondition),
                             Location);
                     }
                 }
@@ -154,8 +181,9 @@ namespace NAnt.Core {
         /// The description of the target.
         /// </summary>
         [TaskAttribute("description")]
-        public string Description {
-            set { _description = value;}
+        public string Description
+        {
+            set { _description = value; }
             get { return _description; }
         }
 
@@ -163,11 +191,15 @@ namespace NAnt.Core {
         /// Space separated list of targets that this target depends on.
         /// </summary>
         [TaskAttribute("depends")]
-        public string DependsListString {
-            set {
-                foreach (string str in value.Split(new char[] {' ', ','})) {
+        public string DependsListString
+        {
+            set
+            {
+                foreach (string str in value.Split(new char[] { ' ', ',' }))
+                {
                     string dependency = str.Trim();
-                    if (dependency.Length > 0) {
+                    if (dependency.Length > 0)
+                    {
                         Dependencies.Add(dependency);
                     }
                 }
@@ -178,7 +210,8 @@ namespace NAnt.Core {
         /// A collection of target names that must be executed before this 
         /// target.
         /// </summary>
-        public StringCollection Dependencies {
+        public StringCollection Dependencies
+        {
             get { return _dependencies; }
         }
         /// <summary>
@@ -187,7 +220,8 @@ namespace NAnt.Core {
         /// <returns>
         /// A shallow copy of the <see cref="Target" />.
         /// </returns>
-        object ICloneable.Clone() {
+        object ICloneable.Clone()
+        {
             return Clone();
         }
         /// <summary>
@@ -196,7 +230,8 @@ namespace NAnt.Core {
         /// <returns>
         /// A shallow copy of the <see cref="Target" />.
         /// </returns>
-        public Target Clone() {
+        public Target Clone()
+        {
             Target clone = new Target();
             base.CopyTo(clone);
             clone._dependencies = _dependencies;
@@ -211,38 +246,67 @@ namespace NAnt.Core {
         /// <summary>
         /// Executes dependent targets first, then the target.
         /// </summary>
-        public void Execute() {
-            if (IfDefined && !UnlessDefined) {
-                try {
+        public void Execute()
+        {
+            if (this.Locked)
+            {
+                lock (this)
+                {
+                    this.DoExecute();
+                }
+            }
+            else
+            {
+                this.DoExecute();
+            }
+        }
+
+        private void DoExecute()
+        {
+            if (IfDefined && !UnlessDefined)
+            {
+                try
+                {
                     Project.OnTargetStarted(this, new BuildEventArgs(this));
-                
+
                     // select all the task nodes and execute them
-                    foreach (XmlNode childNode in XmlNode) {
-                        if (!(childNode.NodeType == XmlNodeType.Element)|| !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant"))) {
+                    foreach (XmlNode childNode in XmlNode)
+                    {
+                        if (!(childNode.NodeType == XmlNodeType.Element) || !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant")))
+                        {
                             continue;
                         }
-                        
-                        if (TypeFactory.TaskBuilders.Contains(childNode.Name)) {
+
+                        if (TypeFactory.TaskBuilders.Contains(childNode.Name))
+                        {
                             Task task = Project.CreateTask(childNode, this);
-                            if (task != null) {
+                            if (task != null)
+                            {
                                 task.Execute();
                             }
-                        } else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name)) {
+                        }
+                        else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
+                        {
                             DataTypeBase dataType = Project.CreateDataTypeBase(childNode);
-                            Project.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.", 
+                            Project.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
                                 childNode.Name, dataType.ID);
-                            if (!Project.DataTypeReferences.Contains(dataType.ID)) {
+                            if (!Project.DataTypeReferences.Contains(dataType.ID))
+                            {
                                 Project.DataTypeReferences.Add(dataType.ID, dataType);
-                            } else {
+                            }
+                            else {
                                 Project.DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
                             }
-                        } else {
-                            throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                                ResourceUtils.GetString("NA1071"), 
+                        }
+                        else {
+                            throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                                ResourceUtils.GetString("NA1071"),
                                 childNode.Name), Project.LocationMap.GetLocation(childNode));
                         }
                     }
-                } finally {
+                }
+                finally
+                {
                     _executed = true;
                     Project.OnTargetFinished(this, new BuildEventArgs(this));
                 }

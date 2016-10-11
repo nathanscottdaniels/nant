@@ -30,7 +30,8 @@ using System.Xml;
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
 
-namespace NAnt.Core {
+namespace NAnt.Core
+{
     /// <summary>
     /// Provides the abstract base class for tasks.
     /// </summary>
@@ -38,7 +39,8 @@ namespace NAnt.Core {
     /// A task is a piece of code that can be executed.
     /// </remarks>
     [Serializable()]
-    public abstract class Task : Element, IConditional {
+    public abstract class Task : Element, IConditional
+    {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _failOnError = true;
@@ -53,7 +55,8 @@ namespace NAnt.Core {
         /// </summary>
         [TaskAttribute("failonerror")]
         [BooleanValidator()]
-        public bool FailOnError {
+        public bool FailOnError
+        {
             get { return _failOnError; }
             set { _failOnError = value; }
         }
@@ -64,7 +67,8 @@ namespace NAnt.Core {
         /// </summary>
         [TaskAttribute("verbose")]
         [BooleanValidator()]
-        public virtual bool Verbose {
+        public virtual bool Verbose
+        {
             get { return (_verbose || Project.Verbose); }
             set { _verbose = value; }
         }
@@ -75,7 +79,8 @@ namespace NAnt.Core {
         /// </summary>
         [TaskAttribute("if")]
         [BooleanValidator()]
-        public bool IfDefined {
+        public bool IfDefined
+        {
             get { return _ifDefined; }
             set { _ifDefined = value; }
         }
@@ -87,7 +92,8 @@ namespace NAnt.Core {
         /// </summary>
         [TaskAttribute("unless")]
         [BooleanValidator()]
-        public bool UnlessDefined {
+        public bool UnlessDefined
+        {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
@@ -95,11 +101,14 @@ namespace NAnt.Core {
         /// <summary>
         /// The name of the task.
         /// </summary>
-        public override string Name {
-            get {
+        public override string Name
+        {
+            get
+            {
                 string name = null;
-                TaskNameAttribute taskName = (TaskNameAttribute) Attribute.GetCustomAttribute(GetType(), typeof(TaskNameAttribute));
-                if (taskName != null) {
+                TaskNameAttribute taskName = (TaskNameAttribute)Attribute.GetCustomAttribute(GetType(), typeof(TaskNameAttribute));
+                if (taskName != null)
+                {
                     name = taskName.Name;
                 }
                 return name;
@@ -110,8 +119,10 @@ namespace NAnt.Core {
         /// The prefix used when sending messages to the log.
         /// </summary>
         [Obsolete("Will be removed soon", false)]
-        public string LogPrefix {
-            get {
+        public string LogPrefix
+        {
+            get
+            {
                 string prefix = "[" + Name + "] ";
                 return prefix.PadLeft(Project.IndentationSize);
             }
@@ -130,7 +141,8 @@ namespace NAnt.Core {
         /// threshold of the <see cref="Project" />, then all messages will
         /// still be delivered to the build listeners.
         /// </remarks>
-        public Level Threshold {
+        public Level Threshold
+        {
             get { return _threshold; }
             set { _threshold = value; }
         }
@@ -139,51 +151,63 @@ namespace NAnt.Core {
         /// Returns the TaskBuilder used to construct an instance of this
         /// <see cref="Task" />.
         /// </summary>
-        internal TaskBuilder TaskBuilder {
-            get {
-                return TypeFactory.TaskBuilders [Name];
+        internal TaskBuilder TaskBuilder
+        {
+            get
+            {
+                return TypeFactory.TaskBuilders[Name];
             }
         }
 
         /// <summary>
         /// Executes the task unless it is skipped.
         /// </summary>
-        public void Execute() {
+        public void Execute()
+        {
             logger.DebugFormat(CultureInfo.InvariantCulture,
-                ResourceUtils.GetString("String_TaskExecute"), 
+                ResourceUtils.GetString("String_TaskExecute"),
                 Name);
 
-            if (IfDefined && !UnlessDefined) {
-                try {
+            if (IfDefined && !UnlessDefined)
+            {
+                try
+                {
                     Project.OnTaskStarted(this, new BuildEventArgs(this));
                     ExecuteTask();
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     logger.ErrorFormat(
                         CultureInfo.InvariantCulture,
-                        ResourceUtils.GetString("NA1077"), 
+                        ResourceUtils.GetString("NA1077"),
                         Name, ex);
 
-                    if (FailOnError) {
+                    if (FailOnError)
+                    {
                         throw;
-                    } else {
-                        if (this.Verbose) {
+                    }
+                    else {
+                        if (this.Verbose)
+                        {
                             // output exception (with stacktrace) to build log
                             Log(Level.Error, ex.ToString());
-                        } else {
+                        }
+                        else {
                             string msg = ex.Message;
                             // get first nested exception
                             Exception nestedException = ex.InnerException;
                             // set initial indentation level for the nested exceptions
                             int exceptionIndentationLevel = 0;
                             // output message of nested exceptions
-                            while (nestedException != null && !String.IsNullOrEmpty(nestedException.Message)) {
+                            while (nestedException != null && !String.IsNullOrEmpty(nestedException.Message))
+                            {
                                 // indent exception message with 4 extra spaces 
                                 // (for each nesting level)
                                 exceptionIndentationLevel += 4;
                                 // start new line for each exception level
                                 msg = (msg != null) ? msg + Environment.NewLine : string.Empty;
                                 // output exception message
-                                msg += new string(' ', exceptionIndentationLevel) 
+                                msg += new string(' ', exceptionIndentationLevel)
                                     + nestedException.Message;
                                 // move on to next inner exception
                                 nestedException = nestedException.InnerException;
@@ -193,7 +217,9 @@ namespace NAnt.Core {
                             Log(Level.Error, msg);
                         }
                     }
-                } finally {
+                }
+                finally
+                {
                     Project.OnTaskFinished(this, new BuildEventArgs(this));
                 }
             }
@@ -225,14 +251,18 @@ namespace NAnt.Core {
         /// as build listeners might be interested in receiving all messages.
         /// </para>
         /// </remarks>
-        public override void Log(Level messageLevel, string format) {
-            if (!IsLogEnabledFor(messageLevel)) {
+        public override void Log(Level messageLevel, string format)
+        {
+            if (!IsLogEnabledFor(messageLevel))
+            {
                 return;
             }
 
-            if (_verbose && messageLevel == Level.Verbose && Project.Threshold == Level.Info) {
+            if (_verbose && messageLevel == Level.Verbose && Project.Threshold == Level.Info)
+            {
                 Project.Log(this, Level.Info, format);
-            } else {
+            }
+            else {
                 Project.Log(this, messageLevel, format);
             }
         }
@@ -259,7 +289,8 @@ namespace NAnt.Core {
         /// <see cref="Level.Info" />.
         /// </para>
         /// </remarks>
-        public override void Log(Level messageLevel, string format, params object[] args) {
+        public override void Log(Level messageLevel, string format, params object[] args)
+        {
             if (!IsLogEnabledFor(messageLevel))
             {
                 return;
@@ -284,8 +315,10 @@ namespace NAnt.Core {
         /// whether a message should be passed to the logging infrastructure, 
         /// as build listeners might be interested in receiving all messages.
         /// </remarks>
-        public bool IsLogEnabledFor(Level messageLevel) {
-            if (_verbose && messageLevel == Level.Verbose) {
+        public bool IsLogEnabledFor(Level messageLevel)
+        {
+            if (_verbose && messageLevel == Level.Verbose)
+            {
                 return Level.Info >= Threshold;
             }
 
@@ -301,34 +334,43 @@ namespace NAnt.Core {
         /// available for loading the default values from the configuration
         /// file if a build element is constructed from code.
         /// </remarks>
-        public void InitializeTaskConfiguration() {
+        public void InitializeTaskConfiguration()
+        {
             PropertyInfo[] properties = GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            foreach (PropertyInfo propertyInfo in properties) {
+            foreach (PropertyInfo propertyInfo in properties)
+            {
                 XmlNode attributeNode = null;
                 string attributeValue = null;
 
-                FrameworkConfigurableAttribute frameworkAttribute = (FrameworkConfigurableAttribute) 
+                FrameworkConfigurableAttribute frameworkAttribute = (FrameworkConfigurableAttribute)
                     Attribute.GetCustomAttribute(propertyInfo, typeof(FrameworkConfigurableAttribute));
 
-                if (frameworkAttribute != null) {
+                if (frameworkAttribute != null)
+                {
                     // locate XML configuration node for current attribute
                     attributeNode = GetAttributeConfigurationNode(
                         Project.TargetFramework, frameworkAttribute.Name);
 
-                    if (attributeNode != null) {
+                    if (attributeNode != null)
+                    {
                         // get the configured value
                         attributeValue = attributeNode.InnerText;
 
-                        if (frameworkAttribute.ExpandProperties && Project.TargetFramework != null) {
-                            try {
+                        if (frameworkAttribute.ExpandProperties && Project.TargetFramework != null)
+                        {
+                            try
+                            {
                                 // expand attribute properites
                                 attributeValue = Project.TargetFramework.Project.Properties.ExpandProperties(
                                     attributeValue, Location);
-                            } catch (Exception ex) {
+                            }
+                            catch (Exception ex)
+                            {
                                 // throw BuildException if required
-                                if (frameworkAttribute.Required) {
-                                    throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
+                                if (frameworkAttribute.Required)
+                                {
+                                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                                         ResourceUtils.GetString("NA1075"), frameworkAttribute.Name, Name), Location, ex);
                                 }
 
@@ -336,32 +378,40 @@ namespace NAnt.Core {
                                 attributeValue = null;
                             }
                         }
-                    } else {
+                    }
+                    else {
                         // check if its required
-                        if (frameworkAttribute.Required) {
-                            throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                                "'{0}' is a required framework configuration setting for the '{1}'" 
-                                + " build element that should be set in the NAnt configuration file.", 
+                        if (frameworkAttribute.Required)
+                        {
+                            throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                                "'{0}' is a required framework configuration setting for the '{1}'"
+                                + " build element that should be set in the NAnt configuration file.",
                                 frameworkAttribute.Name, Name), Location);
                         }
                     }
 
-                    if (attributeValue != null) {
-                        if (propertyInfo.CanWrite) {
+                    if (attributeValue != null)
+                    {
+                        if (propertyInfo.CanWrite)
+                        {
                             Type propertyType = propertyInfo.PropertyType;
 
                             //validate attribute value with custom ValidatorAttribute(ors)
-                            object[] validateAttributes = (ValidatorAttribute[]) 
+                            object[] validateAttributes = (ValidatorAttribute[])
                                 Attribute.GetCustomAttributes(propertyInfo, typeof(ValidatorAttribute));
-                            try {
-                                foreach (ValidatorAttribute validator in validateAttributes) {
+                            try
+                            {
+                                foreach (ValidatorAttribute validator in validateAttributes)
+                                {
                                     logger.InfoFormat(CultureInfo.InvariantCulture,
-                                        ResourceUtils.GetString("NA1074"), 
+                                        ResourceUtils.GetString("NA1074"),
                                         attributeValue, Name, validator.GetType().Name);
 
                                     validator.Validate(attributeValue);
                                 }
-                            } catch (ValidationException ve) {
+                            }
+                            catch (ValidationException ve)
+                            {
                                 logger.Error("Validation Exception", ve);
                                 throw new ValidationException("Validation failed on" + propertyInfo.DeclaringType.FullName, Location, ve);
                             }
@@ -370,25 +420,33 @@ namespace NAnt.Core {
                             object propertyValue = null;
 
                             // If the object is an enum
-                            if (propertyType.IsEnum) {
-                                try {
+                            if (propertyType.IsEnum)
+                            {
+                                try
+                                {
                                     TypeConverter tc = TypeDescriptor.GetConverter(propertyType);
-                                    if (!(tc.GetType() == typeof(EnumConverter))) {
+                                    if (!(tc.GetType() == typeof(EnumConverter)))
+                                    {
                                         propertyValue = tc.ConvertFrom(attributeValue);
-                                    } else {
+                                    }
+                                    else {
                                         propertyValue = Enum.Parse(propertyType, attributeValue);
                                     }
-                                } catch (Exception) {
+                                }
+                                catch (Exception)
+                                {
                                     // catch type conversion exceptions here
                                     string message = "Invalid configuration value \"" + attributeValue + "\". Valid values for this attribute are: ";
-                                    foreach (object value in Enum.GetValues(propertyType)) {
+                                    foreach (object value in Enum.GetValues(propertyType))
+                                    {
                                         message += value.ToString() + ", ";
                                     }
                                     // strip last ,
                                     message = message.Substring(0, message.Length - 2);
                                     throw new BuildException(message, Location);
                                 }
-                            } else {
+                            }
+                            else {
                                 propertyValue = Convert.ChangeType(attributeValue, propertyInfo.PropertyType, CultureInfo.InvariantCulture);
                             }
 
@@ -401,14 +459,16 @@ namespace NAnt.Core {
         }
 
         /// <summary>Initializes the task.</summary>
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             // Just defer for now so that everything just works
             InitializeTask(XmlNode);
         }
 
         /// <summary>Initializes the task.</summary>
         [Obsolete("Deprecated. Use Initialize() instead")]
-        protected virtual void InitializeTask(XmlNode taskNode) {
+        protected virtual void InitializeTask(XmlNode taskNode)
+        {
         }
 
         /// <summary>Executes the task.</summary>
@@ -431,9 +491,11 @@ namespace NAnt.Core {
         /// configuration node can be located in that section, the framework-neutral
         /// section of the project configuration node will be searched.
         /// </remarks>
-        protected override XmlNode GetAttributeConfigurationNode(FrameworkInfo framework, string attributeName) {
+        protected override XmlNode GetAttributeConfigurationNode(FrameworkInfo framework, string attributeName)
+        {
             XmlNode extensionConfig = TaskBuilder.ExtensionAssembly.ConfigurationSection;
-            if (extensionConfig != null) {
+            if (extensionConfig != null)
+            {
                 return base.GetAttributeConfigurationNode(extensionConfig,
                     framework, attributeName);
             }

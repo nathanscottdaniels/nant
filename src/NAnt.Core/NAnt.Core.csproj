@@ -108,7 +108,9 @@
     <Compile Include="TaskBuilder.cs" />
     <Compile Include="TaskBuilderCollection.cs" />
     <Compile Include="TaskContainer.cs" />
+    <Compile Include="Tasks\Parallel.cs" />
     <Compile Include="TypeFactory.cs" />
+    <Compile Include="Types\ParallelTarget.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="XmlLogger.cs" />
     <Compile Include="Attributes\BooleanValidatorAttribute.cs" />
