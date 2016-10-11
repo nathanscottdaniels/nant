@@ -47,12 +47,7 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("mkdir")]
     public class MkDirTask : Task {
-        #region Private Instance Fields
-
         private DirectoryInfo _dir;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -63,9 +58,6 @@ namespace NAnt.Core.Tasks {
             get { return _dir; }
             set { _dir = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -84,7 +76,5 @@ namespace NAnt.Core.Tasks {
                     Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

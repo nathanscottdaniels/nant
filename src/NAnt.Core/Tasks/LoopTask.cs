@@ -170,9 +170,6 @@ namespace NAnt.Core.Tasks {
             /// </summary>
             Both = 3
         }
-
-        #region Private Instance Fields
-
         private string _prop;
         private string[] _props;
         private LoopItem _loopItem;
@@ -181,9 +178,6 @@ namespace NAnt.Core.Tasks {
         private string _delim;
         private InElement _inElement;
         private TaskContainer _doStuff;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -274,9 +268,6 @@ namespace NAnt.Core.Tasks {
             get { return _doStuff; }
             set { _doStuff = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -455,9 +446,6 @@ namespace NAnt.Core.Tasks {
                 StuffToDo.Execute();
             }
         }
-
-        #endregion Override implementation of TaskContainer
-
         #region Protected Instance Methods
 
         protected virtual void DoWork(params string[] propVals) {
@@ -481,9 +469,6 @@ namespace NAnt.Core.Tasks {
             }
             base.ExecuteTask();
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private void DoWorkOnFileLines(string filename) {
@@ -501,20 +486,13 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Private Instance Methods
     }
 
     /// <summary>
     /// Class which contains nested elements which are used in the loop.
     /// </summary>
     public class InElement : Element {
-        #region Private Instance Fields
-
         private FileSet _items;
-
-        #endregion Private Instance Fields
-
         /// <summary>
         /// Gets or sets the items.
         /// </summary>
@@ -526,7 +504,5 @@ namespace NAnt.Core.Tasks {
             get { return _items;}
             set { _items = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

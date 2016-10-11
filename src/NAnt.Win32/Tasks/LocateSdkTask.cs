@@ -41,7 +41,6 @@ namespace NAnt.Win32.Tasks {
     /// </example>
     [TaskName("locatesdk")]
     internal class LocateSdkTask : Task {
-        #region Private Instance Fields
         
         private string _propName;
         private string _minWinSdkVer = "v6.0";
@@ -51,9 +50,6 @@ namespace NAnt.Win32.Tasks {
         private readonly string _registryBase = @"SOFTWARE\Microsoft\Microsoft SDKs\Windows";
         private readonly string _registryBaseWow6432 = @"SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows";
         private readonly string _regexNetFxTools = @"^WinSDK.*NetFx.*Tools.*$";
-        
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -111,9 +107,6 @@ namespace NAnt.Win32.Tasks {
             get { return _maxNetFxVer; }
             set { _maxNetFxVer = value; }
         }
-        
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
         
         /// <summary>
@@ -270,9 +263,6 @@ namespace NAnt.Win32.Tasks {
                 throw new BuildException(String.Format(CultureInfo.InvariantCulture,"System does not have minimum specified Windows SDK {0}!", _minWinSdkVer));
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
         
         /// <summary>
@@ -309,7 +299,5 @@ namespace NAnt.Win32.Tasks {
                 return null;
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

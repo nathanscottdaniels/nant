@@ -85,15 +85,10 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("delete")]
     public class DeleteTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _file;
         private DirectoryInfo _dir;
         private FileSet _fileset = new FileSet();
         private bool _includeEmptyDirs = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -133,9 +128,6 @@ namespace NAnt.Core.Tasks {
             get { return _fileset; }
             set { _fileset = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -228,9 +220,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private void RecursiveDeleteDirectory(string path) {
@@ -307,7 +296,5 @@ namespace NAnt.Core.Tasks {
             // finally, delete the directory
             System.IO.Directory.Delete(path);
         }
-
-        #endregion Private Instance Methods
     }
 }

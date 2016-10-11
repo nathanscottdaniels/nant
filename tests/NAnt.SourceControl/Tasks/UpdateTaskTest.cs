@@ -32,8 +32,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
     /// </summary>
     [TestFixture]
     public class UpdateTaskTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string destination;
 
         private const bool TestUseSharpCvsLib = false;
@@ -102,9 +100,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
                     </fileset>
                 </cvs-update>
             </project>";
-
-        #endregion Private Instance Fields
-
         #region Override implementation of BuildTestBase
 
         /// <summary>
@@ -128,9 +123,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -204,15 +196,10 @@ namespace Tests.NAnt.SourceControl.Tasks {
             replacedReader = null;
             Assert.AreEqual(checkContents, checkContentsReplaced);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private string FormatBuildFile(string baseFile, object[] args) {
             return string.Format(CultureInfo.InvariantCulture, baseFile, args);
         }
-
-        #endregion Private Instance Methods
     }
 }

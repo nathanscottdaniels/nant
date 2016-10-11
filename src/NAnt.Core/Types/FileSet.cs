@@ -229,8 +229,6 @@ namespace NAnt.Core.Types {
     [Serializable()]
     [ElementName("fileset")]
     public class FileSet : DataTypeBase {
-        #region Private Instance Fields
-
         private bool _hasScanned;
         private bool _defaultExcludes = true;
         private bool _failOnEmpty;
@@ -238,15 +236,9 @@ namespace NAnt.Core.Types {
         private DirectoryScanner _scanner = new DirectoryScanner();
         private StringCollection _asis = new StringCollection();
         private PathScanner _pathFiles = new PathScanner();
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        #endregion Private Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -262,9 +254,6 @@ namespace NAnt.Core.Types {
         public FileSet(FileSet fs) {
             fs.CopyTo((FileSet)this);
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -629,9 +618,6 @@ namespace NAnt.Core.Types {
                 return newestFile;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Implementation of ICloneable
 
         /// <summary>
@@ -645,9 +631,6 @@ namespace NAnt.Core.Types {
             CopyTo(clone);
             return clone;
         }
-
-        #endregion Implementation of ICloneable
-
         #region Override implementation of Element
 
         protected override void Initialize() {
@@ -683,18 +666,12 @@ namespace NAnt.Core.Types {
                 Excludes.Add("**/.DS_Store");
             }
         }
-
-        #endregion Override implementation of Element
-
         #region Override implementation of DataTypeBase
 
         public override void Reset() {
             // ensure that scanning will happen again for each use
             _hasScanned = false;
         }
-
-        #endregion Override implementation of DataTypeBase
-
         #region Override implementation of Object
 
         public override string ToString() {
@@ -724,9 +701,6 @@ namespace NAnt.Core.Types {
 
             return sb.ToString();
         }
-
-        #endregion Override implementation of Object
-
         #region Public Instance Methods
 
         /// <summary>
@@ -770,9 +744,6 @@ namespace NAnt.Core.Types {
                     Location);
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -792,9 +763,6 @@ namespace NAnt.Core.Types {
             clone._pathFiles = _pathFiles.Clone();
             clone._scanner = (DirectoryScanner) _scanner.Clone();
         }
-
-        #endregion Protected Instance Methods
-
         #region Internal Instance Methods
 
         internal string Find (string fileName) {
@@ -812,9 +780,6 @@ namespace NAnt.Core.Types {
 
             return null;
         }
-
-        #endregion Internal Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -866,21 +831,13 @@ namespace NAnt.Core.Types {
             }
             return null;
         }
-        
-        #endregion Public Static Methods
-
         // These classes provide a way of getting the Element task to initialize
         // the values from the build file.
 
         public class Exclude : Element, IConditional{
-            #region Private Instance Fields
-
             private string _pattern;
             private bool _ifDefined = true;
             private bool _unlessDefined;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Properties
 
             /// <summary>
@@ -915,18 +872,11 @@ namespace NAnt.Core.Types {
                 get { return _unlessDefined; }
                 set { _unlessDefined = value; }
             }
-
-            #endregion Public Instance Properties
         }
 
         public class Include : Exclude {
-            #region Private Instance Fields
-
             private bool _asIs;
             private bool _fromPath;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Properties
 
             /// <summary>
@@ -951,9 +901,6 @@ namespace NAnt.Core.Types {
                 get { return _fromPath; }
                 set { _fromPath = value; }
             }
-
-            #endregion Public Instance Properties
-
             #region Override implementation of Exclude
 
             /// <summary>
@@ -988,19 +935,12 @@ namespace NAnt.Core.Types {
                 get { return base.UnlessDefined; }
                 set { base.UnlessDefined = value; }
             }
-
-            #endregion Override implementation of Exclude
         }
 
         public class ExcludesFile : Element, IConditional {
-            #region Private Instance Fields
-
             private bool _ifDefined = true;
             private bool _unlessDefined;
             private FileInfo _patternFile;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Properties
 
             /// <summary>
@@ -1070,18 +1010,11 @@ namespace NAnt.Core.Types {
                 get { return _patternFile; }
                 set { _patternFile = value; }
             }
-
-            #endregion Public Instance Properties
         }
         
         public class IncludesFile : ExcludesFile {
-            #region Private Instance Fields
-
             private bool _asIs;
             private bool _fromPath;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Properties
 
             /// <summary>
@@ -1107,9 +1040,6 @@ namespace NAnt.Core.Types {
                 get { return _fromPath; }
                 set { _fromPath = value; }
             }
-
-            #endregion Public Instance Properties
-
             #region Override implementation of ExcludesFile
 
             /// <summary>
@@ -1134,8 +1064,6 @@ namespace NAnt.Core.Types {
                 get { return base.UnlessDefined; }
                 set { base.UnlessDefined = value; }
             }
-
-            #endregion Override implementation of ExcludesFile
         }
     }
 }

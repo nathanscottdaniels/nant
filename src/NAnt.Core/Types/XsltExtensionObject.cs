@@ -33,16 +33,11 @@ namespace NAnt.Core.Types {
     /// </summary>
     [ElementName("xsltextensionobject")]
     public class XsltExtensionObject : Element, IConditional {
-        #region Private Instance Fields
-
         private string _namespaceUri = string.Empty;
         private string _typeName;
         private FileInfo _assemblyPath;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -51,9 +46,6 @@ namespace NAnt.Core.Types {
         /// </summary>
         public XsltExtensionObject() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -113,9 +105,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         public object CreateInstance() {

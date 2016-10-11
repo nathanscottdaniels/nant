@@ -23,13 +23,8 @@ namespace NAnt.Core.Filters {
     /// Allows a file's content to be modified while performing an operation.
     /// </summary>
     public abstract class Filter : ChainableReader {
-        #region Private Instance Fields
-
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -54,9 +49,6 @@ namespace NAnt.Core.Filters {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -65,8 +57,6 @@ namespace NAnt.Core.Filters {
         /// </summary>
         public virtual void InitializeFilter() {
         }
-
-        #endregion Public Instance Methods
     }
 }
 

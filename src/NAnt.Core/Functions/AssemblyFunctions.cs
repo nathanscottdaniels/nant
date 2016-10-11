@@ -36,9 +36,6 @@ namespace NAnt.Core.Functions {
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
         public AssemblyFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -84,9 +81,6 @@ namespace NAnt.Core.Functions {
         public Assembly Load(string assemblyString) {
             return Assembly.Load(assemblyString);
         }
-
-        #endregion Public Instance Methods
-
         #region Public Static Methods
         
         /// <summary>
@@ -171,7 +165,5 @@ namespace NAnt.Core.Functions {
 
             return null;
         }
-
-        #endregion Public Static Methods
     }
 }

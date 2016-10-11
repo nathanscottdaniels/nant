@@ -51,16 +51,12 @@ namespace NAnt.VisualCpp.Tasks {
     /// </example>
     [TaskName("mc")]
     public class McTask : ExternalProgramBase {
-        #region Private Instance Fields
         
         private DirectoryInfo _headerPath;
         private DirectoryInfo _rcPath;
         private string _options;
         private FileInfo _mcFile;
-
-        #endregion Private Instance Fields
         
-        #region Public Instance Properties
          
         /// <summary>
         /// Options to pass to the compiler.
@@ -107,9 +103,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _mcFile; }
             set { _mcFile = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
         
         /// <summary>
@@ -157,9 +150,6 @@ namespace NAnt.VisualCpp.Tasks {
                 return str.ToString();
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Override implementation of Task
 
         /// <summary>
@@ -184,9 +174,6 @@ namespace NAnt.VisualCpp.Tasks {
                 base.ExecuteTask();
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         /// <summary>
@@ -206,8 +193,6 @@ namespace NAnt.VisualCpp.Tasks {
                 return true;
             }
         }
-
-        #endregion Private Instance Methods
     }
 }
 #if unused

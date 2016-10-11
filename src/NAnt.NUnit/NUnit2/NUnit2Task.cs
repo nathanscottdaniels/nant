@@ -121,17 +121,12 @@ namespace NAnt.NUnit2.Tasks {
     /// </example>
     [TaskName("nunit2")]
     public class NUnit2Task : Task {
-        #region Private Instance Fields
-
         private bool _labels = false;
         private bool _haltOnFailure = false;
         private List<NUnit2Test> _tests = new List<NUnit2Test>();
         private List<FormatterElement> _formatterElements = new List<FormatterElement>();
         //private NUnit2TestCollection _tests = new NUnit2TestCollection();
         //private FormatterElementCollection _formatterElements = new FormatterElementCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
        
         /// <summary>
@@ -169,9 +164,6 @@ namespace NAnt.NUnit2.Tasks {
         public List<FormatterElement> FormatterElements {
             get { return _formatterElements; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -315,9 +307,6 @@ namespace NAnt.NUnit2.Tasks {
                 }
             }
         }
-        
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -334,9 +323,6 @@ namespace NAnt.NUnit2.Tasks {
         {
             return new EventCollector(logWriter, logWriter, _labels);
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -477,9 +463,6 @@ namespace NAnt.NUnit2.Tasks {
             
             return transformReader;
         }
-        
-        #endregion Private Instance Methods
-
         private class EventCollector : MarshalByRefObject, EventListener {
             private TextWriter outWriter;
             private TextWriter errorWriter;

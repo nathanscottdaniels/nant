@@ -30,8 +30,6 @@ using NAnt.Win32.Tasks;
 
 namespace NAnt.VSNet {
     public class VcWrapperReference : WrapperReferenceBase {
-        #region Public Instance Constructors
-
         public VcWrapperReference(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache) : base(xmlDefinition, referencesResolver, parent, gacCache) {
             // determine name of type library
             _name = GetTypeLibraryName(GetTypeLibrary());
@@ -52,9 +50,6 @@ namespace NAnt.VSNet {
             // determine filename of wrapper assembly
             _wrapperAssembly = ResolveWrapperAssembly();
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -66,9 +61,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Override implementation of WrapperReferenceBase
 
         /// <summary>
@@ -161,9 +153,6 @@ namespace NAnt.VSNet {
                 return "0";
             }
         }
-
-        #endregion Override implementation of WrapperReferenceBase
-
         #region Private Instance Methods
 
         protected override void ImportTypeLibrary() {
@@ -279,16 +268,11 @@ namespace NAnt.VSNet {
                 axImp.Project.Unindent();
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private readonly string _name = string.Empty;
         private readonly string _wrapperTool;
         private readonly string _wrapperAssembly;
         private readonly string _primaryInteropAssembly;
-        
-        #endregion Private Instance Fields
     }
 }

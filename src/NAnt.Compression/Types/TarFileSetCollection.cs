@@ -26,8 +26,6 @@ namespace NAnt.Compression.Types {
     /// </summary>
     [Serializable()]
     public class TarFileSetCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TarFileSetCollection"/> class.
         /// </summary>
@@ -49,9 +47,6 @@ namespace NAnt.Compression.Types {
         public TarFileSetCollection(TarFileSet[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -77,9 +72,6 @@ namespace NAnt.Compression.Types {
                 return fileCount;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -169,16 +161,12 @@ namespace NAnt.Compression.Types {
         public void Remove(TarFileSet item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="TarFileSet"/> elements of a <see cref="TarFileSetCollection"/>.
     /// </summary>
     public class TarFileSetEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TarFileSetEnumerator"/> class
         /// with the specified <see cref="TarFileSetCollection"/>.
@@ -188,9 +176,6 @@ namespace NAnt.Compression.Types {
             IEnumerable temp = (IEnumerable) (TarFileSets);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
 
         /// <summary>
@@ -234,13 +219,8 @@ namespace NAnt.Compression.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
 
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

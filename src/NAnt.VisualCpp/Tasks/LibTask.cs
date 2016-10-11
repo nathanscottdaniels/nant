@@ -50,8 +50,6 @@ namespace NAnt.VisualCpp.Tasks {
     /// </example>
     [TaskName("lib")]
     public class LibTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _responseFileName;
         private FileInfo _outputFile;
         private FileInfo _moduleDefinitionFile;
@@ -60,9 +58,6 @@ namespace NAnt.VisualCpp.Tasks {
         private LibraryCollection _ignoreLibraries = new LibraryCollection();
         private FileSet _libdirs = new FileSet();
         private string _options;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -127,9 +122,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _libdirs; }
             set { _libdirs = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -149,9 +141,6 @@ namespace NAnt.VisualCpp.Tasks {
         public override string ProgramArguments {
             get { return "@" + "\"" + _responseFileName + "\""; }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Override implementation of Task
 
         /// <summary>
@@ -241,9 +230,6 @@ namespace NAnt.VisualCpp.Tasks {
                 _responseFileName = null;
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -267,8 +253,6 @@ namespace NAnt.VisualCpp.Tasks {
 
 			return false;
         }
-
-        #endregion Protected Instance Methods
     }
 }
 #if unused

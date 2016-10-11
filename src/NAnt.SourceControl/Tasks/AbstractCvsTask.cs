@@ -37,10 +37,7 @@ namespace NAnt.SourceControl.Tasks {
     /// CVS repository.
     /// </summary>
     public abstract class AbstractCvsTask : AbstractSourceControlTask {
-        #region Private Static Fields
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        #endregion Private Static Fields
-
         #region Protected Static Fields
 
         /// <summary>
@@ -103,9 +100,6 @@ namespace NAnt.SourceControl.Tasks {
         /// used or not.
         /// </summary>
         protected const string UseSharpCvsLibProp = "sourcecontrol.usesharpcvslib";
-
-        #endregion "Protected Static Fields
-
         #region Private Instance Fields
 
         private string _module;
@@ -115,9 +109,6 @@ namespace NAnt.SourceControl.Tasks {
         private string _sharpcvslibExeName;
 
         private CvsFileSet _cvsFileSet = new CvsFileSet();
-
-        #endregion Private Instance Fields
-
         #region Protected Instance Contructors
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractCvsTask" />
@@ -127,9 +118,6 @@ namespace NAnt.SourceControl.Tasks {
             _sharpcvslibExeName = 
                 Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, SharpCvsExe);
         }
-
-        #endregion Protected Instance Constructors
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -173,9 +161,6 @@ namespace NAnt.SourceControl.Tasks {
         }
 
         #endregion
-
-        #region Protected Instance Methods
-
         /// <summary>
         /// Converts a date value to a string representation that can be
         /// interpreted by cvs.
@@ -188,9 +173,6 @@ namespace NAnt.SourceControl.Tasks {
             return string.Format("{0} {1,2} {2}", item.ToString("ddd MMM"), 
                 item.Day.ToString(), item.ToString("HH:mm:ss yyyy"));
         }
-
-        #endregion Protected Instance Methods
-
         #region Public Instance Properties
 
         /// <summary>
@@ -440,9 +422,6 @@ namespace NAnt.SourceControl.Tasks {
             }
             set { SetGlobalOption("readwrite", String.Format("-z{0}", value), true); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override Task Implementation
 
         /// <summary>
@@ -530,9 +509,6 @@ namespace NAnt.SourceControl.Tasks {
         }
 
         #endregion
-
-        #region Private Instance Methods
-
         private void AppendGlobalOptions () {
             foreach (Option option in GlobalOptions.Values) {
                 // Log(Level.Verbose, "Type '{0}'.", optionte.GetType());
@@ -577,7 +553,5 @@ namespace NAnt.SourceControl.Tasks {
                     arg)));
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

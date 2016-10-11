@@ -48,8 +48,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("ilasm")]
     [ProgramLocation(LocationType.FrameworkDir)]
     public class IlasmTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private bool _clock;
         private bool _debug;
         private bool _error;
@@ -66,9 +64,6 @@ namespace NAnt.DotNet.Tasks {
         private FileInfo _resourceFile;
         private FileSet _sources;
         private string _options;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -363,9 +358,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _sources; }
             set { _sources = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -406,9 +398,6 @@ namespace NAnt.DotNet.Tasks {
                 base.ExecuteTask();
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Private Instance Methods
 
         /// <summary>
@@ -590,7 +579,5 @@ namespace NAnt.DotNet.Tasks {
             // compilation not needed
             return false;
         }
-
-        #endregion Private Instance Methods
     }
 }

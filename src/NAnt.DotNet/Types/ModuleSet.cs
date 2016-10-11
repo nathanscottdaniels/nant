@@ -46,13 +46,8 @@ namespace NAnt.DotNet.Types {
     [Serializable()]
     [ElementName("moduleset")]
     public class ModuleSet : DataTypeBase {
-        #region Private Instance Fields
-
         private readonly ModuleCollection _modules;
         private DirectoryInfo _dir;
-
-        #endregion Private Instance Fields
-
          #region Public Instance Constructors
 
         /// <summary>
@@ -61,9 +56,6 @@ namespace NAnt.DotNet.Types {
         public ModuleSet() {
             _modules = new ModuleCollection(this);
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -90,7 +82,5 @@ namespace NAnt.DotNet.Types {
         public ModuleCollection Modules {
             get { return _modules; }
         }
-
-        #endregion Public Instance Properties
     }
 }

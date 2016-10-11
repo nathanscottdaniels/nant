@@ -25,8 +25,6 @@ using NAnt.Core;
 namespace Tests.NAnt.Core.Functions {
     [TestFixture]
     public class TargetFunctionsTest : BuildTestBase {
-        #region Public Instance Methods
-
         [Test]
         public void Test_CurrentTarget() {
             string buildFragment = @"
@@ -61,7 +59,5 @@ namespace Tests.NAnt.Core.Functions {
             Assert.AreEqual("B", project.Properties["B"], "B");
             Assert.AreEqual("C", project.Properties["C"], "C");
         }
-
-        #endregion Public Instance Methods
     }
 }

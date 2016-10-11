@@ -29,8 +29,6 @@ namespace NAnt.Core.Attributes {
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     [Obsolete("Please use a BuildElement attribute instead. This class will be removed soon.", true)]
     public sealed class FileSetAttribute : BuildElementAttribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FileSetAttribute" /> with the
         /// specified name.
@@ -40,7 +38,5 @@ namespace NAnt.Core.Attributes {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="name" /> is a zero-length <see cref="string" />.</exception>
         public FileSetAttribute(string name) : base(name) {
         }
-
-        #endregion Public Instance Constructors
     }
 }

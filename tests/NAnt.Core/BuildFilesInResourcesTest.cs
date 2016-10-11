@@ -29,8 +29,6 @@ using NAnt.Core;
 namespace Tests.NAnt.Core {
     [TestFixture]
     public class BuildFilesInResourcesTest {
-        #region Public Instance Methods
-
         [SetUp]
         public void SetUp() {
             _tempFolder = Path.Combine (Path.GetTempPath (),
@@ -80,13 +78,8 @@ namespace Tests.NAnt.Core {
                 }
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private string _tempFolder;
-
-        #endregion Private Instance Fields
     }
 }

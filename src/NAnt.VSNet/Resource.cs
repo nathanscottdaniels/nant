@@ -28,8 +28,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     public class Resource {
-        #region Public Instance Constructors
-
         public Resource(ManagedProjectBase project, FileInfo resourceSourceFile, string resourceSourceFileRelativePath, string dependentFile, SolutionTask solutionTask, GacCache gacCache) {
             _project = project;
             _resourceSourceFile = resourceSourceFile;
@@ -39,9 +37,6 @@ namespace NAnt.VSNet {
             _culture = CompilerBase.GetResourceCulture(resourceSourceFile.FullName, 
                 dependentFile);
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public CultureInfo Culture {
@@ -87,9 +82,6 @@ namespace NAnt.VSNet {
                 return InputFile.Extension.Equals(".resx", StringComparison.OrdinalIgnoreCase);
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -167,9 +159,6 @@ namespace NAnt.VSNet {
                         "Unsupported project type '{0}'.", Project.Type));
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private string GetManifestResourceNameCSharp(ConfigurationSettings configSetting, string dependentFile) {
@@ -312,9 +301,6 @@ namespace NAnt.VSNet {
             // batch using the ResGen task in ManagedProjectBase
             throw new InvalidOperationException();
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private readonly CultureInfo _culture;
@@ -323,7 +309,5 @@ namespace NAnt.VSNet {
         private readonly string _resourceSourceFileRelativePath;
         private readonly ManagedProjectBase _project;
         private readonly SolutionTask _solutionTask;
-
-        #endregion Private Instance Fields
     }
 }

@@ -26,8 +26,6 @@ namespace NAnt.Core
     /// </summary>
     public interface IConditional
     {
-        #region Properties
-
         /// <summary>
         /// Indicates whether or not the implementing class should execute.
         /// </summary>

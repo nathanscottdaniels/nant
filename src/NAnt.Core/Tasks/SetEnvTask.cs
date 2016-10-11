@@ -89,8 +89,6 @@ using NAnt.Core.Util;
     /// </example>
     [TaskName("setenv")]
     public class SetEnvTask : Task {
-        #region Private Instance Fields
-
         private string _name;
         private string _value;
         private string _literalValue;
@@ -98,13 +96,7 @@ using NAnt.Core.Util;
         private DirectoryInfo _directory;
         private PathSet _path;
         private EnvironmentVariableCollection _environmentVariables = new EnvironmentVariableCollection();
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
         
         /// <summary>
@@ -179,11 +171,7 @@ using NAnt.Core.Util;
             get { return _environmentVariables; }
             set { _environmentVariables = value; }
         }
-
-        #endregion Public Instance Properties
         
-        #region Override implementation of Task
-
         /// <summary>
         /// Checks whether the task is initialized with valid attributes.
         /// </summary>
@@ -210,9 +198,6 @@ using NAnt.Core.Util;
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
         
         /// <summary>
@@ -238,7 +223,5 @@ using NAnt.Core.Util;
                     name, value), Location, ex);
             }
         }
-        
-        #endregion Private Instance Methods
     }
 }

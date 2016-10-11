@@ -45,9 +45,6 @@ namespace NAnt.Core.Filters {
         private internalClose InternalClose;
 
         private bool _baseReader;
-
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets a value indicating if the reader is backed by a stream in the 
         /// chain.
@@ -59,9 +56,6 @@ namespace NAnt.Core.Filters {
         public bool Base{
             get { return _baseReader; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -126,9 +120,6 @@ namespace NAnt.Core.Filters {
         public virtual void Close() {
             InternalClose();
         }
-
-        #endregion Public Instance Methods
-
         #region Implementation of IDisposable
 
         /// <summary>
@@ -138,7 +129,5 @@ namespace NAnt.Core.Filters {
             Close();
             GC.SuppressFinalize(this);
         }
-
-        #endregion Implementation of IDisposable
     }
 }

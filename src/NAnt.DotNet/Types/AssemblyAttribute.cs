@@ -29,16 +29,11 @@ namespace NAnt.DotNet.Types {
     [ElementName("attribute")]
     [Serializable()]
     public class AssemblyAttribute : Element, IConditional {
-        #region Private Instance Fields
-
         private string _typeName;
         private string _value;
         private bool _asIs;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -47,9 +42,6 @@ namespace NAnt.DotNet.Types {
         /// </summary>
         public AssemblyAttribute() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -114,7 +106,5 @@ namespace NAnt.DotNet.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

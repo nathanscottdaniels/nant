@@ -27,8 +27,6 @@ namespace NAnt.Core.Util {
     /// </summary>
     [Serializable()]
     public sealed class AssemblyResolver {
-        #region Public Instance Constructors
-
         /// <summary> 
         /// Initializes an instanse of the <see cref="AssemblyResolver" /> 
         /// class.
@@ -44,9 +42,6 @@ namespace NAnt.Core.Util {
         public AssemblyResolver(Task task) : this() {
             _task = task;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary> 
@@ -73,9 +68,6 @@ namespace NAnt.Core.Util {
 
             this._assemblyCache.Clear();
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         /// <summary> 
@@ -167,9 +159,6 @@ namespace NAnt.Core.Util {
                 _task.Log(messageLevel, message, args);
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         /// <summary>
@@ -187,7 +176,5 @@ namespace NAnt.Core.Util {
         /// is not executing in the context of a <see cref="Task" />.
         /// </value>
         private Task _task;
-
-        #endregion Private Instance Fields
     }
 }

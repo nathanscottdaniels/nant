@@ -137,9 +137,6 @@ namespace NAnt.Core.Tasks {
             /// </summary>
             FrameworkSDK = 4
         }
-
-        #region Public Instance Properties
-
         /// <summary>
         /// The resource which must be available.
         /// </summary>
@@ -174,9 +171,6 @@ namespace NAnt.Core.Tasks {
             get { return _propertyName; }
             set { _propertyName = StringUtils.ConvertEmptyToNull(value); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -193,9 +187,6 @@ namespace NAnt.Core.Tasks {
         protected override void ExecuteTask() {
             Project.Properties[PropertyName] = Evaluate().ToString(CultureInfo.InvariantCulture);
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -232,9 +223,6 @@ namespace NAnt.Core.Tasks {
 
             return resourceAvailable;
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -303,15 +291,10 @@ namespace NAnt.Core.Tasks {
                 return false;
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private ResourceType _resourceType;
         private string _resource;
         private string _propertyName;
-
-        #endregion Private Instance Fields
     }
 }

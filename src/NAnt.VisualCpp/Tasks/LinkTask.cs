@@ -56,8 +56,6 @@ namespace NAnt.VisualCpp.Tasks {
     /// </example>
     [TaskName("link")]
     public class LinkTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _responseFileName;
         private FileInfo _outputFile;
         private FileInfo _pdbFile;
@@ -71,9 +69,6 @@ namespace NAnt.VisualCpp.Tasks {
         private SymbolCollection _symbols = new SymbolCollection();
         private LibraryCollection _ignoreLibraries = new LibraryCollection();
         private string _options;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -193,9 +188,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _ignoreLibraries; }
             set { _ignoreLibraries = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -215,11 +207,7 @@ namespace NAnt.VisualCpp.Tasks {
         public override string ProgramArguments {
             get { return "@" + "\"" + _responseFileName + "\""; }
         }
-
-        #endregion Override implementation of ExternalProgramBase
         
-        #region Override implementation of Task
-
         /// <summary>
         /// Links the sources.
         /// </summary>
@@ -337,9 +325,6 @@ namespace NAnt.VisualCpp.Tasks {
             }
             
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -388,9 +373,6 @@ namespace NAnt.VisualCpp.Tasks {
 
             return false;
         }
-
-        #endregion Protected Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -404,8 +386,6 @@ namespace NAnt.VisualCpp.Tasks {
             return ArgumentUtils.QuoteArgumentValue(value, 
                 BackslashProcessingMethod.Duplicate);
         }
-
-        #endregion Public Static Methods
     }
 }
 #if unused

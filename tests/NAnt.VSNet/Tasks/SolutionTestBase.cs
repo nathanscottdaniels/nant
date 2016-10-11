@@ -155,9 +155,6 @@ namespace Tests.NAnt.VSNet.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-
-        #region Protected Instance Methods
-
         /// <summary>
         /// Checkout the project to a temporary path.
         /// </summary>
@@ -226,9 +223,6 @@ namespace Tests.NAnt.VSNet.Tasks {
                 this.RunSimpleBuild("clean");
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region "Private Instance Methods"
 
         private void RunSimpleBuild(string target) {
@@ -238,7 +232,5 @@ namespace Tests.NAnt.VSNet.Tasks {
 
             RunBuild(build, Level.Info);
         }
-
-        #endregion "Private Instance Methods"
     }
 }

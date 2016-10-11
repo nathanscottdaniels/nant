@@ -33,8 +33,6 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public class PropertyDictionary : DictionaryBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyDictionary" />
         /// class holding properties for the given <see cref="Project" /> 
@@ -44,9 +42,6 @@ namespace NAnt.Core {
         public PropertyDictionary(Project project){
             _project = project;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
         
         /// <summary>
@@ -79,9 +74,6 @@ namespace NAnt.Core {
         public Project Project {
             get { return _project; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of DictionaryBase
 
         protected override void OnClear() {
@@ -152,10 +144,6 @@ namespace NAnt.Core {
             ValidatePropertyValue(propertyName, value, Location.UnknownLocation);
             base.OnValidate(key, value);
         }
-
-
-        #endregion Override implementation of DictionaryBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -290,9 +278,6 @@ namespace NAnt.Core {
         public void Remove(string name) {
             Dictionary.Remove(name);
         }
-
-        #endregion Public Instance Methods
-
         #region Internal Instance Methods
 
         internal string GetPropertyValue(string propertyName) {
@@ -313,9 +298,6 @@ namespace NAnt.Core {
         internal string ExpandProperties(string input, Location location, Hashtable state, Stack visiting) {
             return EvaluateEmbeddedExpressions(input, location, state, visiting);
         }
-
-        #endregion Internal Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -496,9 +478,6 @@ namespace NAnt.Core {
                     break;
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         private static void ValidatePropertyName(string propertyName, Location location) {
@@ -541,9 +520,6 @@ namespace NAnt.Core {
                 throw new BuildException("Property value validation failed: ", loc, x);
             }
         }
-
-        #endregion Private Static Methods
-
         #region Internal Static Methods
 
         /// <summary>
@@ -570,9 +546,6 @@ namespace NAnt.Core {
 
             return new BuildException(sb.ToString());
         }
-
-        #endregion Internal Static Methods
-
         #region Private Instance Fields
 
         /// <summary>
@@ -590,9 +563,6 @@ namespace NAnt.Core {
         /// The project for which the dictionary holds properties.
         /// </summary>
         private readonly Project _project;
-
-        #endregion Private Instance Fields
-
         #region Internal Static Fields
 
         /// <summary>
@@ -606,7 +576,5 @@ namespace NAnt.Core {
         /// property references.
         /// </summary>
         internal const string Visited = "VISITED";
-
-        #endregion Internal Static Fields
     }
 }

@@ -69,8 +69,6 @@ namespace NAnt.Core.Attributes {
     /// </example>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public abstract class BuildAttributeAttribute : BaseBuildAttribute {
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildAttributeAttribute" /> with the 
         /// specified name.
@@ -80,9 +78,6 @@ namespace NAnt.Core.Attributes {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="name" /> is a zero-length <see cref="string" />.</exception>
         protected BuildAttributeAttribute(string name) : base(name) {
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -97,13 +92,8 @@ namespace NAnt.Core.Attributes {
             get { return _expandProperties; }
             set { _expandProperties = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private bool _expandProperties = true;
-
-        #endregion Private Instance Fields
     }
 }

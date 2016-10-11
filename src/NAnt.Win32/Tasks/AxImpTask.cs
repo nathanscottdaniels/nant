@@ -43,8 +43,6 @@ namespace NAnt.Win32.Tasks {
     [TaskName("aximp")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class AxImpTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private FileInfo _ocxFile;
         private FileInfo _outputFile;
         private FileInfo _publicKeyFile;
@@ -56,9 +54,6 @@ namespace NAnt.Win32.Tasks {
 
         // framework configuration settings
         private bool _supportsRcw = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -163,9 +158,6 @@ namespace NAnt.Win32.Tasks {
             get { return _supportsRcw; }
             set { _supportsRcw = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -243,9 +235,6 @@ namespace NAnt.Win32.Tasks {
                     Location, ex);
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -307,7 +296,5 @@ namespace NAnt.Win32.Tasks {
             // if we made it here then we don't have to export the assembly again.
             return false;
         }
-
-        #endregion Protected Instance Methods
     }
 }

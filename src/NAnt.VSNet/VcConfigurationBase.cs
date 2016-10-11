@@ -37,12 +37,7 @@ namespace NAnt.VSNet {
     /// file in the project.
     /// </summary>
     public abstract class VcConfigurationBase : ConfigurationBase {
-        #region Delegates
-
         public delegate string ExpansionHandler(string value);
-
-        #endregion Delegates
-
         #region Protected Instance Constructors
 
         protected VcConfigurationBase(XmlElement elem, ProjectBase parentProject, DirectoryInfo outputDir) : base(parentProject) {
@@ -77,9 +72,6 @@ namespace NAnt.VSNet {
             // set output directory (if specified)
             _outputDir = outputDir;
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -128,9 +120,6 @@ namespace NAnt.VSNet {
                 return (UsePrecompiledHeader) Enum.ToObject(typeof(UsePrecompiledHeader), intVal);
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Internal Instance Properties
 
         /// <summary>
@@ -143,9 +132,6 @@ namespace NAnt.VSNet {
         internal string FullName {
             get { return _name; }
         }
-
-        #endregion Internal Instance Properties
-
         #region Override implementation of ConfigurationBase
 
         /// <summary>
@@ -274,9 +260,6 @@ namespace NAnt.VSNet {
                     }
             }
         }
-
-        #endregion Override implementation of ConfigurationBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -318,22 +301,13 @@ namespace NAnt.VSNet {
         }
 
         public abstract Hashtable GetToolArguments(string toolName, VcArgumentMap argMap, VcArgumentMap.ArgGroup ignoreGroup);
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Fields
 
         protected readonly Hashtable Tools = CollectionsUtil.CreateCaseInsensitiveHashtable();
-
-        #endregion Protected Instance Fields
-
         #region Private Instance Fields
 
         private readonly string _name;
         private DirectoryInfo _outputDir;
-
-        #endregion Private Instance Fields
-
         #region Internal Static Fields
 
         internal const string CLCompilerTool = "VCCLCompilerTool";
@@ -346,7 +320,5 @@ namespace NAnt.VSNet {
         internal const string PostBuildEventTool = "VCPostBuildEventTool";
         internal const string PreLinkEventTool = "VCPreLinkEventTool";
         internal const string NMakeTool = "VCNMakeTool";
-
-        #endregion Internal Static Fields
     }
 }

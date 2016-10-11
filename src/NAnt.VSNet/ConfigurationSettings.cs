@@ -28,8 +28,6 @@ using NAnt.Core.Util;
 
 namespace NAnt.VSNet {
     public class ConfigurationSettings : ConfigurationBase {
-        #region Public Instance Constructors
-
         public ConfigurationSettings(ManagedProjectBase project, XmlElement elemConfig, DirectoryInfo outputDir) : base(project) {
             _settings = new ArrayList();
             if (outputDir == null) {
@@ -156,9 +154,6 @@ namespace NAnt.VSNet {
 
             _settings.Add(string.Format(CultureInfo.InvariantCulture, "/out:\"{0}\"", BuildPath));
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -216,9 +211,6 @@ namespace NAnt.VSNet {
         public bool RegisterForComInterop {
             get { return _registerForComInterop; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Properties
 
         private bool IncrementalBuildSupported {
@@ -228,9 +220,6 @@ namespace NAnt.VSNet {
                 return (tf.Family == "net" && tf.Version <= new Version (2, 0));
             }
         }
-
-        #endregion Private Instance Properties
-
         #region Private Instance Fields
 
         private readonly ArrayList _settings;
@@ -238,7 +227,5 @@ namespace NAnt.VSNet {
         private readonly DirectoryInfo _outputDir;
         private readonly string _name;
         private readonly bool _registerForComInterop;
-
-        #endregion Private Instance Fields
     }
 }

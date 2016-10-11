@@ -76,15 +76,10 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs-checkout")]
     public class CheckoutTask : AbstractCvsTask {
-        #region Internal Static Fields
-
         /// <summary>
         /// The command being executed.
         /// </summary>
         internal const string CvsCommandName = "checkout";
-
-        #endregion Internal Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -92,9 +87,6 @@ namespace NAnt.SourceControl.Tasks {
         /// </summary>
         public CheckoutTask() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -164,16 +156,11 @@ namespace NAnt.SourceControl.Tasks {
         }
 
         #endregion
-
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// The name of the cvs command that is going to be executed.
         /// </summary>
         public override string CommandName {
             get { return CvsCommandName; }
         }
-
-        #endregion Override implementation of AbstractCvsTask
     }
 }

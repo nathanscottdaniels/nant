@@ -46,15 +46,10 @@ namespace NAnt.Win32.Tasks {
     [TaskName("tlbexp")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class TlbExpTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private FileInfo _assemblyFile;
         private FileInfo _outputFile;
         private FileInfo _namesFile;
         private StringBuilder _argumentBuilder;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -96,9 +91,6 @@ namespace NAnt.Win32.Tasks {
             get { return _namesFile; }
             set { _namesFile = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -153,9 +145,6 @@ namespace NAnt.Win32.Tasks {
                 base.ExecuteTask();
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -196,7 +185,5 @@ namespace NAnt.Win32.Tasks {
             // if we made it here then we don't have to export the assembly again.
             return false;
         }
-
-        #endregion Protected Instance Methods
     }
 }

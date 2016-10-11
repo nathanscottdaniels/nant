@@ -29,15 +29,10 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable]
     public class BuildException : ApplicationException {
-        #region Private Instance Fields
-
         /// <summary>
         /// The location of the exception in the build document (xml file).
         /// </summary>
         private Location _location = Location.UnknownLocation;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -85,9 +80,6 @@ namespace NAnt.Core {
         public BuildException(String message, Location location, Exception innerException) : base(message, innerException) {
             _location = location;
         }
-
-        #endregion Public Instance Constructors
-
         #region Protected Instance Constructors
 
         /// <summary>
@@ -99,9 +91,6 @@ namespace NAnt.Core {
         protected BuildException(SerializationInfo info, StreamingContext context) : base(info, context) {
             _location = info.GetValue("Location", _location.GetType()) as Location;
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -127,9 +116,6 @@ namespace NAnt.Core {
         public Location Location {
             get { return _location; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ISerializable
 
         /// <summary>
@@ -142,9 +128,6 @@ namespace NAnt.Core {
             base.GetObjectData(info, context);
             info.AddValue("Location", _location);      
         }
-
-        #endregion Override implementation of ISerializable
-
         #region Override implementation of ApplicationException
 
         /// <summary>
@@ -172,10 +155,6 @@ namespace NAnt.Core {
             }
         }       
         
-        #endregion Override implementation of ApplicationException
-        
-        #region Override implementation of Object
-
         /// <summary>
         /// Creates and returns a string representation of the current 
         /// exception.
@@ -187,7 +166,5 @@ namespace NAnt.Core {
             return string.Format(CultureInfo.InvariantCulture, "{0}:{1}{2}", 
                 Message, Environment.NewLine, base.ToString());
         }
-
-        #endregion Override implementation of Object
     }
 }

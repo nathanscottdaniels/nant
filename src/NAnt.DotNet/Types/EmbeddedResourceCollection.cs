@@ -30,8 +30,6 @@ namespace NAnt.DotNet.Types {
     [Serializable()]
     //[ElementName("embeddedresources")]
     public class EmbeddedResourceCollection : DataTypeCollectionBase, IList {
-        #region Public Instance Properties
-
         /// <summary>
         /// Returns an enumerator that can iterate through the collection.
         /// </summary>
@@ -77,9 +75,6 @@ namespace NAnt.DotNet.Types {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of DataTypeCollectionBase
 
         /// <summary>
@@ -91,9 +86,6 @@ namespace NAnt.DotNet.Types {
         protected override Type ItemType {
             get { return typeof(EmbeddedResource); }
         }
-
-        #endregion Override implementation of DataTypeCollectionBase
-
         #region IList Members
 
         /// <summary>
@@ -172,9 +164,6 @@ namespace NAnt.DotNet.Types {
         }
 
         #endregion
-
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds the items of a <see cref="EmbeddedResourceCollection"/> to the end of the collection.
         /// </summary>
@@ -243,16 +232,12 @@ namespace NAnt.DotNet.Types {
         public int IndexOf(EmbeddedResource value) {
             return List.IndexOf(value);
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="EmbeddedResource"/> items of a <see cref="EmbeddedResourceCollection"/>.
     /// </summary>
     public class EmbeddedResourceEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EmbeddedResourceEnumerator"/> class
         /// with the specified <see cref="EmbeddedResourceCollection"/>.
@@ -262,9 +247,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -314,13 +296,8 @@ namespace NAnt.DotNet.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

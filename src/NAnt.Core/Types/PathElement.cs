@@ -30,16 +30,11 @@ namespace NAnt.Core.Types {
     [Serializable()]
     [ElementName("pathelement")]
     public class PathElement : Element, IConditional {
-        #region Private Instance Fields
-
         private FileInfo _file;
         private DirectoryInfo _directory;
         private PathSet _path;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -119,9 +114,6 @@ namespace NAnt.Core.Types {
                 return new StringCollection();
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Element
 
         protected override void Initialize() {
@@ -137,7 +129,5 @@ namespace NAnt.Core.Types {
                     + " together."), Location);
             }
         }
-
-        #endregion Override implementation of Element
     }
 }

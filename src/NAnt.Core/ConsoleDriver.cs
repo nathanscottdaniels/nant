@@ -38,7 +38,6 @@ namespace NAnt.Core {
     /// Main entry point to NAnt that is called by the ConsoleStub.
     /// </summary>
     public class ConsoleDriver {
-        #region Public Static Methods
                 
         /// <summary>
         /// Starts NAnt. This is the Main entry point.
@@ -468,9 +467,6 @@ namespace NAnt.Core {
                 string.Format(CultureInfo.InvariantCulture, "{0} does not implement {1}.",
                     listener.GetType().FullName, typeof(IBuildListener).FullName));
         }
-
-        #endregion Public Static Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -582,13 +578,8 @@ namespace NAnt.Core {
                 cause = cause.InnerException;
             }
         }
-
-        #endregion Private Static Methods
-
         #region Private Static Fields
 
         private const int INDENTATION_SIZE = 4;
-
-        #endregion Private Static Fields
     }
 }

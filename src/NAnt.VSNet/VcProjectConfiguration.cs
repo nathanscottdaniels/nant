@@ -36,8 +36,6 @@ namespace NAnt.VSNet {
     /// Represents a Visual C++ project configuration.
     /// </summary>
     public class VcProjectConfiguration : VcConfigurationBase {
-        #region Internal Instance Constructors
-
         internal VcProjectConfiguration(XmlElement elem, VcProject parentProject, DirectoryInfo outputDir) : base(elem, parentProject, outputDir) {
             // determine relative output directory (outdir)
             XmlAttribute outputDirAttribute = elem.Attributes["OutputDirectory"];
@@ -107,9 +105,6 @@ namespace NAnt.VSNet {
 
             _linkerConfiguration = new LinkerConfig(this);
         }
-
-        #endregion Internal Instance Constructors
-
         #region Public Instance Properties
 
         public ConfigurationType Type {
@@ -148,9 +143,6 @@ namespace NAnt.VSNet {
         public UseOfATL UseOfATL {
             get { return _useOfATL; }
         }
-
-        #endregion Public Instance Properties
-
         #region Internal Instance Properties
 
         internal string RawRelativeOutputDir {
@@ -236,9 +228,6 @@ namespace NAnt.VSNet {
                 return _idlConfigs;
             }
         }
-
-        #endregion Internal Instance Properties
-
         #region Private Instance Properties
 
         /// <summary>
@@ -287,9 +276,6 @@ namespace NAnt.VSNet {
                 return targetPath;
             }
         }
-
-        #endregion Private Instance Properties
-
         #region Override implementation of ConfigurationBase
 
         /// <summary>
@@ -321,9 +307,6 @@ namespace NAnt.VSNet {
         public override string RelativeOutputDir {
             get { return ExpandMacros(RawRelativeOutputDir); }
         }
-
-        #endregion Override implementation of ConfigurationBase
-
         #region Override implementation of VcConfigurationBase
 
         /// <summary>
@@ -451,9 +434,6 @@ namespace NAnt.VSNet {
                     return base.ExpandMacro(macro);
             }
         }
-
-        #endregion Override implementation of VcConfigurationBase
-
         #region Private Instance Methods
 
         private void Initialize() {
@@ -634,9 +614,6 @@ namespace NAnt.VSNet {
 
             return outFile;
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -661,9 +638,6 @@ namespace NAnt.VSNet {
 
             return attributeValue;
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         private readonly string _rawRelativeOutputDir;
@@ -721,9 +695,6 @@ namespace NAnt.VSNet {
         /// configuration.
         /// </remarks>
         private readonly Hashtable _idlConfigs = new Hashtable();
-
-        #endregion Private Instance Fields
-
         /// <summary>
         /// The type of output for a given configuration.
         /// </summary>
@@ -755,14 +726,9 @@ namespace NAnt.VSNet {
         }
 
         internal class LinkerConfig {
-            #region Private Instance Constructor
-
             internal LinkerConfig(VcProjectConfiguration projectConfig) {
                 _projectConfig = projectConfig;
             }
-
-            #endregion Private Instance Constructor
-
             #region Public Instance Properties
 
             /// <summary>
@@ -800,22 +766,14 @@ namespace NAnt.VSNet {
                     return new FileInfo(importLibrary);
                 }
             }
-
-            #endregion Public Instance Properties
-
             #region Private Instance Properties
 
             private VcProject Project {
                 get { return (VcProject) _projectConfig.Project; }
             }
-
-            #endregion Private Instance Properties
-
             #region Private Instance Fields
 
             private readonly VcProjectConfiguration _projectConfig;
-
-            #endregion Private Instance Fields
         }
     }
 }

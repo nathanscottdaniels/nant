@@ -25,16 +25,11 @@ namespace NAnt.Core.Types {
     /// </summary>
     [ElementName("xsltparameter")]
     public class XsltParameter : Element, IConditional {
-        #region Private Instance Fields
-
         private string _name = string.Empty;
         private string _namespaceUri = string.Empty;
         private string _value = string.Empty;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -43,9 +38,6 @@ namespace NAnt.Core.Types {
         /// </summary>
         public XsltParameter() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -111,7 +103,5 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

@@ -31,19 +31,11 @@ namespace Tests.NAnt.Core {
     /// </summary>
     [TaskName("elementTest1")]
     class ElementTest1Task : Task {
-        #region Private Instance Fields
-
         private OutputType _outputType = OutputType.None;
         private Uri _uri;
-
-        #endregion Private Instance Fields
-
         #region Internal Static Fields
 
         internal const string UriPropertyName = "elementTest1.uri";
-
-        #endregion Internal Static Fields
-
         #region Public Instance Properties
 
         [BuildElement("fileset")]
@@ -62,9 +54,6 @@ namespace Tests.NAnt.Core {
             get { return _uri; }
             set { _uri = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         protected override void ExecuteTask() { 
@@ -74,9 +63,6 @@ namespace Tests.NAnt.Core {
                 Properties.Add(ElementTest1Task.UriPropertyName, Uri.ToString());
             }
         }
-
-        #endregion Override implementation of Task
-
         [TypeConverter(typeof(OutputTypeConverter))]
         public enum OutputType {
             None = 0,
@@ -108,20 +94,12 @@ namespace Tests.NAnt.Core {
     [TaskName("conditionaltest")]
     class ConditionalElementTestTask : Task
     {
-        #region Public Static Fields
-
         internal const string PropName = "quote";
 
         #endregion
-
-        #region Private Instance Fields
-
         private string _quote;
 
         #endregion
-
-        #region Public Instance Properties
-
         [TaskAttribute("quote")]
         public string Quote
         {
@@ -130,17 +108,12 @@ namespace Tests.NAnt.Core {
         }
 
         #endregion
-        
-        #region Override implementation of Task
-
         protected override void ExecuteTask() { 
             string result = String.Format("The quote is \"{0}\".", Quote ?? String.Empty);
             Log(Level.Info, result);
 
             Properties.Add(PropName, result);
         }
-
-        #endregion Override implementation of Task
     }
 
     /*
@@ -149,12 +122,7 @@ namespace Tests.NAnt.Core {
     /// </summary>
     [TaskName("elementTest2")]
     class ElementTest2Task : Task {
-        #region Private Instance Fields
-
         private ArrayList _children = new ArrayList();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         [BuildElementCollection("children", "child", ElementType=typeof(object))]
@@ -163,22 +131,13 @@ namespace Tests.NAnt.Core {
             set { _children = value; }
         }
 
-        #endregion Public Instance Properties
-
-
-        #region Override implementation of Task
-
         protected override void ExecuteTask() { 
         }
-
-        #endregion Override implementation of Task
     }
     */
 
     [TestFixture]
     public class ElementTest : BuildTestBase {
-        #region Public Instance Methods
-
         /// <summary>
         /// Test that a read-only property with an element doesn't 
         /// return null when the getter is invoked
@@ -411,7 +370,5 @@ namespace Tests.NAnt.Core {
                     String.Format("Result does not contain quote: '{0}' | '{1}'", result, quote));
             }
         }
-
-        #endregion Public Instance Methods
     }
 }

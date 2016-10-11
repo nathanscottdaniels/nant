@@ -31,8 +31,6 @@ namespace NAnt.Compression.Types {
     /// </summary>
     [ElementName("tarfileset")]
     public class TarFileSet : FileSet {
-        #region Private Instance Fields
-
         private int _fileMode = _fileFlag | 420; // = 644 octal
         private int _dirMode = _dirFlag | 493; // = 755 octal
         private string _userName;
@@ -40,16 +38,10 @@ namespace NAnt.Compression.Types {
         private string _groupName;
         private int _gid;
         private string _prefix;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const int _dirFlag = 16384; // = 40000 octal
         private const int _fileFlag = 32768; // = 100000 octal
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -125,7 +117,5 @@ namespace NAnt.Compression.Types {
                 }
             }
         }
-
-        #endregion Public Instance Properties
     }
 }

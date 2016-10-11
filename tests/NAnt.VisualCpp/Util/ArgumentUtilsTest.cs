@@ -24,8 +24,6 @@ using NAnt.VisualCpp.Util;
 namespace Tests.NAnt.VisualCpp.Util {
     [TestFixture]
     public class ArgumentUtilsTest {
-        #region Public Instance Methods
-
         [Test]
         public void Test_DuplicateTrailingBackSlash() {
             Assert.AreEqual(string.Empty, ArgumentUtils.DuplicateTrailingBackslash(string.Empty), "#1");
@@ -54,8 +52,6 @@ namespace Tests.NAnt.VisualCpp.Util {
             Assert.AreEqual("\"a\\\"", ArgumentUtils.CleanTrailingBackslash("\"a\\\""), "#5");
             Assert.AreEqual("a\\\"", ArgumentUtils.CleanTrailingBackslash("a\\\""), "#6");
         }
-
-        #endregion Public Instance Methods
     }
 }
 

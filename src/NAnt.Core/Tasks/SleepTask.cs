@@ -45,15 +45,11 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("sleep")]
     public class SleepTask : Task {
-        #region Private Instance Fields
        
         private int _hours = 0;
         private int _minutes = 0;
         private int _seconds = 0;
         private int _milliseconds = 0;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -95,9 +91,6 @@ namespace NAnt.Core.Tasks {
             get { return _milliseconds; }
             set { _milliseconds = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -117,9 +110,6 @@ namespace NAnt.Core.Tasks {
             Log(Level.Info, "Sleeping for {0} milliseconds.", sleepTime);
             DoSleep(sleepTime);
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         /// <summary>
@@ -136,7 +126,5 @@ namespace NAnt.Core.Tasks {
         private void DoSleep(int millis ) {
             Thread.Sleep(millis);
         }
-
-        #endregion Private Instance Methods
     }
 }

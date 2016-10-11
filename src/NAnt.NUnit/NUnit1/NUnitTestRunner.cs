@@ -37,17 +37,12 @@ namespace NAnt.NUnit1.Tasks {
     }
 
     public class NUnitTestRunner : BaseTestRunner {
-        #region Public Instance Constructors
-
         public NUnitTestRunner(NUnitTestData testData) {
             _nunittest = testData;
             string nunitsuite = testData.Class + "," + testData.Assembly;
             _suite = GetSuite(nunitsuite);
             testData.Suite = _suite;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -65,16 +60,10 @@ namespace NAnt.NUnit1.Tasks {
         public RunnerResult ResultCode {
             get { return _resultCode; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of BaseTestRunner
 
         protected override void RunFailed(string message) {
         }
-
-        #endregion Override implementation of BaseTestRunner
-
         #region Override implementation of IListener
 
         public override void AddError(ITest test, Exception t) {
@@ -108,9 +97,6 @@ namespace NAnt.NUnit1.Tasks {
                 formatter.EndTest(test);
             }
         }
-
-        #endregion Override implementation of IListener
-
         #region Public Instance Methods
 
         /// <summary>
@@ -196,9 +182,6 @@ namespace NAnt.NUnit1.Tasks {
             }
            
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -256,9 +239,6 @@ namespace NAnt.NUnit1.Tasks {
             }
             return retFormatter;
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -289,9 +269,6 @@ namespace NAnt.NUnit1.Tasks {
                 formatter.EndTestSuite(_result);
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         IResultFormatterCollection _formatters = new IResultFormatterCollection();
@@ -299,7 +276,5 @@ namespace NAnt.NUnit1.Tasks {
         ITest _suite = null;
         TestResultExtra _result = null;
         RunnerResult _resultCode = RunnerResult.Success;
-
-        #endregion Private Instance Fields
     }
 }

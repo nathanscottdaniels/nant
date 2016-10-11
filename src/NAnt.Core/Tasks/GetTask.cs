@@ -81,8 +81,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("get")]
     public class GetTask : Task {
-        #region Private Instance Fields
-
         private string _src;
         private FileInfo _destFile;
         private string _httpProxy;
@@ -91,9 +89,6 @@ namespace NAnt.Core.Tasks {
         private bool _useTimeStamp;
         private Credential _credentials;
         private FileSet _certificates = new FileSet();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -187,9 +182,6 @@ namespace NAnt.Core.Tasks {
             get { return _certificates; }
             set { _certificates = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -357,9 +349,6 @@ namespace NAnt.Core.Tasks {
                     Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -379,9 +368,6 @@ namespace NAnt.Core.Tasks {
                 Log(Level.Verbose, "Error: {0}.", e.ToString());
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private WebRequest GetWebRequest(string url, DateTime fileLastModified) {
@@ -441,7 +427,5 @@ namespace NAnt.Core.Tasks {
 
             return webRequest;
         }
-
-        #endregion Private Instance Methods
     }
 }

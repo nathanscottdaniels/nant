@@ -155,12 +155,7 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("sysinfo")]
     public class SysInfoTask : Task {
-        #region Private Instance Fields
-
         private string _prefix = "sys.";
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
        
         /// <summary>
@@ -171,9 +166,6 @@ namespace NAnt.Core.Tasks {
             get { return _prefix; }
             set { _prefix = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -221,7 +213,5 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

@@ -51,7 +51,6 @@ namespace NAnt.Core.Attributes {
     /// </example>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public sealed class TaskAttributeAttribute : BuildAttributeAttribute {
-        #region Public Instance Constructors
        
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskAttributeAttribute" />
@@ -62,7 +61,5 @@ namespace NAnt.Core.Attributes {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="name" /> is a zero-length <see cref="string" />.</exception>
         public TaskAttributeAttribute(string name) : base(name){
         }
-
-        #endregion Public Instance Constructors
     }
 }

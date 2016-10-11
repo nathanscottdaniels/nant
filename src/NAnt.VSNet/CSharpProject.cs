@@ -30,13 +30,8 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     public class CSharpProject : ManagedProjectBase {
-        #region Public Instance Constructors
-
         public CSharpProject(SolutionBase solution, string projectPath, XmlElement xmlDefinition, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver, DirectoryInfo outputDir) : base(solution, projectPath, xmlDefinition, solutionTask, tfc, gacCache, refResolver, outputDir) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ProjectBase
 
         /// <summary>
@@ -115,9 +110,6 @@ namespace NAnt.VSNet {
 
             return psi;
         }
-
-        #endregion Override implementation of ProjectBase
-
         #region Override implementation of ManagedProjectBase
 
         /// <summary>
@@ -145,9 +137,6 @@ namespace NAnt.VSNet {
         protected override ProjectLocation DetermineProjectLocation(XmlElement docElement) {
             return GetProjectLocation(docElement.SelectSingleNode("./CSHARP"));
         }
-
-        #endregion Override implementation of ManagedProjectBase
-
         #region Public Static Methods
 
         /// <summary>
@@ -202,7 +191,5 @@ namespace NAnt.VSNet {
 
             return true;
         }
-
-        #endregion Public Static Methods
     }
 }

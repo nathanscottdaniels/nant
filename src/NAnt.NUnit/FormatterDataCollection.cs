@@ -26,8 +26,6 @@ namespace NAnt.NUnit.Types {
     /// </summary>
     [Serializable]
     public class FormatterDataCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FormatterDataCollection"/> class.
         /// </summary>
@@ -49,11 +47,7 @@ namespace NAnt.NUnit.Types {
         public FormatterDataCollection(FormatterData[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -63,9 +57,6 @@ namespace NAnt.NUnit.Types {
             get {return ((FormatterData)(base.List[index]));}
             set {base.List[index] = value;}
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -155,16 +146,12 @@ namespace NAnt.NUnit.Types {
         public void Remove(FormatterData item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="FormatterData"/> elements of a <see cref="FormatterDataCollection"/>.
     /// </summary>
     public class FormatterDataEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FormatterDataEnumerator"/> class
         /// with the specified <see cref="FormatterDataCollection"/>.
@@ -174,9 +161,6 @@ namespace NAnt.NUnit.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -220,13 +204,8 @@ namespace NAnt.NUnit.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

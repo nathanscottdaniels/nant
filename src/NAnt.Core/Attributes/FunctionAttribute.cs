@@ -30,8 +30,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Method, Inherited=false, AllowMultiple=false)]
     public sealed class FunctionAttribute : Attribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionAttribute" />
         /// class with the specified name.
@@ -50,11 +48,7 @@ namespace NAnt.Core.Attributes {
 
             _name = name;
         }
-
-        #endregion Public Instance Constructors
          
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the name of the function.
         /// </summary>
@@ -65,13 +59,8 @@ namespace NAnt.Core.Attributes {
             get { return _name; }
             set { _name = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private string _name;
-        
-        #endregion Private Instance Fields
     }
 }

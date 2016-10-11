@@ -35,13 +35,8 @@ namespace NAnt.DotNet.Types {
     /// </example>
     [ElementName("warnaserror")]
     public class WarningAsError : DataTypeBase {
-        #region Private Instance Fields
-
         private CompilerWarningCollection _includes = new CompilerWarningCollection();
         private CompilerWarningCollection _excludes = new CompilerWarningCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -64,7 +59,5 @@ namespace NAnt.DotNet.Types {
         public CompilerWarningCollection Excludes {
             get { return _excludes; }
         }
-
-        #endregion Public Instance Properties
     }
 }

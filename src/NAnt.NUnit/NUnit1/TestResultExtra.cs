@@ -25,17 +25,12 @@ namespace NAnt.NUnit1.Types {
     /// run-time.
     ///</summary>
     public class TestResultExtra : TestResult {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestResultExtra" />
         /// class.
         /// </summary>
         public TestResultExtra() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -46,13 +41,8 @@ namespace NAnt.NUnit1.Types {
             get { return _runTime; }
             set { _runTime = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private long _runTime;
-
-        #endregion Private Instance Fields
     }
 }

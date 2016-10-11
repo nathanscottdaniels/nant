@@ -35,9 +35,6 @@ namespace NAnt.Core {
     [Serializable()]
     public class XmlLogger : IBuildLogger, ISerializable {
         private readonly StopWatchStack _stopWatchStack;
-
-        #region Private Instance Fields
-
         private TextWriter _outputWriter;
         private StringWriter _buffer = new StringWriter();
         private Level _threshold = Level.Info;
@@ -49,9 +46,6 @@ namespace NAnt.Core {
         /// Holds the stack of currently executing projects.
         /// </summary>
         private Stack _projectStack = new Stack();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -67,9 +61,6 @@ namespace NAnt.Core {
             _xmlWriter = new XmlTextWriter(_buffer);
             _stopWatchStack = stopWatchStack;
         }
-
-        #endregion Public Instance Constructors
-
         #region Protected Instance Constructors
 
         /// <summary>
@@ -85,9 +76,6 @@ namespace NAnt.Core {
             _xmlWriter = new XmlTextWriter(_buffer);
             _projectStack = (Stack) info.GetValue("ProjectStack", typeof (Stack));
         }
-
-        #endregion Protected Instance Constructors
-
         #region Implementation of ISerializable
 
         /// <summary>
@@ -102,9 +90,6 @@ namespace NAnt.Core {
             info.AddValue("Threshold", _threshold);
             info.AddValue("ProjectStack", _projectStack);
         }
-
-        #endregion Implementation of ISerializable
-
         #region Override implementation of Object
 
         /// <summary>
@@ -113,9 +98,6 @@ namespace NAnt.Core {
         public override string ToString() {
             return _buffer.ToString();
         }
-
-        #endregion Override implementation of Object
-
         #region Implementation of IBuildListener
 
         /// <summary>
@@ -296,9 +278,6 @@ namespace NAnt.Core {
                 }
             }
         }
-
-        #endregion Implementation of IBuildListener
-
         #region Implementation of IBuildLogger
 
         /// <summary>
@@ -346,9 +325,6 @@ namespace NAnt.Core {
                 _xmlWriter.Flush();
             }
         }
-
-        #endregion Implementation of IBuildLogger
-
         #region Public Instance Methods
 
         public string StripFormatting(string message) {
@@ -377,9 +353,6 @@ namespace NAnt.Core {
             Regex r = new Regex(@"^[\s\0]*$");
             return r.Match(message).Success;
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void WriteErrorNode(Exception exception) {
@@ -482,9 +455,6 @@ namespace NAnt.Core {
             // lock on _xmlWriter is already held
             _xmlWriter.WriteAttributeString("name", name);
         }
-
-        #endregion Private Instance Methods
-
         private class Elements {
             public const string BuildResults = "buildresults";
             public const string Message = "message";

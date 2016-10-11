@@ -31,12 +31,7 @@ namespace NAnt.Core {
     /// Executes embedded tasks in the order in which they are defined.
     /// </summary>
     public class TaskContainer : Task {
-        #region Private Instance Fields
-
         private StringCollection _subXMLElements;
-
-        #endregion Private Instance Fields
-
         #region Override implementation of Element
 
         /// <summary>
@@ -51,9 +46,6 @@ namespace NAnt.Core {
         protected override bool CustomXmlProcessing {
             get { return true;}
         }
-
-        #endregion Override implementation of Element
-
         #region Override implementation of Task
 
         /// <summary>
@@ -85,9 +77,6 @@ namespace NAnt.Core {
         protected override void ExecuteTask() {
             ExecuteChildTasks();
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -158,7 +147,5 @@ namespace NAnt.Core {
                 _subXMLElements.Add(name);
             }
         }
-
-        #endregion Protected Instance Methods
     }
 }

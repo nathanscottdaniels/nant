@@ -95,17 +95,12 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("nant")]
     public class NAntTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _buildFile;
         private FileSet _buildFiles = new FileSet();
         private string _target;
         private bool _inheritAll = true;
         private bool _inheritRefs;
         private ArrayList _overrideProperties = new ArrayList();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -169,9 +164,6 @@ namespace NAnt.Core.Tasks {
         public ArrayList OverrideProperties {
             get { return _overrideProperties; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -258,7 +250,5 @@ namespace NAnt.Core.Tasks {
                 throw new BuildException("Nested build failed.  Refer to build log for exact reason.");
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

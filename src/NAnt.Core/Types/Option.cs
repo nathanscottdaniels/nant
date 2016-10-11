@@ -26,15 +26,10 @@ namespace NAnt.Core.Types {
     /// </summary>
     [ElementName("option")]
     public class Option : Element, IConditional {
-        #region Private Instance Fields
-
         private string _name;
         private string _value;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         /// <summary>
         /// name, value constructor
         /// </summary>
@@ -49,9 +44,6 @@ namespace NAnt.Core.Types {
         /// Default constructor
         /// </summary>
         public Option() {}
-
-        #region Public Instance Properties
-
         /// <summary>
         /// Name of the option.
         /// </summary>
@@ -94,7 +86,5 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

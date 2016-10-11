@@ -27,8 +27,6 @@ namespace NAnt.Core.Types {
     /// </summary>
     [Serializable()]
     public class XsltExtensionObjectCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="XsltExtensionObjectCollection"/> class.
@@ -53,11 +51,7 @@ namespace NAnt.Core.Types {
         public XsltExtensionObjectCollection(XsltExtensionObject[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -88,9 +82,6 @@ namespace NAnt.Core.Types {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -215,8 +206,6 @@ namespace NAnt.Core.Types {
         public void Remove(XsltExtensionObject item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
@@ -224,8 +213,6 @@ namespace NAnt.Core.Types {
     /// <see cref="XsltExtensionObjectCollection"/>.
     /// </summary>
     public class XsltExtensionObjectEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="XsltExtensionObjectEnumerator"/> class
@@ -237,9 +224,6 @@ namespace NAnt.Core.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -283,14 +267,9 @@ namespace NAnt.Core.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }
 

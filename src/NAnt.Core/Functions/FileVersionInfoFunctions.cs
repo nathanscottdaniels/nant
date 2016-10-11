@@ -35,9 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
         public FileVersionInfoFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -54,9 +51,6 @@ namespace NAnt.Core.Functions {
             return FileVersionInfo.GetVersionInfo(
                 Project.GetFullPath(fileName));
         }
-
-        #endregion Public Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -110,7 +104,5 @@ namespace NAnt.Core.Functions {
             return new Version(fileVersionInfo.ProductMajorPart, fileVersionInfo.ProductMinorPart,
                 fileVersionInfo.ProductBuildPart, fileVersionInfo.ProductPrivatePart);
         }
-
-        #endregion Public Static Methods
     }
 }

@@ -69,16 +69,10 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("loadtasks")]
     public class LoadTasksTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _assembly;
         private DirectoryInfo _path;
         private FileSet _fileset = new FileSet();
-
-        #endregion Private Instance Fields
         
-        #region Public Instance Properties
-
         /// <summary>
         /// An assembly to load tasks from.
         /// </summary>
@@ -105,9 +99,6 @@ namespace NAnt.Core.Tasks {
             get { return _fileset; }
             set { _fileset = value; }
         }
-        
-        #endregion Public Instance Properties
-
         #region Override implemenation of Task
         
         /// <summary>
@@ -179,7 +170,5 @@ namespace NAnt.Core.Tasks {
                     + " Use one or the other.", Location);
             }
         }
-
-        #endregion Override implemenation of Task
     }
 }

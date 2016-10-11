@@ -78,8 +78,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("resgen")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class ResGenTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private StringBuilder _arguments = new StringBuilder();
         private AssemblyFileSet _assemblies = new AssemblyFileSet();
         private FileInfo _inputFile; 
@@ -95,15 +93,9 @@ namespace NAnt.DotNet.Tasks {
         // framework configuration settings
         private bool _supportsAssemblyReferences;
         private bool _supportsExternalFileReferences;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const int _maxCmdLineLength = 30000;
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -202,9 +194,6 @@ namespace NAnt.DotNet.Tasks {
         public ArrayList QualifiedResources {
             get { return _qualifiedResources; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Properties
 
         private bool RequiresAssemblyReferences {
@@ -227,9 +216,6 @@ namespace NAnt.DotNet.Tasks {
                 return false;
             }
         }
-
-        #endregion Private Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -453,9 +439,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -481,9 +464,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -534,9 +514,6 @@ namespace NAnt.DotNet.Tasks {
             // if we made it here then we don't have to recompile
             return false;
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -741,21 +718,14 @@ namespace NAnt.DotNet.Tasks {
             // file to the total command line
             _arguments.Append(cmdLineArg);
         }
-
-        #endregion Private Instance Methods
     }
 
     /// <summary>
     /// For internal use only !
     /// </summary>
     public class QualifiedResource {
-        #region Private Instance Fields
-
         private FileInfo _inputFile;
         private FileInfo _outputFile;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -768,9 +738,6 @@ namespace NAnt.DotNet.Tasks {
             _inputFile = input;
             _outputFile = output;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -792,7 +759,5 @@ namespace NAnt.DotNet.Tasks {
         public FileInfo Output {
             get { return _outputFile; }
         }
-
-        #endregion Public Instance Properties
     }
 }

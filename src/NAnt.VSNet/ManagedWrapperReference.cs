@@ -29,8 +29,6 @@ using NAnt.Win32.Tasks;
 
 namespace NAnt.VSNet {
     public class ManagedWrapperReference : WrapperReferenceBase {
-        #region Public Instance Constructors
-
         public ManagedWrapperReference(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache, ProjectSettings projectSettings) : base(xmlDefinition, referencesResolver, parent, gacCache) {
             if (projectSettings == null) {
                 throw new ArgumentNullException("projectSettings");
@@ -60,9 +58,6 @@ namespace NAnt.VSNet {
             // determine filename of wrapper assembly
             _wrapperAssembly = ResolveWrapperAssembly();
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -75,9 +70,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Override implementation of WrapperReferenceBase
 
         /// <summary>
@@ -191,17 +183,11 @@ namespace NAnt.VSNet {
                 return int.Parse(localeAttribute.Value).ToString("x");
             }
         }
-
-        #endregion Override implementation of WrapperReferenceBase
-
         #region Private Instance Properties
 
         private ProjectSettings ProjectSettings {
             get { return _projectSettings; }
         }
-
-        #endregion Private Instance Properties
-
         #region Private Instance Methods
 
         protected override void ImportTypeLibrary() {
@@ -347,9 +333,6 @@ namespace NAnt.VSNet {
                 axImp.Project.Unindent();
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private string _name;
@@ -357,7 +340,5 @@ namespace NAnt.VSNet {
         private readonly string _wrapperAssembly;
         private readonly ProjectSettings _projectSettings;
         private string _primaryInteropAssembly;
-        
-        #endregion Private Instance Fields
     }
 }

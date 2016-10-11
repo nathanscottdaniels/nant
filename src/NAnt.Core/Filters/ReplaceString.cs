@@ -69,9 +69,6 @@ namespace NAnt.Core.Filters {
         /// to be used for both methods.
         /// </summary>
         delegate int AcquireCharDelegate();
-
-        #region Private Instance Fields
-
         private string _from;
         private string _to = string.Empty;
         private string _outputBuffer;
@@ -82,9 +79,6 @@ namespace NAnt.Core.Filters {
 
         //Method used for Read
         private AcquireCharDelegate ReadChar;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -118,9 +112,6 @@ namespace NAnt.Core.Filters {
             get { return _ignoreCase; }
             set { _ignoreCase = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ChainableReader
 
         /// <summary>
@@ -154,9 +145,6 @@ namespace NAnt.Core.Filters {
             //Need to maintain seperate state for Read and Peek for this to work
             throw new ApplicationException(ResourceUtils.GetString("String_PeekNotSupported"));
         }
-
-        #endregion Override implementation of ChainableReader
-
         #region Private Instance Methods
 
         /// <summary>
@@ -313,8 +301,6 @@ namespace NAnt.Core.Filters {
                 return char1 == char2;
             }
         }
-
-        #endregion Private Instance Methods
     }
 }
 

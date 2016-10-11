@@ -31,8 +31,6 @@ using NUnit.Framework;
 namespace Tests.NAnt.Core {
     [TestFixture]
     public class ExpressionEvaluatorTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _format = @"<?xml version='1.0'?>
             <project name='ProjectTest' default='test' basedir='{0}'>
                 {1}
@@ -43,9 +41,6 @@ namespace Tests.NAnt.Core {
 
         private string _buildFileName;
         private Project _project;
-
-        #endregion Private Instance Fields
-
         #region Override implementation of BuildTestBase
 
         [SetUp]
@@ -57,9 +52,6 @@ namespace Tests.NAnt.Core {
             _project = new Project(_buildFileName, Level.Info, 0);
             _project.Properties["prop1"] = "asdf";
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         [Test]
@@ -564,9 +556,6 @@ namespace Tests.NAnt.Core {
 
             eval.CheckSyntax("1 + 2 * 3 1");
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void AssertExpression(string expression, object expectedReturnValue) {
@@ -595,8 +584,6 @@ namespace Tests.NAnt.Core {
         private string FormatBuildFile(string globalTasks, string targetTasks) {
             return string.Format(CultureInfo.InvariantCulture, _format, TempDirName, globalTasks, targetTasks);
         }
-
-        #endregion Private Instance Methods
     }
 
     [FunctionSet("coercion", "Test Function Extensibility")]
@@ -688,9 +675,6 @@ namespace Tests.NAnt.Core {
 
         public Boo(String name) : base(name) {
         }
-
-        #region IConvertible Members
-
         [CLSCompliant(false)]
         public ulong ToUInt64(IFormatProvider provider) {
             return 0;

@@ -23,14 +23,8 @@ using System.Collections.Specialized;
 
 namespace NAnt.VSNet {
     public sealed class ConfigurationMap : IDictionary, ICollection, IEnumerable {
-        #region Private Instance Fields
-
         private readonly Hashtable _innerHash;
-
-        #endregion Private Instance Fields
         
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationMap" /> class.
         /// </summary>
@@ -46,17 +40,11 @@ namespace NAnt.VSNet {
         public ConfigurationMap(int capacity) {
             _innerHash = CollectionsUtil.CreateCaseInsensitiveHashtable(capacity);
         }
-
-        #endregion Public Instance Constructors
-
         #region Internal Instance Properties
 
         internal Hashtable InnerHash {
             get { return _innerHash; }
         }
-
-        #endregion Internal Instance Properties
-
         #region Implementation of IDictionary
 
         public ConfigurationMapEnumerator GetEnumerator() {
@@ -124,9 +112,6 @@ namespace NAnt.VSNet {
         public bool IsFixedSize {
             get { return _innerHash.IsFixedSize; }
         }
-
-        #endregion Implementation of IDictionary
-
         #region Implementation of ICollection
 
         void ICollection.CopyTo(Array array, int index) {
@@ -144,25 +129,15 @@ namespace NAnt.VSNet {
         public object SyncRoot {
             get { return _innerHash.SyncRoot; }
         }
-
-        #endregion Implementation of ICollection
     }
     
     public class ConfigurationMapEnumerator : IDictionaryEnumerator {
-        #region Private Instance Fields
-
         private readonly IDictionaryEnumerator _innerEnumerator;
-
-        #endregion Private Instance Fields
-
         #region Internal Instance Constructors
 
         internal ConfigurationMapEnumerator(ConfigurationMap enumerable) {
             _innerEnumerator = enumerable.InnerHash.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IDictionaryEnumerator
 
         public Configuration Key {
@@ -184,9 +159,6 @@ namespace NAnt.VSNet {
         public DictionaryEntry Entry {
             get { return new DictionaryEntry (Key, Value); }
         }
-
-        #endregion Implementation of IDictionaryEnumerator
-
         #region Implementation of IEnumerator
 
         public void Reset() {
@@ -204,8 +176,6 @@ namespace NAnt.VSNet {
         public ConfigurationMapEntry Current {
             get { return new ConfigurationMapEntry (Key, Value); }
         }
-
-        #endregion Implementation of IEnumerator
     }
 
     public sealed class ConfigurationMapEntry {

@@ -23,8 +23,6 @@ using System.Runtime.Serialization;
 namespace NAnt.Core {
     [Serializable()]
     public class ValidationException : BuildException {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationException" /> 
         /// class.
@@ -69,9 +67,6 @@ namespace NAnt.Core {
         /// <param name="innerException">A nested exception that is the cause of the current exception.</param>
         public ValidationException(String message, Location location, Exception innerException) : base(message, location, innerException) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Protected Instance Constructors
 
         /// <summary>
@@ -82,7 +77,5 @@ namespace NAnt.Core {
         /// <param name="context">The <see cref="StreamingContext" /> that contains contextual information about the source or destination.</param>
         protected ValidationException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
-
-        #endregion Protected Instance Constructors
       }
 }

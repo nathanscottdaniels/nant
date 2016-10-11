@@ -180,14 +180,9 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("trycatch")]
     public class TryCatchTask : Task {
-        #region Private Instance Fields
-
         private ElementContainer _tryBlock;
         private CatchElement _catchBlock;
         private ElementContainer _finallyBlock;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -223,9 +218,6 @@ namespace NAnt.Core.Tasks {
             get { return _finallyBlock; }
             set { _finallyBlock = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -248,16 +240,8 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         public class CatchElement : ElementContainer {
-            #region Private Instance Fields
-
             private string _property;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Properties
 
             /// <summary>
@@ -280,9 +264,6 @@ namespace NAnt.Core.Tasks {
                 get { return _property; }
                 set { _property = StringUtils.ConvertEmptyToNull(value); }
             }
-
-            #endregion Public Instance Properties
-
             #region Public Instance Methods
 
             public void Catch(BuildException be) {
@@ -309,9 +290,6 @@ namespace NAnt.Core.Tasks {
                     }
                 }
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Methods
 
             /// <summary>

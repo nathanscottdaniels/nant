@@ -30,12 +30,7 @@ namespace Tests.NAnt.VSNet.Tasks {
     /// </summary>
     [TestFixture]
     public class CSharpSolutionTests : SolutionTestBase {
-        #region Private Static Fields
-
         private const string SharpSchedule = "sharpschedule";
-
-        #endregion Private Static Fields
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -44,9 +39,6 @@ namespace Tests.NAnt.VSNet.Tasks {
         protected override LanguageType CurrentLanguage {
             get {return LanguageType.cs;}
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of SolutionTestBase
 
         /// <summary>
@@ -70,9 +62,6 @@ namespace Tests.NAnt.VSNet.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-
-        #endregion Override implementation of SolutionTestBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -124,9 +113,6 @@ namespace Tests.NAnt.VSNet.Tasks {
             this.GetCurrentSolutionFile("WinForms");
             this.RunTestPlain();
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void GetProject (DirectoryInfo destination) {
@@ -139,7 +125,5 @@ namespace Tests.NAnt.VSNet.Tasks {
             this.CheckoutFiles (cvsroot, module, destination.FullName, 
                 password, date);
         }
-
-        #endregion Private Instance Methods
     }
 }

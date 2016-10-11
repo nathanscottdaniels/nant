@@ -140,14 +140,9 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("call")]
     public class CallTask : Task {
-        #region Private Instance Fields
-
         private string _target;
         private bool _force;
         private bool _cascade = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -182,9 +177,6 @@ namespace NAnt.Core.Tasks {
             get { return _cascade; }
             set { _cascade = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -226,7 +218,5 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

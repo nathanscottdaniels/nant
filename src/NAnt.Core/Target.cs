@@ -34,17 +34,12 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public sealed class Target : Element, ICloneable {
-        #region Private Instance Fields
-
         private string _name;
         private string _description;
         private string _ifCondition;
         private string _unlessCondition;
         private StringCollection _dependencies = new StringCollection();
         private bool _executed;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -52,9 +47,6 @@ namespace NAnt.Core {
         /// </summary>
         public Target() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -193,9 +185,6 @@ namespace NAnt.Core {
         public StringCollection Dependencies {
             get { return _dependencies; }
         }
-
-        #endregion Public Instance Properties
-
         #region Implementation of ICloneable
 
         /// <summary>
@@ -209,9 +198,6 @@ namespace NAnt.Core {
         }
 
         #endregion
-
-        #region Public Instance Methods
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="Target" />.
         /// </summary>
@@ -270,7 +256,5 @@ namespace NAnt.Core {
                 }
             }
         }
-
-        #endregion Public Instance Methods
     }
 }

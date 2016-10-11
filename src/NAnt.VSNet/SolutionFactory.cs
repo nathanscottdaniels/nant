@@ -33,25 +33,17 @@ namespace NAnt.VSNet {
     /// Factory class for VS.NET solutions.
     /// </summary>
     internal sealed class SolutionFactory {
-        #region Private Instance Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SolutionFactory" />
         /// class.
         /// </summary>
         private SolutionFactory() {
         }
-
-        #endregion Private Instance Constructor
-
         #region Internal Static Methods
 
         internal static SolutionFactory Create () {
             return new SolutionFactory();
         }
-
-        #endregion Internal Static Methods
-
         #region Public Instance Methods
 
         public SolutionBase LoadSolution(SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver) {
@@ -80,9 +72,6 @@ namespace NAnt.VSNet {
         public void RegisterProvider(ISolutionBuildProvider provider) {
             _projectProviders.Add(provider);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private ISolutionBuildProvider FindProvider(string fileContents) {
@@ -97,9 +86,6 @@ namespace NAnt.VSNet {
             }
             return res;
         }
-
-        #endregion Private Instance Methods
-
         private readonly ArrayList _projectProviders = new ArrayList();
     }
 }

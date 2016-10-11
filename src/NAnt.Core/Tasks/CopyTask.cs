@@ -134,8 +134,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("copy")]
     public class CopyTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _sourceFile;
         private FileInfo _toFile;
         private DirectoryInfo _toDirectory;
@@ -149,9 +147,6 @@ namespace NAnt.Core.Tasks {
         private Encoding _outputEncoding;
         private long _fileCount = 0;
         private long _dirCount = 0;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -164,9 +159,6 @@ namespace NAnt.Core.Tasks {
                 _fileCopyMap = CollectionsUtil.CreateCaseInsensitiveHashtable();
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -268,9 +260,6 @@ namespace NAnt.Core.Tasks {
             get { return _outputEncoding; }
             set { _outputEncoding = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -308,9 +297,6 @@ namespace NAnt.Core.Tasks {
         {
             get { return _dirCount; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -580,9 +566,6 @@ namespace NAnt.Core.Tasks {
             // do all the actual copy operations now
             DoFileOperations();
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
         
         /// <summary>
@@ -671,15 +654,10 @@ namespace NAnt.Core.Tasks {
                 "Could not find file '{0}' to copy.", sourceFile),
                 Location);
         }
-
-        #endregion Protected Instance Methods
-
         /// <summary>
         /// Holds the absolute paths and last write time of a given file.
         /// </summary>
         protected class FileDateInfo {
-            #region Public Instance Constructors
-
             /// <summary>
             /// Initializes a new instance of the <see cref="FileDateInfo" />
             /// class for the specified file and last write time.
@@ -704,9 +682,6 @@ namespace NAnt.Core.Tasks {
                 _lastWriteTime = lastWriteTime;
                 _isDir = isDir;
             }
-
-            #endregion Public Instance Constructors
-
             #region Public Instance Properties
 
             /// <summary>
@@ -737,9 +712,6 @@ namespace NAnt.Core.Tasks {
             {
                 get { return _isDir; }
             }
-
-            #endregion Public Instance Properties
-
             #region Public Instance Methods
 
             /// <inheritdoc/>
@@ -750,14 +722,10 @@ namespace NAnt.Core.Tasks {
             }
 
             #endregion
-
-            #region Private Instance Fields
             
             private DateTime _lastWriteTime;
             private string _path;
             private bool _isDir;
-
-            #endregion Private Instance Fields
         }
     }
 }

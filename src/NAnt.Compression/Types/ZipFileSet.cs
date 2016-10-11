@@ -30,12 +30,7 @@ namespace NAnt.Compression.Types {
     /// </summary>
     [ElementName("zipfileset")]
     public class ZipFileSet : FileSet {
-        #region Private Instance Fields
-
         private string _prefix;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -53,7 +48,5 @@ namespace NAnt.Compression.Types {
                 }
             }
         }
-
-        #endregion Public Instance Properties
     }
 }

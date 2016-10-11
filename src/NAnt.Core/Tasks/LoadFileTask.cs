@@ -84,15 +84,10 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("loadfile")]
     public class LoadFileTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _file;
         private Encoding _encoding;
         private string _property;
         private FilterChain _filterChain;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -131,9 +126,6 @@ namespace NAnt.Core.Tasks {
             get { return _filterChain; }
             set { _filterChain = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -160,7 +152,5 @@ namespace NAnt.Core.Tasks {
             // add/update property
             Properties[Property] = content;
         }
-
-        #endregion Override implementation of Task
     }
 }

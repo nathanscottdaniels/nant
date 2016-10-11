@@ -40,8 +40,6 @@ namespace NAnt.VSNet {
     /// Base class for all project classes.
     /// </summary>
     public abstract class ProjectBase {
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectBase" /> class.
         /// </summary>
@@ -76,9 +74,6 @@ namespace NAnt.VSNet {
             _refResolver = referencesResolver;
             _productVersion = DetermineProductVersion(xmlDefinition);
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -218,9 +213,6 @@ namespace NAnt.VSNet {
         public Hashtable ExtraOutputFiles {
             get { return _extraOutputFiles; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         protected DirectoryInfo OutputDir {
@@ -266,9 +258,6 @@ namespace NAnt.VSNet {
                 return FileUtils.CombinePaths(vs7CommonDir, @"IDE\");
             }
         }
-
-        #endregion Protected Instance Properties
-
         #region Private Instance Properties
 
         /// <summary>
@@ -287,9 +276,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Private Instance Properties
-
         #region Public Instance Methods
 
         public abstract ProjectReferenceBase CreateProjectReference(
@@ -459,9 +445,6 @@ namespace NAnt.VSNet {
         /// configuration is managed; otherwise, <see langword="false" />.
         /// </returns>
         public abstract bool IsManaged(Configuration configuration);
-
-        #endregion Public Instance Methods
-
         #region Protected Internal Instance Methods
 
         /// <summary>
@@ -492,9 +475,6 @@ namespace NAnt.VSNet {
                     return null;
             }
         }
-
-        #endregion Protected Internal Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -730,9 +710,6 @@ namespace NAnt.VSNet {
                 SolutionTask.Log(messageLevel, message, args);
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Fields
 
         private readonly ProductVersion _productVersion;
@@ -745,8 +722,6 @@ namespace NAnt.VSNet {
         private readonly ReferencesResolver _refResolver;
         private readonly Hashtable _extraOutputFiles;
         private readonly ProjectBaseCollection _projectDependencies = new ProjectBaseCollection();
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -845,8 +820,6 @@ namespace NAnt.VSNet {
     /// </summary>
     [Serializable()]
     public class ProjectBaseCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectBaseCollection"/> class.
         /// </summary>
@@ -868,11 +841,7 @@ namespace NAnt.VSNet {
         public ProjectBaseCollection(ProjectBase[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -906,9 +875,6 @@ namespace NAnt.VSNet {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -1032,16 +998,12 @@ namespace NAnt.VSNet {
                 base.InnerList.Remove(removeProject);
             }
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="ProjectBase"/> elements of a <see cref="ProjectBaseCollection"/>.
     /// </summary>
     public class ProjectBaseEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectBaseEnumerator"/> class
         /// with the specified <see cref="ProjectBaseCollection"/>.
@@ -1051,9 +1013,6 @@ namespace NAnt.VSNet {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -1097,13 +1056,8 @@ namespace NAnt.VSNet {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

@@ -65,15 +65,10 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs-export")]
     public class ExportTask : AbstractCvsTask {
-        #region Private Static Fields
-
         /// <summary>
         /// The command being executed.
         /// </summary>
         private const string CvsCommandName = "export";
-
-        #endregion Private Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -88,9 +83,6 @@ namespace NAnt.SourceControl.Tasks {
         public ExportTask() {
             Recursive = true;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -184,9 +176,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return ((Option)CommandOptions["overridedir"]).Value; }
             set { SetCommandOption("overridedir", String.Format(CultureInfo.InvariantCulture,"-d{0}", value), true); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of AbstractCvsTask
 
         /// <summary>
@@ -195,7 +184,5 @@ namespace NAnt.SourceControl.Tasks {
         public override string CommandName {
             get { return CvsCommandName; }
         }
-
-        #endregion Override implementation of AbstractCvsTask
     }
 }

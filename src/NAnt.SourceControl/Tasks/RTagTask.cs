@@ -64,18 +64,10 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs-rtag")]
     public class RTagTask : AbstractCvsTask {
-        #region Private Instance Fields
-
         private string _tag;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string CvsCommandName = "rtag";
-
-        #endregion Private Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -84,9 +76,6 @@ namespace NAnt.SourceControl.Tasks {
         /// </summary>
         public RTagTask() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -197,9 +186,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return ((Option)CommandOptions["force-head"]).IfDefined; }
             set { SetCommandOption("force-head", "-f", value); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of AbstractCvsTask
 
         /// <summary>
@@ -218,7 +204,5 @@ namespace NAnt.SourceControl.Tasks {
                 this.AddArg(this.Tag);
             }
         }
-
-        #endregion Override implementation of AbstractCvsTask
     }
 }

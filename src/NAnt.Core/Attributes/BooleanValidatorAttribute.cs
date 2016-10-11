@@ -28,17 +28,12 @@ namespace NAnt.Core.Attributes {
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public sealed class BooleanValidatorAttribute : ValidatorAttribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BooleanValidatorAttribute" /> 
         /// class.
         /// </summary>
         public BooleanValidatorAttribute() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ValidatorAttribute
 
         /// <summary>
@@ -54,7 +49,5 @@ namespace NAnt.Core.Attributes {
                                                             ResourceUtils.GetString("NA1088"), value.ToString()), ex);
             }
         }
-
-        #endregion Override implementation of ValidatorAttribute
     }
 }

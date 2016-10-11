@@ -44,9 +44,6 @@ namespace NAnt.VSNet {
 
             _assemblyFile = ResolveAssemblyReference();
         }
-
-        #region Override implementation of AssemblyReferenceBase
-
         protected override bool IsPrivate {
             get { return _isPrivate; }
         }
@@ -124,9 +121,6 @@ namespace NAnt.VSNet {
             // assembly reference could not be resolved
             return null;
         }
-
-        #endregion Override implementation of AssemblyReferenceBase
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -139,9 +133,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Private Instance Methods
 
         /// <summary>
@@ -174,9 +165,6 @@ namespace NAnt.VSNet {
                 + " \"{2}\" is not supported in assembly references.", macro, 
                 Name, Parent.Name), Location.UnknownLocation);
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private string _assemblyFile;
@@ -184,7 +172,5 @@ namespace NAnt.VSNet {
         private readonly bool _isPrivate;
         private readonly string _name = string.Empty;
         private readonly Regex _rxMacro = new Regex(@"\$\((\w+)\)");
-
-        #endregion Private Instance Fields
     }
 }

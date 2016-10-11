@@ -28,8 +28,6 @@ namespace Tests.NAnt.Core {
 
     [TestFixture]
     public class TaskContainerTest : BuildTestBase {
-        #region Private Static Fields
-
         private const string _format1 = @"<?xml version='1.0' ?>
            <project name='testing' default='test'>
                 <target name='test'>
@@ -61,9 +59,6 @@ namespace Tests.NAnt.Core {
                     </if>
                 </target>
             </project>";
-
-        #endregion Private Static Fields
-
         #region Public Instance Methods
         
         [Test]
@@ -138,15 +133,10 @@ namespace Tests.NAnt.Core {
                 Assert.IsTrue(be.RawMessage.IndexOf("foo") != -1);
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private string FormatBuildFile(string fmt,params object[] pars) {
             return string.Format(CultureInfo.InvariantCulture, fmt, pars);
         }
-
-        #endregion Private Instance Methods
     }
 }

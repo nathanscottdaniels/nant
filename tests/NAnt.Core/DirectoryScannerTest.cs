@@ -28,15 +28,10 @@ using Tests.NAnt.Core.Util;
 namespace Tests.NAnt.Core {
     [TestFixture]
     public class DirectoryScannerTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _folder1;
         private string _folder2;
         private string _folder3;
         private DirectoryScanner _scanner;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Methods
 
         [Test]
@@ -767,9 +762,6 @@ namespace Tests.NAnt.Core {
             _scanner.Scan();
             Assert.AreEqual(1, _scanner.FileNames.Count, "#4");
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         [SetUp]
@@ -786,9 +778,6 @@ namespace Tests.NAnt.Core {
             _scanner = new DirectoryScanner();
             _scanner.BaseDirectory = TempDirectory;
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -841,8 +830,6 @@ namespace Tests.NAnt.Core {
                 Assert.IsTrue(_scanner.DirectoryNames.IndexOf(dir) == -1, dir + " included.");
             }
         }
-
-        #endregion Private Instance Methods
     }
 }
 

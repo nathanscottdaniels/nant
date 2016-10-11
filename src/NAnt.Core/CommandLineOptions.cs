@@ -28,8 +28,6 @@ namespace NAnt.Core {
     /// Represents the set of command-line options supported by NAnt.
     /// </summary>
     public class CommandLineOptions {
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the target framework to use (overrides 
         /// NAnt.exe.config settings)
@@ -302,9 +300,6 @@ namespace NAnt.Core {
             get { return _useJobs; }
             set { _useJobs = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private string _targetFramework;
@@ -326,7 +321,5 @@ namespace NAnt.Core {
         private bool _showProjectHelp;
         private bool _pause;
         private bool _useJobs;
-
-        #endregion Private Instance Fields
     }
 }

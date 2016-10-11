@@ -53,15 +53,10 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("delay-sign")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class DelaySignTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private FileSet _targets = new FileSet();
         private FileInfo _keyFile;
         private string _keyContainer;
         private StringBuilder _argumentBuilder;
-        
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -90,9 +85,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _keyContainer; }
             set { _keyContainer = StringUtils.ConvertEmptyToNull(value); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -155,7 +147,5 @@ namespace NAnt.DotNet.Tasks {
                 base.ExecuteTask();
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
     }
 }

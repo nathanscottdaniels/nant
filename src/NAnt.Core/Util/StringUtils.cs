@@ -26,8 +26,6 @@ namespace NAnt.Core.Util {
     /// methods.
     /// </summary>
     public sealed class StringUtils {
-        #region Private Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StringUtils" /> class.
         /// </summary>
@@ -36,9 +34,6 @@ namespace NAnt.Core.Util {
         /// </remarks>
         private StringUtils() {
         }
-
-        #endregion Private Instance Constructors
-
         #region Public Static Methods
 
         /// <summary>
@@ -160,7 +155,5 @@ namespace NAnt.Core.Util {
             clone.AddRange(strings);
             return clone;
         }
-        
-        #endregion Public Static Methods
     }
 }

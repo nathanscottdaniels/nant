@@ -36,12 +36,7 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs")]
     public class CvsTask : AbstractCvsTask {
-        #region Private Instance Fields
-
         private string _commandName;
-
-        #endregion Private Instance Fields
-
         #region Override implementation of AbstractCvsTask
 
         /// <summary>
@@ -79,7 +74,5 @@ namespace NAnt.SourceControl.Tasks {
                 return moduleNeeded;
             }
         }
-
-        #endregion Override implementation of AbstractCvsTask
     }
 }

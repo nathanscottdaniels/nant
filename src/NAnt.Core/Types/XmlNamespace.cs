@@ -27,15 +27,10 @@ namespace NAnt.Core.Types {
     /// </summary>
     [ElementName("namespace")]
     public class XmlNamespace : Element, IConditional {
-        #region Private Instance Fields
-
         private string _prefix;
         private string _uri;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -81,7 +76,5 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

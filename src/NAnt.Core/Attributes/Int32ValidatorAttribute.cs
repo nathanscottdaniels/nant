@@ -28,8 +28,6 @@ namespace NAnt.Core.Attributes {
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public sealed class Int32ValidatorAttribute : ValidatorAttribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Int32ValidatorAttribute" /> 
         /// class.
@@ -47,9 +45,6 @@ namespace NAnt.Core.Attributes {
             MinValue = minValue;
             MaxValue = maxValue;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -87,9 +82,6 @@ namespace NAnt.Core.Attributes {
             get { return _base; }
             set { _base = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ValidatorAttribute
 
         /// <summary>
@@ -128,15 +120,10 @@ namespace NAnt.Core.Attributes {
                     MinValue, MaxValue));
             }
         }
-
-        #endregion Override implementation of ValidatorAttribute
-
         #region Private Instance Fields
 
         private int _minValue = Int32.MinValue;
         private int _maxValue = Int32.MaxValue;
         private int _base = 10;
-
-        #endregion Private Instance Fields
     }
 }

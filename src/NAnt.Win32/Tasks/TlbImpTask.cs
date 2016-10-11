@@ -72,8 +72,6 @@ namespace NAnt.Win32.Tasks {
     [TaskName("tlbimp")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class TlbImpTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private FileInfo _outputFile;
         private string _namespace;
         private string _asmVersion;
@@ -92,9 +90,6 @@ namespace NAnt.Win32.Tasks {
 
         // framework configuration settings
         private bool _supportsTransform = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -318,9 +313,6 @@ namespace NAnt.Win32.Tasks {
             get { return _supportsTransform; }
             set { _supportsTransform = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -426,9 +418,6 @@ namespace NAnt.Win32.Tasks {
                 base.ExecuteTask();
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Public Static Methods
 
         /// <summary>
@@ -452,9 +441,6 @@ namespace NAnt.Win32.Tasks {
             }
             return path;
         }
-
-        #endregion Public Static Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -493,7 +479,5 @@ namespace NAnt.Win32.Tasks {
             // if we made it here then we don't have to reimport the typelib.
             return false;
         }
-
-        #endregion Protected Instance Methods
     }
 }

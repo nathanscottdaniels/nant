@@ -30,8 +30,6 @@ namespace NAnt.NUnit1.Types {
     /// Prints detailed information about running tests in XML format.
     /// </summary>
     public class XmlResultFormatter : IResultFormatter {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlResultFormatter" />
         /// class.
@@ -39,18 +37,12 @@ namespace NAnt.NUnit1.Types {
         public XmlResultFormatter() {
             _document = new XmlDocument();
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public TextWriter Writer {
             get { return _writer; }
             set { _writer = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Implemenation of IResultFormatter
 
         /// <summary>
@@ -96,9 +88,6 @@ namespace NAnt.NUnit1.Types {
             Writer.Flush();
             Writer.Close();
         }
-
-        #endregion Implemenation of IResultFormatter
-
         #region Implemenation of ITestListener
 
         public void AddError(ITest test, Exception t) {
@@ -126,9 +115,6 @@ namespace NAnt.NUnit1.Types {
             time /= 1000D;
             _currentTest.SetAttribute(AttributeTime, time.ToString("#####0.000", NumberFormatInfo.InvariantInfo));
         }
-
-        #endregion Implemenation of ITestListener
-
         #region Private Instance Methods
 
         private void FormatError(string type, ITest test, Exception t) {
@@ -152,9 +138,6 @@ namespace NAnt.NUnit1.Types {
             XmlText traceElement = _document.CreateTextNode(t.StackTrace);
             nested.AppendChild(traceElement);
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         TextWriter _writer;
@@ -164,9 +147,6 @@ namespace NAnt.NUnit1.Types {
         XmlElement _currentTest;
 
         DateTime _testStartTime;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         const string ElementTestSuite = "testsuite";
@@ -182,7 +162,5 @@ namespace NAnt.NUnit1.Types {
         const string AttributeType = "type";
         const string AttributeMessage = "message";
         const string AttributeClassname = "classname";
-
-        #endregion Private Static Fields
     }
 }

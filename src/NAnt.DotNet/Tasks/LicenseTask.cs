@@ -63,8 +63,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("license")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class LicenseTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private AssemblyFileSet _assemblies = new AssemblyFileSet();
         private FileInfo _inputFile;
         private FileInfo _outputFile;
@@ -75,9 +73,6 @@ namespace NAnt.DotNet.Tasks {
         // framework configuration settings
         private bool _supportsAssemblyReferences;
         private bool _hasCommandLineCompiler = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -158,9 +153,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _hasCommandLineCompiler; }
             set { _hasCommandLineCompiler = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -182,9 +174,6 @@ namespace NAnt.DotNet.Tasks {
                     Location);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -441,9 +430,6 @@ namespace NAnt.DotNet.Tasks {
                 AppDomain.Unload(newDomain);
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Private Instance Methods
 
         /// <summary>
@@ -483,16 +469,11 @@ namespace NAnt.DotNet.Tasks {
             // if we made it here then we don't have to recompile
             return false;
         }
-
-        #endregion Private Instance Methods
-
         /// <summary>
         /// Responsible for reading the license and writing them to a license 
         /// file.
         /// </summary>
         private class LicenseGatherer : MarshalByRefObject {
-            #region Override implementation of MarshalByRefObject
-
             /// <summary>
             /// Obtains a lifetime service object to control the lifetime policy for 
             /// this instance.
@@ -510,9 +491,6 @@ namespace NAnt.DotNet.Tasks {
                 }
                 return lease;
             }
-
-            #endregion Override implementation of MarshalByRefObject
-
             #region Public Instance Methods
 
             /// <summary>
@@ -677,9 +655,6 @@ namespace NAnt.DotNet.Tasks {
                     assemblyResolver.Detach();
                 }
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Methods
 
             /// <summary>
@@ -704,8 +679,6 @@ namespace NAnt.DotNet.Tasks {
                     stream.Close();
                 }
             }
-
-            #endregion Private Instance Methods
         }
     }
 }

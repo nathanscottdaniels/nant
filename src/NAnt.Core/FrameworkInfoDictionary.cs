@@ -26,14 +26,8 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public sealed class FrameworkInfoDictionary : IDictionary, ICollection, IEnumerable, ICloneable {
-        #region Private Instance Fields
-
         private Hashtable _innerHash;
-
-        #endregion Private Instance Fields
         
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FrameworkInfoDictionary" /> class.
         /// </summary>
@@ -92,18 +86,12 @@ namespace NAnt.Core {
         public FrameworkInfoDictionary(int capacity, float loadFactor, IHashCodeProvider codeProvider, IComparer comparer) {
             _innerHash = new Hashtable (capacity, loadFactor, codeProvider, comparer);
         }
-
-        #endregion Public Instance Constructors
-
         #region Internal Instance Properties
 
         internal Hashtable InnerHash {
             get { return _innerHash; }
             set { _innerHash = value ; }
         }
-
-        #endregion Internal Instance Properties
-
         #region Implementation of IDictionary
 
         public FrameworkInfoDictionaryEnumerator GetEnumerator() {
@@ -204,9 +192,6 @@ namespace NAnt.Core {
         public bool IsFixedSize {
             get { return _innerHash.IsFixedSize; }
         }
-
-        #endregion Implementation of IDictionary
-
         #region Implementation of ICollection
 
         void ICollection.CopyTo(Array array, int index) {
@@ -234,9 +219,6 @@ namespace NAnt.Core {
         public void CopyTo(FrameworkInfo[] array, int index) {
             _innerHash.CopyTo(array, index);
         }
-
-        #endregion Implementation of ICollection
-
         /// <summary>
         /// Clones this instance.
         /// </summary>
@@ -250,11 +232,7 @@ namespace NAnt.Core {
         object ICloneable.Clone() {
             return Clone();
         }
-
-        #endregion Implementation of ICloneable
         
-        #region HashTable Methods
-
         public bool ContainsKey (string key) {
             return _innerHash.ContainsKey(key);
         }
@@ -268,25 +246,15 @@ namespace NAnt.Core {
             sync.InnerHash = Hashtable.Synchronized(nonSync.InnerHash);
             return sync;
         }
-
-        #endregion HashTable Methods
     }
     
     public class FrameworkInfoDictionaryEnumerator : IDictionaryEnumerator {
-        #region Private Instance Fields
-
         private IDictionaryEnumerator _innerEnumerator;
-
-        #endregion Private Instance Fields
-
         #region Internal Instance Constructors
 
         internal FrameworkInfoDictionaryEnumerator(FrameworkInfoDictionary enumerable) {
             _innerEnumerator = enumerable.InnerHash.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IDictionaryEnumerator
 
         public string Key {
@@ -308,9 +276,6 @@ namespace NAnt.Core {
         public DictionaryEntry Entry {
             get { return _innerEnumerator.Entry; }
         }
-
-        #endregion Implementation of IDictionaryEnumerator
-
         #region Implementation of IEnumerator
 
         public void Reset() {
@@ -328,7 +293,5 @@ namespace NAnt.Core {
         public FrameworkInfo Current {
             get { return (FrameworkInfo)((DictionaryEntry)_innerEnumerator.Current).Value; }
         }
-
-        #endregion Implementation of IEnumerator
     }
 }

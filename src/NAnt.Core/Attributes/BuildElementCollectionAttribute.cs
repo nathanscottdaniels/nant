@@ -48,8 +48,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public sealed class BuildElementCollectionAttribute : BuildElementArrayAttribute{
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildElementCollectionAttribute" /> with the 
         /// specified name and child element name.
@@ -69,9 +67,6 @@ namespace NAnt.Core.Attributes {
                 throw new ArgumentOutOfRangeException("childName", childName, "A zero-length string is not an allowed value.");
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -86,13 +81,8 @@ namespace NAnt.Core.Attributes {
         public string ChildElementName {
             get { return _elementName; }
         }
-
-        #endregion Public Instance Constructors
-
         #region Private Instance Fields
 
         private string _elementName;
-
-        #endregion Private Instance Fields
     }
 }

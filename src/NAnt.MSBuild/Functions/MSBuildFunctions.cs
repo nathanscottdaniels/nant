@@ -27,13 +27,8 @@ namespace NAnt.MSBuild.Functions {
     /// </summary>
     [FunctionSet("msbuild", "MSBuild")]
     public class MSBuildFunctions : FunctionSetBase {
-        #region Public Instance Constructors
-
         /// <exclude/>
         public MSBuildFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -52,7 +47,5 @@ namespace NAnt.MSBuild.Functions {
                 return ns != null;
             }
         }
-
-        #endregion Public Static Methods
     }
 }

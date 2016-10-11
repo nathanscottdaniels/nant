@@ -39,12 +39,7 @@ namespace NAnt.Core {
     /// </remarks>
     [Serializable()]
     public abstract class Task : Element, IConditional {
-        #region Private Static Fields
-
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        #endregion Private Static Fields
-
         #region Private Instance Fields
 
         private bool _failOnError = true;
@@ -52,9 +47,6 @@ namespace NAnt.Core {
         private bool _ifDefined = true;
         private bool _unlessDefined;
         private Level _threshold = Level.Debug;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -144,9 +136,6 @@ namespace NAnt.Core {
             get { return _threshold; }
             set { _threshold = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Internal Instance Properties
 
         /// <summary>
@@ -158,9 +147,6 @@ namespace NAnt.Core {
                 return TypeFactory.TaskBuilders [Name];
             }
         }
-
-        #endregion Internal Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -417,9 +403,6 @@ namespace NAnt.Core {
                 }
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>Initializes the task.</summary>
@@ -461,7 +444,5 @@ namespace NAnt.Core {
             }
             return base.GetAttributeConfigurationNode(framework, attributeName);
         }
-
-        #endregion Protected Instance Methods
     }
 }

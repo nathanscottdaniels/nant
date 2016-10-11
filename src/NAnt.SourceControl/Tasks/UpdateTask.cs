@@ -61,15 +61,10 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs-update")]
     public class UpdateTask : AbstractCvsTask {
-        #region Internal Static Fields
-
         /// <summary>
         /// The command being executed.
         /// </summary>
         internal const string CvsCommandName = "update";
-
-        #endregion Internal Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -84,9 +79,6 @@ namespace NAnt.SourceControl.Tasks {
             BuildDirs = true;
             PruneEmpty = true;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -204,9 +196,6 @@ namespace NAnt.SourceControl.Tasks {
         }
 
         #endregion
-
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// Specify if the module is needed for this cvs command.  It is
         /// only needed if there is no module information on the local file
@@ -222,7 +211,5 @@ namespace NAnt.SourceControl.Tasks {
         public override string CommandName {
             get {return CvsCommandName;}
         }
-
-        #endregion Override implementation of AbstractCvsTask
     }
 }

@@ -66,8 +66,6 @@ namespace NAnt.Core.Types {
     [Serializable]
     [ElementName("arg")]
     public class Argument : Element, IConditional {
-        #region Private Instance Fields
-
         private FileInfo _file;
         private DirectoryInfo _directory;
         private PathSet _path;
@@ -75,9 +73,6 @@ namespace NAnt.Core.Types {
         private string _line;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -109,9 +104,6 @@ namespace NAnt.Core.Types {
         public Argument(PathSet value) {
             _path = value;
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of Object
 
         /// <summary>
@@ -138,9 +130,6 @@ namespace NAnt.Core.Types {
                 return string.Empty;
             }
         }
-
-        #endregion Override implementation of Object
-
         #region Public Instance Properties
 
         /// <summary>
@@ -248,9 +237,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Internal Instance Properties
 
         /// <summary>
@@ -271,9 +257,6 @@ namespace NAnt.Core.Types {
                 }
             }
         }
-
-        #endregion Internal Instance Properties
-
         #region Private Static Methods
 
         /// <summary>
@@ -297,7 +280,5 @@ namespace NAnt.Core.Types {
                 return argument;
             }
         }
-
-        #endregion Private Static Methods
     }
 }

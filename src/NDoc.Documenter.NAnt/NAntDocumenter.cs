@@ -37,8 +37,6 @@ namespace NDoc.Documenter.NAnt {
     /// NDoc Documenter for building custom NAnt User documentation.
     /// </summary>
     public class NAntDocumenter : BaseReflectionDocumenter {
-        #region Private Instance Fields
-
         private XslTransform _xsltTaskIndex;
         private XslTransform _xsltTypeIndex;
         private XslTransform _xsltFunctionIndex;
@@ -48,9 +46,6 @@ namespace NDoc.Documenter.NAnt {
         private XmlDocument _xmlDocumentation;
         private string _resourceDirectory;
         private StringDictionary _writtenFiles = new StringDictionary();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -59,9 +54,6 @@ namespace NDoc.Documenter.NAnt {
         public NAntDocumenter() : base("NAnt") {
             Clear();
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -130,9 +122,6 @@ namespace NDoc.Documenter.NAnt {
                 return ((NAntDocumenterConfig) Config).ProductUrl;
             } 
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of IDocumenter
 
         /// <summary>
@@ -267,9 +256,6 @@ namespace NDoc.Documenter.NAnt {
 
             OnDocBuildingStep(100, "Complete");
         }
-
-        #endregion Override implementation of IDocumenter
-
         #region Private Instance Methods
 
         private void DocumentType(XmlNode typeNode, ElementDocType docType, NAntXsltUtilities utilities) {
@@ -471,8 +457,6 @@ namespace NDoc.Documenter.NAnt {
                 transform.Transform(_xmlDocumentation, arguments, writer);
             }
         }
-
-        #endregion Private Instance Methods
     }
 
     /// <summary>

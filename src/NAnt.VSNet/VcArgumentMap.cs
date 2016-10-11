@@ -31,8 +31,6 @@ namespace NAnt.VSNet {
     /// A mapping from properties in the .vcproj file to command line arguments.
     /// </summary>
     public class VcArgumentMap {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="VcArgumentMap" />
         /// class.
@@ -40,9 +38,6 @@ namespace NAnt.VSNet {
         public VcArgumentMap() {
             _htArgs = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         public void AddString(string propName, string argName) {
@@ -127,9 +122,6 @@ namespace NAnt.VSNet {
             }
             return arg.MapValue(propValue);
         }
-
-        #endregion Public Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -460,15 +452,9 @@ namespace NAnt.VSNet {
             map.AddEnum("StructMemberAlignment", null, null, "/Zp1", "/Zp2", "/Zp4", "/Zp8");
             return map;
         }
-
-        #endregion Public Static Methods
-
         #region Private Instance Fields
 
         private Hashtable _htArgs;
-
-        #endregion Private Instance Fields
-
         private abstract class VcArgument {
             private string _name;
             private ArgGroup _group;
@@ -503,12 +489,7 @@ namespace NAnt.VSNet {
         }
 
         private class VcStringArgument: VcArgument {
-            #region Private Instance Fields
-
             private bool _ignoreEmptyValue;
-
-            #endregion Private Instance Fields
-
             #region Internal Instance Constructors
 
             internal VcStringArgument(ArgGroup group, string name): this(group, name, false) {
@@ -517,17 +498,11 @@ namespace NAnt.VSNet {
             internal VcStringArgument(ArgGroup group, string name, bool ignoreEmptyValue): base(group, name) {
                 _ignoreEmptyValue = ignoreEmptyValue;
             }
-
-            #endregion Internal Instance Constructors
-
             #region Protected Instance Properties
 
             protected bool IgnoreEmptyValue {
                 get { return _ignoreEmptyValue; }
             }
-
-            #endregion Protected Instance Properties
-
             #region Override implementation of VcArgument
 
             internal override string MapValue(string propValue) {
@@ -537,8 +512,6 @@ namespace NAnt.VSNet {
 
                 return FormatOption(propValue);
             }
-
-            #endregion Override implementation of VcArgument
         }
 
         /// <summary>
@@ -546,16 +519,11 @@ namespace NAnt.VSNet {
         /// in the value should be duplicated.
         /// </summary>
         private class LinkerStringArgument: VcStringArgument {
-            #region Internal Instance Constructors
-
             internal LinkerStringArgument(ArgGroup group, string name): this(group, name, false) {
             }
 
             internal LinkerStringArgument(ArgGroup group, string name, bool ignoreEmptyValue): base(group, name, ignoreEmptyValue) {
             }
-
-            #endregion Internal Instance Constructors
-
             #region Override implementation of VcArgument
 
             internal override string MapValue(string value) {
@@ -569,8 +537,6 @@ namespace NAnt.VSNet {
 
                 return Name + ArgumentUtils.DuplicateTrailingBackslash(value);
             }
-
-            #endregion Override implementation of VcArgument
         }
 
         /// <summary>
@@ -578,16 +544,11 @@ namespace NAnt.VSNet {
         /// quoted, and of which trailing backslahes should be duplicated.
         /// </summary>
         private class QuotedLinkerStringArgument: VcStringArgument {
-            #region Internal Instance Constructors
-
             internal QuotedLinkerStringArgument(ArgGroup group, string name): this(group, name, false) {
             }
 
             internal QuotedLinkerStringArgument(ArgGroup group, string name, bool ignoreEmptyValue): base(group, name, ignoreEmptyValue) {
             }
-
-            #endregion Internal Instance Constructors
-
             #region Override implementation of VcArgument
 
             internal override string MapValue(string value) {
@@ -601,22 +562,15 @@ namespace NAnt.VSNet {
 
                 return Name + LinkTask.QuoteArgumentValue(value);
             }
-
-            #endregion Override implementation of VcArgument
         }
 
         private class VcBoolArgument: VcArgument {
-            #region Internal Instance Constructors
-
             internal VcBoolArgument(ArgGroup group, string name): this(group, name, "true") {
             }
 
             internal VcBoolArgument(ArgGroup group, string name, string match): base(group, name) {
                 _match = match;
             }
-
-            #endregion Internal Instance Constructors
-
             #region Internal Instance Properties
 
             /// <summary>
@@ -626,9 +580,6 @@ namespace NAnt.VSNet {
             public string Match {
                 get { return _match; }
             }
-
-            #endregion Internal Instance Properties
-
             #region Override implementation of VcArgument
 
             internal override string MapValue(string propValue) {
@@ -637,25 +588,15 @@ namespace NAnt.VSNet {
                 }
                 return null;
             }
-
-            #endregion Override implementation of VcArgument
-
             #region Private Instance Methods
 
             private string _match = "true";
-
-            #endregion Private Instance Methods
         }
 
         private class VcEnumArgument: VcArgument {
-            #region Internal Instance Constructors
-
             internal VcEnumArgument(ArgGroup group, string name, string[] values): base(group, name) {
                 _values = values;
             }
-
-            #endregion Internal Instance Constructors
-
             #region Override implementation of VcArgument
 
             internal override string MapValue(string propValue) {
@@ -671,14 +612,9 @@ namespace NAnt.VSNet {
                 }
                 return FormatOption(_values [iValue]);
             }
-
-            #endregion Override implementation of VcArgument
-
             #region Private Instance Methods
 
             private string[] _values;
-
-            #endregion Private Instance Methods
         }
 
         /// <summary>

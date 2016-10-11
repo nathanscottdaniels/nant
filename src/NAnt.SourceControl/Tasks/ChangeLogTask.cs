@@ -46,15 +46,10 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs-changelog")]
     public class ChangeLogTask : AbstractCvsTask {
-        #region Private Static Fields
-
         /// <summary>
         /// The command being executed.
         /// </summary>
         private const string CvsCommandName = "xml";
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -97,9 +92,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return Convert.ToDateTime(((Option)CommandOptions["end"]).Value); }
             set { SetCommandOption("end", string.Format(CultureInfo.InvariantCulture,"-D \"{0}\"", ToCvsDateTimeString(value)), true); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of AbstractCvsTask
 
         /// <summary>
@@ -160,7 +152,5 @@ namespace NAnt.SourceControl.Tasks {
             }
             set { base.Root = value; }
         }
-
-        #endregion Override implementation of AbstractCvsTask
     }
 }

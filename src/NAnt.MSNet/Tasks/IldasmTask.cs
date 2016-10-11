@@ -74,8 +74,6 @@ namespace NAnt.MSNet.Tasks {
     [TaskName("ildasm")]
     [ProgramLocation(LocationType.FrameworkSdkDir)]
     public class IldasmTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private const string _TargetExt = "il";
         private bool _all;
         private bool _bytes;
@@ -97,9 +95,6 @@ namespace NAnt.MSNet.Tasks {
         private FileInfo _outputFile;
         private FileSet _assemblies;
         private string _options;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -476,9 +471,6 @@ namespace NAnt.MSNet.Tasks {
             get { return _assemblies; }
             set { _assemblies = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -541,9 +533,6 @@ namespace NAnt.MSNet.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Private Instance Methods
 
         /// <summary>
@@ -753,7 +742,5 @@ namespace NAnt.MSNet.Tasks {
             // no need to disassembly the input file
             return false;
         }
-
-        #endregion Private Instance Methods
     }
 }

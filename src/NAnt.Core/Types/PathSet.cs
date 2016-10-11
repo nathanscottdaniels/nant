@@ -51,19 +51,11 @@ namespace NAnt.Core.Types {
     [Serializable()]
     [ElementName("path")]
     public class PathSet : DataTypeBase {
-        #region Private Instance Fields
-
         private ArrayList _elements = new ArrayList();
         private StringCollection _translatedElements = new StringCollection();
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static readonly bool _dosBasedFileSystem = (Path.PathSeparator == ';');
-
-        #endregion Private Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -82,9 +74,6 @@ namespace NAnt.Core.Types {
             base.Project = project;
             _translatedElements = PathSet.TranslatePath(project, path);
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of Object
 
         /// <summary>
@@ -110,9 +99,6 @@ namespace NAnt.Core.Types {
 
             return result.ToString();
         }
-
-        #endregion Override implementation of Object
-
         #region Public Instance Methods
 
         /// <summary>
@@ -165,9 +151,6 @@ namespace NAnt.Core.Types {
 
             return result;
         }
-
-        #endregion Public Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -230,7 +213,5 @@ namespace NAnt.Core.Types {
 
             return result;
         }
-
-        #endregion Public Static Methods
    }
 }

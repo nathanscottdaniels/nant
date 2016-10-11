@@ -38,17 +38,12 @@ namespace NAnt.Core {
     /// Use these static methods to register, initialize and create a task.
     /// </summary>
     public sealed class TypeFactory {
-        #region Private Static Fields
-
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static TaskBuilderCollection _taskBuilders = new TaskBuilderCollection();
         private static DataTypeBaseBuilderCollection _dataTypeBuilders = new DataTypeBaseBuilderCollection();
         private static FilterBuilderCollection _filterBuilders = new FilterBuilderCollection();
         private static Hashtable _methodInfoCollection = new Hashtable();
         private static PluginScanner _pluginScanner = new PluginScanner();
-
-        #endregion Private Static Fields
-
         #region Internal Static Properties
 
         /// <summary>
@@ -84,9 +79,6 @@ namespace NAnt.Core {
         internal static PluginScanner PluginScanner {
             get { return _pluginScanner; }
         }
-
-        #endregion Internal Static Properties
-
         #region Public Static Methods
 
         /// <summary>
@@ -503,9 +495,6 @@ namespace NAnt.Core {
             }
             return element;
         }
-
-        #endregion Public Static Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -717,7 +706,5 @@ namespace NAnt.Core {
                 return assembly.GetName().Name;
             }
         }
-
-        #endregion Private Static Methods
     }
 }

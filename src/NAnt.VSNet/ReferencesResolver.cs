@@ -28,8 +28,6 @@ using NAnt.Core.Util;
 
 namespace NAnt.VSNet {
     public class ReferencesResolver : MarshalByRefObject {
-        #region Override implementation of MarshalByRefObject
-
         /// <summary>
         /// Obtains a lifetime service object to control the lifetime policy for 
         /// this instance.
@@ -47,9 +45,6 @@ namespace NAnt.VSNet {
             }
             return lease;
         }
-
-        #endregion Override implementation of MarshalByRefObject
-
         #region Public Instance Methods
 
         public void AppendReferencedModulesLocatedInGivenDirectory(string moduleDirectory, string moduleName, ref Hashtable allReferences, ref Hashtable unresolvedReferences) {
@@ -88,7 +83,5 @@ namespace NAnt.VSNet {
             Assembly assembly = Assembly.Load(assemblyName);
             return (new Uri(assembly.CodeBase)).LocalPath;
         }
-
-        #endregion Public Instance Methods
     }
 }

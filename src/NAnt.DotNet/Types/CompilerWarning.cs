@@ -25,14 +25,9 @@ namespace NAnt.DotNet.Types {
     /// Represents a compiler warning.
     /// </summary>
     public class CompilerWarning : Element, IConditional {
-        #region Private Instance Fields
-
         private string  _number;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -66,7 +61,5 @@ namespace NAnt.DotNet.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

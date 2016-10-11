@@ -25,10 +25,7 @@ namespace Tests.NAnt.VSNet.Tasks {
     /// </summary>
     [TestFixture]
     public class VbSolutionTests : SolutionTestBase {
-        #region Private Static Fields
         // add fields here
-        #endregion Private Static Fields
-
         #region Protected Static Fields 
         /// <summary>
         /// LanguageType that is being tested.
@@ -37,9 +34,6 @@ namespace Tests.NAnt.VSNet.Tasks {
             get {return LanguageType.vb;}
         }
         #endregion
-
-        #region Override implementation of SolutionTestBase
-
         /// <summary>
         /// Initialize example directory.
         /// </summary>
@@ -61,9 +55,6 @@ namespace Tests.NAnt.VSNet.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-
-        #endregion Override implementation of SolutionTestBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -75,8 +66,5 @@ namespace Tests.NAnt.VSNet.Tasks {
             this.GetCurrentSolutionFile("WinForms");
             this.RunTestPlain();
         }
-
-        #endregion Public Instance Methods
-
     }
 }

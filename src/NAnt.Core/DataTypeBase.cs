@@ -29,13 +29,8 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public abstract class DataTypeBase : Element {
-        #region Private Instance Fields
-
         private string _id;
         private string _refID;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -67,9 +62,6 @@ namespace NAnt.Core {
         public bool CanBeReferenced {
             get { return Name != null; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Element
         
         /// <summary>
@@ -130,9 +122,6 @@ namespace NAnt.Core {
                 }
             }
         }
-
-        #endregion Override implementation of Element
-
         #region Public Instance Methods
 
         /// <summary>
@@ -141,9 +130,6 @@ namespace NAnt.Core {
         /// </summary>
         public virtual void Reset( ) {
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -156,7 +142,5 @@ namespace NAnt.Core {
             clone._id = _id;
             clone._refID = _refID;
         }
-
-        #endregion Protected Instance Methods
     }
 }

@@ -77,18 +77,12 @@ namespace NAnt.MSNet.Tasks {
             /// </summary>
             Continue
         }
-
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceControllerTask" />
         /// class.
         /// </summary>
         public ServiceControllerTask() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -129,9 +123,6 @@ namespace NAnt.MSNet.Tasks {
             get { return _timeout; }
             set { _timeout = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -177,9 +168,6 @@ namespace NAnt.MSNet.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods 
 
         /// <summary>
@@ -345,9 +333,6 @@ namespace NAnt.MSNet.Tasks {
                     Location, ex);
             }
         }
-
-        #endregion Private Instance Methods 
-
         #region Private Instance Fields
 
         /// <summary>
@@ -370,7 +355,5 @@ namespace NAnt.MSNet.Tasks {
         /// to reach the desired status.
         /// </summary>
         private double _timeout = 5000;
-
-        #endregion Private Instance Fields
     }
 }

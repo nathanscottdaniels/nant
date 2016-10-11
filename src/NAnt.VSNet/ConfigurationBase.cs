@@ -31,8 +31,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     public abstract class ConfigurationBase {
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationBase" /> 
         /// class with the given <see cref="ProjectBase" />.
@@ -46,9 +44,6 @@ namespace NAnt.VSNet {
             _project = project;
             _extraOutputFiles = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -144,17 +139,11 @@ namespace NAnt.VSNet {
         public Hashtable ExtraOutputFiles {
             get { return _extraOutputFiles; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         protected SolutionTask SolutionTask {
             get { return Project.SolutionTask; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Public Instance Methods
 
         public string ExpandMacros(string s) {
@@ -164,9 +153,6 @@ namespace NAnt.VSNet {
 
             return _rxMacro.Replace(s, new MatchEvaluator(EvaluateMacro));
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -225,9 +211,6 @@ namespace NAnt.VSNet {
             throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                 "Macro \"{0}\" is not supported.", macro), Location.UnknownLocation);
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -241,15 +224,10 @@ namespace NAnt.VSNet {
         private string EvaluateMacro(Match m) {
             return ExpandMacro(m.Groups[1].Value);
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private readonly ProjectBase _project;
         private readonly Regex _rxMacro = new Regex(@"\$\((\w+)\)");
         private Hashtable _extraOutputFiles;
-
-        #endregion Private Instance Fields
     }
 }

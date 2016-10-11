@@ -29,8 +29,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
     public sealed class FunctionSetAttribute : Attribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionSetAttribute" /> 
         /// class with the specified name.
@@ -65,9 +63,6 @@ namespace NAnt.Core.Attributes {
             _prefix = prefix;
             _category = category;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -94,14 +89,9 @@ namespace NAnt.Core.Attributes {
             get { return _prefix; }
             set { _prefix = value; }
         }
-        
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private string _prefix;
         private string _category;
-
-        #endregion Private Instance Fields
     }
 }

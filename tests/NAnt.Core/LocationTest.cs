@@ -27,12 +27,7 @@ using Tests.NAnt.Core.Util;
 namespace Tests.NAnt.Core {
     [TestFixture]
     public class LocationTest {
-        #region Private Instance Fields
-
         private string _tempFileName = null;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Methods
 
         [Test]
@@ -70,9 +65,6 @@ namespace Tests.NAnt.Core {
             string actual = location.ToString();
             Assert.AreEqual(expected, actual);
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         [SetUp]
@@ -85,7 +77,5 @@ namespace Tests.NAnt.Core {
             File.Delete(_tempFileName);
             Assert.IsFalse(File.Exists(_tempFileName), _tempFileName + " exists.");
         }
-
-        #endregion Protected Instance Methods
     }
 }

@@ -30,8 +30,6 @@ using NAnt.Core.Util;
 
 namespace NAnt.VSNet {
     public abstract class FileReferenceBase : ReferenceBase {
-        #region Protected Instance Constructors
-
         protected FileReferenceBase(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache) : base(referencesResolver, parent) {
             if (xmlDefinition == null) {
                 throw new ArgumentNullException("xmlDefinition");
@@ -43,9 +41,6 @@ namespace NAnt.VSNet {
             _xmlDefinition = xmlDefinition;
             _gacCache = gacCache;
         }
-
-        #endregion Protected Instance Constructors
-
         #region Protected Instance Properties
 
         protected XmlElement XmlDefinition {
@@ -55,9 +50,6 @@ namespace NAnt.VSNet {
         protected GacCache GacCache {
             get { return _gacCache; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -71,9 +63,6 @@ namespace NAnt.VSNet {
         public override bool IsManaged(Configuration config) {
             return true;
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -116,9 +105,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private string[] GetAllReferencedModules(string module) {
@@ -154,14 +140,9 @@ namespace NAnt.VSNet {
             allReferences.Keys.CopyTo(result, 0);
             return result;
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private readonly XmlElement _xmlDefinition;
         private readonly GacCache _gacCache;
-
-        #endregion Private Instance Fields
     }
 }

@@ -78,9 +78,6 @@ namespace NAnt.Core.Filters {
         /// to be used for both methods.
         /// </summary>
         delegate int AcquireCharDelegate();
-
-        #region Private Instance Fields
-
         private char _beginToken = '@';
         private char _endToken = '@';
         private Token[] _tokens;
@@ -96,9 +93,6 @@ namespace NAnt.Core.Filters {
 
         //Method used for Read
         private AcquireCharDelegate ReadChar;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -140,9 +134,6 @@ namespace NAnt.Core.Filters {
             get { return _ignoreCase; }
             set { _ignoreCase = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ChainableReader
 
         /// <summary>
@@ -176,9 +167,6 @@ namespace NAnt.Core.Filters {
             //Need to maintain seperate state for Read and Peek for this to work
             throw new ApplicationException(ResourceUtils.GetString("String_PeekNotSupported"));
         }
-
-        #endregion Override implementation of ChainableReader
-
         #region Override implementation of Element
 
         /// <summary>
@@ -204,9 +192,6 @@ namespace NAnt.Core.Filters {
             // tokens
             _tokenString = new StringBuilder(_maxTokenLength + 1, _maxTokenLength + 1);
         }
-
-        #endregion Override implementation of Element
-
         #region Private Instance Methods
 
         /// <summary>
@@ -387,7 +372,5 @@ namespace NAnt.Core.Filters {
                 return char1 == char2;
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

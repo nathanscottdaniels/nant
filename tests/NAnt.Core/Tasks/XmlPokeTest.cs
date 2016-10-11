@@ -29,8 +29,6 @@ using NAnt.Core;
 namespace Tests.NAnt.Core.Tasks {
     [TestFixture]    
     public class XmlPokeTest : BuildTestBase {
-        #region Private Instance Fields
-
         private const string _projectXml = "<?xml version=\"1.0\"?>"
             + "<project>"
                 + "<xmlpoke {0} />"
@@ -81,9 +79,6 @@ namespace Tests.NAnt.Core.Tasks {
                     + " <add key=\"server\" value=\"testhost.somecompany.com\" />"
                 + " </appSettings>"
             + " </configuration>";            
-
-        #endregion Private Instance Fields
-
         #region Public Instance Methods
 
         [Test]
@@ -244,11 +239,7 @@ namespace Tests.NAnt.Core.Tasks {
         {
             AssertPokePreserveWhitespace(false);
         }        
-
-        #endregion Public Instance Methods
         
-        #region Private Instance Methods
-
         private void AssertPokePreserveWhitespace(bool preserveWhitespace)
         {
             // write xml content to file
@@ -294,7 +285,5 @@ namespace Tests.NAnt.Core.Tasks {
 
             return contents;
         }
-
-        #endregion Private Instance Methods      
     }
 }

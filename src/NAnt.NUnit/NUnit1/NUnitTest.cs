@@ -31,8 +31,6 @@ namespace NAnt.NUnit1.Types {
     /// </summary>
     [ElementName("test")]
     public class NUnitTest : Element {
-        #region Private Instance Fields
-
         private string _class = null;
         private string _assembly = null;
         private bool _fork = false;
@@ -41,9 +39,6 @@ namespace NAnt.NUnit1.Types {
         private string _appConfigFile = null;
         private string _todir = null;
         private string _outfile = null;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -124,9 +119,6 @@ namespace NAnt.NUnit1.Types {
             get { return _appConfigFile; }
             set { _appConfigFile = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Internal Instance Methods
 
         internal NUnitTestData GetTestData() {
@@ -141,7 +133,5 @@ namespace NAnt.NUnit1.Types {
             data.AppConfigFile = AppConfigFile;
             return data;
         }
-
-        #endregion Internal Instance Methods
     }
 }

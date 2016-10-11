@@ -72,8 +72,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("al")]
     [ProgramLocation(LocationType.FrameworkDir)]
     public class AssemblyLinkerTask : NAnt.Core.Tasks.ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _responseFileName;
         private FileInfo _outputFile;
         private string _target;
@@ -104,9 +102,6 @@ namespace NAnt.DotNet.Tasks {
 
         // framework configuration settings
         private bool _supportsTemplate = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -463,9 +458,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _win32Res; }
             set { _win32Res = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -681,9 +673,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -820,7 +809,5 @@ namespace NAnt.DotNet.Tasks {
             // if we made it here then we don't have to recompile
             return false;
         }
-
-        #endregion Protected Instance Methods
     }
 }

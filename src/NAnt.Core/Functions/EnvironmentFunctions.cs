@@ -37,9 +37,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public EnvironmentFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -218,7 +215,5 @@ namespace NAnt.Core.Functions {
         public static string NewLine() {
             return Environment.NewLine;
         }
-
-        #endregion Public Instance Methods
     }
 }

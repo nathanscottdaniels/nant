@@ -45,8 +45,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public class BuildElementArrayAttribute : BuildElementAttribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildElementArrayAttribute" /> 
         /// with the specified name.
@@ -56,9 +54,6 @@ namespace NAnt.Core.Attributes {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="name" /> is a zero-length <see cref="string" />.</exception>
         public BuildElementArrayAttribute(string name) : base(name) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -86,13 +81,8 @@ namespace NAnt.Core.Attributes {
                 _elementType = value; 
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private Type _elementType;
-
-        #endregion Private Instance Fields
     }
 }

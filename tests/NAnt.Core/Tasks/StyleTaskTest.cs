@@ -30,8 +30,6 @@ using Tests.NAnt.Core.Util;
 namespace Tests.NAnt.Core.Tasks {
     [TestFixture]
     public class StyleTaskTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _projectXml = @"<?xml version='1.0'?>
                 <project>
                     <style in='{0}' out='{1}' style='{2}' />
@@ -52,9 +50,6 @@ namespace Tests.NAnt.Core.Tasks {
         private string _xmlSingletonSrcFileNameFull;
         private string _xslSrcFileNameFull;
         private string _xslPassthroughSrcFileNameFull;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string _xmlSrcFile = @"<?xml version=""1.0"" encoding=""ISO-8859-1"" ?> 
@@ -122,8 +117,6 @@ namespace Tests.NAnt.Core.Tasks {
                 <xsl:attribute name=""type"">xslttype</xsl:attribute>
             </xsl:template>
         </xsl:stylesheet>";
-        #endregion Private Static Fields
-
         #region Override implementation of BuildTestBase
 
         [SetUp]
@@ -140,9 +133,6 @@ namespace Tests.NAnt.Core.Tasks {
             _xslPassthroughSrcFileNameFull = Path.Combine(TempDirName, _xslPassthroughSrcFileName + "." + _xslSrcFileExtension);
             TempFile.CreateWithContents(_xslPassthroughSrcFile, _xslPassthroughSrcFileNameFull);
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         [Test]
@@ -458,8 +448,5 @@ namespace Tests.NAnt.Core.Tasks {
                 Assert.IsTrue(result.Contains(expected), msg);
             }
         }
-
-        #endregion Public Instance Methods
-
     }
 }

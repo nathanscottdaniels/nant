@@ -40,7 +40,6 @@ namespace NAnt.Core.Attributes {
     /// </example>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public sealed class FrameworkConfigurableAttribute : Attribute {
-        #region Public Instance Constructors
        
         /// <summary>
         /// Initializes a new instance of the <see cref="FrameworkConfigurableAttribute" />
@@ -52,9 +51,6 @@ namespace NAnt.Core.Attributes {
         public FrameworkConfigurableAttribute(string name) {
             Name = name;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -90,9 +86,6 @@ namespace NAnt.Core.Attributes {
             get { return _required; }
             set { _required = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Gets or sets a value indicating whether property references should 
         /// be expanded.
@@ -105,13 +98,8 @@ namespace NAnt.Core.Attributes {
             get { return _expandProperties; }
             set { _expandProperties = value; }
         }
-
-        #region Private Instance Fields
-
         private string _name;
         private bool _required;
         private bool _expandProperties = true;
-
-        #endregion Private Instance Fields
     }
 }

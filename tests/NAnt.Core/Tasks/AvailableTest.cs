@@ -31,8 +31,6 @@ namespace Tests.NAnt.Core.Tasks {
     /// </summary>
     [TestFixture]
     public class AvailableTest : BuildTestBase {
-        #region Override implementation of BuildTestBase
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
@@ -53,9 +51,6 @@ namespace Tests.NAnt.Core.Tasks {
                 Directory.Delete(_notExistingTempDir);
             }
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         [Test]
@@ -172,16 +167,11 @@ namespace Tests.NAnt.Core.Tasks {
             RunBuild(string.Format(CultureInfo.InvariantCulture, 
                 xml, "InvalidResourceType", @"\\#(){/}.dddd", "${file.exists}"));
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private string _tempFile;
         private string _tempDir;
         private string _notExistingTempFile;
         private string _notExistingTempDir;
-
-        #endregion Private Instance Fields
     }
 }

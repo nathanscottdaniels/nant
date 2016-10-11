@@ -38,9 +38,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public DirectoryFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -236,7 +233,5 @@ namespace NAnt.Core.Functions {
         public string GetName(string path) {
             return new DirectoryInfo(path).Name;
         }
-
-        #endregion Public Instance Methods
     }
 }

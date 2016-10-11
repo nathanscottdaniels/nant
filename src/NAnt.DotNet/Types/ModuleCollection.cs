@@ -29,8 +29,6 @@ namespace NAnt.DotNet.Types {
     /// </remarks>
     [Serializable()]
     public class ModuleCollection : IList, IEnumerable {
-        #region Public Instance Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleCollection" />
         /// for the specified <see cref="ModuleSet" />.
@@ -44,9 +42,6 @@ namespace NAnt.DotNet.Types {
             _moduleSet = moduleSet;
             _list = new ArrayList();
         }
-
-        #endregion Public Instance Constructor
-
         #region Public Instance Properties
 
         /// <summary>
@@ -69,9 +64,6 @@ namespace NAnt.DotNet.Types {
                 List[index] = value;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -85,9 +77,6 @@ namespace NAnt.DotNet.Types {
         protected ArrayList List {
             get { return _list; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Implementation of IEnumerable
 
         /// <summary>
@@ -99,9 +88,6 @@ namespace NAnt.DotNet.Types {
         IEnumerator IEnumerable.GetEnumerator() {
             return List.GetEnumerator();
         }
-
-        #endregion Implementation of IEnumerable
-
         #region Implementation of ICollection
 
         /// <summary>
@@ -145,9 +131,6 @@ namespace NAnt.DotNet.Types {
         object ICollection.SyncRoot {
             get { return this; }
         }
-
-        #endregion Implementation of ICollection
-
         #region Implementation of IList
 
         /// <summary>
@@ -294,9 +277,6 @@ namespace NAnt.DotNet.Types {
             }
             return Add((Module) value);
         }
-
-        #endregion Implementation of IList
-
         #region Public Instance Methods
 
         /// <summary>
@@ -387,23 +367,16 @@ namespace NAnt.DotNet.Types {
         public int IndexOf(Module value) {
             return List.IndexOf(value);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private readonly ModuleSet _moduleSet;
         private readonly ArrayList _list;
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
     /// Enumerates the <see cref="Module"/> items of a <see cref="ModuleCollection"/>.
     /// </summary>
     public class ModuleEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleEnumerator"/> class
         /// with the specified <see cref="ModuleCollection"/>.
@@ -413,9 +386,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -457,13 +427,8 @@ namespace NAnt.DotNet.Types {
         public void Reset() {
             _baseEnumerator.Reset();
         }
-            
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

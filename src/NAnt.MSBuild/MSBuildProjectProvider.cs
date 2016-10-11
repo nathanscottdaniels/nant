@@ -28,8 +28,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.MSBuild {
     internal class MSBuildProjectProvider : IProjectBuildProvider {
-        #region IProjectBuildProvider Members
-
         public int IsSupported(string projectExt, XmlElement xmlDefinition) {
             if (MSBuildProject.IsMSBuildProject(xmlDefinition))
                 return 20;

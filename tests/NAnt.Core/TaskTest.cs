@@ -33,12 +33,7 @@ namespace Tests.NAnt.Core {
     /// </summary>
     [TaskName("test")]
     public class TestTask : Task {
-        #region Private Instance Methods
-
         private bool _fail = false;
-
-        #endregion Private Instance Methods
-
         #region Public Instance Properties
 
         [TaskAttribute("fail", Required=false)]
@@ -61,9 +56,6 @@ namespace Tests.NAnt.Core {
             get { return ""; }
             set { }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         protected override void ExecuteTask() {
@@ -73,14 +65,10 @@ namespace Tests.NAnt.Core {
                 throw new BuildException("TestTask failed");
             }
         }
-
-        #endregion Override implementation of Task
     }
 
     [TestFixture]
     public class TaskTest : BuildTestBase {
-        #region Private Static Fields
-
         private const string _format = @"<?xml version='1.0' ?>
            <project name='testing' default='test'>
                 <!--<taskdef assembly='{0}'/>-->
@@ -88,9 +76,6 @@ namespace Tests.NAnt.Core {
                     <test {1}/>
                 </target>
             </project>";
-
-        #endregion Private Static Fields
-
         #region Public Instance Methods
         
         [Test]
@@ -166,24 +151,16 @@ namespace Tests.NAnt.Core {
         public void Test_UnknownAttribute() {
             RunBuild(FormatBuildFile("FaIL='false'"));
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private string FormatBuildFile(string attributes) {
             return string.Format(CultureInfo.InvariantCulture, _format, Assembly.GetExecutingAssembly().Location, attributes);
         }
-
-        #endregion Private Instance Methods
     }
 }

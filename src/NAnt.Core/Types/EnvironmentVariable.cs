@@ -29,8 +29,6 @@ namespace NAnt.Core.Types {
     [Serializable()]
     [ElementName("env")]
     public class EnvironmentVariable : Element, IConditional {
-        #region Private Instance Fields
-
         private string _name;
         private string _value;
         private string _literalValue;
@@ -39,9 +37,6 @@ namespace NAnt.Core.Types {
         private PathSet _path;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         /// <summary>
         /// Initializes a <see cref="EnvironmentVariable" /> instance with the
         /// specified name and value.
@@ -58,9 +53,6 @@ namespace NAnt.Core.Types {
         /// </summary>
         public EnvironmentVariable() {
         }
-
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the environment variable.
         /// </summary>
@@ -174,8 +166,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 
     /// <summary>
@@ -184,13 +174,8 @@ namespace NAnt.Core.Types {
     [Serializable]
     [ElementName("environment")]
     public class EnvironmentSet : Element {
-        #region Private Instance Fields
-
         private OptionCollection _options = new OptionCollection();
         private EnvironmentVariableCollection _environmentVariables = new EnvironmentVariableCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -211,7 +196,5 @@ namespace NAnt.Core.Types {
             get { return _environmentVariables; }
             set { _environmentVariables = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

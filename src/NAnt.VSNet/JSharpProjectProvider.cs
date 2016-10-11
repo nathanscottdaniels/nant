@@ -27,8 +27,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     internal class JSharpProjectProvider : IProjectBuildProvider {
-        #region Implementation of IProjectBuildProvider
-
         public int IsSupported(string projectExt, XmlElement xmlDefinition) {
             if (projectExt == ".vjsproj")
                 return 5;
@@ -44,7 +42,5 @@ namespace NAnt.VSNet {
         public string LoadGuid(XmlElement xmlDefinition) {
             return JSharpProject.LoadGuid(xmlDefinition);
         }
-
-        #endregion Implementation of IProjectBuildProvider
     }
 }

@@ -115,8 +115,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("mail")]
     public class MailTask : Task {
-        #region Private Instance Fields
-
         private string _from;
         private string _replyTo;
         private string _toList;
@@ -132,9 +130,6 @@ namespace NAnt.Core.Tasks {
         private int _portNumber = 25;
         private FileSet _files = new FileSet();
         private FileSet _attachments = new FileSet();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
   
         /// <summary>
@@ -320,9 +315,6 @@ namespace NAnt.Core.Tasks {
             get { return _attachments; }
             set { _attachments = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -516,9 +508,6 @@ namespace NAnt.Core.Tasks {
             }
 #endif
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         /// <summary>
@@ -734,9 +723,6 @@ namespace NAnt.Core.Tasks {
                 .Replace("&lt;", "<")
                 .Replace("&gt;", ">");
         }
-
-        #endregion Private Instance Methods
-
         /// <summary>
         /// Temporary enum replacement of <see cref="System.Web.Mail.MailFormat"/>
         /// to ease transition to newer property flags.

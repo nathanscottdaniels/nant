@@ -28,8 +28,6 @@ using Tests.NAnt.Core;
 
 namespace Tests.NAnt.VisualCpp {
     public abstract class VisualCppTestBase : BuildTestBase {
-        #region Protected Static Properties
-
         /// <summary>
         /// Gets a value indicating whether the VC++ compiler is present in the PATH.
         /// </summary>
@@ -98,9 +96,6 @@ namespace Tests.NAnt.VisualCpp {
         protected static bool ResourceCompilerPresent {
             get { return _resourceCompilerPresent; }
         }
-
-        #endregion Protected Static Methods
-
         #region Private Static Properties
 
         private static string[] ExpectedLibs {
@@ -110,9 +105,6 @@ namespace Tests.NAnt.VisualCpp {
         private static string[] ExpectedHeaderFiles {
             get { return _expectedHeaderFiles; }
         }
-
-        #endregion Private Static Properties
-
         #region Private Static Methods
         
         /// <summary>
@@ -210,9 +202,6 @@ namespace Tests.NAnt.VisualCpp {
             scanner.Add("rc.exe");
             return scanner.Scan("PATH").Count > 0;
         }
-
-        #endregion Private Static Methods
-
         #region Private Static Fields
 
         private static string[] _expectedLibs = new string[] {
@@ -239,7 +228,5 @@ namespace Tests.NAnt.VisualCpp {
         private static readonly bool _headerFilesPresent = CheckHeaderFilesPresent();
         private static readonly bool _supportedCompiler = CheckSupportedCompiler();
         private static readonly bool _resourceCompilerPresent = CheckResourceCompilerPresent();
-
-        #endregion Private Static Fields
     }
 }

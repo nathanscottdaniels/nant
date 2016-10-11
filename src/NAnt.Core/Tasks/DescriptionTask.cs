@@ -39,7 +39,5 @@ namespace NAnt.Core.Tasks {
         /// </summary>
         protected override void ExecuteTask() {
         }
-
-        #endregion Override implementation of Task
     }
 }

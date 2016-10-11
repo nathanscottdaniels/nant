@@ -80,8 +80,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("attrib")]
     public class AttribTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _file;
         private FileSet _fileset = new FileSet();
         private bool _archiveAttrib;
@@ -89,9 +87,6 @@ namespace NAnt.Core.Tasks {
         private bool _normalAttrib;
         private bool _readOnlyAttrib;
         private bool _systemAttrib;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -164,9 +159,6 @@ namespace NAnt.Core.Tasks {
             get { return _systemAttrib; }
             set { _systemAttrib = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -214,9 +206,6 @@ namespace NAnt.Core.Tasks {
                 Log(Level.Verbose, "No matching files or directories found.");
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private FileAttributes GetFileAttributes() {
@@ -300,7 +289,5 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

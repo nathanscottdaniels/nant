@@ -32,8 +32,6 @@ namespace NAnt.Core.Util
     /// </summary>
     public static class FileUtils 
     {
-        #region Public Static Methods
-
         /// <summary>
         /// Copies the contents of a directory to another directory recursively.
         /// </summary>
@@ -443,7 +441,5 @@ namespace NAnt.Core.Util
 
             return null;
         }
-
-        #endregion Public Static Methods
     }
 }

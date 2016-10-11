@@ -39,17 +39,11 @@ namespace NAnt.Win32.Tasks {
     /// </example>
     [TaskName("monoregistry")]
     internal class MonoRegistryTask : Task {
-
-        #region Private Static Fields
-
         /// <summary>
         /// The Mono reg key to default to if none of the keys in _regKeys are found
         /// in the running machine.
         /// </summary>
         private const string _defaultRegKey = @"SOFTWARE\Mono";
-
-        #endregion Private Static Fields
-
         #region Private Instance Fields
 
         /// <summary>
@@ -67,9 +61,6 @@ namespace NAnt.Win32.Tasks {
             @"SOFTWARE\Wow6432Node\Novell\Mono",
             @"SOFTWARE\Novell\Mono"
         };
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -83,9 +74,6 @@ namespace NAnt.Win32.Tasks {
             get { return _propName; }
             set { _propName = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -104,7 +92,5 @@ namespace NAnt.Win32.Tasks {
             // to the property.
             Properties[_propName] = _defaultRegKey;
         }
-
-        #endregion Override implementation of Task
     }
 }

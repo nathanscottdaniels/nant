@@ -83,8 +83,6 @@ namespace NAnt.Win32.Tasks {
     [TaskName("regasm")]
     [ProgramLocation(LocationType.FrameworkDir)]
     public class RegAsmTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private StringBuilder _arguments = new StringBuilder();
         private string _programFileName;
         private DirectoryInfo _workingDirectory;
@@ -96,9 +94,6 @@ namespace NAnt.Win32.Tasks {
         private bool _registered;
         private AssemblyFileSet _assemblies = new AssemblyFileSet();
         private AssemblyFileSet _references = new AssemblyFileSet();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -177,9 +172,6 @@ namespace NAnt.Win32.Tasks {
             get { return _references; }
             set { _references = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -323,10 +315,6 @@ namespace NAnt.Win32.Tasks {
             // further delegate preparation to base class
             base.PrepareProcess(process);
         }
-
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Override implementation of Task
 
         /// <summary>
@@ -408,9 +396,6 @@ namespace NAnt.Win32.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private string GetAssemblyPath(string assembly) {
@@ -421,7 +406,5 @@ namespace NAnt.Win32.Tasks {
             return Path.Combine(_workingDirectory.FullName, 
                 Path.GetFileName(assembly));
         }
-
-        #endregion Private Instance Methods
     }
 }

@@ -30,8 +30,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
     public class ElementNameAttribute : Attribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cre="ElementNameAttribute" /> 
         /// with the specified name.
@@ -42,9 +40,6 @@ namespace NAnt.Core.Attributes {
         public ElementNameAttribute(string name) {
             Name = name;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -69,13 +64,8 @@ namespace NAnt.Core.Attributes {
                 }
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private string _name;
-
-        #endregion Private Instance Fields
     }
 }

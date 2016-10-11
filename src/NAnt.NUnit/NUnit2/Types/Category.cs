@@ -26,14 +26,9 @@ namespace NAnt.NUnit2.Types {
     /// Represents a certain group of test cases or fixtures.
     /// </summary>
     public class Category : Element, IConditional {
-        #region Private Instance Fields
-
         private string  _name;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -66,7 +61,5 @@ namespace NAnt.NUnit2.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

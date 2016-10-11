@@ -123,9 +123,6 @@ namespace NAnt.DotNet.Tasks {
             /// </summary>
             Uninstall
         }
-
-        #region Private Instance Fields
-
         private StringBuilder _argumentBuilder = null;
         private ActionType _action = ActionType.FindOrCreate;
         private FileInfo _assemblyFile;
@@ -136,9 +133,6 @@ namespace NAnt.DotNet.Tasks {
         private bool _noreconfig = false;
         private bool _componentsOnly = false;
         private string _partitionName = null;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -241,9 +235,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _partitionName; }
             set { _partitionName = StringUtils.ConvertEmptyToNull(value); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -327,7 +318,5 @@ namespace NAnt.DotNet.Tasks {
             // call base class to do perform the actual call
             base.ExecuteTask();
         }
-
-        #endregion Override implementation of ExternalProgramBase
     }
 }

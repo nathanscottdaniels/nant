@@ -30,17 +30,12 @@ namespace NAnt.Core.Attributes {
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public sealed class StringValidatorAttribute : ValidatorAttribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StringValidatorAttribute" /> 
         /// class.
         /// </summary>
         public StringValidatorAttribute() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -77,9 +72,6 @@ namespace NAnt.Core.Attributes {
             get { return this._expressionErrorMessage; }
             set { this._expressionErrorMessage = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ValidatorAttribute
 
         /// <summary>
@@ -120,15 +112,10 @@ namespace NAnt.Core.Attributes {
                 }
             }
         }
-
-        #endregion Override implementation of ValidatorAttribute
-
         #region Private Instance Fields
 
         private bool _allowEmpty = true;
         private string _expression;
         private string _expressionErrorMessage;
-
-        #endregion Private Instance Fields
     }
 }

@@ -24,7 +24,6 @@ using NAnt.Core;
 
 namespace Tests.NAnt.Core {
     public class TestBuildListener : IBuildListener {
-        #region Public Instance Constructors
         
         public TestBuildListener() {
             _executedTargets = new Hashtable();
@@ -33,9 +32,6 @@ namespace Tests.NAnt.Core {
             _targetFinishTimes = new Hashtable();
             _loggedMessages = new ArrayList();
         }
-
-        #endregion Public Instance Constructors
-
         #region Implementation of IBuildListener
 
         public void BuildStarted(object sender, BuildEventArgs e) {
@@ -83,9 +79,6 @@ namespace Tests.NAnt.Core {
         public void TaskFinished(object sender, BuildEventArgs e) {
             _taskFinishedFired = true;
         }
-
-        #endregion Implementation of IBuildListener
-
         #region Public Instance Methods
 
         public int GetTargetExecutionCount(string target) {
@@ -173,9 +166,6 @@ namespace Tests.NAnt.Core {
         public bool HasTaskFinishedFired {
             get { return _taskFinishedFired; }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private Hashtable _executedTargets;
@@ -189,7 +179,5 @@ namespace Tests.NAnt.Core {
         private bool _targetFinishedFired;
         private bool _taskStartedFired;
         private bool _taskFinishedFired;
-
-        #endregion Private Instance Fields
     }
 }

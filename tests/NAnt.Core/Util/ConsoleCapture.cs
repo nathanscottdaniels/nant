@@ -38,8 +38,6 @@ namespace Tests.NAnt.Core.Util {
     ///     </code>
     /// </example>
     public sealed class ConsoleCapture : IDisposable {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleCapture" />
         /// class.
@@ -51,17 +49,11 @@ namespace Tests.NAnt.Core.Util {
             System.Console.SetOut(_writer);
             System.Console.SetError(_writer);
         }
-
-        #endregion Public Instance Constructors
-
         #region Finalizer
 
         ~ConsoleCapture() {
             Dispose();
         }
-
-        #endregion Finalizer
-
         #region Implementation of IDisposable
 
         public void Dispose() {
@@ -72,9 +64,6 @@ namespace Tests.NAnt.Core.Util {
             _disposed = true;
             GC.SuppressFinalize(this);
         }
-
-        #endregion Implementation of IDisposable
-
         #region Override implementation of Object
 
         /// <summary>
@@ -84,9 +73,6 @@ namespace Tests.NAnt.Core.Util {
         public override string ToString() {
             return _writer.ToString();
         }
-
-        #endregion Override implementation of Object
-
         #region Public Instance Methods
 
         /// <summary>
@@ -104,16 +90,11 @@ namespace Tests.NAnt.Core.Util {
             System.Console.SetError(_oldErrorWriter);
             return ToString();
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private bool _disposed;
         private ConsoleWriter _writer;
         private TextWriter   _oldWriter;
         private TextWriter   _oldErrorWriter;
-
-        #endregion Private Instance Fields
     }
 }

@@ -61,15 +61,10 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("touch")]
     public class TouchTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _file;
         private long _millis;
         private DateTime _datetime;
         private FileSet _fileset = new FileSet();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -110,9 +105,6 @@ namespace NAnt.Core.Tasks {
             get { return _fileset; }
             set { _fileset = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -162,9 +154,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private void TouchFile(string path, DateTime touchDateTime) {
@@ -197,7 +186,5 @@ namespace NAnt.Core.Tasks {
             DateTime touchDateTime = DateTime.Parse("01/01/1970 00:00:00", CultureInfo.InvariantCulture);
             return touchDateTime.Add(TimeSpan.FromMilliseconds(milliSeconds));            
         }
-
-        #endregion Private Instance Methods
     }
 }

@@ -27,8 +27,6 @@ namespace NAnt.Core.Types {
     /// </summary>
     [Serializable()]
     public class ArgumentCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentCollection"/> class.
         /// </summary>
@@ -50,11 +48,7 @@ namespace NAnt.Core.Types {
         public ArgumentCollection(Argument[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -83,9 +77,6 @@ namespace NAnt.Core.Types {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Object
 
         public override string ToString() {
@@ -93,9 +84,6 @@ namespace NAnt.Core.Types {
             ToString (sb);
             return sb.ToString ();
         }
-
-        #endregion Override implementation of Object
-
         #region Public Instance Methods
         
         /// <summary>
@@ -199,9 +187,6 @@ namespace NAnt.Core.Types {
         public void Remove(Argument item) {
             base.List.Remove(item);
         }
-
-        #endregion Public Instance Methods
-
         #region Internal Instance Methods
 
         internal void ToString(StringBuilder sb) {
@@ -214,16 +199,12 @@ namespace NAnt.Core.Types {
                 }
             }
         }
-
-        #endregion Internal Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="Argument"/> elements of a <see cref="ArgumentCollection"/>.
     /// </summary>
     public class ArgumentEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentEnumerator"/> class
         /// with the specified <see cref="ArgumentCollection"/>.
@@ -233,9 +214,6 @@ namespace NAnt.Core.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -279,13 +257,8 @@ namespace NAnt.Core.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

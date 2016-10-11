@@ -27,14 +27,9 @@ namespace NAnt.VisualCpp.Types {
     /// Represents a symbol.
     /// </summary>
     public class Symbol : Element, IConditional {
-        #region Private Instance Fields
-
         private string _symbolName;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -55,9 +50,6 @@ namespace NAnt.VisualCpp.Types {
 
             _symbolName = name;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -91,7 +83,5 @@ namespace NAnt.VisualCpp.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

@@ -26,15 +26,10 @@ namespace NAnt.NUnit.Types {
     /// </summary>
     [Serializable]
     public class FormatterData {
-        #region Private Instance Fields
-
         private string _extension;
         private bool _usefile;
         private FormatterType _formatterType = FormatterType.Plain;
         private DirectoryInfo _outputDirectory;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -79,7 +74,5 @@ namespace NAnt.NUnit.Types {
             get { return _outputDirectory; }
             set { _outputDirectory = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

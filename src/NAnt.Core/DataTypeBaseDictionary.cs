@@ -26,13 +26,9 @@ namespace NAnt.Core {
     /// Dictionary class to manage the projects types.
     /// </summary>
     public class DataTypeBaseDictionary : IDictionary, ICollection, IEnumerable, ICloneable {
-        #region Private Instance Fields
 
         private Hashtable _innerHash;
-
-        #endregion Private Instance Fields
         
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTypeBaseDictionary" /> class.
@@ -134,16 +130,11 @@ namespace NAnt.Core {
             _innerHash = new Hashtable (capacity, loadFactor, codeProvider, comparer);
         }
 
-        #endregion Public Instance Constructors
-
-        #region Internal Instance Properties
 
         internal Hashtable InnerHash {
             get { return _innerHash; }
             set { _innerHash = value ; }
         }
-
-        #endregion Internal Instance Properties
 
         /// <summary>
         /// Gets the enumerator.
@@ -287,9 +278,6 @@ namespace NAnt.Core {
             get { return _innerHash.IsFixedSize; }
         }
 
-        #endregion Implementation of IDictionary
-
-        #region Implementation of ICollection
 
         void ICollection.CopyTo(Array array, int index) {
             _innerHash.CopyTo(array, index);
@@ -325,8 +313,6 @@ namespace NAnt.Core {
             _innerHash.CopyTo(array, index);
         }
 
-        #endregion Implementation of ICollection
-
         /// <summary>
         /// Clones this instance.
         /// </summary>
@@ -346,8 +332,6 @@ namespace NAnt.Core {
         object ICloneable.Clone() {
             return Clone();
         }
-
-        #endregion Implementation of ICloneable
 
         /// <summary>
         /// Determines whether the dictionary contains the specified key.
@@ -377,8 +361,6 @@ namespace NAnt.Core {
             sync.InnerHash = Hashtable.Synchronized(nonSync.InnerHash);
             return sync;
         }
-
-        #endregion HashTable Methods
         
         /// <summary>
         /// Inherits Properties from an existing property
@@ -397,19 +379,13 @@ namespace NAnt.Core {
     /// Enumerator class for a <see cref="DataTypeBaseDictionary"/>.
     /// </summary>
     public class DataTypeBaseDictionaryEnumerator : IDictionaryEnumerator {
-        #region Private Instance Fields
 
         private IDictionaryEnumerator _innerEnumerator;
 
-        #endregion Private Instance Fields
-
-        #region Internal Instance Constructors
 
         internal DataTypeBaseDictionaryEnumerator(DataTypeBaseDictionary enumerable) {
             _innerEnumerator = enumerable.InnerHash.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
 
         /// <summary>
         /// Gets the key of the current dictionary entry.
@@ -446,8 +422,6 @@ namespace NAnt.Core {
             get { return _innerEnumerator.Entry; }
         }
 
-        #endregion Implementation of IDictionaryEnumerator
-
         /// <summary>
         /// Sets the enumerator to its initial position, which is before the first element in the collection.
         /// </summary>
@@ -478,7 +452,5 @@ namespace NAnt.Core {
         public DataTypeBase Current {
             get { return (DataTypeBase) _innerEnumerator.Current; }
         }
-
-        #endregion Implementation of IEnumerator
     }
 }

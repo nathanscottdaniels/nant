@@ -32,13 +32,8 @@ namespace NAnt.Core.Util {
     /// be inherited from.
     /// </summary>
     public sealed class ResourceUtils {
-        #region Private Static Fields
-
         private static ResourceManager _sharedResourceManager;
         private static readonly Hashtable _resourceManagerDictionary = new Hashtable();
-
-        #endregion Private Static Fields
-
         #region Private Instance Constructors
 
         /// <summary>
@@ -46,9 +41,6 @@ namespace NAnt.Core.Util {
         /// instantiated explicitly.
         /// </summary>
         private ResourceUtils() {}
-
-        #endregion Private Instance Constructors
-
         #region Public Static Methods
 
         /// <summary>
@@ -193,9 +185,6 @@ namespace NAnt.Core.Util {
             }
             return localizedString;
         }
-
-        #endregion Public Static Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -241,7 +230,5 @@ namespace NAnt.Core.Util {
             }
             return resourceName + ".Resources.Strings";
         }
-
-        #endregion Private Static Methods
     }
 }

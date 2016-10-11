@@ -78,16 +78,11 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("xmlpeek")]
     public class XmlPeekTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _xmlFile;
         private int _nodeIndex = 0;
         private string _property;
         private string _xPath;
         private XmlNamespaceCollection _namespaces = new XmlNamespaceCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
         
         /// <summary>
@@ -140,9 +135,6 @@ namespace NAnt.Core.Tasks {
             get { return _namespaces; }
             set { _namespaces = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -170,10 +162,6 @@ namespace NAnt.Core.Tasks {
             }
         }
         
-        #endregion Override implementation of Task
-        
-        #region private Instance Methods
-
         /// <summary>
         /// Loads an XML document from a file on disk.
         /// </summary>
@@ -275,7 +263,5 @@ namespace NAnt.Core.Tasks {
 
             return contents;
         }
-
-        #endregion private Instance Methods
     }
 }

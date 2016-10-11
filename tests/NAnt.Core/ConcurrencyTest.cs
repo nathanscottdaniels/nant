@@ -29,8 +29,6 @@ using NAnt.Core;
 namespace Tests.NAnt.Core {
     [TestFixture]
     public class ConcurrencyTest : BuildTestBase {
-        #region Private Static Fields
-
         private const string TwoIndependentTargets = @"
             <project default='Target1'>
                 <target name='Target1' depends='Target2 Target3' />
@@ -52,9 +50,6 @@ namespace Tests.NAnt.Core {
                     <sleep seconds='1' />
                 </target>
             </project>";
-
-        #endregion Private Static Fields
-
         #region Public Instance Methods
 
         [Test]
@@ -113,7 +108,5 @@ namespace Tests.NAnt.Core {
 
             Assert.IsTrue(target3finishTime <= target2startTime, "Target2 was started before Target3 was finished");
         }
-
-        #endregion Public Instance Methods
     }
 }

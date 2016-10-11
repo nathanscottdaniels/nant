@@ -32,8 +32,6 @@ namespace NAnt.VSNet {
     /// Represents the configuration of a file.
     /// </summary>
     public class VcFileConfiguration : VcConfigurationBase {
-        #region Internal Instance Constructors
-
         internal VcFileConfiguration(string relativePath, string parentName, XmlElement elem, VcProjectConfiguration parentConfig, DirectoryInfo outputDir) : base(elem, parentConfig.Project, outputDir) {
             if (relativePath == null) {
                 throw new ArgumentNullException("relativePath");
@@ -71,9 +69,6 @@ namespace NAnt.VSNet {
             _parentName = parentName;
             _parentConfig = parentConfig;
         }
-
-        #endregion Internal Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -97,9 +92,6 @@ namespace NAnt.VSNet {
         public string RelativePath {
             get { return _relativePath; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ConfigurationBase
 
         /// <summary>
@@ -146,9 +138,6 @@ namespace NAnt.VSNet {
                     return _parentConfig.ExpandMacro(macro);
             }
         }
-
-        #endregion Override implementation of ConfigurationBase
-
         #region Override implementation of VcConfigurationBase
 
         /// <summary>
@@ -246,16 +235,11 @@ namespace NAnt.VSNet {
             }
             return args;
         }
-
-        #endregion Override implementation of VcConfigurationBase
-
         #region Private Instance Fields
 
         private readonly string _relativePath;
         private readonly string _parentName;
         private readonly bool _excludeFromBuild;
         private readonly VcProjectConfiguration _parentConfig;
-
-        #endregion Private Instance Fields
     }
 }

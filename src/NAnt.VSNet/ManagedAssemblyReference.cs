@@ -44,9 +44,6 @@ namespace NAnt.VSNet {
 
             _assemblyFile = ResolveAssemblyReference();
         }
-
-        #region Override implementation of AssemblyReferenceBase
-
         protected override bool IsPrivate {
             get { return _isPrivate; }
         }
@@ -183,9 +180,6 @@ namespace NAnt.VSNet {
             // assembly reference could not be resolved
             return null;
         }
-
-        #endregion Override implementation of AssemblyReferenceBase
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -198,9 +192,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Private Instance Properties
 
         /// <summary>
@@ -226,9 +217,6 @@ namespace NAnt.VSNet {
                     visualStudioVersion);
             }
         }
-
-        #endregion Private Instance Properties
-
         #region Private Instance Methods
 
         private string GetComponentAssemblyFolder(XmlElement referenceElement) {
@@ -327,16 +315,11 @@ namespace NAnt.VSNet {
 
             return resolvedAssemblyFile;
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private readonly string _assemblyFile;
         private readonly bool _isPrivateSpecified;
         private readonly bool _isPrivate;
         private readonly string _name = string.Empty;
-
-        #endregion Private Instance Fields
     }
 }

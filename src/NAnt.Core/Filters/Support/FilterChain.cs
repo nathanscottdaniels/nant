@@ -85,13 +85,8 @@ namespace NAnt.Core.Filters {
     [Serializable]
     [ElementName("filterchain")]
     public class FilterChain : DataTypeBase {
-        #region Private Instance Fields
-
         private Encoding _inputEncoding;
         private FilterCollection _filters = new FilterCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -112,9 +107,6 @@ namespace NAnt.Core.Filters {
             get { return _inputEncoding; }
             set { _inputEncoding = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Element
 
         /// <summary>
@@ -131,9 +123,6 @@ namespace NAnt.Core.Filters {
                 this, elementNode, properties, framework);
             configurator.Initialize();
         }
-
-        #endregion Override implementation of Element
-
         #region Internal Instance Methods
 
         /// <summary>
@@ -172,9 +161,6 @@ namespace NAnt.Core.Filters {
 
             return parentFilter;
         }
-
-        #endregion Internal Instance Methods
-
         #region Internal Static Methods
 
         /// <summary>
@@ -191,9 +177,6 @@ namespace NAnt.Core.Filters {
         {
             return (filterChain == null || filterChain.Filters.Count <= 0);
         }
-
-        #endregion Internal Static Methods
-
         /// <summary>
         /// Configurator that initializes filters in the order in which they've
         /// been specified in the build file.

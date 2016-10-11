@@ -41,8 +41,6 @@ namespace NAnt.DotNet.Tasks {
     /// Provides the abstract base class for compiler tasks.
     /// </summary>
     public abstract class CompilerBase : ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _responseFileName;
         private FileInfo _outputFile;
         private string _target;
@@ -73,9 +71,6 @@ namespace NAnt.DotNet.Tasks {
         private bool _supportsKeyContainer;
         private bool _supportsKeyFile;
         private bool _supportsDelaySign;
-
-        #endregion Private Instance Fields
-
         #region Protected Static Fields
 
         /// <summary>
@@ -94,9 +89,6 @@ namespace NAnt.DotNet.Tasks {
         /// the value is <see langword="null" />.
         /// </remarks>
         protected readonly static Hashtable CultureNames;
-
-        #endregion Protected Static Fields
-
         #region Static Constructor
         
         /// <summary>
@@ -114,9 +106,6 @@ namespace NAnt.DotNet.Tasks {
                 CultureNames[ci.Name] = null;
             }
         }
-        
-        #endregion Static Constructor
-
         #region Public Instance Properties
 
         /// <summary>
@@ -457,9 +446,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsDelaySign; }
             set { _supportsDelaySign = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -485,9 +471,6 @@ namespace NAnt.DotNet.Tasks {
         protected abstract Regex NamespaceRegex {
             get;
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -739,9 +722,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -977,9 +957,6 @@ namespace NAnt.DotNet.Tasks {
             }
             return new ResourceLinkage(namespaceName, className);
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -1441,9 +1418,6 @@ namespace NAnt.DotNet.Tasks {
                 Project.Unindent();
             }
         }
-        
-        #endregion Protected Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -1480,21 +1454,14 @@ namespace NAnt.DotNet.Tasks {
             }
             return null;
         }
-
-        #endregion Public Static Methods
-
         /// <summary>
         /// Holds class and namespace information for resource (*.resx) linkage.
         /// </summary>
         public class ResourceLinkage {
-            #region Private Instance Fields
             
             private string _namespaceName;
             private string _className;
             private CultureInfo _culture;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Constructors
 
             /// <summary>
@@ -1507,9 +1474,6 @@ namespace NAnt.DotNet.Tasks {
                 _namespaceName = namespaceName;
                 _className = className;
             }
-
-            #endregion Public Instance Constructors
-
             #region Override implementation of Object
  
             /// <summary>
@@ -1541,9 +1505,6 @@ namespace NAnt.DotNet.Tasks {
 
                 return resourceName;
             }
-
-            #endregion Override implementation of Object
-
             #region Public Instance Properties
   
             /// <summary>
@@ -1617,8 +1578,6 @@ namespace NAnt.DotNet.Tasks {
                 get { return _culture; }
                 set { _culture = value; }
             }
-
-            #endregion Public Instance Properties
         }
     }
 }

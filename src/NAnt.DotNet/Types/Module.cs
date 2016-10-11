@@ -31,8 +31,6 @@ namespace NAnt.DotNet.Types {
     /// </summary>
     [Serializable]
     public class Module : Element {
-        #region Public Instance Properties
-
         /// <summary>
         /// The path of the module.
         /// </summary>
@@ -65,9 +63,6 @@ namespace NAnt.DotNet.Types {
             get { return _moduleSet; }
             set { _moduleSet = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Object
 
         /// <summary>
@@ -90,15 +85,10 @@ namespace NAnt.DotNet.Types {
             }
             return sb.ToString();
         }
-
-        #endregion Override implementation of Object
-
         #region Private Instance Fields
 
         private string _file;
         private string _target;
         private ModuleSet _moduleSet;
-
-        #endregion Private Instance Fields
     }
 }

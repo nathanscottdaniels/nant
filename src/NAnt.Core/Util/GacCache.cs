@@ -35,8 +35,6 @@ namespace NAnt.Core.Util {
     /// Global Assembly Cache.
     /// </summary>
     public sealed class GacCache : IDisposable {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GacCache"/> class in 
         /// the context of the given <see cref="Project" />.
@@ -46,17 +44,11 @@ namespace NAnt.Core.Util {
             _gacQueryCache = CollectionsUtil.CreateCaseInsensitiveHashtable();
             RecreateDomain();
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Destructors
 
         ~GacCache() {
             Dispose(false);
         }
-
-        #endregion Public Instance Destructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -68,9 +60,6 @@ namespace NAnt.Core.Util {
         public Project Project {
             get { return _project; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Properties
 
         private AppDomain Domain {
@@ -87,9 +76,6 @@ namespace NAnt.Core.Util {
                 return _resolver;
             }
         }
-
-        #endregion Private Instance Properties
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -108,9 +94,6 @@ namespace NAnt.Core.Util {
                 _disposed = true;
             }
         }
-
-        #endregion Implementation of IDisposable
-
         #region Public Instance Methods
 
         public void RecreateDomain() {
@@ -169,9 +152,6 @@ namespace NAnt.Core.Util {
             _gacQueryCache[assemblyFilePath] = Resolver.IsAssemblyInGac(assemblyFilePath);
             return (bool) _gacQueryCache[assemblyFilePath];
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         /// <summary>
@@ -206,12 +186,7 @@ namespace NAnt.Core.Util {
         /// Holds a value indicating whether the object has been disposed.
         /// </summary>
         private bool _disposed;
-
-        #endregion Private Instance Fields
-
         private class GacResolver : MarshalByRefObject {
-            #region Override implementation of MarshalByRefObject
-
             /// <summary>
             /// Obtains a lifetime service object to control the lifetime policy for 
             /// this instance.
@@ -229,9 +204,6 @@ namespace NAnt.Core.Util {
                 }
                 return lease;
             }
-
-            #endregion Override implementation of MarshalByRefObject
-
             #region Public Instance Methods
 
             /// <summary>
@@ -268,8 +240,6 @@ namespace NAnt.Core.Util {
                     return false;
                 }
             }
-
-            #endregion Public Instance Methods
         }
     }
 }

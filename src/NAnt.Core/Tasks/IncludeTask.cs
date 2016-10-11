@@ -65,12 +65,7 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("include")]
     public class IncludeTask : Task {
-        #region Private Instance Fields
-
         private string _buildFileName;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         /// <summary>
@@ -80,9 +75,6 @@ namespace NAnt.Core.Tasks {
 
         private static string _currentBasedir = "";
         private static int _nestinglevel = 0;
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -94,9 +86,6 @@ namespace NAnt.Core.Tasks {
             get { return _buildFileName; }
             set { _buildFileName = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -272,7 +261,5 @@ namespace NAnt.Core.Tasks {
                _currentBasedir = oldBaseDir;
            }
         }
-
-        #endregion Override implementation of Task
     }
 }

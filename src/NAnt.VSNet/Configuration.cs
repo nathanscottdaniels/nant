@@ -50,17 +50,11 @@ namespace NAnt.VSNet {
             }
             set { _platform = value; }
         }
-
-        #region Implementation of IComparable
-
         public int CompareTo(object obj) {
             if (this.Equals(obj))
                 return 0;
             return 1;
         }
-
-        #endregion Implementation of IComparable
-
         #region Override implementation of Object
 
         public override bool Equals(object obj) {
@@ -85,9 +79,6 @@ namespace NAnt.VSNet {
             }
             return Name + "|" + Platform;
         }
-
-        #endregion Override implementation of Object
-
         public static bool operator == (Configuration c1, Configuration c2) {
             if ((object) c1 == null) {
                 return ((object) c2 == null);

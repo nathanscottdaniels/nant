@@ -25,8 +25,6 @@ namespace NAnt.Core.Util {
     /// Provides a set of helper methods related to reflection.
     /// </summary>
     public sealed class ReflectionUtils {
-        #region Private Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ReflectionUtils" /> class.
         /// </summary>
@@ -35,9 +33,6 @@ namespace NAnt.Core.Util {
         /// </remarks>
         private ReflectionUtils() {
         }
-
-        #endregion Private Instance Constructors
-
         #region Public Static Methods
 
         /// <summary>
@@ -97,7 +92,5 @@ namespace NAnt.Core.Util {
 
             return type;
         }
-
-        #endregion Public Static Methods
     }
 }

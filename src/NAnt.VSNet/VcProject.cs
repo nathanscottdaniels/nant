@@ -45,7 +45,6 @@ namespace NAnt.VSNet {
     /// Visual C++ project.
     /// </summary>
     public class VcProject: ProjectBase {
-        #region Public Instance Constructors
         
         public VcProject(SolutionBase solution, string projectPath, XmlElement xmlDefinition, 
                 SolutionTask solutionTask, 
@@ -146,9 +145,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ProjectBase
 
         /// <summary>
@@ -379,17 +375,11 @@ namespace NAnt.VSNet {
 
             return BuildResult.Success;
         }
-
-        #endregion Override implementation of ProjectBase
-
         #region Internal Instance Properties
 
         internal ArrayList ProjectFiles {
             get { return _projectFiles; }
         }
-
-        #endregion Internal Instance Properties
-
         #region Protected Internal Instance Methods
 
         /// <summary>
@@ -422,9 +412,6 @@ namespace NAnt.VSNet {
                     return base.ExpandMacro(macro);
             }
         }
-
-        #endregion Protected Internal Instance Methods
-
         #region Internal Instance Methods
 
         internal string GetObjOutputFile(string fileName, VcConfigurationBase fileConfig, string intermediateDir) {
@@ -440,9 +427,6 @@ namespace NAnt.VSNet {
                 fileConfig.GetToolSetting(VcConfigurationBase.ResourceCompilerTool,
                     "ResourceOutputFileName", "$(IntDir)/$(InputName).res"));
         }
-
-        #endregion Internal Instance Methods
-
         #region Protected Instance Methods
 
         protected virtual ReferenceBase CreateReference(SolutionBase solution, XmlElement xmlDefinition) {
@@ -473,9 +457,6 @@ namespace NAnt.VSNet {
                         Location.UnknownLocation);
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private void RunNMake(string nmakeCommand) {
@@ -1815,9 +1796,6 @@ namespace NAnt.VSNet {
 
             return vcProjectDependencies;
         }
-
-        #endregion Private Instance Methods
-
         #region Public Static Methods
 
         public static string LoadGuid(XmlElement xmlDefinition) {
@@ -1877,9 +1855,6 @@ namespace NAnt.VSNet {
 
             return true;
         }
-
-        #endregion Public Static Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -1949,9 +1924,6 @@ namespace NAnt.VSNet {
                 "Visual Studio version \"{0}\" is not supported.",
                 productVersion.ToString()), Location.UnknownLocation);
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         private readonly string _name;
@@ -1978,9 +1950,6 @@ namespace NAnt.VSNet {
         ///   </para>
         /// </remarks>
         private readonly ArrayList _projectFiles;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static string[] _defaultLibraries = new string[] { 
@@ -1988,7 +1957,5 @@ namespace NAnt.VSNet {
                                                                      "advapi32.lib", "shell32.lib", "ole32.lib", "oleaut32.lib", "uuid.lib", 
                                                                      "odbc32.lib", "odbccp32.lib"
                                                                  };
-
-        #endregion Private Static Fields
     }
 }

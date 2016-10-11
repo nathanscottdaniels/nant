@@ -31,8 +31,6 @@ namespace NAnt.Core.Util {
     /// Commandline parser.
     /// </summary>
     public class CommandLineParser {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLineParser" /> class
         /// using possible arguments deducted from the specific <see cref="Type" />.
@@ -62,9 +60,6 @@ namespace NAnt.Core.Util {
             _argumentSpecification = argumentSpecification;
             _supportsResponseFile = supportsResponseFile;
         }
-        
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -259,9 +254,6 @@ namespace NAnt.Core.Util {
                 return false;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -291,9 +283,6 @@ namespace NAnt.Core.Util {
                 _defaultArgument.Finish(destination);
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
         
         /// <summary>
@@ -452,9 +441,6 @@ namespace NAnt.Core.Util {
                 }
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -474,16 +460,11 @@ namespace NAnt.Core.Util {
             Debug.Assert(attributes.Length == 0);
             return null;
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         private CommandLineArgumentCollection _argumentCollection; 
         private CommandLineArgument _defaultArgument;
         private Type _argumentSpecification;
         private bool _supportsResponseFile;
-
-        #endregion Private Instance Fields
     }
 }

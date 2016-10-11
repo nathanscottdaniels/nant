@@ -30,13 +30,8 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     internal class LocationMap {
-        #region Private Instance Fields
-
         // The LocationMap uses a hash table to map filenames to resolve specific maps.
         private Hashtable _fileMap = new Hashtable();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -44,9 +39,6 @@ namespace NAnt.Core {
         /// </summary>
         public LocationMap() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
         
         /// <summary>
@@ -202,9 +194,6 @@ namespace NAnt.Core {
             Location location = new Location(fileName, pos.Line, pos.Column);
             return location;
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private string GetXPathFromNode(XmlNode node) {
@@ -248,16 +237,11 @@ namespace NAnt.Core {
 
             return xpath;
         }
-
-        #endregion Private Instance Methods
-
         /// <summary>
         /// Represents a position in the build file.
         /// </summary>
         [Serializable()]
         private struct TextPosition {
-            #region Public Instance Constructors
-
             /// <summary>
             /// Initializes a new instance of the <see cref="TextPosition" />
             /// with the speified line and column.
@@ -268,9 +252,6 @@ namespace NAnt.Core {
                 Line = line;
                 Column = column;
             }
-
-            #endregion Public Instance Constructors
-
             #region Public Instance Fields
 
             /// <summary>
@@ -282,8 +263,6 @@ namespace NAnt.Core {
             /// The column coordinate of the position.
             /// </summary>
             public int Column;
-
-            #endregion Public Instance Fields
         }
     }
 }

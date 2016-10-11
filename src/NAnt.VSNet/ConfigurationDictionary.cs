@@ -24,31 +24,19 @@ using System.Globalization;
 
 namespace NAnt.VSNet {
     public sealed class ConfigurationDictionary : IDictionary, ICollection, IEnumerable {
-        #region Private Instance Fields
-
         private readonly Hashtable _innerHash;
-
-        #endregion Private Instance Fields
         
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConfigurationDictionary" /> class.
         /// </summary>
         public ConfigurationDictionary() {
             _innerHash = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-
-        #endregion Public Instance Constructors
-
         #region Internal Instance Properties
 
         internal Hashtable InnerHash {
             get { return _innerHash; }
         }
-
-        #endregion Internal Instance Properties
-
         #region Implementation of IDictionary
 
         public ConfigurationDictionaryEnumerator GetEnumerator() {
@@ -138,9 +126,6 @@ namespace NAnt.VSNet {
         public bool IsFixedSize {
             get { return _innerHash.IsFixedSize; }
         }
-
-        #endregion Implementation of IDictionary
-
         #region Implementation of ICollection
 
         void ICollection.CopyTo(Array array, int index) {
@@ -158,9 +143,6 @@ namespace NAnt.VSNet {
         public object SyncRoot {
             get { return _innerHash.SyncRoot; }
         }
-
-        #endregion Implementation of ICollection
-
         #region HashTable Methods
 
         public bool ContainsKey (Configuration key) {
@@ -170,25 +152,15 @@ namespace NAnt.VSNet {
         public bool ContainsValue(ConfigurationBase value) {
             return _innerHash.ContainsValue(value);
         }
-
-        #endregion HashTable Methods
     }
     
     public class ConfigurationDictionaryEnumerator : IDictionaryEnumerator {
-        #region Private Instance Fields
-
         private readonly IDictionaryEnumerator _innerEnumerator;
-
-        #endregion Private Instance Fields
-
         #region Internal Instance Constructors
 
         internal ConfigurationDictionaryEnumerator(ConfigurationDictionary enumerable) {
             _innerEnumerator = enumerable.InnerHash.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IDictionaryEnumerator
 
         public Configuration Key {
@@ -210,9 +182,6 @@ namespace NAnt.VSNet {
         public DictionaryEntry Entry {
             get { return new DictionaryEntry (Key, Value); }
         }
-
-        #endregion Implementation of IDictionaryEnumerator
-
         #region Implementation of IEnumerator
 
         public void Reset() {
@@ -230,8 +199,6 @@ namespace NAnt.VSNet {
         public ConfigurationDictionaryEntry Current {
             get { return new ConfigurationDictionaryEntry (Key, Value); }
         }
-
-        #endregion Implementation of IEnumerator
     }
 
     public sealed class ConfigurationDictionaryEntry {

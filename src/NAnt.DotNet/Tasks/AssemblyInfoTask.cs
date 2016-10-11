@@ -99,16 +99,11 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("asminfo")]
     [Serializable()]
     public class AssemblyInfoTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _output;
         private CodeLanguage _language = CodeLanguage.CSharp;
         private AssemblyAttributeCollection _attributes = new AssemblyAttributeCollection();
         private NamespaceImportCollection _imports = new NamespaceImportCollection();
         private AssemblyFileSet _references = new AssemblyFileSet();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -173,9 +168,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _references; }
             set { _references = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -242,9 +234,6 @@ namespace NAnt.DotNet.Tasks {
                     ResourceUtils.GetString("NA2004"), Output.FullName), Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         /// <summary>
@@ -291,9 +280,6 @@ namespace NAnt.DotNet.Tasks {
                 return false;
             }
         }
-
-        #endregion Private Instance Methods
-
         /// <summary>
         /// Defines the supported code languages for generating an AssemblyInfo
         /// file.
@@ -320,13 +306,8 @@ namespace NAnt.DotNet.Tasks {
         /// and assembly-level attributes.
         /// </summary>
         internal class CodeProvider {
-            #region Private Instance Fields
-
             private readonly CodeLanguage _language;
             private readonly ICodeGenerator _generator;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Constructors
 
             /// <summary>
@@ -354,9 +335,6 @@ namespace NAnt.DotNet.Tasks {
                 _generator = provider.CreateGenerator();
                 _language = codeLanguage;
             }
-
-            #endregion Public Instance Constructors
-
             #region Private Instance Properties
 
             /// <summary>
@@ -374,9 +352,6 @@ namespace NAnt.DotNet.Tasks {
             private ICodeGenerator Generator {
                 get { return _generator; }
             }
-
-            #endregion Private Instance Properties
-
             #region Public Instance Methods
 
             /// <summary>
@@ -439,9 +414,6 @@ namespace NAnt.DotNet.Tasks {
 
                 Generator.GenerateCodeFromCompileUnit(codeCompileUnit, writer, new CodeGeneratorOptions());
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Methods
 
             private object GetTypedValue(AssemblyAttribute attribute, StringCollection assemblies, StringCollection imports) {
@@ -471,8 +443,6 @@ namespace NAnt.DotNet.Tasks {
 
                 return typedValue;
             }
-
-            #endregion Private Instance Methods
         }
 
         /// <summary>
@@ -481,8 +451,6 @@ namespace NAnt.DotNet.Tasks {
         /// <see cref="Type" />.
         /// </summary>
         private class TypedValueGatherer : MarshalByRefObject {
-            #region Override implementation of MarshalByRefObject
-
             /// <summary>
             /// Obtains a lifetime service object to control the lifetime policy for 
             /// this instance.
@@ -500,9 +468,6 @@ namespace NAnt.DotNet.Tasks {
                 }
                 return lease;
             }
-
-            #endregion Override implementation of MarshalByRefObject
-
             #region Public Instance Methods
 
             /// <summary>
@@ -596,9 +561,6 @@ namespace NAnt.DotNet.Tasks {
                     assemblyResolver.Detach();
                 }
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Methods
 
             /// <summary>
@@ -657,8 +619,6 @@ namespace NAnt.DotNet.Tasks {
 
                 return type;
             }
-
-            #endregion Private Instance Methods
         }
     }
 }

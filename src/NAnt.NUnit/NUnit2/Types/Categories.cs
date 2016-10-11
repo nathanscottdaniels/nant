@@ -52,13 +52,8 @@ namespace NAnt.NUnit2.Types {
     /// </example>
     [ElementName("categories")]
     public class Categories : DataTypeBase {
-        #region Private Instance Fields
-
         private CategoryCollection _includes = new CategoryCollection();
         private CategoryCollection _excludes = new CategoryCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -76,7 +71,5 @@ namespace NAnt.NUnit2.Types {
         public CategoryCollection Excludes {
             get { return _excludes; }
         }
-
-        #endregion Public Instance Properties
     }
 }

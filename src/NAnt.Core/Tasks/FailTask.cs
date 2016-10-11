@@ -60,13 +60,8 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("fail")]
     public class FailTask : Task {
-        #region Private Instance Fields
-
         private string _message;
         private string _contents;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -115,9 +110,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -140,7 +132,5 @@ namespace NAnt.Core.Tasks {
         protected override void Initialize() {
             Contents = Project.ExpandProperties(XmlNode.InnerText, Location);
         }
-
-        #endregion Override implementation of Task
     }
 }

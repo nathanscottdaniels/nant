@@ -43,8 +43,6 @@ namespace Tests.NAnt.Core {
     /// </summary>
     [TestFixture]
     public class ProjectTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _format = @"<?xml version='1.0'?>
             <project name='ProjectTest' default='test' basedir='{0}'>
                 {1}
@@ -54,9 +52,6 @@ namespace Tests.NAnt.Core {
             </project>";
 
         private string _buildFileName;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Methods
 
         [Test]
@@ -262,9 +257,6 @@ namespace Tests.NAnt.Core {
                 Assert.AreEqual("value", ex.ParamName, "#6");
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         [SetUp]
@@ -272,9 +264,6 @@ namespace Tests.NAnt.Core {
             base.SetUp();
             _buildFileName = Path.Combine(TempDirName, "test.build");
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
         
         private void CheckCommon(Project p) {
@@ -309,9 +298,6 @@ namespace Tests.NAnt.Core {
                 Location.UnknownLocation);
             return val == Boolean.TrueString;
         }
-
-        #endregion Private Instance Methods
-
         class MockBuildEventListener : IBuildListener {
             public bool _buildStarted = false;
             public bool _buildFinished = false;

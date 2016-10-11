@@ -34,8 +34,6 @@ using NAnt.VSNet.Types;
 
 namespace NAnt.VSNet {
     public abstract class SolutionBase {
-        #region Protected Instance Constructors
-
         protected SolutionBase(SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver) : this(tfc, solutionTask) {
             if (solutionTask.SolutionFile != null) {
                 _file = solutionTask.SolutionFile;
@@ -45,9 +43,6 @@ namespace NAnt.VSNet {
                 LoadProjects(gacCache, refResolver, CollectionsUtil.CreateCaseInsensitiveHashtable());
             }
         }
-
-        #endregion Protected Instance Constructors
-
         #region Private Instance Constructors
 
         private SolutionBase(TempFileCollection tfc, SolutionTask solutionTask) {
@@ -59,9 +54,6 @@ namespace NAnt.VSNet {
             _outputDir = solutionTask.OutputDir;
             _webMaps = solutionTask.WebMaps;
         }
-
-        #endregion Private Instance Constructors
-
         #region Public Instance Properties
 
         public FileInfo File {
@@ -71,9 +63,6 @@ namespace NAnt.VSNet {
         public TempFileCollection TemporaryFiles {
             get { return _tfc; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties {
 
         protected WebMapCollection WebMaps {
@@ -83,9 +72,6 @@ namespace NAnt.VSNet {
         public ProjectEntryCollection ProjectEntries {
             get { return _projectEntries; }
         }
-
-        #endregion Protected Instance Properties {
-
         #region Public Instance Methods
 
         public void RecursiveLoadTemplateProject(string fileName) {
@@ -291,9 +277,6 @@ namespace NAnt.VSNet {
 
             return success;
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -759,9 +742,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -791,9 +771,6 @@ namespace NAnt.VSNet {
             }
             return string.Empty;
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private readonly FileInfo _file;
@@ -804,7 +781,5 @@ namespace NAnt.VSNet {
         private readonly WebMapCollection _webMaps;
         private readonly DirectoryInfo _outputDir;
         private readonly TempFileCollection _tfc;
-
-        #endregion Private Instance Fields
     }
 }

@@ -85,14 +85,9 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("regex")]
     public class RegexTask : Task {
-        #region Private Instance Fields
-
         private string _pattern;
         private string _input;
         private RegexOptions _options = RegexOptions.None;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -135,9 +130,6 @@ namespace NAnt.Core.Tasks {
             get { return _input;}
             set { _input = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -173,7 +165,5 @@ namespace NAnt.Core.Tasks {
                 Properties[groupName] = match.Groups[groupName].Value;
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

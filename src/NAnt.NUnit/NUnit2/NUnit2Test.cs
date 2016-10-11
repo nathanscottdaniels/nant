@@ -34,8 +34,6 @@ namespace NAnt.NUnit2.Types {
     /// </summary>
     [ElementName("test")]
     public class NUnit2Test : Element {
-        #region Private Instance Fields
-
         private FileInfo _assemblyFile;
         private string _testname;
         private bool _haltOnFailure = true;
@@ -44,9 +42,6 @@ namespace NAnt.NUnit2.Types {
         private AssemblyFileSet _references = new AssemblyFileSet();
         private FileInfo _appConfigFile;
         private Categories _categories = new Categories();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -145,7 +140,5 @@ namespace NAnt.NUnit2.Types {
                 return files;
             }
         }
-
-        #endregion Public Instance Properties
     }
 }

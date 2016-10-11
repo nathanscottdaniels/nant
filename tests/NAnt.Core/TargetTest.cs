@@ -28,8 +28,6 @@ using NAnt.Core;
 namespace Tests.NAnt.Core {
     [TestFixture]
     public class TargetTest : BuildTestBase {
-        #region Private Static Fields
-
         private const string BuildFragment = @"
             <project default='{0}'>
                 <target name='Target1' depends='Target2 Target3'>
@@ -55,9 +53,6 @@ namespace Tests.NAnt.Core {
                 <target name='Release' depends='Init'/>
                 <target name='Build' depends='Release'/>
             </project>";
-
-        #endregion Private Static Fields
-
         #region Public Instance Methods
 
         [Test]
@@ -204,16 +199,11 @@ namespace Tests.NAnt.Core {
             // run the build with an unknown default target
             RunBuild(FormatBuildFile("Unknown", "true", "false", string.Empty));
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private string FormatBuildFile(string defaultTarget, string a, string b, string target3Depends) {
             return string.Format(CultureInfo.InvariantCulture, BuildFragment, 
                 defaultTarget, a, b, target3Depends);
         }
-
-        #endregion Private Instance Methods
     }
 }

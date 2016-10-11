@@ -136,8 +136,6 @@ namespace NAnt.Core {
     /// </para>
     /// </remarks>
     public class BuildEventArgs : EventArgs {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildEventArgs" /> 
         /// class.
@@ -174,9 +172,6 @@ namespace NAnt.Core {
             _target = task.Parent as Target;
             _task = task;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -244,9 +239,6 @@ namespace NAnt.Core {
         public Task Task {
             get { return _task; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private readonly Project _project;
@@ -255,8 +247,6 @@ namespace NAnt.Core {
         private string _message;
         private Level _messageLevel = Level.Verbose;
         private Exception _exception;
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -389,17 +379,12 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public class DefaultLogger : IBuildLogger {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultLogger" /> 
         /// class.
         /// </summary>
         public DefaultLogger() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Implementation of IBuildLogger
 
         /// <summary>
@@ -452,9 +437,6 @@ namespace NAnt.Core {
                 OutputWriter.Flush();
             }
         }
-
-        #endregion Implementation of IBuildLogger
-
         #region Implementation of IBuildListener
 
         /// <summary>
@@ -622,9 +604,6 @@ namespace NAnt.Core {
             // output the message
             OutputMessage(e);
         }
-
-        #endregion Implementation of IBuildListener
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -634,9 +613,6 @@ namespace NAnt.Core {
         /// <param name="message">The message being logged.</param>
         protected virtual void Log(string message) {
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -715,9 +691,6 @@ namespace NAnt.Core {
                 }
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         private static BuildEventArgs CreateBuildEvent(Level messageLevel, string message) {
@@ -726,9 +699,6 @@ namespace NAnt.Core {
             buildEvent.Message = message;
             return buildEvent;
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         private Level _threshold = Level.Info;
@@ -739,8 +709,6 @@ namespace NAnt.Core {
         /// Holds a stack of reports for all running builds.
         /// </summary>
         private readonly Stack _buildReports = new Stack();
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -850,17 +818,12 @@ namespace NAnt.Core {
     /// </remarks>
     [Serializable()]
     public class MailLogger : DefaultLogger {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MailLogger" /> 
         /// class.
         /// </summary>
         public MailLogger() : base() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of DefaultLogger
 
         /// <summary>
@@ -1022,9 +985,6 @@ namespace NAnt.Core {
         protected override void Log(string message) {
             _buffer.Append(message).Append(Environment.NewLine);
         }
-
-        #endregion Override implementation of DefaultLogger
-
         #region Private Instance Methods
 
         /// <summary>
@@ -1095,9 +1055,6 @@ namespace NAnt.Core {
                 mail.Attachments.Add(attachment);
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         /// <summary>
@@ -1109,8 +1066,6 @@ namespace NAnt.Core {
         /// Holds the stack of currently executing projects.
         /// </summary>
         private Stack _projectStack = new Stack();
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -1119,8 +1074,6 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public class BuildListenerCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildListenerCollection"/> 
         /// class.
@@ -1143,11 +1096,7 @@ namespace NAnt.Core {
         public BuildListenerCollection(IBuildListener[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -1157,9 +1106,6 @@ namespace NAnt.Core {
             get { return ((IBuildListener)(base.List[index])); }
             set { base.List[index] = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -1249,16 +1195,12 @@ namespace NAnt.Core {
         public void Remove(IBuildListener item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="IBuildListener"/> elements of a <see cref="BuildListenerCollection"/>.
     /// </summary>
     public class BuildListenerEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildListenerEnumerator"/> class
         /// with the specified <see cref="BuildListenerCollection"/>.
@@ -1268,9 +1210,6 @@ namespace NAnt.Core {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -1314,14 +1253,9 @@ namespace NAnt.Core {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -1329,8 +1263,6 @@ namespace NAnt.Core {
     /// the NAnt logging infrastructure.
     /// </summary>
     public class LogWriter : TextWriter {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LogWriter" /> class 
         /// for the specified <see cref="Task" /> with the specified output 
@@ -1343,9 +1275,6 @@ namespace NAnt.Core {
             _task = task;
             _outputLevel = outputLevel;
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of TextWriter
 
         /// <summary>
@@ -1431,9 +1360,6 @@ namespace NAnt.Core {
             Flush();
             base.Close();
         }
-
-        #endregion Override implementation of TextWriter
-
         #region Override implementation of MarshalByRefObject
 
         /// <summary>
@@ -1453,9 +1379,6 @@ namespace NAnt.Core {
             }
             return lease;
         }
-
-        #endregion Override implementation of MarshalByRefObject
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -1465,15 +1388,10 @@ namespace NAnt.Core {
         protected Level OutputLevel {
             get { return _outputLevel; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Private Instance Fields
 
         private readonly Task _task;
         private readonly Level _outputLevel;
         private StringBuilder _message = new StringBuilder();
-
-        #endregion Private Instance Fields
     }
 }

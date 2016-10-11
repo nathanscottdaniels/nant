@@ -122,8 +122,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("move")]
     public class MoveTask : CopyTask {
-        #region Override implementation of CopyTask
-
         /// <summary>
         /// The file to move.
         /// </summary>
@@ -271,8 +269,6 @@ namespace NAnt.Core.Tasks {
                 "Could not find file '{0}' to move.", sourceFile),
                 Location);
         }
-
-        #endregion Override implementation of CopyTask
     }
 }
 

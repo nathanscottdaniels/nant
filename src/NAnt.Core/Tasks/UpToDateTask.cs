@@ -54,14 +54,9 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("uptodate")]
     public class UpToDateTask : Task {
-        #region Private Instance Fields
-
         private string _propertyName;
         private FileSet _sourceFiles;
         private FileSet _targetFiles;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -92,9 +87,6 @@ namespace NAnt.Core.Tasks {
             get { return _targetFiles; }
             set { _targetFiles = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -115,7 +107,5 @@ namespace NAnt.Core.Tasks {
             }
             Project.Properties[PropertyName] = Convert.ToString(value, CultureInfo.InvariantCulture);
         }
-
-        #endregion Override implementation of Task
     }
 }

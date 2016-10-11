@@ -27,14 +27,9 @@ using NAnt.Core.Util;
 namespace NAnt.Core {
     [FunctionSet("property", "NAnt")]
     public class ExpressionEvaluator : ExpressionEvalBase {
-        #region Private Instance Fields
-
         private PropertyDictionary _properties;
         private Hashtable _state;
         private Stack _visiting;
-
-        #endregion Private Instance Fields
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionEvaluator"/> class.
         /// </summary>
@@ -48,9 +43,6 @@ namespace NAnt.Core {
             _state = state;
             _visiting = visiting;
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ExpressionEvalBase
 
         protected override object EvaluateProperty(string propertyName) {
@@ -79,9 +71,6 @@ namespace NAnt.Core {
                 throw;
             }
         }
-
-        #endregion Override implementation of ExpressionEvalBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -131,7 +120,5 @@ namespace NAnt.Core {
                 return propertyValue;
             }
         }
-
-        #endregion Public Instance Methods
     }
 }

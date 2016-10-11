@@ -33,8 +33,6 @@ namespace NAnt.SourceControl.Tasks {
     /// CVS repository.
     /// </summary>
     public abstract class AbstractSourceControlTask : ExternalProgramBase {
-        #region Protected Static Fields
-
         /// <summary>
         /// Name of the environmental variable specifying a users' home
         ///     in a *nix environment.
@@ -60,9 +58,6 @@ namespace NAnt.SourceControl.Tasks {
         protected const string PropExeName = "sourcecontrol.exename";
 
         #endregion
-
-        #region Private Instance Fields
-
         private string _exeName;
         private string _root;
         private DirectoryInfo _destinationDirectory;
@@ -77,16 +72,10 @@ namespace NAnt.SourceControl.Tasks {
 
         private FileInfo _ssh;
         private FileSet _fileset = new FileSet();
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static readonly log4net.ILog Logger = 
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        #endregion Private Static Fields
-
         #region Protected Instance Constructors
 
         /// <summary>
@@ -95,9 +84,6 @@ namespace NAnt.SourceControl.Tasks {
         /// </summary>
         protected AbstractSourceControlTask () : base() {
         }
-
-        #endregion Protected Instance Constructors
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -135,9 +121,6 @@ namespace NAnt.SourceControl.Tasks {
         protected abstract string VcsExeName {get;}
 
         #endregion
-
-        #region Public Instance Properties
-
         /// <summary>
         /// <para>
         /// The root variable contains information on how to locate a repository.  
@@ -271,9 +254,6 @@ namespace NAnt.SourceControl.Tasks {
             get {return _ssh;}
             set {_ssh = value;}
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -282,9 +262,6 @@ namespace NAnt.SourceControl.Tasks {
         protected abstract string SshEnv {
             get;
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -312,9 +289,6 @@ namespace NAnt.SourceControl.Tasks {
             base.PrepareProcess(process);
             SetEnvironment(process);
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -428,9 +402,6 @@ namespace NAnt.SourceControl.Tasks {
             }
             return vcsFile;
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private FileInfo DeriveFullPathFromEnv(string environmentVar, string fileName) {
@@ -473,7 +444,5 @@ namespace NAnt.SourceControl.Tasks {
             }
             return null;
         }
-
-        #endregion Private Instance Methods
     }
 }

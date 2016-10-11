@@ -33,8 +33,6 @@ namespace NAnt.DotNet.Types {
     /// </summary>
     [ElementName("resourcefileset")]
     public class ResourceFileSet : FileSet, ICloneable {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourceFileSet" /> class.
         /// </summary>
@@ -49,9 +47,6 @@ namespace NAnt.DotNet.Types {
         /// <param name="fs"></param>
         public ResourceFileSet(FileSet fs) : base(fs) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -122,9 +117,6 @@ namespace NAnt.DotNet.Types {
                 return retFileSet;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Implementation of ICloneable
 
         /// <summary>
@@ -140,9 +132,6 @@ namespace NAnt.DotNet.Types {
             clone._prefix = _prefix;
             return clone;
         }
-
-        #endregion Implementation of ICloneable
-
         #region Public Instance Methods
 
         /// <summary>
@@ -230,14 +219,9 @@ namespace NAnt.DotNet.Types {
             // return manifest resource name
             return manifestResourceName.ToString();
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private string _prefix;
         private bool _dynamicprefix;
-
-        #endregion Private Instance Fields
     }
 }

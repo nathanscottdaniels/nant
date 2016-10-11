@@ -61,8 +61,6 @@ namespace NAnt.Compression.Tasks {
     /// </example>
     [TaskName("zip")]
     public class ZipTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _zipfile;
         private int _ziplevel = 6; 
         private ZipFileSetCollection _filesets = new ZipFileSetCollection();
@@ -74,9 +72,6 @@ namespace NAnt.Compression.Tasks {
         private Encoding _encoding;
         private Hashtable _addedDirs = new Hashtable();
         private Hashtable _fileEntries = new Hashtable();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -174,9 +169,6 @@ namespace NAnt.Compression.Tasks {
             }
             set { _encoding = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -374,16 +366,11 @@ namespace NAnt.Compression.Tasks {
                 CleanUp();
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private void CleanUp() {
             _addedDirs.Clear();
             _fileEntries.Clear();
         }
-
-        #endregion Private Instance Methods
     }
 }

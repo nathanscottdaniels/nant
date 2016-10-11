@@ -61,8 +61,6 @@ namespace NAnt.VisualCpp.Tasks {
     /// </example>
     [TaskName("cl")]
     public class ClTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _responseFileName;
         private DirectoryInfo _outputDir;
         private string _pchFile;
@@ -82,9 +80,6 @@ namespace NAnt.VisualCpp.Tasks {
         private Hashtable _resolvedIncludes;
         private Regex _includeRegex;
         private StringCollection _dirtySources = new StringCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -94,9 +89,6 @@ namespace NAnt.VisualCpp.Tasks {
             _resolvedIncludes = CollectionsUtil.CreateCaseInsensitiveHashtable();
             _includeRegex = new Regex("^[\\s]*#include[\\s]*[\"<](?'includefile'[^\">]+)[\">][\\S\\s]*$");
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -258,9 +250,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return (_pdbFile != null ? Path.Combine(OutputDir.FullName, _pdbFile) : OutputDir.FullName + "/"); }
             set { _pdbFile = StringUtils.ConvertEmptyToNull(value); }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -278,9 +267,6 @@ namespace NAnt.VisualCpp.Tasks {
         public override string ProgramArguments {
             get { return "@" + "\"" + _responseFileName + "\""; }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Override implementation of Task
 
         /// <summary>
@@ -432,9 +418,6 @@ namespace NAnt.VisualCpp.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -449,9 +432,6 @@ namespace NAnt.VisualCpp.Tasks {
             }
             return !AreObjsUpToDate();
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -694,9 +674,6 @@ namespace NAnt.VisualCpp.Tasks {
 
             return null;
         }
-
-        #endregion Private Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -742,9 +719,6 @@ namespace NAnt.VisualCpp.Tasks {
                     Path.GetFileNameWithoutExtension(srcFile) + ".obj");
             }
         }
-        
-        #endregion Public Static Methods
-
         /// <summary>
         /// Defines the supported modes for the use of precompiled header files.
         /// </summary>

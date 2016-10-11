@@ -27,8 +27,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     internal class VCProjectProvider : IProjectBuildProvider {
-        #region Implementation of IProjectBuildProvider
-
         public int IsSupported(string projectExt, XmlElement xmlDefinition) {
             if (projectExt == ".vcproj")
                 return 5;
@@ -44,7 +42,5 @@ namespace NAnt.VSNet {
         public string LoadGuid(XmlElement xmlDefinition) {
             return VcProject.LoadGuid(xmlDefinition);
         }
-
-        #endregion Implementation of IProjectBuildProvider
     }
 }

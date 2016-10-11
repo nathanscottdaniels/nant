@@ -90,16 +90,12 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("xmlpoke")]
     public class XmlPokeTask : Task {
-        #region Private Instance Fields
         
         private FileInfo _xmlFile;
         private string _value;
         private string _xPathExpression;
         private bool _preserveWhitespace;
         private XmlNamespaceCollection _namespaces = new XmlNamespaceCollection();
-        
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -153,12 +149,7 @@ namespace NAnt.Core.Tasks {
             get { return _preserveWhitespace; }
             set { _preserveWhitespace = value; }
         }
-
-
-
-        #endregion Public Instance Properties
         
-        #region Override implementation of Task
          
         /// <summary>
         /// Executes the XML poke task.
@@ -196,10 +187,7 @@ namespace NAnt.Core.Tasks {
                     Location, ex);
             }
         }
-        #endregion Override implementation of Task
         
-        #region Private Instance Methods
-
         /// <summary>
         /// Loads an XML document from a file on disk.
         /// </summary>
@@ -321,7 +309,5 @@ namespace NAnt.Core.Tasks {
                     Location, ex);
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

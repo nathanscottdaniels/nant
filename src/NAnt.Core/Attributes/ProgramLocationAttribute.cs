@@ -56,8 +56,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Class, Inherited=false, AllowMultiple=false)]
     public class ProgramLocationAttribute : Attribute {
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgramLocationAttribute" /> 
         /// with the specified location.
@@ -66,9 +64,6 @@ namespace NAnt.Core.Attributes {
         public ProgramLocationAttribute(LocationType type) {
             LocationType = type;
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -81,13 +76,8 @@ namespace NAnt.Core.Attributes {
             get { return _locationType; }
             set { _locationType = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private LocationType _locationType;
-
-        #endregion Private Instance Fields
     }
 }

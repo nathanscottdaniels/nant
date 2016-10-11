@@ -63,8 +63,6 @@ namespace NAnt.VisualCpp.Tasks {
     /// </example>
     [TaskName("midl")]
     public class MidlTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _responseFileName;
         private string _acf;
         private string _align;
@@ -86,15 +84,9 @@ namespace NAnt.VisualCpp.Tasks {
         private OptionCollection _defines = new OptionCollection();
         private OptionCollection _undefines = new OptionCollection();
         private FileSet _includeDirs = new FileSet();
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string PROG_FILE_NAME = "midl.exe";
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -289,9 +281,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _includeDirs; }
             set { _includeDirs = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -345,9 +334,6 @@ namespace NAnt.VisualCpp.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Private Instance Methods
 
         /// <summary>
@@ -467,7 +453,5 @@ namespace NAnt.VisualCpp.Tasks {
 
             writer.WriteLine("\"{0}\"", Filename.FullName);
         }
-
-        #endregion Private Instance Methods
     }
 }

@@ -73,8 +73,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("csc")]
     [ProgramLocation(LocationType.FrameworkDir)]
     public class CscTask : CompilerBase {
-        #region Private Instance Fields
-
         private DebugOutput _debugOutput = DebugOutput.None;
         private FileInfo _docFile;
         private int _fileAlign;
@@ -94,16 +92,10 @@ namespace NAnt.DotNet.Tasks {
         private bool _supportsDocGeneration = true;
         private bool _supportsPlatform;
         private bool _supportsLangVersion;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|namespace\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -360,9 +352,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsLangVersion; }
             set { _supportsLangVersion = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -375,9 +364,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _mcsSdk; }
             set { _mcsSdk = value; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of CompilerBase
 
         /// <summary>
@@ -542,7 +528,5 @@ namespace NAnt.DotNet.Tasks {
         protected override Regex NamespaceRegex {
             get { return _namespaceRegex; }
         }
-        
-        #endregion Override implementation of CompilerBase
     }
 }

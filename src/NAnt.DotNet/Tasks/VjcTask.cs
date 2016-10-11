@@ -67,8 +67,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("vjc")]
     [ProgramLocation(LocationType.FrameworkDir)]
     public class VjcTask : CompilerBase {
-        #region Private Instance Fields
-
         private string _baseAddress;
         private DebugOutput _debugOutput = DebugOutput.None;
         private bool _secureScoping;
@@ -77,16 +75,10 @@ namespace NAnt.DotNet.Tasks {
         private string _jcpa;
         private string _codepage;
         private string _warningLevel;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|package\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
-     
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -272,9 +264,6 @@ namespace NAnt.DotNet.Tasks {
         public override WarningAsError WarningAsError {
             get { return base.WarningAsError; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of CompilerBase
 
         /// <summary>
@@ -422,7 +411,5 @@ namespace NAnt.DotNet.Tasks {
             get { return false; }
             set { }
         }
-
-        #endregion Override implementation of CompilerBase
     }
 }

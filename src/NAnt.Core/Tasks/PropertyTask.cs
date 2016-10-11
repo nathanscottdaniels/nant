@@ -86,16 +86,11 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("property")]
     public class PropertyTask : Task {
-        #region Private Instance Fields
-
         private string _name;
         private string _value = string.Empty;
         private bool _readOnly;
         private bool _dynamic;
         private bool _overwrite = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -153,9 +148,6 @@ namespace NAnt.Core.Tasks {
             get { return _overwrite; }
             set { _overwrite = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -244,7 +236,5 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

@@ -40,9 +40,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public FileFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -212,7 +209,5 @@ namespace NAnt.Core.Functions {
                 return false;
             }
         }
-
-        #endregion Public Instance Methods
     }
 }

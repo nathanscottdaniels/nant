@@ -42,12 +42,7 @@ namespace NAnt.NUnit.Types {
     /// </summary>
     [ElementName("formatter")]
     public class FormatterElement : NAnt.Core.Element {
-        #region Private Instance Fields
-
         private FormatterData _data = new FormatterData();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
         
         /// <summary>
@@ -97,7 +92,5 @@ namespace NAnt.NUnit.Types {
         public FormatterData Data {
             get { return _data; }
         }
-
-        #endregion Public Instance Properties
     }
 }

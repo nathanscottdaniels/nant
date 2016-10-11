@@ -39,13 +39,8 @@ namespace NAnt.Compression.Tasks {
     /// </example>
     [TaskName("gunzip")]
     public class GUnzip : Task {
-        #region Private Instance Fields
-
         private FileInfo _srcFile;
         private FileInfo _destFile;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -65,9 +60,6 @@ namespace NAnt.Compression.Tasks {
             get { return _destFile; }
             set { _destFile = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -107,7 +99,5 @@ namespace NAnt.Compression.Tasks {
                     "Invalid gzip file '{0}'.", SrcFile.FullName), Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

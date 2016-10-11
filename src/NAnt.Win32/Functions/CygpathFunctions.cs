@@ -39,8 +39,6 @@ namespace NAnt.Win32.Functions {
     /// </remarks>
     [FunctionSet("cygpath", "Unix/Cygwin")]
     public class CygpathFunctions : FunctionSetBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CygpathFunctions" />
         /// class with the specified <see cref="Project" /> and properties.
@@ -49,9 +47,6 @@ namespace NAnt.Win32.Functions {
         /// <param name="properties">The set of properties to use for macro expansion.</param>
         public CygpathFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -98,9 +93,6 @@ namespace NAnt.Win32.Functions {
             return RunCygpathString(new Argument[] {
                 new Argument("--windows \"" + path + "\"") });
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
         
         /// <summary>
@@ -152,7 +144,5 @@ namespace NAnt.Win32.Functions {
             execTask.ErrorWriter = execTask.OutputWriter = new StreamWriter(stream);
             return execTask;
         }
-
-        #endregion Private Instance Methods
     }
 }

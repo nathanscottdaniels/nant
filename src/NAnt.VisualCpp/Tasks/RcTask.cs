@@ -61,17 +61,12 @@ namespace NAnt.VisualCpp.Tasks {
     /// </example>
     [TaskName("rc")]
     public class RcTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private FileInfo _outputFile;
         private string _options;
         private int _langId = 0;
         private FileInfo _rcFile;
         private FileSet _includeDirs = new FileSet();
         private OptionCollection _defines = new OptionCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -132,9 +127,6 @@ namespace NAnt.VisualCpp.Tasks {
         public OptionCollection Defines {
             get { return _defines; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -207,9 +199,6 @@ namespace NAnt.VisualCpp.Tasks {
                 base.ExecuteTask();
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -285,8 +274,6 @@ namespace NAnt.VisualCpp.Tasks {
             }
             return false;
         }
-
-        #endregion Protected Instance Methods
     }
 }
 #if unused

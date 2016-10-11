@@ -70,8 +70,6 @@ namespace NAnt.NUnit1.Tasks {
     [TaskName("nunit")]
     [Obsolete("In a future release, this task will be moved to NAntContrib. However, we strongly advise you to upgrade to NUnit 2.x.")]
     public class NUnitTask : Task {
-        #region Private Instance Fields
-
         private bool _haltOnError = false;
         private bool _haltOnFailure = false;
         private int _timeout = 0;
@@ -79,9 +77,6 @@ namespace NAnt.NUnit1.Tasks {
         private bool _errorsPresent = false;
         private NUnitTestCollection _tests = new NUnitTestCollection();
         private FormatterElementCollection _formatterElements = new FormatterElementCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -134,9 +129,6 @@ namespace NAnt.NUnit1.Tasks {
         public FormatterElementCollection FormatterElements {
             get { return _formatterElements; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         protected override void ExecuteTask() {
@@ -151,9 +143,6 @@ namespace NAnt.NUnit1.Tasks {
                 throw new BuildException("Unit test had errors, see build log.", Location);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private void ExecuteTest(NUnitTest test) {
@@ -245,7 +234,5 @@ namespace NAnt.NUnit1.Tasks {
                 throw new BuildException("Error running unit test.", Location, ex);
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

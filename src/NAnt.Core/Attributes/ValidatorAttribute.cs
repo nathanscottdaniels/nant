@@ -25,15 +25,11 @@ namespace NAnt.Core.Attributes {
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, Inherited=true)]
     public abstract class ValidatorAttribute : Attribute {
-        #region Public Instance Methods
-
         /// <summary>
         /// Validates the specified value.
         /// </summary>
         /// <param name="value">The value to be validated.</param>
         /// <exception cref="ValidationException">The validation fails.</exception>
         public abstract void Validate(object value);
-
-        #endregion Public Instance Methods
     }
 }

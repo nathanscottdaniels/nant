@@ -41,13 +41,8 @@ using NAnt.Win32.Tasks;
 
 namespace NAnt.VSNet {
     public abstract class WrapperReferenceBase : FileReferenceBase {
-        #region Protected Instance Constructors
-
         protected WrapperReferenceBase(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache) : base(xmlDefinition, referencesResolver, parent, gacCache) {
         }
-
-        #endregion Protected Instance Constructors
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -141,9 +136,6 @@ namespace NAnt.VSNet {
         public override DateTime GetTimestamp(Configuration solutionConfiguration) {
             return GetFileTimestamp(WrapperAssembly);
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Public Instance Properties
 
         /// <summary>
@@ -179,9 +171,6 @@ namespace NAnt.VSNet {
         public bool IsCreated {
             get { return _isCreated; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -238,9 +227,6 @@ namespace NAnt.VSNet {
                 return GetTypeLibraryName(GetTypeLibrary());
             }
         }
-
-        #endregion Protected Instance Properties
-
         #region Protected Instance Methods
 
         protected abstract void ImportTypeLibrary();
@@ -360,9 +346,6 @@ namespace NAnt.VSNet {
             return Marshal.GetTypeLibName((UCOMITypeLib) typeLib);
 #endif
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         private string CreateWrapper(ConfigurationBase config) {
@@ -492,21 +475,13 @@ namespace NAnt.VSNet {
             }
             return new BuildException(msg, Location.UnknownLocation);
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         [DllImport( "oleaut32.dll", CharSet=CharSet.Unicode, PreserveSig=false)]
         private static extern void LoadTypeLibEx(string strTypeLibName, int regKind, 
             [MarshalAs(UnmanagedType.Interface)] out Object typeLib);
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         private bool _isCreated;
-
-        #endregion Private Instance Fields
     }
 }

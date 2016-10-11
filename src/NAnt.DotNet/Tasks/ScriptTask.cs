@@ -234,8 +234,6 @@ namespace NAnt.DotNet.Tasks {
     /// </example>
     [TaskName("script")]
     public class ScriptTask : Task {
-        #region Private Instance Fields
-
         private string _language = null;
         private AssemblyFileSet _references = new AssemblyFileSet();
         private string _mainClass = "";
@@ -243,9 +241,6 @@ namespace NAnt.DotNet.Tasks {
         private string _prefix = "script";
         private NamespaceImportCollection _imports = new NamespaceImportCollection();
         private RawXml _code;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static readonly string[] _defaultNamespaces = {
@@ -255,9 +250,6 @@ namespace NAnt.DotNet.Tasks {
                                                                   "System.Text",
                                                                   "NAnt.Core",
                                                                   "NAnt.Core.Attributes"};
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -317,9 +309,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _code; }
             set { _code = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -460,9 +449,6 @@ namespace NAnt.DotNet.Tasks {
                     ex.InnerException);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private CompilerInfo CreateCompilerInfo(string language) {
@@ -511,9 +497,6 @@ namespace NAnt.DotNet.Tasks {
                     ResourceUtils.GetString("NA2036"), language), Location, ex);
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         private static CodeDomProvider CreateCodeDomProvider(string typeName, string assemblyName) {
@@ -540,9 +523,6 @@ namespace NAnt.DotNet.Tasks {
             }
             return (CodeDomProvider) provider;
         }
-
-        #endregion Private Static Methods
-
         internal class CompilerInfo {
             public readonly ICodeCompiler Compiler;
             public readonly ICodeGenerator CodeGen;

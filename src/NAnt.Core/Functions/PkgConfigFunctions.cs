@@ -39,9 +39,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public PkgConfigFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -210,9 +207,6 @@ namespace NAnt.Core.Functions {
         public bool Exists(string package) {
             return RunPkgConfigBool( new Argument[]{ new Argument("--exists"), new Argument(package)} );
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
         
         /// <summary>
@@ -291,7 +285,5 @@ namespace NAnt.Core.Functions {
             execTask.ErrorWriter = execTask.OutputWriter = new StreamWriter(stream);
             return execTask;
         }
-
-        #endregion Private Instance Methods
     }
 }

@@ -26,15 +26,10 @@ using NAnt.Core;
 
 namespace NAnt.VSNet {
     public class ProjectEntry {
-        #region Private Instance Fields
-
         private readonly string _guid;
         private readonly string _path;
         private ProjectBase _project;
         private ConfigurationMap _buildConfigurations;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
             
         public ProjectEntry(string guid, string path) {
@@ -48,9 +43,6 @@ namespace NAnt.VSNet {
             _guid = guid;
             _path = path;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public string Guid {
@@ -110,8 +102,6 @@ namespace NAnt.VSNet {
             get { return _buildConfigurations; }
             set { _buildConfigurations = value; }
         }
-
-        #endregion Public Instance Properties
     }
 
     /// <summary>
@@ -119,8 +109,6 @@ namespace NAnt.VSNet {
     /// </summary>
     [Serializable()]
     public class ProjectEntryCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectEntryCollection"/> class.
         /// </summary>
@@ -142,11 +130,7 @@ namespace NAnt.VSNet {
         public ProjectEntryCollection(ProjectEntry[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -191,9 +175,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -312,16 +293,12 @@ namespace NAnt.VSNet {
         public void Remove(ProjectEntry item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="ProjectEntry"/> elements of a <see cref="ProjectEntryCollection"/>.
     /// </summary>
     public class ProjectEntryEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectEntryEnumerator"/> class
         /// with the specified <see cref="ProjectEntryCollection"/>.
@@ -331,9 +308,6 @@ namespace NAnt.VSNet {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -377,13 +351,8 @@ namespace NAnt.VSNet {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

@@ -101,8 +101,6 @@ namespace NAnt.Core {
     /// </example>
     [Serializable()]
     public class DirectoryScanner : ICloneable {
-        #region Private Instance Fields
-
         // set to current directory in Scan if user doesn't specify something first.
         // keeping it null, lets the user detect if it's been set or not.
         private DirectoryInfo _baseDirectory;
@@ -139,17 +137,11 @@ namespace NAnt.Core {
 
         // Indicates whether or not the base directory contains empty subdirectories.
         private bool _hasEmptyDirectories = false;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Hashtable cachedCaseSensitiveRegexes = new Hashtable();
         private static Hashtable cachedCaseInsensitiveRegexes = new Hashtable();
-
-        #endregion Private Static Fields
-
         #region Public Instance Constructor
 
         /// <summary>
@@ -170,9 +162,6 @@ namespace NAnt.Core {
         public DirectoryScanner (bool caseSensitive) {
             _caseSensitive = caseSensitive;
         }
-
-        #endregion Public Instance Constructor
-
         #region Implementation of ICloneable
 
         /// <summary>
@@ -243,9 +232,6 @@ namespace NAnt.Core {
 
             return clone;
         }
-
-        #endregion Implementation of ICloneable
-
         #region Public Instance Properties
 
         /// <summary>
@@ -386,9 +372,6 @@ namespace NAnt.Core {
         {
             get { return _hasEmptyDirectories; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -470,9 +453,6 @@ namespace NAnt.Core {
             Console.WriteLine("*********************************************************************");
 #endif
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void Reset () 
@@ -1050,9 +1030,6 @@ namespace NAnt.Core {
                 GetAllFileSystemInfo(d);
             }
         }
-        
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         private static StringBuilder CleanPath(string nantPath) {
@@ -1136,9 +1113,6 @@ namespace NAnt.Core {
                 patternText = patternText.Substring(0, pattern.Length - 3);
             return patternText;
         }
-
-        #endregion Private Static Methods
-
         [Serializable()]
         private class RegexEntry {
             public bool        IsRecursive;
@@ -1149,8 +1123,6 @@ namespace NAnt.Core {
 
     [Serializable()]
     internal class StringCollectionWithGoodToString : StringCollection, ICloneable {
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="StringCollectionWithGoodToString" />.
         /// </summary>
@@ -1164,9 +1136,6 @@ namespace NAnt.Core {
             clone.AddRange(strings);
             return clone;
         }
-
-        #endregion Implementation of ICloneable
-
         #region Override implemenation of Object
 
         /// <summary>
@@ -1184,14 +1153,10 @@ namespace NAnt.Core {
             }
             return sb.ToString();
         }
-
-        #endregion Override implemenation of Object
     }
 
     [Serializable()]
     internal class DirScannerStringCollection : StringCollectionWithGoodToString {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initialize a new instance of the <see cref="DirScannerStringCollection" />
         /// class specifying whether or not string comparison should be
@@ -1201,9 +1166,6 @@ namespace NAnt.Core {
         public DirScannerStringCollection (bool caseSensitive) {
             _caseSensitive = caseSensitive;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -1215,9 +1177,6 @@ namespace NAnt.Core {
         public bool CaseSensitive {
             get { return _caseSensitive; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ICloneable
 
         /// <summary>
@@ -1233,9 +1192,6 @@ namespace NAnt.Core {
             clone.AddRange(strings);
             return clone;
         }
-
-        #endregion Override implementation of ICloneable
-
         #region Override implementation of StringCollection
 
         /// <summary>
@@ -1281,13 +1237,8 @@ namespace NAnt.Core {
                 return -1;
             }
         }
-
-        #endregion Override implementation of StringCollection
-
         #region Private Instance Fields
 
         private readonly bool _caseSensitive;
-
-        #endregion Private Instance Fields
     }
 }

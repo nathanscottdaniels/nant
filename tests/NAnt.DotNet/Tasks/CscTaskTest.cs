@@ -34,12 +34,7 @@ using Tests.NAnt.Core.Util;
 namespace Tests.NAnt.DotNet.Tasks {
     [TestFixture]
     public class CscTaskTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _sourceFileName;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string _format = @"<?xml version='1.0'?>
@@ -69,9 +64,6 @@ namespace Tests.NAnt.DotNet.Tasks {
                     }
                 }
             }";
-
-        #endregion Private Static Fields
-
         #region Override implementation of BuildTestBase
 
         [SetUp]
@@ -80,9 +72,6 @@ namespace Tests.NAnt.DotNet.Tasks {
             _sourceFileName = Path.Combine(TempDirName, "HelloWorld.cs");
             TempFile.CreateWithContents(_sourceCode, _sourceFileName);
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -725,9 +714,6 @@ namespace Tests.NAnt.DotNet.Tasks {
             Assert.AreEqual(resources.Prefix + "." + "ResourceFile.en-US.resources", 
                 cscTask.GetManifestResourceName(resources, resourceFile));
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void PerformDependentResxTests(CscTask cscTask, ResourceFileSet resources) {
@@ -880,8 +866,6 @@ namespace Tests.NAnt.DotNet.Tasks {
                 basedir      != null ? basedir : Path.GetDirectoryName(_sourceFileName), 
                 includefiles != null ? includefiles : Path.GetFileName(_sourceFileName));
         }
-
-        #endregion Private Instance Methods
         
         /// <summary>
         /// Unit tests for ResourceLinkage

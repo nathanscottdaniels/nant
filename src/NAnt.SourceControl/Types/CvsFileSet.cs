@@ -30,12 +30,7 @@ namespace NAnt.SourceControl.Types {
     /// </summary>
     [ElementName("cvsfileset")]
     public class CvsFileSet : FileSet {
-        #region Private Instance Fields
-
         private bool _useCvsIgnore = true;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -48,9 +43,6 @@ namespace NAnt.SourceControl.Types {
             get { return this._useCvsIgnore; }
             set { this._useCvsIgnore = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override Implementation of Element
 
         /// <summary>
@@ -69,9 +61,6 @@ namespace NAnt.SourceControl.Types {
 
             base.Initialize();
         }
-
-        #endregion Override Implementation of Element
-
         #region Private Instance Methods
 
         private void ScanCvsIgnores(DirectoryInfo dir, ArrayList ignoreFiles) {
@@ -98,7 +87,5 @@ namespace NAnt.SourceControl.Types {
                 }
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

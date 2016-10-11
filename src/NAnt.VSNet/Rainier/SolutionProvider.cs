@@ -26,8 +26,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet.Rainier {
     internal class SolutionProvider : ISolutionBuildProvider {
-        #region Implementation of ISolutionBuildProvider
-
         public int IsSupported(string fileContents) {
             Regex reSolutionFormat = new Regex(@"^\s*Microsoft Visual Studio Solution File, Format Version\s+(?<formatVersion>[0-9]+\.[0-9]+)", RegexOptions.Singleline);
             MatchCollection matches = reSolutionFormat.Matches(fileContents);
@@ -46,7 +44,5 @@ namespace NAnt.VSNet.Rainier {
         public SolutionBase GetInstance(string solutionContent, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver) {
             return new Solution(solutionContent, solutionTask, tfc, gacCache, refResolver);
         }
-
-        #endregion Implementation of ISolutionBuildProvider
     }
 }

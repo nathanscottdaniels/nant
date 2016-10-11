@@ -22,8 +22,6 @@ using System.Collections;
 
 namespace NAnt.MSBuild.BuildEngine {
     internal class BuildItemGroup {
-        
-        #region Enumerator
         private class BuildItemEnumerator : IEnumerator {
             IEnumerator _po;
 

@@ -32,12 +32,7 @@ namespace Tests.NAnt.Core {
     ///   <para>Provides support for quickly running a build and capturing the output.</para>
     /// </remarks>
     public abstract class BuildTestBase {
-        #region Private Instance Fields
-
         private string _tempDirName = null;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -65,9 +60,6 @@ namespace Tests.NAnt.Core {
         public DirectoryInfo TempDirectory {
             get { return new DirectoryInfo(_tempDirName); }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -296,9 +288,6 @@ namespace Tests.NAnt.Core {
         public string CreateTempDir(string name) {
             return TempDir.Create(Path.Combine(TempDirName, name));
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <remarks>
@@ -325,7 +314,5 @@ namespace Tests.NAnt.Core {
         protected virtual void TearDown() {
             TempDir.Delete(TempDirName);
         }
-
-        #endregion Protected Instance Methods
     }
 }

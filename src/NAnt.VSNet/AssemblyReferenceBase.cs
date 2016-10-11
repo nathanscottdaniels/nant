@@ -30,13 +30,8 @@ using NAnt.Core.Util;
 
 namespace NAnt.VSNet {
     public abstract class AssemblyReferenceBase : FileReferenceBase {
-        #region Protected Instance Constructors
-
         protected AssemblyReferenceBase(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache) : base(xmlDefinition, referencesResolver, parent, gacCache) {
         }
-
-        #endregion Protected Instance Constructors
-
         #region Protected Instance Properties
 
         protected abstract bool IsPrivate {
@@ -46,9 +41,6 @@ namespace NAnt.VSNet {
         protected abstract bool IsPrivateSpecified {
             get;
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -179,18 +171,12 @@ namespace NAnt.VSNet {
             }
             return GetFileTimestamp(assemblyFile);
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Public Instance Methods
 
         public ProjectReferenceBase CreateProjectReference(ProjectBase project) {
             return project.CreateProjectReference(project, IsPrivateSpecified, 
                 IsPrivate);
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -291,7 +277,5 @@ namespace NAnt.VSNet {
             return ResolveFromFolderList(SolutionTask.AssemblyFolderList, 
                 fileName);
         }
-
-        #endregion Protected Instance Methods
     }
 }

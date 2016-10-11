@@ -32,13 +32,8 @@ using NAnt.Core.Util;
 
 namespace NAnt.Core {
     internal class ProjectSettingsLoader {
-        #region Private Instance Fields
-
         private Project _project;
         private XmlNamespaceManager _nsMgr;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         /// <summary>
@@ -46,9 +41,6 @@ namespace NAnt.Core {
         /// has already been performed for the current runtime framework.
         /// </summary>
         private static bool ScannedTasks;
-
-        #endregion Private Static Fields
-
         #region Internal Instance Constructor
 
         /// <summary>
@@ -63,9 +55,6 @@ namespace NAnt.Core {
             _nsMgr = new XmlNamespaceManager(new NameTable());
             _nsMgr.AddNamespace("nant", _nsMgr.DefaultNamespace);
         }
-
-        #endregion Internal Instance Constructor
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -77,9 +66,6 @@ namespace NAnt.Core {
         protected Project Project {
             get { return _project; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Private Instance Properties
 
         /// <summary>
@@ -95,9 +81,6 @@ namespace NAnt.Core {
         private XmlNamespaceManager NamespaceManager {
             get { return _nsMgr; }
         }
-
-        #endregion Private Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -118,9 +101,6 @@ namespace NAnt.Core {
             ProcessGlobalProperties(Project.ConfigurationNode.SelectNodes(
                 "nant:properties/nant:property", NamespaceManager));
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void ProcessPlatform(XmlNode platformNode) {
@@ -308,9 +288,6 @@ namespace NAnt.Core {
 
             return framework;
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -335,7 +312,5 @@ namespace NAnt.Core {
 
             return attributeValue;
         }
-
-        #endregion Private Static Methods
     }
 }

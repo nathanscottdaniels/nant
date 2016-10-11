@@ -83,8 +83,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("exec")]
     public class ExecTask : ExternalProgramBase {
-        #region Private Instance Fields
-
         private string _program;
         private string _commandline;
         private DirectoryInfo _baseDirectory;
@@ -94,9 +92,6 @@ namespace NAnt.Core.Tasks {
         private EnvironmentSet _environmentSet = new EnvironmentSet();
         private string _resultProperty;
         private string _processIdProperty;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -174,9 +169,6 @@ namespace NAnt.Core.Tasks {
             get { return _resultProperty; }
             set { _resultProperty = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ExternalProgramBase
 
         /// <summary>
@@ -377,7 +369,5 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of ExternalProgramBase
     }
 }

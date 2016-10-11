@@ -30,13 +30,8 @@ using NAnt.Core.Util;
 
 namespace NAnt.VSNet {
     public abstract class ProjectReferenceBase : ReferenceBase {
-        #region Protected Instance Constructors
-
         protected ProjectReferenceBase(ReferencesResolver referencesResolver, ProjectBase parent) : base(referencesResolver, parent) {
         }
-
-        #endregion Protected Instance Constructors
-
         #region Protected Instance Properties
 
         protected abstract bool IsPrivate {
@@ -46,9 +41,6 @@ namespace NAnt.VSNet {
         protected abstract bool IsPrivateSpecified {
             get;
         }
-
-        #endregion Protected Instance Properties
-
         #region Override implementation of ReferenceBase
 
         /// <summary>
@@ -187,17 +179,11 @@ namespace NAnt.VSNet {
                 return DateTime.MaxValue;
             }
         }
-
-        #endregion Override implementation of ReferenceBase
-
         #region Public Instance Properties
 
         public abstract ProjectBase Project {
             get;
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Methods
 
         protected ProjectBase LoadProject(SolutionBase solution, TempFileCollection tfc, GacCache gacCache, DirectoryInfo outputDir, string projectFile) {
@@ -219,13 +205,8 @@ namespace NAnt.VSNet {
                 ProjectStack.Pop();
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Static Fields
 
         private static readonly Stack ProjectStack = new Stack();
-
-        #endregion Private Static Fields
     }
 }

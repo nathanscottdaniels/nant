@@ -35,9 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public DoubleConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Static Methods
 
         /// <summary>
@@ -77,7 +74,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(double value) {
             return value.ToString(CultureInfo.InvariantCulture);
         }
-
-        #endregion Public Static Methods
     }
 }

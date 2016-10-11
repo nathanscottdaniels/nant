@@ -33,7 +33,6 @@ namespace NAnt.DotNet.Types {
     /// <seealso cref="FileSet" />
     [Serializable()]
     public class LibDirectorySet : FileSet {
-        #region Public Instance Constructors
         
         /// <summary>
         /// Initializes a new instance of the <see cref="LibDirectorySet" /> class.
@@ -42,9 +41,6 @@ namespace NAnt.DotNet.Types {
         public LibDirectorySet(AssemblyFileSet parent) {
             _parent = parent;
         }
-
-        #endregion Public Instance Constructors
-
         #region Overrides from FileSet
 
         /// <summary>
@@ -56,14 +52,9 @@ namespace NAnt.DotNet.Types {
             get { return _parent.BaseDirectory; }
            
         }
-
-        #endregion Overrides from FileSet
-
         #region Private Instance Fields
 
         private AssemblyFileSet _parent;
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -153,8 +144,6 @@ namespace NAnt.DotNet.Types {
     [Serializable()]
     [ElementName("assemblyfileset")]
     public class AssemblyFileSet : FileSet, ICloneable {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AssemblyFileSet" /> class.
         /// </summary>
@@ -172,9 +161,6 @@ namespace NAnt.DotNet.Types {
         public AssemblyFileSet(FileSet fs) : base(fs) {
            _lib = new LibDirectorySet(this);
         }
-                
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
                 
         /// <summary>
@@ -191,10 +177,6 @@ namespace NAnt.DotNet.Types {
             set { _lib = value; }
         }
         
-        #endregion Public Instance Properties
-        
-        #region Overrides from FileSet
-
         /// <summary>
         /// Do a normal scan and then resolve assemblies.
         /// </summary>
@@ -203,10 +185,7 @@ namespace NAnt.DotNet.Types {
             
             ResolveReferences();
         }
-
-        #endregion Overrides from FileSet
         
-        #region private intance methods
         
         /// <summary>
         /// Resolves references to system assemblies and assemblies that can be 
@@ -254,13 +233,8 @@ namespace NAnt.DotNet.Types {
                 }
             }
         }
-
-        #endregion private intance methods
-
         #region Private Instance Fields
 
         private LibDirectorySet _lib = null;
-
-        #endregion Private Instance Fields
     }
 }

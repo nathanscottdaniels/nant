@@ -36,8 +36,6 @@ namespace NAnt.Console {
     /// class in Core assembly.
     /// </summary>
     public class ConsoleStub {
-        #region Static Constructor
-
         static ConsoleStub() {
             // check a class in mscorlib to determine if we're running on Mono
             if (Type.GetType("System.MonoType", false) != null) {
@@ -55,9 +53,6 @@ namespace NAnt.Console {
                 Platform = "unix";
             }
         }
-
-        #endregion Static Constructor
-
         #region Public Static Methods
 
         /// <summary>
@@ -200,9 +195,6 @@ namespace NAnt.Console {
                 return helper.ExitCode;
             }
         }
-
-        #endregion Public Static Methods
-
         #region Private Static Methods
 
         /// <summary>
@@ -342,26 +334,18 @@ namespace NAnt.Console {
             relativePath += fullAbsolutePath.Substring(commonPath.Length);
             return relativePath;
         }
-
-        #endregion Private Static Methods
-
         #region Private Static Fields
 
         private static readonly string FrameworkFamily;
         private static readonly string Platform;
 
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        #endregion Private Static Fields
-
         /// <summary>
         /// Helper class for invoking the application entry point in NAnt.Core
         /// and passing the command-line arguments.
         /// </summary>
         [Serializable()]
         private class HelperArguments : MarshalByRefObject {
-            #region Public Instance Constructors
-
             /// <summary>
             /// Initializes a new instance of the <see cref="HelperArguments" />
             /// class with the specified command-line arguments.
@@ -372,9 +356,6 @@ namespace NAnt.Console {
                 _args = args;
                 _probePaths = probePaths;
             }
-
-            #endregion Public Instance Constructors
-
             #region Public Instance Properties
 
             /// <summary>
@@ -386,9 +367,6 @@ namespace NAnt.Console {
             public int ExitCode {
                 get { return _exitCode; }
             }
-
-            #endregion Public Instance Properties
-
             #region Public Instance Methods
 
             /// <summary>
@@ -439,23 +417,15 @@ namespace NAnt.Console {
                     "'{0}' returned {1}", 
                     mainMethodInfo.ToString(), ExitCode);
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Fields
 
             private string[] _args;
             private string _probePaths;
             private int _exitCode = -1;
-
-            #endregion Private Instance Fields
-
             #region Private Static Fields
 
             private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(
                 System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-            #endregion Private Static Fields
         }
 
         private class Framework {

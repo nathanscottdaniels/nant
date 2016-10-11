@@ -32,12 +32,7 @@ namespace Tests.NAnt.SourceControl.Tasks {
     /// </summary>
     [TestFixture]
     public class CheckoutTaskTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string destination;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string TestModule = "sharpcvslib";
@@ -81,9 +76,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
                     />
                 </target>
             </project>";
-
-        #endregion Private Static Fields
-
         #region Override implementation of BuildTestBase
 
         /// <summary>
@@ -102,9 +94,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
         protected override void TearDown () {
             base.TearDown ();
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -188,15 +177,10 @@ namespace Tests.NAnt.SourceControl.Tasks {
 
             RunBuild(FormatBuildFile(_checkoutByDateProjectXML, args), Level.Info);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private string FormatBuildFile(string baseFile, object[] args) {
             return string.Format(CultureInfo.InvariantCulture, baseFile, args);
         }
-
-        #endregion Private Instance Methods
     }
 }

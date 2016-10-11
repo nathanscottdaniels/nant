@@ -29,8 +29,6 @@ using NAnt.Core.Util;
 
 namespace NAnt.VSNet {
     public class ProjectSettings {
-        #region Public Instance Constructors
-
         public ProjectSettings(XmlElement elemRoot, XmlElement elemSettings, ManagedProjectBase project) {
             _project = project;
             _settings = new ArrayList();
@@ -150,9 +148,6 @@ namespace NAnt.VSNet {
                 _settings.Add(string.Format(de.Value.ToString(), value));
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public string[] Settings {
@@ -262,17 +257,11 @@ namespace NAnt.VSNet {
         public string PostBuildEvent {
             get { return _postBuildEvent; }
         }
-        
-        #endregion Public Instance Properties
-
         #region Private Instance Properties
 
         private ManagedProjectBase Project {
             get { return _project; }
         }
-
-        #endregion Private Instance Properties
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -313,9 +302,6 @@ namespace NAnt.VSNet {
                         outputTypeAttribute.Value, Project.Name), Location.UnknownLocation);
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Public Static Methods
 
         /// <summary>
@@ -338,17 +324,11 @@ namespace NAnt.VSNet {
             }
             return projectGuid.Value.ToUpper(CultureInfo.InvariantCulture);
         }
-
-        #endregion Public Static Methods
-
         #region Public Instance Methods
 
         public string GetTemporaryFilename(string fileName) {
             return FileUtils.CombinePaths(TemporaryFiles.BasePath, fileName);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private readonly ArrayList _settings;
@@ -363,7 +343,5 @@ namespace NAnt.VSNet {
         private readonly string _preBuildEvent;
         private readonly string _postBuildEvent;
         private readonly ManagedOutputType _outputType;
-
-        #endregion Private Instance Fields
     }
 }

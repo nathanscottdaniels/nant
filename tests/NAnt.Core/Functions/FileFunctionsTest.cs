@@ -26,8 +26,6 @@ using NAnt.Core;
 namespace Tests.NAnt.Core.Functions {
     [TestFixture]
     public class FileFunctionsTest : BuildTestBase {
-        #region Public Instance Methods
-
         [Test]
         public void IsAssembly_OK() {
             string buildFragment =
@@ -94,7 +92,5 @@ namespace Tests.NAnt.Core.Functions {
                 Assert.AreEqual (typeof (FileNotFoundException), ex.InnerException.InnerException.GetType(), "#5");
             }
         }
-
-        #endregion Public Instance Methods
     }
 }

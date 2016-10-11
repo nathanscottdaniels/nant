@@ -74,14 +74,9 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("tstamp")]
     public class TStampTask : Task {
-        #region Private Instance Fields
-
         private string _property;
         private string _pattern;
         private FormatterCollection _formatters = new FormatterCollection();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -169,9 +164,6 @@ namespace NAnt.Core.Tasks {
         public FormatterCollection Formatters {
             get { return _formatters; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -199,8 +191,5 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
     }
 }

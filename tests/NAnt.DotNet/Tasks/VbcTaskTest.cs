@@ -34,12 +34,7 @@ using Tests.NAnt.Core.Util;
 namespace Tests.NAnt.DotNet.Tasks {
     [TestFixture]
     public class VbcTaskTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _sourceFileName;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string _format = @"<?xml version='1.0'?>
@@ -83,9 +78,6 @@ namespace Tests.NAnt.DotNet.Tasks {
                     End sub
                 End Class
             End Namespace";
-
-        #endregion Private Static Fields
-
         #region Override implementation of BuildTestBase
 
         [SetUp]
@@ -94,9 +86,6 @@ namespace Tests.NAnt.DotNet.Tasks {
             _sourceFileName = Path.Combine(TempDirName, "HelloWorld.vb");
             TempFile.CreateWithContents(_sourceCode, _sourceFileName);
         }
-
-        #endregion Override implementation of BuildTestBase
-
         #region Public Instance Methods
 
         /// <summary>
@@ -756,9 +745,6 @@ namespace Tests.NAnt.DotNet.Tasks {
             Assert.AreEqual(resources.Prefix + "." + "ResourceFile.en-US.resources", 
                 vbcTask.GetManifestResourceName(resources, resourceFile));
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private void PerformDependentResxTests(VbcTask vbcTask, ResourceFileSet resources) {
@@ -911,9 +897,6 @@ namespace Tests.NAnt.DotNet.Tasks {
                 basedir      != null ? basedir : Path.GetDirectoryName(_sourceFileName), 
                 includefiles != null ? includefiles : Path.GetFileName(_sourceFileName));
         }
-
-        #endregion Private Instance Methods
-
         /// <summary>
         /// Unit tests for FileParser
         /// </summary>

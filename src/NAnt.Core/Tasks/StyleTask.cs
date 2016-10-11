@@ -99,7 +99,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("style")]
     public class StyleTask : Task {
-        #region Private Instance Fields
                 
         private DirectoryInfo _destDir;
         private string _extension = "html";
@@ -110,9 +109,6 @@ namespace NAnt.Core.Tasks {
         private XsltParameterCollection _xsltParameters = new XsltParameterCollection();
         private XsltExtensionObjectCollection _xsltExtensions = new XsltExtensionObjectCollection();
         private Proxy _proxy;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -203,9 +199,6 @@ namespace NAnt.Core.Tasks {
             get { return _proxy; }
             set { _proxy = value; }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -412,9 +405,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         protected virtual XmlReader CreateXmlReader(Uri uri) {
@@ -447,8 +437,6 @@ namespace NAnt.Core.Tasks {
             }
             return new StreamWriter(filepath);
         }
-
-        #endregion Protected Instance Methods
     }
 }
 

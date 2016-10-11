@@ -39,14 +39,9 @@ namespace NAnt.SourceControl.Tasks {
     /// </example>
     [TaskName("cvs-pass")]
     public class CvsPass : Task {
-        #region Private Instance Fields
-
         private string _password;
         private FileInfo _passFile;
         private string _cvsRoot;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -84,9 +79,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return this._cvsRoot; }
             set { this._cvsRoot = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -126,7 +118,5 @@ namespace NAnt.SourceControl.Tasks {
                     new ICSharpCode.SharpCvsLib.Misc.CvsRoot(this.Root), this.PassFile);
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

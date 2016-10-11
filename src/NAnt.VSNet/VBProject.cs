@@ -33,8 +33,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     public class VBProject : ManagedProjectBase {
-        #region Public Instance Constructors
-
         public VBProject(SolutionBase solution, string projectPath, XmlElement xmlDefinition, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver, DirectoryInfo outputDir) : base(solution, projectPath, xmlDefinition, solutionTask, tfc, gacCache, refResolver, outputDir) {
             _imports = new NamespaceImportCollection();
 
@@ -49,9 +47,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of ManagedProjectBase
 
         protected override void WriteProjectOptions(StreamWriter sw) {
@@ -60,9 +55,6 @@ namespace NAnt.VSNet {
                 sw.WriteLine("/imports:{0}", _imports.ToString());
             }
         }
-
-        #endregion Override implementation of ManagedProjectBase
-
         #region Override implementation of ProjectBase
 
         /// <summary>
@@ -118,9 +110,6 @@ namespace NAnt.VSNet {
             }
             return GetProductVersion(docElement.SelectSingleNode("./VisualBasic"));
         }
-
-        #endregion Override implementation of ProjectBase
-
         #region Override implemenation of ManagedProjectBase
 
         /// <summary>
@@ -176,9 +165,6 @@ namespace NAnt.VSNet {
             }
             return psi;
         }
-
-        #endregion Override implemenation of ManagedProjectBase
-
         #region Public Static Methods
 
         /// <summary>
@@ -233,13 +219,8 @@ namespace NAnt.VSNet {
 
             return true;
         }
-
-        #endregion Public Static Methods
-
         #region Private Instance Fields
 
         private readonly NamespaceImportCollection _imports;
-
-        #endregion Private Instance Fields
     }
 }

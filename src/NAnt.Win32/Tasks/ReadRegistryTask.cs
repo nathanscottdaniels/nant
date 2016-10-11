@@ -49,17 +49,12 @@ namespace NAnt.Win32.Tasks {
     /// </example>
     [TaskName("readregistry")]
     public class ReadRegistryTask : Task {
-        #region Private Instance Fields
-
         private string _propName;
         private string _propPrefix;
         private string _regKey;
         private string _regKeyValueName;
         private RegistryHive[] _regHive = {RegistryHive.LocalMachine};
         private string _regHiveString = RegistryHive.LocalMachine.ToString();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -127,9 +122,6 @@ namespace NAnt.Win32.Tasks {
                 }
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
         
         /// <summary>
@@ -161,9 +153,6 @@ namespace NAnt.Win32.Tasks {
                 throw new BuildException("Missing both a property name and property prefix; atleast one if required!");
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -210,7 +199,5 @@ namespace NAnt.Win32.Tasks {
                     return null;
             }
         }
-
-        #endregion Protected Instance Methods
     }
 }

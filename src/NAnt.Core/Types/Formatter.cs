@@ -22,15 +22,10 @@ using NAnt.Core.Attributes;
 namespace NAnt.Core.Types {
     [ElementName("formatter")]
     public class Formatter : Element, IConditional {
-        #region Private Instance Fields
-
         private string _property;
         private string _pattern;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -76,7 +71,5 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

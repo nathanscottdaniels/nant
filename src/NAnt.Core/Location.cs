@@ -31,8 +31,6 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable]
     public class Location {
-        #region Private Instance Fields
-
         private string _fileName;
         private int _lineNumber;
         private int _columnNumber;

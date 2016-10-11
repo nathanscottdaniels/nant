@@ -23,14 +23,9 @@ using NAnt.NUnit1.Types;
 
 namespace NAnt.NUnit1.Tasks {
     public class RemoteNUnitTestRunner : MarshalByRefObject {
-        #region Public Instance Constructors
-
         public RemoteNUnitTestRunner(NUnitTestData testData) {
             _runner = new NUnitTestRunner(testData);
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public RunnerResult ResultCode {
@@ -40,21 +35,13 @@ namespace NAnt.NUnit1.Tasks {
         public IResultFormatterCollection Formatters {
             get { return _runner.Formatters; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         public void Run(string logPrefix, bool verbose) {
             _runner.Run(logPrefix, verbose);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private NUnitTestRunner _runner;
-
-        #endregion Private Instance Fields
     }
 }

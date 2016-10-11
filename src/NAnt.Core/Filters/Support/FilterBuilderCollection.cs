@@ -26,8 +26,6 @@ namespace NAnt.Core.Filters {
     /// </summary>
     [Serializable]
     public class FilterBuilderCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterBuilderCollection"/> class.
         /// </summary>
@@ -49,11 +47,7 @@ namespace NAnt.Core.Filters {
         public FilterBuilderCollection(FilterBuilder[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -82,9 +76,6 @@ namespace NAnt.Core.Filters {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -188,16 +179,12 @@ namespace NAnt.Core.Filters {
         public void Remove(FilterBuilder item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="FilterBuilder"/> elements of a <see cref="FilterBuilderCollection"/>.
     /// </summary>
     public class FilterBuilderEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterBuilderEnumerator"/> class
         /// with the specified <see cref="FilterBuilderCollection"/>.
@@ -207,9 +194,6 @@ namespace NAnt.Core.Filters {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -253,13 +237,8 @@ namespace NAnt.Core.Filters {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

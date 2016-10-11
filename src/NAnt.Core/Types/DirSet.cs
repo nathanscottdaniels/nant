@@ -32,8 +32,6 @@ namespace NAnt.Core.Types {
     /// </remarks>
     [ElementName("dirset")]
     public class DirSet : FileSet, ICloneable {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DirSet" /> class.
         /// </summary>
@@ -48,7 +46,5 @@ namespace NAnt.Core.Types {
         /// <param name="fs">A <see cref="FileSet" /> instance to create a <see cref="DirSet" /> from.</param>
         public DirSet(FileSet fs) : base(fs) {
         }
-
-        #endregion Public Instance Constructors
    }
 }

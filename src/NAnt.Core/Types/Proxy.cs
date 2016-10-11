@@ -29,17 +29,12 @@ namespace NAnt.Core.Types {
     /// </summary>
     [ElementName("proxy")]
     public class Proxy : DataTypeBase, IConditional {
-        #region Private Instance Fields
-
         private string _host;
         private int _port;
         private bool _bypassOnLocal;
         private Credential _credentials;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -47,9 +42,6 @@ namespace NAnt.Core.Types {
         /// </summary>
         public Proxy() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -115,9 +107,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -145,7 +134,5 @@ namespace NAnt.Core.Types {
                 return GlobalProxySelection.Select;
             }
         }
-
-        #endregion Public Instance Methods
     }
 }

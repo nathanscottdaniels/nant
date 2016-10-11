@@ -48,17 +48,11 @@ namespace NAnt.Core.Filters {
         /// to be used for both methods.
         /// </summary>
         delegate int AcquireCharDelegate();
-
-        #region Private Instance Fields
-
         private int _tabLength = 8;
         private int _spacesRemaining;
 
         //Method used for Read
         private AcquireCharDelegate ReadChar;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -71,9 +65,6 @@ namespace NAnt.Core.Filters {
             get { return _tabLength; }
             set { _tabLength = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ChainableReader
 
         /// <summary>
@@ -103,9 +94,6 @@ namespace NAnt.Core.Filters {
         public override int Read() {
             return GetNextCharacter(ReadChar);
         }
-
-        #endregion Override implementation of ChainableReader
-
         #region Private Instance Methods
 
         /// <summary>
@@ -128,7 +116,5 @@ namespace NAnt.Core.Filters {
                 return ' ';
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

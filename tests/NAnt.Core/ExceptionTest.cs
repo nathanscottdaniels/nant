@@ -54,8 +54,6 @@ namespace Tests.NAnt.Core {
     /// </remarks>
     [TestFixture]
     public class ExceptionTest {
-        #region Public Instance Methods
-
         [Test]
         public void Test_AllExceptions() {
             // For each assembly we want to check instantiate an object from 
@@ -76,9 +74,6 @@ namespace Tests.NAnt.Core {
                 }
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private bool IsException(Type type) {
@@ -202,15 +197,11 @@ namespace Tests.NAnt.Core {
                 //Assert.IsTrue(t.GetProperty("Message", BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance) != null, t.Name + " does not override the Message property.");
             }
         }
-
-        #endregion Private Instance Methods
     }
 
     /// <summary>Do nothing exception to verify that the exception tester is working correctly.</summary>
     [Serializable]
     public class SimpleTestException : ApplicationException {
-        #region Public Instance Constructors
-
         public SimpleTestException() {
         }
 
@@ -219,16 +210,11 @@ namespace Tests.NAnt.Core {
 
         public SimpleTestException(string message, Exception inner) : base(message, inner) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Protected Instance Constructors
 
         // deserialization constructor
         protected SimpleTestException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
-
-        #endregion Protected Instance Constructors
     }
 
     /// <summary>
@@ -236,12 +222,7 @@ namespace Tests.NAnt.Core {
     /// </summary>
     [Serializable]
     public class TestException : ApplicationException, ISerializable {
-        #region Private Instance Fields
-
         private int _value;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         public TestException() {
@@ -257,26 +238,17 @@ namespace Tests.NAnt.Core {
         public TestException(string message, int value) : base(message) {
             _value = value;
         }
-
-        #endregion Public Instance Constructors
-
         #region Protected Instance Constructors
 
         // deserialization constructor
         protected TestException(SerializationInfo info, StreamingContext context) : base(info, context) {
             _value = info.GetInt32("Value");
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         public int Value {
             get { return _value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of ApplicationException
 
         // Called by the frameworks during serialization
@@ -296,8 +268,6 @@ namespace Tests.NAnt.Core {
                 return base.Message + Environment.NewLine + s;
             }
         }
-
-        #endregion Override implementation of ApplicationException
     }
 
     /// <summary>
@@ -305,8 +275,6 @@ namespace Tests.NAnt.Core {
     /// </summary>
     [Serializable]
     public sealed class SealedTestException : TestException {
-        #region Public Instance Constructors
-
         public SealedTestException() {
         }
 
@@ -319,15 +287,10 @@ namespace Tests.NAnt.Core {
         // constructors that take the added value
         public SealedTestException(string message, int value) : base(message, value) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Private Instance Constructors
 
         // deserialization constructor
         private SealedTestException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
-
-        #endregion Private Instance Constructors
     }
 }

@@ -28,22 +28,14 @@ namespace NAnt.NUnit1.Types {
     /// Prints information about running tests in plain text.
     /// </summary>
     public class PlainTextFormatter : IResultFormatter {
-        #region Public Instance Constructors
-
         public PlainTextFormatter() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public TextWriter Writer {
             get { return _writer; }
             set { _writer = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Implementation of IResultFormatter
 
         /// <summary>Sets the Writer the formatter is supposed to write its results to.</summary>
@@ -67,9 +59,6 @@ namespace NAnt.NUnit1.Types {
             Writer.Flush();
             Writer.Close();
         }
-
-        #endregion Implementation of IResultFormatter
-
         #region Implementation of ITestListener
 
         public void AddError(ITest test, Exception e) {
@@ -89,9 +78,6 @@ namespace NAnt.NUnit1.Types {
 
         public void EndTest(ITest test) {
         }
-
-        #endregion Implementation of ITestListener
-
         #region Private Static Methods
 
         /// <summary>Convert a stack trace line into something that can be clicked on in an IDE output window.</summary>
@@ -114,13 +100,8 @@ namespace NAnt.NUnit1.Types {
             }
             return line;
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         TextWriter _writer = null;
-
-        #endregion Private Instance Fields
     }
 }

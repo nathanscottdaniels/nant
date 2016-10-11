@@ -35,9 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
         public AssemblyNameFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-
-        #endregion Public Instance Constructors
-
         #region Public Static Methods
         
         /// <summary>
@@ -167,7 +164,5 @@ namespace NAnt.Core.Functions {
         public AssemblyName GetAssemblyName(string assemblyFile) {
             return AssemblyName.GetAssemblyName(Project.GetFullPath(assemblyFile)); 
         }
-        
-        #endregion Public Static Methods
     }
 }

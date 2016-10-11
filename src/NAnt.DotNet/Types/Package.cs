@@ -25,14 +25,9 @@ namespace NAnt.DotNet.Types {
     /// Represents a package.
     /// </summary>
     public class Package : Element, IConditional {
-        #region Private Instance Fields
-
         private string _name;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -70,7 +65,5 @@ namespace NAnt.DotNet.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion Public Instance Properties
     }
 }

@@ -29,8 +29,6 @@ namespace NAnt.DotNet.Types {
     /// Base class for collections that needs to be globally referencable.
     /// </summary>
     public abstract class DataTypeCollectionBase : DataTypeBase, ICollection {
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTypeCollectionBase" />
         /// class.
@@ -38,9 +36,6 @@ namespace NAnt.DotNet.Types {
         protected DataTypeCollectionBase() {
             _list = new ArrayList();
         }
-
-        #endregion Protected Instance Constructors
-
         #region ICollection Members
 
         /// <summary>
@@ -86,9 +81,6 @@ namespace NAnt.DotNet.Types {
         }
 
         #endregion
-
-        #region IEnumerable Members
-
         /// <summary>
         /// Returns an enumerator that can iterate through a collection.
         /// </summary>
@@ -101,9 +93,6 @@ namespace NAnt.DotNet.Types {
         }
 
         #endregion
-
-        #region Implementation of IList
-
         /// <summary>
         /// Gets a value indicating whether the collection has a fixed size.
         /// </summary>
@@ -139,9 +128,6 @@ namespace NAnt.DotNet.Types {
         public void Clear() {
             List.Clear();
         }
-
-        #endregion Implementation of IList
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -165,9 +151,6 @@ namespace NAnt.DotNet.Types {
         protected abstract Type ItemType {
             get;
         }
-
-        #endregion Protected Instance Properties
-
         #region Private Instance Methods
 
         /// <summary>
@@ -198,14 +181,9 @@ namespace NAnt.DotNet.Types {
                     + "the number of items in the collection.");
             }
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private ArrayList _list;
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
@@ -240,8 +218,6 @@ namespace NAnt.DotNet.Types {
     [Serializable()]
     [ElementName("namespaceimports")]
     public class NamespaceImportCollection : DataTypeCollectionBase, IList {
-        #region Public Instance Properties
-
         /// <summary>
         /// Returns an enumerator that can iterate through the collection.
         /// </summary>
@@ -286,9 +262,6 @@ namespace NAnt.DotNet.Types {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Object
 
         /// <summary>
@@ -322,9 +295,6 @@ namespace NAnt.DotNet.Types {
 
             return sb.ToString();
         }
-
-        #endregion Override implementation of Object
-
         #region Override implementation of DataTypeCollectionBase
 
         /// <summary>
@@ -336,9 +306,6 @@ namespace NAnt.DotNet.Types {
         protected override Type ItemType {
             get { return typeof(NamespaceImport); }
         }
-
-        #endregion Override implementation of DataTypeCollectionBase
-
         #region IList Members
 
         /// <summary>
@@ -417,9 +384,6 @@ namespace NAnt.DotNet.Types {
         }
 
         #endregion
-
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds the items of a <see cref="NamespaceImportCollection"/> to the end of the collection.
         /// </summary>
@@ -488,16 +452,12 @@ namespace NAnt.DotNet.Types {
         public int IndexOf(NamespaceImport value) {
             return List.IndexOf(value);
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="NamespaceImport"/> items of a <see cref="NamespaceImportCollection"/>.
     /// </summary>
     public class NamespaceImportEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NamespaceImportEnumerator"/> class
         /// with the specified <see cref="NamespaceImportCollection"/>.
@@ -507,9 +467,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -559,13 +516,8 @@ namespace NAnt.DotNet.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

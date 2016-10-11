@@ -41,8 +41,6 @@ namespace NAnt.Core.Attributes {
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method, Inherited=true)]
     public class BuildElementAttribute : BaseBuildAttribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildElementAttribute" /> with the 
         /// specified name.

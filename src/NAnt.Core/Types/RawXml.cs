@@ -25,17 +25,12 @@ namespace NAnt.Core.Types {
     /// or type.
     /// </summary>
     public class RawXml : Element {
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the XML that this element represents.
         /// </summary>
         public XmlNode Xml {
             get { return base.XmlNode; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Element
 
         /// <summary>
@@ -50,7 +45,5 @@ namespace NAnt.Core.Types {
         protected override bool CustomXmlProcessing {
             get { return true; }
         }
-
-        #endregion Override implementation of Element
     }
 }

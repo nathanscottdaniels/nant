@@ -46,14 +46,9 @@ namespace NAnt.Compression.Tasks {
     /// </example>
     [TaskName("untar")]
     public class UnTarTask : ExpandBaseTask {
-        #region Private Instance Fields
-
         private FileInfo _srcFile;
         private DirectoryInfo _destDir;
         private TarCompressionMethod _compressionMethod = TarCompressionMethod.None;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -87,9 +82,6 @@ namespace NAnt.Compression.Tasks {
             get { return _compressionMethod; }
             set { _compressionMethod = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -157,7 +149,5 @@ namespace NAnt.Compression.Tasks {
                     fs.Close ();
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

@@ -31,15 +31,10 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     public abstract class ReferenceBase {
-        #region Protected Instance Constructors
-
         protected ReferenceBase(ReferencesResolver referencesResolver, ProjectBase parent) {
             _referencesResolver = referencesResolver;
             _parent = parent;
         }
-
-        #endregion Protected Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -69,9 +64,6 @@ namespace NAnt.VSNet {
         public abstract string Name {
             get;
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -88,9 +80,6 @@ namespace NAnt.VSNet {
         protected ReferencesResolver ReferencesResolver {
             get { return _referencesResolver; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -146,9 +135,6 @@ namespace NAnt.VSNet {
         /// specified configuration; otherwise, <see langword="false" />.
         /// </returns>
         public abstract bool IsManaged(Configuration solutionConfiguration);
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -193,9 +179,6 @@ namespace NAnt.VSNet {
         protected void Log(Level messageLevel, string message, params object[] args) {
             SolutionTask.Log(messageLevel, message, args);
         }
-
-        #endregion Protected Instance Methods
-
         #region Public Static Methods
 
         public static void GetRelatedFiles(string file, Hashtable relatedFiles) {
@@ -232,14 +215,9 @@ namespace NAnt.VSNet {
                 relatedFiles[relatedFile] = Path.GetFileName(relatedFile);
             }
         }
-
-        #endregion Public Static Methods
-
         #region Private Instance Fields
 
         private ProjectBase _parent;
         private ReferencesResolver _referencesResolver;
-
-        #endregion Private Instance Fields
     }
 }

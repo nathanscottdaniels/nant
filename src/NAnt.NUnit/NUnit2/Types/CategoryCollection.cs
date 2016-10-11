@@ -28,9 +28,6 @@ namespace NAnt.NUnit2.Types {
     /// </summary>
     [Serializable()]
     public class CategoryCollection : Collection<Category> {
-
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryCollection"/> class.
         /// </summary>
@@ -76,9 +73,6 @@ namespace NAnt.NUnit2.Types {
         {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
-
         #region Override implementation of Object
 
         /// <summary>
@@ -99,11 +93,7 @@ namespace NAnt.NUnit2.Types {
             }
             return String.Join(",", categories.ToArray());
         }
-
-        #endregion Override implementation of Object
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the <see cref="Category"/> with the specified name.
         /// </summary>
@@ -122,9 +112,6 @@ namespace NAnt.NUnit2.Types {
                 return null;
             }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -142,7 +129,5 @@ namespace NAnt.NUnit2.Types {
                 Add(item);
             }
         }
-        
-        #endregion Public Instance Methods
     }
 }

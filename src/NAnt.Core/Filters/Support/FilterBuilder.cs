@@ -27,8 +27,6 @@ using NAnt.Core.Extensibility;
 
 namespace NAnt.Core.Filters {
     public class FilterBuilder : ExtensionBuilder {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Creates a new instance of the <see cref="FilterBuilder" /> class
         /// for the specified <see cref="Filter" /> class in the specified
@@ -43,9 +41,6 @@ namespace NAnt.Core.Filters {
         public FilterBuilder (Assembly assembly, string className)
             : this (ExtensionAssembly.Create (assembly), className) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Internal Instance Constructors
 
         /// <summary>
@@ -65,9 +60,6 @@ namespace NAnt.Core.Filters {
 
             _filterName = ElementNameAttribute.Name;
         }
-
-        #endregion Internal Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -93,9 +85,6 @@ namespace NAnt.Core.Filters {
         public string FilterName {
             get { return _filterName; }
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
 
         [ReflectionPermission(SecurityAction.Demand, Flags=ReflectionPermissionFlag.NoFlags)]
@@ -109,14 +98,9 @@ namespace NAnt.Core.Filters {
                 CultureInfo.InvariantCulture,
                 null);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private readonly string _className;
         private readonly string _filterName;
-
-        #endregion Private Instance Fields
     }
 }

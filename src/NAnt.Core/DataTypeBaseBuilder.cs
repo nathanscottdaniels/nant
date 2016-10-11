@@ -30,8 +30,6 @@ namespace NAnt.Core {
     /// Factory to create <see cref="DataTypeBase"/> instances.
     /// </summary>
     public class DataTypeBaseBuilder : ExtensionBuilder {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Creates a new instance of the <see cref="DataTypeBaseBuilder" /> class
         /// for the specified <see cref="DataTypeBase" /> class in the specified
@@ -46,9 +44,6 @@ namespace NAnt.Core {
         public DataTypeBaseBuilder (Assembly assembly, string className)
             : this (ExtensionAssembly.Create (assembly), className) {
         }
-
-        #endregion Public Instance Constructors
-
         #region Internal Instance Constructors
 
         /// <summary>
@@ -61,9 +56,6 @@ namespace NAnt.Core {
         internal DataTypeBaseBuilder(ExtensionAssembly extensionAssembly, string className) : base (extensionAssembly) {
             _className = className;
         }
-
-        #endregion Internal Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -97,9 +89,6 @@ namespace NAnt.Core {
                 return _dataTypeName;
             }
         }
-
-        #endregion Public Instance Properties
-
         /// <summary>
         /// Creates the <see cref="DataTypeBase"/> instance.
         /// </summary>
@@ -115,14 +104,9 @@ namespace NAnt.Core {
                 CultureInfo.InvariantCulture,
                 null);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private readonly string _className;
         private string _dataTypeName;
-
-        #endregion Private Instance Fields
     }
 }

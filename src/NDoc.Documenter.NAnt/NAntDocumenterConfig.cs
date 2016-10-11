@@ -29,8 +29,6 @@ namespace NDoc.Documenter.NAnt {
     /// NDoc configuration class for <see cref="NAntDocumenter" />.
     /// </summary>
     public class NAntDocumenterConfig : BaseReflectionDocumenterConfig {
-        #region Private Instance Fields
-
         private string _outputDirectory = @"doc/help/tasks";
         private bool _sdkLinksOnWeb;
         private string _productName = "NAnt";
@@ -38,9 +36,6 @@ namespace NDoc.Documenter.NAnt {
         private string _productUrl = "";
         private string _nantBaseUri = "";
         private string _namespaceFilter = "";
-
-        #endregion Private Instance Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -64,9 +59,6 @@ namespace NDoc.Documenter.NAnt {
             SkipNamespacesWithoutSummaries = false;
             EditorBrowsableFilter = EditorBrowsableFilterLevel.HideAdvanced;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -188,7 +180,5 @@ namespace NDoc.Documenter.NAnt {
                 SetDirty();
             }
         }
-
-        #endregion Public Instance Properties
     }
 }

@@ -30,8 +30,6 @@ namespace NAnt.NUnit1.Types {
     /// Prints information about running tests directly to the build log.
     /// </summary>
     public class LogFormatter : IResultFormatter {
-        #region Public Instance Constructors
-
         public LogFormatter(string prefix, bool verbose) {
             if (prefix != null) {
                 _prefix = prefix;
@@ -40,9 +38,6 @@ namespace NAnt.NUnit1.Types {
             }
             _verbose = verbose;
         }
-
-        #endregion Public Instance Constructors
-
         #region Protected Instance Properties
 
         protected bool Verbose {
@@ -52,9 +47,6 @@ namespace NAnt.NUnit1.Types {
         protected string Prefix {
             get { return _prefix; }
         }
-
-        #endregion Protected Instance Properties
-
         #region Implementation of IResultFormatter
 
         /// <summary>Not used, all output goes to Log class.</summary>
@@ -79,9 +71,6 @@ namespace NAnt.NUnit1.Types {
                 Console.WriteLine(Prefix + "{0} tests: FAILURES: {1} ERRORS: {2}", result.RunCount, result.FailureCount, result.ErrorCount);
             }
         }
-
-        #endregion Implementation of IResultFormatter
-
         #region Implementation of ITestListener
 
         public void AddError(ITest test, Exception e) {
@@ -108,9 +97,6 @@ namespace NAnt.NUnit1.Types {
 
         public void EndTest(ITest test) {
         }
-
-        #endregion Implementation of ITestListener
-
         #region Private Static Methods
 
         // NOTE: When test.ToString() displays something less stupid than 
@@ -144,14 +130,9 @@ namespace NAnt.NUnit1.Types {
 
             return line;
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         private string _prefix;
         private bool _verbose;
-
-        #endregion Private Instance Fields
     }
 }

@@ -40,8 +40,6 @@ using NAnt.VSNet.Tasks;
 
 namespace NAnt.VSNet {
     public abstract class ManagedProjectBase : ProjectBase {
-        #region Public Instance Constructors
-
         protected ManagedProjectBase(SolutionBase solution, string projectPath, XmlElement xmlDefinition, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver, DirectoryInfo outputDir) : base(xmlDefinition, solutionTask, tfc, gacCache, refResolver, outputDir) {
             if (projectPath == null) {
                 throw new ArgumentNullException("projectPath");
@@ -147,17 +145,11 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         public ProjectSettings ProjectSettings {
             get { return _projectSettings; }
         }
-
-        #endregion Public Instance Properties
-
         #region Protected Instance Properties
 
         /// <summary>
@@ -169,9 +161,6 @@ namespace NAnt.VSNet {
         protected abstract string FileExtension {
             get;
         }
-
-        #endregion Protected Instance Properties
-
         #region Private Instance Properties
 
         /// <summary>
@@ -190,9 +179,6 @@ namespace NAnt.VSNet {
         private bool IsWebProject {
             get { return ProjectFactory.IsUrl(_projectPath); }
         }
-
-        #endregion Private Instance Properties
-
         #region Override implementation of ProjectBase
 
         /// <summary>
@@ -457,9 +443,6 @@ namespace NAnt.VSNet {
                     // project output has been updated
                     outputUpdated = true;
                 }
-
-                #region Process culture-specific resource files
-
                 Log(Level.Verbose, "Building satellite assemblies...");
 
                 Hashtable resourceSets = GetLocalizedResources();
@@ -513,9 +496,6 @@ namespace NAnt.VSNet {
                         SolutionTask.Project.Unindent();
                     }
                 }
-
-                #endregion Process culture-specific resource files
-
                 #region Register project output for COM Interop
 
                 // check if we need to build type library
@@ -531,9 +511,6 @@ namespace NAnt.VSNet {
                     CopyFile(new FileInfo(typeLibPath), new FileInfo (objTypeLibPath), 
                         SolutionTask);
                 }
-
-                #endregion Register project output for COM Interop
-
                 #region Deploy project and configuration level output files
 
                 // copy primary project output (and related files)
@@ -556,9 +533,6 @@ namespace NAnt.VSNet {
                         CopyFile(new FileInfo(srcPath), destFile, SolutionTask);
                     }
                 }
-
-                #endregion Deploy project and configuration level output files
-
                 if (ProjectSettings.RunPostBuildEvent != null) {
                     if (!PostBuild(cs, !outputUpdated || bSuccess, outputUpdated)) {
                         bSuccess = false;
@@ -579,9 +553,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-
-        #endregion Override implementation of ProjectBase
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -677,9 +648,6 @@ namespace NAnt.VSNet {
         ///   <para>The project location is invalid.</para>
         /// </exception>
         protected abstract ProjectLocation DetermineProjectLocation(XmlElement docElement);
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -1143,9 +1111,6 @@ namespace NAnt.VSNet {
             }
             return regasm;
         }
-
-        #endregion Private Instance Methods
-
         #region Public Static Methods
 
         public static bool IsEnterpriseTemplateProject(string fileName) {
@@ -1190,9 +1155,6 @@ namespace NAnt.VSNet {
             throw new BuildException("Couldn't locate project GUID.",
                 Location.UnknownLocation);
         }
-
-        #endregion Public Static Methods
-
         #region Protected Static Methods
 
         /// <summary>
@@ -1280,9 +1242,6 @@ namespace NAnt.VSNet {
                     Location.UnknownLocation, ex);
             }
         }
-
-        #endregion Protected Static Methods
-
         #region Private Instance Fields
 
         private ArrayList _references;
@@ -1303,27 +1262,16 @@ namespace NAnt.VSNet {
         private readonly string _webProjectBaseUrl;
         private readonly ProjectSettings _projectSettings;
         private readonly ProjectLocation _projectLocation;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string CommandFile = "compile-commands.txt";
-
-        #endregion Private Static Fields
-
         /// <summary>
         /// Groups a set of <see cref="Resource" /> instances for a specific
         /// culture.
         /// </summary>
         private class LocalizedResourceSet {
-            #region Private Instance Fields
-
             private readonly CultureInfo _culture;
             private readonly ArrayList _resources;
-
-            #endregion Private Instance Fields
-
             #region Public Instance Constructors
 
             /// <summary>
@@ -1339,9 +1287,6 @@ namespace NAnt.VSNet {
                 _culture = culture;
                 _resources = new ArrayList();
             }
-
-            #endregion Public Instance Constructors
-
             #region Public Instance Properties
 
             /// <summary>
@@ -1358,9 +1303,6 @@ namespace NAnt.VSNet {
             public ArrayList Resources {
                 get { return _resources; }
             }
-
-            #endregion Public Instance Properties
-
             #region Public Instance Methods
 
             /// <summary>
@@ -1406,17 +1348,12 @@ namespace NAnt.VSNet {
                 return FileUtils.CombinePaths(Culture.Name, GetSatelliteFileName(
                     projectSettings));
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Methods
 
             private string GetSatelliteFileName(ProjectSettings projectSettings) {
                 return string.Format(CultureInfo.InvariantCulture, 
                     "{0}.resources.dll", projectSettings.AssemblyName);
             }
-
-            #endregion Private Instance Methods
         }
     }
 

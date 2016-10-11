@@ -45,15 +45,9 @@ namespace NAnt.Core {
 
             _project = project;
         }
-
-        #region Public Instance Properties
-
         public Project Project {
             get { return _project; }
         }
-
-        #endregion Public Instance Properties
-
         public object Evaluate(ExpressionTokenizer tokenizer) {
             _evalMode = EvalMode.Evaluate;
             _tokenizer = tokenizer;
@@ -82,9 +76,6 @@ namespace NAnt.Core {
                 throw BuildParseError("Unexpected token at the end of expression", _tokenizer.CurrentPosition);
             }
         }
-
-        #region Parser
-
         bool SyntaxCheckOnly() {
             return _evalMode == EvalMode.ParseOnly;
         }
@@ -1140,9 +1131,6 @@ namespace NAnt.Core {
                 return t.FullName;
             }
         }
-
-        #endregion Parser
-
         #region Overridables
 
         protected abstract object EvaluateFunction(MethodInfo method, object[] args);
@@ -1152,7 +1140,5 @@ namespace NAnt.Core {
             throw BuildParseError(string.Format(CultureInfo.InvariantCulture, 
                 "Unexpected token '{0}'.", _tokenizer.CurrentToken), _tokenizer.CurrentPosition);
         }
-
-        #endregion Overridables
     }
 }

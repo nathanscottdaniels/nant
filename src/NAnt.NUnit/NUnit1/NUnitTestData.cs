@@ -30,8 +30,6 @@ namespace NAnt.NUnit1.Types {
     /// </summary>
     [Serializable]
     public class NUnitTestData {
-        #region Public Instance Properties
-
         public ITest Suite {
             get { return _suite; }
             set { _suite = value; }
@@ -80,9 +78,6 @@ namespace NAnt.NUnit1.Types {
             get { return _appConfigFile; }
             set { _appConfigFile = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         string _todir = null;
@@ -95,7 +90,5 @@ namespace NAnt.NUnit1.Types {
         ITest _suite = null;
         FormatterDataCollection _formatters = new FormatterDataCollection();
         string _appConfigFile = null;
-
-        #endregion Private Instance Fields
     }
 }

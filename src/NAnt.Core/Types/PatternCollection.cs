@@ -26,19 +26,13 @@ namespace NAnt.Core.Types {
     /// </summary>
     [Serializable()]
     public class PatternCollection : IList {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PatternCollection"/> class.
         /// </summary>
         public PatternCollection() {
             _list = new ArrayList ();
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -47,17 +41,11 @@ namespace NAnt.Core.Types {
             get { return (Pattern) List[index] ;}
             set { List[index] = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Properties
 
         private ArrayList List {
             get { return _list; }
         }
-
-        #endregion Private Instance Properties
-
         #region Implementation of ICollection
 
         /// <summary>
@@ -89,17 +77,11 @@ namespace NAnt.Core.Types {
         object ICollection.SyncRoot {
             get { return List.SyncRoot; }
         }
-
-        #endregion Implementation of ICollection
-
         #region Implementation of IEnumerable
 
         IEnumerator IEnumerable.GetEnumerator() {
             return List.GetEnumerator();
         }
-
-        #endregion Implementation of IEnumerable
-
         #region Implementation of IList
 
         object IList.this [int index] {
@@ -203,9 +185,6 @@ namespace NAnt.Core.Types {
         void IList.RemoveAt (int index) {
             List.RemoveAt(index);
         }
-
-        #endregion Implementation of IList
-
         #region Public Instance Methods
         
         /// <summary>
@@ -296,22 +275,15 @@ namespace NAnt.Core.Types {
         public void Remove(Pattern item) {
             List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
-
         #region Private Instance Fields
 
         private readonly ArrayList _list;
-
-        #endregion Private Instance Fields
     }
 
     /// <summary>
     /// Enumerates the <see cref="Pattern"/> elements of a <see cref="PatternCollection"/>.
     /// </summary>
     public class PatternEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PatternEnumerator"/> class
         /// with the specified <see cref="PatternCollection"/>.
@@ -321,9 +293,6 @@ namespace NAnt.Core.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -365,13 +334,8 @@ namespace NAnt.Core.Types {
         public void Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
 
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

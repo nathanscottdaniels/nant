@@ -111,16 +111,12 @@ namespace NAnt.DotNet.Tasks {
     /// </example>
     [TaskName("ndoc")]
     public class NDocTask : Task {
-        #region Private Instance Fields
-
         private XmlNodeList _docNodes;
         private AssemblyFileSet _assemblies = new AssemblyFileSet();
         private FileSet _summaries = new FileSet();
         private RawXml _documenters;
         private DirSet _referencePaths = new DirSet();
         private string _hhcexe;
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -159,9 +155,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _referencePaths; }
             set { _referencePaths = value; }
         }
-        
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -318,9 +311,6 @@ namespace NAnt.DotNet.Tasks {
                 throw new BuildException(ResourceUtils.GetString("NA2023"), Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         /// <summary>
@@ -466,6 +456,5 @@ namespace NAnt.DotNet.Tasks {
 
             return FileUtils.ResolveFile(searchFolders, "hhc.exe", false);
         }
-        #endregion Private Instance Methods
     }
 }

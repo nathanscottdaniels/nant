@@ -48,8 +48,6 @@ namespace NAnt.DotNet.Tasks {
     [TaskName("jsc")]
     [ProgramLocation(LocationType.FrameworkDir)]
     public class JscTask : CompilerBase {
-        #region Private Instance Fields
-
         private bool _autoRef;
         private bool _nostdlib;
         private string _warningLevel;
@@ -59,16 +57,10 @@ namespace NAnt.DotNet.Tasks {
 
         // framework configuration settings
         private bool _supportsPlatform;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|namespace\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
-
-        #endregion Private Static Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -306,9 +298,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsPlatform; }
             set { _supportsPlatform = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of CompilerBase
 
         /// <summary>
@@ -411,7 +400,5 @@ namespace NAnt.DotNet.Tasks {
         protected override Regex NamespaceRegex {
             get { return _namespaceRegex; }
         }
-
-        #endregion Override implementation of CompilerBase
     }
 }

@@ -36,17 +36,12 @@ namespace NAnt.NUnit2.Tasks {
     /// to workaround some limitations in it.
     /// </summary>
     internal class NUnit2TestDomain {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NUnit2TestDomain" />
         /// class.
         /// </summary>
         public NUnit2TestDomain() {
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Methods
 
         /// <summary>
@@ -121,9 +116,6 @@ namespace NAnt.NUnit2.Tasks {
                 }
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private AppDomain CreateDomain(DirectoryInfo basedir, FileInfo assemblyFile, FileInfo configFile) {
@@ -173,22 +165,14 @@ namespace NAnt.NUnit2.Tasks {
 #endif
             return (RemoteTestRunner) oh.Unwrap();
         }
-
-        #endregion Private Instance Methods
-
         #region Private Instance Fields
 
         private AppDomain _domain;
-
-        #endregion Private Instance Fields
-
         /// <summary>
         /// Helper class called when an assembly resolve event is raised.
         /// </summary>
         [Serializable()]
         private class AssemblyResolveHandler {
-            #region Public Instance Constructors
-
             /// <summary> 
             /// Initializes an instanse of the <see cref="AssemblyResolveHandler" />
             /// class.
@@ -205,9 +189,6 @@ namespace NAnt.NUnit2.Tasks {
                     new AssemblyLoadEventHandler(AssemblyLoad);
 
             }
-
-            #endregion Public Instance Constructors
-
             #region Public Instance Methods
 
             /// <summary>
@@ -295,9 +276,6 @@ namespace NAnt.NUnit2.Tasks {
                 // store assembly in cache
                 _assemblyCache[args.LoadedAssembly.FullName] = args.LoadedAssembly;
             }
-
-            #endregion Public Instance Methods
-
             #region Private Instance Fields
 
             /// <summary>
@@ -316,8 +294,6 @@ namespace NAnt.NUnit2.Tasks {
             /// Holds the loaded assemblies.
             /// </summary>
             private readonly Hashtable _assemblyCache;
-
-            #endregion Private Instance Fields
         }
     }
 }

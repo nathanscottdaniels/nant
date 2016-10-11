@@ -33,8 +33,6 @@ namespace Tests.NAnt.Core.Tasks {
     /// </summary>
     [TestFixture]
     public class MoveTest : BuildTestBase {
-        #region Private Instance Fields
-
         private string _tempDirDest;
         private string _tempFileSrc;
 
@@ -54,9 +52,6 @@ namespace Tests.NAnt.Core.Tasks {
         private string _tempFileTargetTwo;
         private string _tempFileTargetThree;
         private string _tempFileTargetFour;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string _xmlProjectTemplate = @"
@@ -96,9 +91,6 @@ namespace Tests.NAnt.Core.Tasks {
                 </move>
             </project>
         ";
-        
-        #endregion Private Static Fields
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();

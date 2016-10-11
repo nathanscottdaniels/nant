@@ -25,8 +25,6 @@ namespace NAnt.Core.Util {
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class CommandLineArgumentAttribute : Attribute {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLineArgumentAttribute" /> class
         /// with the specified argument type.
@@ -35,9 +33,6 @@ namespace NAnt.Core.Util {
         public CommandLineArgumentAttribute(CommandLineArgumentTypes argumentType) {
             _argumentType = argumentType;
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -74,17 +69,12 @@ namespace NAnt.Core.Util {
             get { return _description; }
             set { _description = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Fields
 
         private CommandLineArgumentTypes _argumentType;
         private string _name;
         private string _shortName;
         private string _description;
-
-        #endregion Private Instance Fields
     }
 }
 

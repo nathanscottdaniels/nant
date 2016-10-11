@@ -34,16 +34,11 @@ namespace NDoc.Documenter.NAnt {
     /// Provides an extension object for the XSLT transformations.
     /// </summary>
     public class NAntXsltUtilities {
-        #region Private Instance Fields
-
         private string _sdkDocBaseUrl; 
         private string _sdkDocExt; 
         private StringDictionary _elementNames = new StringDictionary();
         private XmlDocument _doc;
         private NAntDocumenterConfig _config;
-
-        #endregion Private Instance Fields
-
         #region Private Static Fields
 
         private const string SdkDoc10BaseUrl = "ms-help://MS.NETFrameworkSDK/cpref/html/frlrf";
@@ -55,9 +50,6 @@ namespace NDoc.Documenter.NAnt {
         private const string MicrosoftWin32Prefix = "Microsoft.Win32.";
         
         private static ArrayList Instances = new ArrayList(3);
-
-        #endregion Private Static Fields
-
         #region Public Instance Constructors
 
         /// <summary>
@@ -116,9 +108,6 @@ namespace NDoc.Documenter.NAnt {
                 }
             }
         }
-
-        #endregion Public Instance Constructors
-
         #region Public Instance Properties
 
         /// <summary>
@@ -137,9 +126,6 @@ namespace NDoc.Documenter.NAnt {
         public string SdkDocExt {
             get { return _sdkDocExt; }
         }
-
-        #endregion Public Instance Properties
-
         #region Private Instance Properties
 
         private XmlDocument Document {
@@ -149,9 +135,6 @@ namespace NDoc.Documenter.NAnt {
         private NAntDocumenterConfig Config {
             get { return _config; }
         }
-
-        #endregion Private Instance Properties
-
         #region Public Instance Methods
 
         /// <summary>
@@ -485,9 +468,6 @@ namespace NDoc.Documenter.NAnt {
         public string UrlEncode(string value) {
             return HttpUtility.UrlEncode(value, Encoding.UTF8);
         }
-
-        #endregion Public Instance Methods
-
         #region Internal Instance Methods
 
         /// <summary>
@@ -632,9 +612,6 @@ namespace NDoc.Documenter.NAnt {
             string sdkFile = typeNode.Attributes["id"].Value.Substring(2);
             return "../sdk/" + (urlEncode ? UrlEncode(sdkFile) : sdkFile) + ".html";
         }
-
-        #endregion Internal Instance Methods
-
         #region Private Instance Methods
 
         private string GetElementNameForType(XmlNode typeNode) {
@@ -759,9 +736,6 @@ namespace NDoc.Documenter.NAnt {
 
             return null;
         }
-
-        #endregion Private Instance Methods
-
         #region Internal Static Methods
 
         internal static NAntXsltUtilities CreateInstance(XmlDocument doc, NAntDocumenterConfig config){
@@ -777,7 +751,5 @@ namespace NDoc.Documenter.NAnt {
                 return inst;
             }
         }
-
-        #endregion Internal Static Methods
     }
 }

@@ -28,8 +28,6 @@ namespace NAnt.VSNet.Types {
     /// </summary>
     [Serializable()]
     public class WebMapCollection : CollectionBase {
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WebMapCollection"/> class.
         /// </summary>
@@ -51,11 +49,7 @@ namespace NAnt.VSNet.Types {
         public WebMapCollection(WebMap[] value) {
             AddRange(value);
         }
-
-        #endregion Public Instance Constructors
         
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -109,9 +103,6 @@ namespace NAnt.VSNet.Types {
 
             return bestMatch;
         }
-
-        #endregion Public Instance Properties
-
         #region Public Instance Methods
         
         /// <summary>
@@ -215,16 +206,12 @@ namespace NAnt.VSNet.Types {
         public void Remove(WebMap item) {
             base.List.Remove(item);
         }
-        
-        #endregion Public Instance Methods
     }
 
     /// <summary>
     /// Enumerates the <see cref="WebMap"/> elements of a <see cref="WebMapCollection"/>.
     /// </summary>
     public class WebMapEnumerator : IEnumerator {
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WebMapEnumerator"/> class
         /// with the specified <see cref="WebMapCollection"/>.
@@ -234,9 +221,6 @@ namespace NAnt.VSNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-
-        #endregion Internal Instance Constructors
-
         #region Implementation of IEnumerator
             
         /// <summary>
@@ -280,13 +264,8 @@ namespace NAnt.VSNet.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-
-        #endregion Implementation of IEnumerator
-
         #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
-
-        #endregion Private Instance Fields
     }
 }

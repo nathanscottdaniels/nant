@@ -45,14 +45,9 @@ namespace NAnt.Compression.Tasks {
     /// </example>
     [TaskName("unzip")]
     public class UnZipTask : ExpandBaseTask {
-        #region Private Instance Fields
-
         private FileInfo _zipfile;
         private DirectoryInfo _toDir;
         private Encoding _encoding;
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -92,9 +87,6 @@ namespace NAnt.Compression.Tasks {
             }
             set { _encoding = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -141,7 +133,5 @@ namespace NAnt.Compression.Tasks {
                     "Invalid zip file '{0}'.", ZipFile.FullName), Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
     }
 }

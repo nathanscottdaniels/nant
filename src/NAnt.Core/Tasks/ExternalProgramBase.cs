@@ -50,7 +50,6 @@ namespace NAnt.Core.Tasks {
     /// </remarks>
     [Serializable()]
     public abstract class ExternalProgramBase : Task {
-        #region Private Instance Fields
         
         private StreamReader _stdError;
         private StreamReader _stdOut;
@@ -64,9 +63,6 @@ namespace NAnt.Core.Tasks {
         private bool _spawn;
         private int _processId = 0;
         private bool _useRuntimeEngine;
-
-        #endregion Private Instance Fields
-
         #region Public Static Fields
 
         /// <summary>
@@ -74,9 +70,6 @@ namespace NAnt.Core.Tasks {
         /// if the process could not be started, or did not exit (in time).
         /// </summary>
         public const int UnknownExitCode = -1000;
-
-        #endregion Public Static Fields
-
         #region Private Static Fields
 
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -96,9 +89,6 @@ namespace NAnt.Core.Tasks {
         /// Will be used to ensure thread-safe operations.
         /// </summary>
         private static object _lockObject = new object();
-
-        #endregion Private Static Fields
-
         #region Static Constructors
 
         /// <summary>
@@ -134,9 +124,6 @@ namespace NAnt.Core.Tasks {
         }
 
         #endregion
-
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the executable that should be used to launch the 
         /// external program.
@@ -389,9 +376,6 @@ namespace NAnt.Core.Tasks {
             get { return _spawn; }
             set { _spawn = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -482,9 +466,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Public Instance Methods
 
         /// <summary>
@@ -498,9 +479,6 @@ namespace NAnt.Core.Tasks {
                 return arguments.ToString();
             }
         }
-
-        #endregion Public Instance Methods
-
         #region Protected Instance Methods
 
         /// <summary>
@@ -578,9 +556,6 @@ namespace NAnt.Core.Tasks {
                     ResourceUtils.GetString("NA1121"), p.StartInfo.FileName), Location, ex);
             }
         }
-
-        #endregion Protected Instance Methods
-
         #region Private Instance Methods
 
         /// <summary>
@@ -724,7 +699,5 @@ namespace NAnt.Core.Tasks {
                 return null;
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

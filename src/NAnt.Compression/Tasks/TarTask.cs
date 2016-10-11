@@ -57,17 +57,12 @@ namespace NAnt.Compression.Tasks {
     /// </example>
     [TaskName("tar")]
     public class TarTask : Task {
-        #region Private Instance Fields
-
         private FileInfo _destFile;
         private TarFileSetCollection _filesets = new TarFileSetCollection();
         private bool _flatten = false;
         private bool _includeEmptyDirs = false;
         private TarCompressionMethod _compressionMethod = TarCompressionMethod.None;
         private Hashtable _addedDirs = new Hashtable();
-
-        #endregion Private Instance Fields
-
         #region Public Instance Properties
 
         /// <summary>
@@ -118,9 +113,6 @@ namespace NAnt.Compression.Tasks {
             get { return _compressionMethod; }
             set { _compressionMethod = value; }
         }
-
-        #endregion Public Instance Properties
-
         #region Override implementation of Task
 
         /// <summary>
@@ -286,9 +278,6 @@ namespace NAnt.Compression.Tasks {
                     Location, ex);
             }
         }
-
-        #endregion Override implementation of Task
-
         #region Private Instance Methods
 
         private void CreateDirectoryEntry(TarArchive archive, string entryName, TarFileSet fileset) {
@@ -311,7 +300,5 @@ namespace NAnt.Compression.Tasks {
             // remember that directory entry was added
             _addedDirs[entryName] = null;
         }
-
-        #endregion Private Instance Methods
     }
 }

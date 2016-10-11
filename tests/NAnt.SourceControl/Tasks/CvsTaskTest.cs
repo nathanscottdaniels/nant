@@ -51,9 +51,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
                                 destination='{3}'
                                 usesharpcvslib='{4}' />
             </project>";
-
-        #region Override implementation of BuildTestBase
-
         /// <summary>
         /// Run the checkout command so we have something to update.
         /// </summary>
@@ -69,9 +66,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-
-        #endregion Override implementation of BuildTestBase
-
         /// <summary>
         /// Test that the checkout command executes successfully.
         /// </summary>
@@ -173,9 +167,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
                 + sharpCvsLibTime + "; time for the cvs executable in the path"
                 + " variable: " + cvsPathTime);
         }
-
-        #region Private Instance Methods
-
         private string FormatBuildFile(string baseFile, object[] args) {
             return string.Format(CultureInfo.InvariantCulture, baseFile, args);
         }
@@ -196,9 +187,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
 
             return end.Subtract(start).Ticks;
         }
-
-        #endregion Private Instance Methods
-
 
     }
 }

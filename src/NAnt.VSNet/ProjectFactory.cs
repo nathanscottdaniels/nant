@@ -37,8 +37,6 @@ namespace NAnt.VSNet {
     /// Factory class for VS.NET projects.
     /// </summary>
     internal sealed class ProjectFactory {
-        #region Private Instance Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectFactory" />
         /// class.
@@ -48,9 +46,6 @@ namespace NAnt.VSNet {
             _cachedProjectGuids = CollectionsUtil.CreateCaseInsensitiveHashtable();
             _cachedProjectXml = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-
-        #endregion Private Instance Constructor
-
         #region Public Static Methods
 
         public static ProjectFactory Create(SolutionTask solutionTask) {
@@ -64,9 +59,6 @@ namespace NAnt.VSNet {
 
             return false;
         }
-
-        #endregion Public Static Methods
-
         #region Public Instance Methods
 
         public XmlDocument LoadProjectXml(string path) {
@@ -139,9 +131,6 @@ namespace NAnt.VSNet {
         public void RegisterProvider(IProjectBuildProvider provider) {
             _projectprovs.Add(provider);
         }
-
-        #endregion Public Instance Methods
-
         #region Private Instance Methods
 
         private ProjectBase CreateProject(SolutionBase solution, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver referencesResolver, DirectoryInfo outputDir, string projectPath) {
@@ -193,9 +182,6 @@ namespace NAnt.VSNet {
             }
             return res;
         }
-
-        #endregion Private Instance Methods
-
         #region Private Static Methods
 
         private static string GetProjectFileName(string fileName) {
@@ -215,9 +201,6 @@ namespace NAnt.VSNet {
             // return filename part
             return Path.GetFileName(projectPath);
         }
-
-        #endregion Private Static Methods
-
         #region Private Instance Fields
 
         /// <summary>
@@ -251,7 +234,5 @@ namespace NAnt.VSNet {
         private readonly Hashtable _cachedProjectXml;
 
         private readonly ArrayList _projectprovs = new ArrayList();
-
-        #endregion Private Instance Fields
     }
 }
