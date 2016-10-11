@@ -124,7 +124,8 @@ namespace NAnt.Core {
         }
 
         protected virtual Task CreateChildTask(XmlNode node) {
-            return Project.CreateTask(node);
+            var task = Project.CreateTask(node, this);
+            return task;
         }
 
         protected virtual DataTypeBase CreateChildDataTypeBase(XmlNode node) {

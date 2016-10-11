@@ -1066,7 +1066,7 @@ namespace NAnt.Core
                 foreach (string targetName in BuildTargets)
                 {
                     //do not force dependencies of build targets.
-                    Execute(targetName, false);
+                    Execute(targetName, false, null);
                 }
             }
         }
@@ -1075,12 +1075,13 @@ namespace NAnt.Core
         /// Executes a specific target, and its dependencies.
         /// </summary>
         /// <param name="targetName">The name of the target to execute.</param>
+        /// <param name="caller">The task responsible for calling this target</param>
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName)
+        public void Execute(string targetName, Task caller)
         {
-            Execute(targetName, true);
+            Execute(targetName, true, caller);
         }
 
         /// <summary>
@@ -1088,10 +1089,11 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="targetName">The name of the target to execute.</param>
         /// <param name="forceDependencies">Whether dependencies should be forced to execute</param>
+        /// <param name="caller">The task responsible for calling this target</param>
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, bool forceDependencies)
+        public void Execute(string targetName, bool forceDependencies, Task caller)
         {
             if (!this.RunTargetsInParallel)
             {
@@ -1120,7 +1122,7 @@ namespace NAnt.Core
                     // we are not forcing.
                     if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                     {
-                        currentTarget.Execute();
+                        currentTarget.Execute(caller);
                     }
                 } while (currentTarget.Name != targetName);
 
@@ -1168,7 +1170,7 @@ namespace NAnt.Core
                             {
                                 if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                                 {
-                                    currentTarget.Execute();
+                                    currentTarget.Execute(caller);
                                 }
                             }
                         }
@@ -1294,10 +1296,11 @@ namespace NAnt.Core
         /// Creates a new <see ref="Task" /> from the given <see cref="XmlNode" />.
         /// </summary>
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
+        /// <param name="caller">The task responsible for calling this target</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode)
+        public Task CreateTask(XmlNode taskNode, Task caller)
         {
-            return CreateTask(taskNode, null);
+            return CreateTask(taskNode, null, caller);
         }
 
         /// <summary>
@@ -1306,14 +1309,16 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
         /// <param name="target">The owner <see cref="Target" />.</param>
+        /// <param name="caller">The task responsible for calling this target</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode, Target target)
+        public Task CreateTask(XmlNode taskNode, Target target, Task caller)
         {
             Task task = TypeFactory.CreateTask(taskNode, this);
 
             task.Project = this;
             task.Parent = target;
             task.NamespaceManager = NamespaceManager;
+            task.Caller = caller;
             task.Initialize(taskNode);
             return task;
         }
@@ -1655,7 +1660,7 @@ namespace NAnt.Core
                 if (TypeFactory.TaskBuilders.Contains(childNode.Name))
                 {
                     // create task instance
-                    Task task = CreateTask(childNode);
+                    Task task = CreateTask(childNode, null);
                     task.Parent = this;
                     // execute task
                     task.Execute();

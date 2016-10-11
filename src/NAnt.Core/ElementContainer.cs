@@ -104,7 +104,7 @@ namespace NAnt.Core
         /// <param name="node">The node specifiing the task.</param>
         /// <returns>The created task instance.</returns>
         protected virtual Task CreateChildTask(XmlNode node) {
-            return Project.CreateTask(node);
+            return Project.CreateTask(node, null);
         }
 
         protected virtual DataTypeBase CreateChildDataTypeBase(XmlNode node) {

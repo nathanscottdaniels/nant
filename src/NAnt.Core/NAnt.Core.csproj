@@ -108,7 +108,8 @@
     <Compile Include="TaskBuilder.cs" />
     <Compile Include="TaskBuilderCollection.cs" />
     <Compile Include="TaskContainer.cs" />
-    <Compile Include="Tasks\Parallel.cs" />
+    <Compile Include="Tasks\MutexTask.cs" />
+    <Compile Include="Tasks\ParallelTask.cs" />
     <Compile Include="TypeFactory.cs" />
     <Compile Include="Types\ParallelTarget.cs" />
     <Compile Include="ValidationException.cs" />

@@ -29,7 +29,7 @@ namespace NAnt.Core.Tasks
 
         protected override void ExecuteTask()
         {
-            this.Project.Log(Level.Info, "Begining parallel execution of targets...");
+            this.Log(Level.Info, "Begining parallel execution of targets...");
             this.Project.Indent();
 
             try
@@ -38,23 +38,27 @@ namespace NAnt.Core.Tasks
                 {
                     try
                     {
-                        this.Project.Log(Level.Info, $"Parallel: Executing \"{ targetElement.TargetName}\" in parallel.");
+                        this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in parallel.");
 
                         if (!state.IsExceptional && !state.IsStopped)
                         {
-                            this.Project.Execute(targetElement.TargetName);
+                            this.Project.Execute(targetElement.TargetName, this);
                         }
                     }
                     catch (Exception e)
                     {
                         state.Stop();
 
-                        var message = $"ERROR: An exception has been thrown by the \"{targetElement.TargetName}\" target of the parallel.  Any currently executing targets will run to completion but the build will fail.";
+                        lock (this)
+                        {
+                            var message = $"ERROR: An exception has been thrown by the \"{targetElement.TargetName}\" target of the parallel.  Any currently executing targets will run to completion but the build will fail.";
 
-                        this.Project.Log(Level.Error, new string('=', message.Length));
-                        this.Project.Log(Level.Error, message);
-                        this.Project.Log(Level.Error, new string('=', message.Length) + "\r\n");
-                        throw;
+                            this.Log(Level.Error, new string('=', message.Length));
+                            this.Log(Level.Error, message);
+                            this.Log(Level.Error, e.Message);
+                            this.Log(Level.Error, new string('=', message.Length) + "\r\n");
+                            throw;
+                        }
                     }
                 });
             }

@@ -29,6 +29,7 @@ using System.Xml;
 
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
+using NAnt.Core.Tasks;
 
 namespace NAnt.Core
 {
@@ -146,6 +147,13 @@ namespace NAnt.Core
             get { return _threshold; }
             set { _threshold = value; }
         }
+
+        /// <summary>
+        /// Gets the task that is responsible for this task being executed.  This can be tasks such as 
+        /// <see cref="CallTask"/> that call the target that owns this task, or container tasks such as
+        /// <see cref="IfTask"/> that wrap this task.
+        /// </summary>
+        public Task Caller { get; internal set; }
 
         /// <summary>
         /// Returns the TaskBuilder used to construct an instance of this
