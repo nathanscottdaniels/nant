@@ -32,7 +32,8 @@ using System.Xml;
 using NAnt.Core.Tasks;
 using NAnt.Core.Util;
 
-namespace NAnt.Core {
+namespace NAnt.Core
+{
     /// <summary>
     /// Central representation of a NAnt project.
     /// </summary>
@@ -61,7 +62,8 @@ namespace NAnt.Core {
     ///   </code>
     /// </example>
     [Serializable()]
-    public class Project {
+    public class Project
+    {
 
         /// <summary>
         /// Holds the logger for this class.
@@ -115,12 +117,12 @@ namespace NAnt.Core {
         /// Occurs when a target is started.
         /// </summary>
         public event BuildEventHandler TargetStarted;
-        
+
         /// <summary>
         /// Occurs when a target has finished.
         /// </summary>
         public event BuildEventHandler TargetFinished;
-        
+
         /// <summary>
         /// Occurs when a task is started.
         /// </summary>
@@ -130,7 +132,7 @@ namespace NAnt.Core {
         /// Occurs when a task has finished.
         /// </summary>
         public event BuildEventHandler TaskFinished;
-        
+
         /// <summary>
         /// Occurs when a message is logged.
         /// </summary>
@@ -176,7 +178,8 @@ namespace NAnt.Core {
         /// <param name="doc">Any valid build format will do.</param>
         /// <param name="threshold">The message threshold.</param>
         /// <param name="indentLevel">The project indentation level.</param>
-        public Project(XmlDocument doc, Level threshold, int indentLevel) {
+        public Project(XmlDocument doc, Level threshold, int indentLevel)
+        {
             // use NAnt settings from application configuration file for loading 
             // internal configuration settings
             _configurationNode = GetConfigurationNode();
@@ -199,7 +202,8 @@ namespace NAnt.Core {
         /// This constructor is useful for developers using NAnt as a class
         /// library.
         /// </remarks>
-        public Project(XmlDocument doc, Level threshold, int indentLevel, XmlNode configurationNode) {
+        public Project(XmlDocument doc, Level threshold, int indentLevel, XmlNode configurationNode)
+        {
             // set configuration node to use for loading internal configuration 
             // settings
             _configurationNode = configurationNode;
@@ -221,7 +225,8 @@ namespace NAnt.Core {
         /// <remarks>
         /// If the source is a uri of form 'file:///path' then use the path part.
         /// </remarks>
-        public Project(string uriOrFilePath, Level threshold, int indentLevel) {
+        public Project(string uriOrFilePath, Level threshold, int indentLevel)
+        {
             // use NAnt settings from application configuration file for loading 
             // internal configuration settings
             _configurationNode = GetConfigurationNode();
@@ -248,7 +253,8 @@ namespace NAnt.Core {
         /// <remarks>
         /// If the source is a uri of form 'file:///path' then use the path part.
         /// </remarks>
-        public Project(string uriOrFilePath, Level threshold, int indentLevel, XmlNode configurationNode) {
+        public Project(string uriOrFilePath, Level threshold, int indentLevel, XmlNode configurationNode)
+        {
             // set configuration node to use for loading internal configuration 
             // settings
             _configurationNode = configurationNode;
@@ -271,20 +277,22 @@ namespace NAnt.Core {
         /// Optimized for framework initialization projects, by skipping automatic
         /// discovery of extension assemblies and framework configuration.
         /// </remarks>
-        internal Project(string uriOrFilePath, Project parent) {
+        internal Project(string uriOrFilePath, Project parent)
+        {
             // set configuration node to use for loading internal configuration 
             // settings
             _configurationNode = parent.ConfigurationNode;
 
             // initialize project
-            CtorHelper(LoadBuildFile(uriOrFilePath), parent.Threshold, 
+            CtorHelper(LoadBuildFile(uriOrFilePath), parent.Threshold,
                 parent.IndentationLevel + 1, Optimizations.SkipFrameworkConfiguration);
 
             // add listeners of current project to new project
             AttachBuildListeners(parent.BuildListeners);
 
             // inherit discovered frameworks from current project
-            foreach (FrameworkInfo framework in parent.Frameworks) {
+            foreach (FrameworkInfo framework in parent.Frameworks)
+            {
                 Frameworks.Add(framework.Name, framework);
             }
 
@@ -307,7 +315,8 @@ namespace NAnt.Core {
         /// Optimized for framework initialization projects, by skipping automatic
         /// discovery of extension assemblies and framework configuration.
         /// </remarks>
-        internal Project(XmlDocument doc) {
+        internal Project(XmlDocument doc)
+        {
             // initialize project
             CtorHelper(doc, Level.None, 0, Optimizations.SkipAutomaticDiscovery |
                 Optimizations.SkipFrameworkConfiguration);
@@ -323,7 +332,8 @@ namespace NAnt.Core {
         /// To change the <see cref="IndentationLevel" />, the <see cref="Indent()" /> 
         /// and <see cref="Unindent()" /> methods should be used.
         /// </remarks>
-        public int IndentationLevel {
+        public int IndentationLevel
+        {
             get { return _indentationLevel; }
         }
 
@@ -333,7 +343,8 @@ namespace NAnt.Core {
         /// <value>
         /// The indendation size of the build output.
         /// </value>
-        public int IndentationSize {
+        public int IndentationSize
+        {
             get { return _indentationSize; }
         }
 
@@ -343,7 +354,8 @@ namespace NAnt.Core {
         /// <value>
         /// The default threshold level for build loggers.
         /// </value>
-        public Level Threshold {
+        public Level Threshold
+        {
             get { return _threshold; }
             set { _threshold = value; }
         }
@@ -355,7 +367,8 @@ namespace NAnt.Core {
         /// The name of the <see cref="Project" /> or an empty <see cref="string" />
         /// if no name is specified.
         /// </value>
-        public string ProjectName {
+        public string ProjectName
+        {
             get { return _projectName; }
         }
 
@@ -372,13 +385,17 @@ namespace NAnt.Core {
         /// named "nant.project.basedir".
         /// </para>
         /// </remarks>
-        public string BaseDirectory {
-            get {
-                if (_baseDirectory == null) {
+        public string BaseDirectory
+        {
+            get
+            {
+                if (_baseDirectory == null)
+                {
                     return null;
                 }
 
-                if (!Path.IsPathRooted(_baseDirectory)) {
+                if (!Path.IsPathRooted(_baseDirectory))
+                {
                     throw new BuildException(string.Format(CultureInfo.InstalledUICulture,
                         "Invalid base directory '{0}'. The project base directory"
                         + "must be rooted.", _baseDirectory), Location.UnknownLocation);
@@ -386,8 +403,10 @@ namespace NAnt.Core {
 
                 return _baseDirectory;
             }
-            set {
-                if (!Path.IsPathRooted(value)) {
+            set
+            {
+                if (!Path.IsPathRooted(value))
+                {
                     throw new BuildException(string.Format(CultureInfo.InstalledUICulture,
                         "Invalid base directory '{0}'. The project base directory"
                         + "must be rooted.", value), Location.UnknownLocation);
@@ -407,7 +426,8 @@ namespace NAnt.Core {
         /// The <see cref="NamespaceManager" /> defines the current namespace 
         /// scope and provides methods for looking up namespace information.
         /// </remarks>
-        public XmlNamespaceManager NamespaceManager {
+        public XmlNamespaceManager NamespaceManager
+        {
             get { return _nsMgr; }
         }
 
@@ -417,12 +437,16 @@ namespace NAnt.Core {
         /// <value>
         /// The <see cref="Uri" /> form of the current project definition.
         /// </value>
-        public Uri BuildFileUri {
-            get {
+        public Uri BuildFileUri
+        {
+            get
+            {
                 //TODO: Need to remove this.
-                if (Document == null || String.IsNullOrEmpty(Document.BaseURI)) {
+                if (Document == null || String.IsNullOrEmpty(Document.BaseURI))
+                {
                     return null; //new Uri("http://localhost");
-                } else {
+                }
+                else {
                     // manually escape '#' in URI (why doesn't .NET do this?) to allow
                     // projects in paths containing a '#' character
                     string escapedUri = Document.BaseURI.Replace("#", Uri.HexEscape('#'));
@@ -438,7 +462,8 @@ namespace NAnt.Core {
         /// <value>
         /// A collection of available .NET frameworks.
         /// </value>
-        public FrameworkInfoDictionary Frameworks {
+        public FrameworkInfoDictionary Frameworks
+        {
             get { return _frameworks; }
         }
 
@@ -452,19 +477,24 @@ namespace NAnt.Core {
         /// frameworks specified by the <paramref name="types" /> parameter,
         /// sorted on name.
         /// </returns>
-        internal FrameworkInfo[] GetFrameworks (FrameworkTypes types) {
+        internal FrameworkInfo[] GetFrameworks(FrameworkTypes types)
+        {
             ArrayList matches = new ArrayList(Frameworks.Count);
 
-            foreach (FrameworkInfo framework in Frameworks.Values) {
-                if ((types & FrameworkTypes.InstallStateMask) != 0) {
+            foreach (FrameworkInfo framework in Frameworks.Values)
+            {
+                if ((types & FrameworkTypes.InstallStateMask) != 0)
+                {
                     if ((types & FrameworkTypes.Installed) == 0 && framework.IsValid)
                         continue;
                     if ((types & FrameworkTypes.NotInstalled) == 0 && !framework.IsValid)
                         continue;
                 }
 
-                if ((types & FrameworkTypes.DeviceMask) != 0) {
-                    switch (framework.ClrType) {
+                if ((types & FrameworkTypes.DeviceMask) != 0)
+                {
+                    switch (framework.ClrType)
+                    {
                         case ClrType.Compact:
                             if ((types & FrameworkTypes.Compact) == 0)
                                 continue;
@@ -484,8 +514,10 @@ namespace NAnt.Core {
                     }
                 }
 
-                if ((types & FrameworkTypes.VendorMask) != 0) {
-                    switch (framework.Vendor) {
+                if ((types & FrameworkTypes.VendorMask) != 0)
+                {
+                    switch (framework.Vendor)
+                    {
                         case VendorType.Mono:
                             if ((types & FrameworkTypes.Mono) == 0)
                                 continue;
@@ -513,7 +545,8 @@ namespace NAnt.Core {
         /// <value>
         /// The framework in which NAnt is currently running.
         /// </value>
-        public FrameworkInfo RuntimeFramework {
+        public FrameworkInfo RuntimeFramework
+        {
             get { return _runtimeFramework; }
             set { _runtimeFramework = value; }
         }
@@ -530,14 +563,17 @@ namespace NAnt.Core {
         /// We will use compiler tools and system assemblies for this framework 
         /// in framework-related tasks.
         /// </remarks>
-        public FrameworkInfo TargetFramework {
+        public FrameworkInfo TargetFramework
+        {
             get { return _targetFramework; }
-            set {
-                if (value == null) {
+            set
+            {
+                if (value == null)
+                {
                     throw new ArgumentNullException("value");
                 }
 
-                value.Validate ();
+                value.Validate();
                 _targetFramework = value;
                 UpdateTargetFrameworkProperties();
             }
@@ -563,17 +599,23 @@ namespace NAnt.Core {
         /// </list>
         /// </remarks>
         /// <exception cref="BuildException">NAnt does not support the current platform.</exception>
-        public string PlatformName {
-            get { 
-                if (PlatformHelper.IsWin32) {
+        public string PlatformName
+        {
+            get
+            {
+                if (PlatformHelper.IsWin32)
+                {
                     return "win32";
-                } else if (PlatformHelper.IsUnix) {
+                }
+                else if (PlatformHelper.IsUnix)
+                {
                     return "unix";
-                } else {
-                    throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                        ResourceUtils.GetString("NA1060"), 
+                }
+                else {
+                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                        ResourceUtils.GetString("NA1060"),
                         Environment.OSVersion.Platform.ToString(CultureInfo.InvariantCulture),
-                        (int) Environment.OSVersion.Platform));
+                        (int)Environment.OSVersion.Platform));
                 }
             }
         }
@@ -585,7 +627,8 @@ namespace NAnt.Core {
         /// The current target, or <see langword="null" /> if no target is
         /// executing.
         /// </value>
-        public Target CurrentTarget {
+        public Target CurrentTarget
+        {
             get { return _currentTarget; }
         }
 
@@ -596,11 +639,15 @@ namespace NAnt.Core {
         /// The path to the build file, or <see langword="null" /> if the build
         /// document is not file backed.
         /// </value>
-        public string BuildFileLocalName {
-            get {
-                if (BuildFileUri != null && BuildFileUri.IsFile) {
+        public string BuildFileLocalName
+        {
+            get
+            {
+                if (BuildFileUri != null && BuildFileUri.IsFile)
+                {
                     return BuildFileUri.LocalPath;
-                } else {
+                }
+                else {
                     return null;
                 }
             }
@@ -612,7 +659,8 @@ namespace NAnt.Core {
         /// <value>
         /// The active <see cref="Project" /> definition.
         /// </value>
-        public XmlDocument Document {
+        public XmlDocument Document
+        {
             get { return _doc; }
         }
 
@@ -624,7 +672,8 @@ namespace NAnt.Core {
         /// The <see cref="XmlNode" /> NAnt should use to initialize 
         /// configuration settings.
         /// </value>
-        public XmlNode ConfigurationNode {
+        public XmlNode ConfigurationNode
+        {
             get { return _configurationNode; }
         }
 
@@ -637,7 +686,8 @@ namespace NAnt.Core {
         /// build targets are specified, or <see langword="null" /> if no
         /// default target is specified in the build file.
         /// </value>
-        public string DefaultTargetName {
+        public string DefaultTargetName
+        {
             get { return _defaultTargetName; }
         }
 
@@ -649,7 +699,8 @@ namespace NAnt.Core {
         /// <see langword="true" /> if tasks should output more build log message; 
         /// otherwise, <see langword="false" />.
         /// </value>
-        public bool Verbose {
+        public bool Verbose
+        {
             get { return Level.Verbose >= Threshold; }
         }
 
@@ -661,7 +712,8 @@ namespace NAnt.Core {
         /// <see langword="true" /> if targets should be executed in parallel
         /// otherwise, <see langword="false" />.
         /// </value>
-        public bool RunTargetsInParallel {
+        public bool RunTargetsInParallel
+        {
             get { return _runTargetsInParallel; }
             set { _runTargetsInParallel = value; }
         }
@@ -673,7 +725,8 @@ namespace NAnt.Core {
         /// Targets are built in the order they appear in the collection.  If 
         /// the collection is empty the default target will be built.
         /// </remarks>
-        public StringCollection BuildTargets {
+        public StringCollection BuildTargets
+        {
             get { return _buildTargets; }
         }
 
@@ -690,7 +743,8 @@ namespace NAnt.Core {
         /// These properties can be used in expansion.
         /// </para>
         /// </remarks>
-        public PropertyDictionary Properties {
+        public PropertyDictionary Properties
+        {
             get { return _properties; }
         }
 
@@ -713,7 +767,8 @@ namespace NAnt.Core {
         /// not available for expansion in the build file.
         /// </para>
         /// </remarks>
-        public PropertyDictionary FrameworkNeutralProperties {
+        public PropertyDictionary FrameworkNeutralProperties
+        {
             get { return _frameworkNeutralProperties; }
         }
 
@@ -729,7 +784,8 @@ namespace NAnt.Core {
         /// are defined by <see cref="DataTypeBase" /> (eg fileset) declarations.
         /// </para>
         /// </remarks>
-        public DataTypeBaseDictionary DataTypeReferences {
+        public DataTypeBaseDictionary DataTypeReferences
+        {
             get { return _dataTypeReferences; }
         }
 
@@ -739,7 +795,8 @@ namespace NAnt.Core {
         /// <value>
         /// The targets defined in this project.
         /// </value>
-        public TargetCollection Targets {
+        public TargetCollection Targets
+        {
             get { return _targets; }
         }
 
@@ -749,11 +806,13 @@ namespace NAnt.Core {
         /// <value>
         /// The build listeners for this project.
         /// </value>
-        public BuildListenerCollection BuildListeners {
+        public BuildListenerCollection BuildListeners
+        {
             get { return _buildListeners; }
         }
 
-        internal LocationMap LocationMap {
+        internal LocationMap LocationMap
+        {
             get { return _locationMap; }
         }
 
@@ -801,7 +860,8 @@ namespace NAnt.Core {
         ///   <para>-or</para>
         ///   <para><paramref name="node" /> was not processed by NAnt (eg. an XML declaration).</para>
         /// </exception>
-        public Location GetLocation(XmlNode node) {
+        public Location GetLocation(XmlNode node)
+        {
             return LocationMap.GetLocation(node);
         }
 
@@ -811,8 +871,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnBuildStarted(object sender, BuildEventArgs e) {
-            if (BuildStarted != null) {
+        public void OnBuildStarted(object sender, BuildEventArgs e)
+        {
+            if (BuildStarted != null)
+            {
                 BuildStarted(sender, e);
             }
         }
@@ -823,8 +885,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnBuildFinished(object sender, BuildEventArgs e) {
-            if (BuildFinished != null) {
+        public void OnBuildFinished(object sender, BuildEventArgs e)
+        {
+            if (BuildFinished != null)
+            {
                 BuildFinished(sender, e);
             }
         }
@@ -835,8 +899,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTargetStarted(object sender, BuildEventArgs e) {
-            if (TargetStarted != null) {
+        public void OnTargetStarted(object sender, BuildEventArgs e)
+        {
+            if (TargetStarted != null)
+            {
                 TargetStarted(sender, e);
             }
         }
@@ -847,8 +913,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTargetFinished(object sender, BuildEventArgs e) {
-            if (TargetFinished != null) {
+        public void OnTargetFinished(object sender, BuildEventArgs e)
+        {
+            if (TargetFinished != null)
+            {
                 TargetFinished(sender, e);
             }
         }
@@ -858,8 +926,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTaskStarted(object sender, BuildEventArgs e) {
-            if (TaskStarted != null) {
+        public void OnTaskStarted(object sender, BuildEventArgs e)
+        {
+            if (TaskStarted != null)
+            {
                 TaskStarted(sender, e);
             }
         }
@@ -870,8 +940,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTaskFinished(object sender, BuildEventArgs e) {
-            if (TaskFinished != null) {
+        public void OnTaskFinished(object sender, BuildEventArgs e)
+        {
+            if (TaskFinished != null)
+            {
                 TaskFinished(sender, e);
             }
         }
@@ -881,8 +953,10 @@ namespace NAnt.Core {
         /// for this <see cref="Project" />.
         /// </summary>
         /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnMessageLogged(BuildEventArgs e) {
-            if (MessageLogged != null) {
+        public void OnMessageLogged(BuildEventArgs e)
+        {
+            if (MessageLogged != null)
+            {
                 MessageLogged(this, e);
             }
         }
@@ -893,7 +967,8 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Level messageLevel, string message) {
+        public void Log(Level messageLevel, string message)
+        {
             BuildEventArgs eventArgs = new BuildEventArgs(this);
 
             eventArgs.Message = message;
@@ -908,7 +983,8 @@ namespace NAnt.Core {
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log, containing zero or more format items.</param>
         /// <param name="args">An <see cref="object" /> array containing zero or more objects to format.</param>
-        public void Log(Level messageLevel, string message, params object[] args) {
+        public void Log(Level messageLevel, string message, params object[] args)
+        {
             BuildEventArgs eventArgs = new BuildEventArgs(this);
 
             eventArgs.Message = string.Format(CultureInfo.InvariantCulture, message, args);
@@ -923,7 +999,8 @@ namespace NAnt.Core {
         /// <param name="task">The <see cref="Task" /> from which the message originated.</param>
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Task task, Level messageLevel, string message) {
+        public void Log(Task task, Level messageLevel, string message)
+        {
             BuildEventArgs eventArgs = new BuildEventArgs(task);
 
             eventArgs.Message = message;
@@ -938,7 +1015,8 @@ namespace NAnt.Core {
         /// <param name="target">The <see cref="Target" /> from which the message orignated.</param>
         /// <param name="messageLevel">The level to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Target target, Level messageLevel, string message) {
+        public void Log(Target target, Level messageLevel, string message)
+        {
             BuildEventArgs eventArgs = new BuildEventArgs(target);
 
             eventArgs.Message = message;
@@ -953,36 +1031,45 @@ namespace NAnt.Core {
         /// No top level error handling is done. Any <see cref="BuildException" /> 
         /// will be passed onto the caller.
         /// </remarks>
-        public virtual void Execute() {
-            if (BuildTargets.Count == 0 && !String.IsNullOrEmpty(DefaultTargetName)) {
+        public virtual void Execute()
+        {
+            if (BuildTargets.Count == 0 && !String.IsNullOrEmpty(DefaultTargetName))
+            {
                 BuildTargets.Add(DefaultTargetName);
             }
 
             //log the targets specified, or the default target if specified.
             StringBuilder sb = new StringBuilder();
-            if (BuildTargets != null) {
-                foreach(string target in BuildTargets) {
+            if (BuildTargets != null)
+            {
+                foreach (string target in BuildTargets)
+                {
                     sb.Append(target);
                     sb.Append(" ");
                 }
             }
 
-            if(sb.Length > 0) {
+            if (sb.Length > 0)
+            {
                 Log(Level.Info, "Target(s) specified: " + sb.ToString());
                 Log(Level.Info, string.Empty);
-            } else {
+            }
+            else {
                 Log(Level.Info, string.Empty);
             }
-            
+
             // initialize the list of Targets, and execute any global tasks.
             InitializeProjectDocument(Document);
 
-            if (BuildTargets.Count == 0) {
+            if (BuildTargets.Count == 0)
+            {
                 //It is okay if there are no targets defined in a build file. 
                 //It just means we have all global tasks. -- skot
                 //throw new BuildException("No Target Specified");
-            } else {
-                foreach (string targetName in BuildTargets) {
+            }
+            else {
+                foreach (string targetName in BuildTargets)
+                {
                     //do not force dependencies of build targets.
                     Execute(targetName, false);
                 }
@@ -996,10 +1083,11 @@ namespace NAnt.Core {
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName) {
+        public void Execute(string targetName)
+        {
             Execute(targetName, true);
         }
-        
+
         /// <summary>
         /// Executes a specific target.
         /// </summary>
@@ -1008,9 +1096,11 @@ namespace NAnt.Core {
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, bool forceDependencies) {
+        public void Execute(string targetName, bool forceDependencies)
+        {
             bool singleThreaded = !RunTargetsInParallel;
-            if (singleThreaded) {
+            if (singleThreaded)
+            {
                 // sort the dependency tree, and run everything from the
                 // beginning until we hit our targetName.
                 // 
@@ -1024,16 +1114,18 @@ namespace NAnt.Core {
                 // store calling target
                 Target callingTarget = _currentTarget;
 
-                do {
+                do
+                {
                     // determine target that should be executed
-                    currentTarget = (Target) sortedTargets[currentIndex++];
+                    currentTarget = (Target)sortedTargets[currentIndex++];
 
                     // store target that will be executed
                     _currentTarget = currentTarget;
 
                     // only execute targets that have not been executed already, if 
                     // we are not forcing.
-                    if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName) {
+                    if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
+                    {
                         currentTarget.Execute();
                     }
                 } while (currentTarget.Name != targetName);
@@ -1048,37 +1140,46 @@ namespace NAnt.Core {
                 // sorting checks if all the targets (and dependencies)
                 // exist, and if there is any cycle in the dependency
                 // graph.
-                TopologicalTargetSort (targetName, Targets);
+                TopologicalTargetSort(targetName, Targets);
 
                 // Dictionary is faster than implementation in TargetCollection.Find
                 System.Collections.Generic.Dictionary<string, Target> targets = new System.Collections.Generic.Dictionary<string, Target>();
-                foreach (Target target in Targets) {
-                    targets [target.Name] = target;
+                foreach (Target target in Targets)
+                {
+                    targets[target.Name] = target;
                 }
 
                 // Use execution graph to run targets in parallel
-                using (ExecutionGraph graph = new ExecutionGraph()) {
+                using (ExecutionGraph graph = new ExecutionGraph())
+                {
 
                     PopulateExecutionGraph(targetName, Targets, graph);
-                    graph.WalkThrough(delegate(string currentTargetName) {
+                    graph.WalkThrough(delegate (string currentTargetName)
+                    {
 
                         Target currentTarget;
-                        if (!targets.TryGetValue(currentTargetName, out currentTarget)) {
-                            Target wildcardTarget = targets [WildTarget];
-                            currentTarget = wildcardTarget.Clone ();
+                        if (!targets.TryGetValue(currentTargetName, out currentTarget))
+                        {
+                            Target wildcardTarget = targets[WildTarget];
+                            currentTarget = wildcardTarget.Clone();
                             currentTarget.Name = targetName;
                         }
 
                         Target savedTarget = _currentTarget;
                         _currentTarget = currentTarget;
 
-                        try {
-                            lock (currentTarget) {
-                                if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName) {
-                                    currentTarget.Execute ();
+                        try
+                        {
+                            lock (currentTarget)
+                            {
+                                if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
+                                {
+                                    currentTarget.Execute();
                                 }
                             }
-                        } finally {
+                        }
+                        finally
+                        {
                             _currentTarget = savedTarget;
                         }
                     }
@@ -1095,17 +1196,19 @@ namespace NAnt.Core {
         /// <see langword="true" /> if the build was successful; otherwise, 
         /// <see langword="false" />.
         /// </returns>
-        public bool Run() {
+        public bool Run()
+        {
             Exception error = null;
 
-            try {
+            try
+            {
                 OnBuildStarted(this, new BuildEventArgs(this));
 
                 // output build file that we're running
                 Log(Level.Info, "Buildfile: {0}", BuildFileUri);
 
                 // output current target framework in build log
-                Log(Level.Info, "Target framework: {0}", TargetFramework != null 
+                Log(Level.Info, "Target framework: {0}", TargetFramework != null
                     ? TargetFramework.Description : "None");
 
                 // write verbose project information after Initialize to make 
@@ -1117,7 +1220,9 @@ namespace NAnt.Core {
 
                 // signal build success
                 return true;
-            } catch (BuildException e) {
+            }
+            catch (BuildException e)
+            {
                 // store exception in error variable in order to include it 
                 // in the BuildFinished event.
                 error = e;
@@ -1127,7 +1232,9 @@ namespace NAnt.Core {
 
                 // signal build failure
                 return false;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 // store exception in error variable in order to include it 
                 // in the BuildFinished event.
                 error = e;
@@ -1137,16 +1244,21 @@ namespace NAnt.Core {
 
                 // signal build failure
                 return false;
-            } finally {
+            }
+            finally
+            {
                 string endTarget;
 
-                if (error == null) {
+                if (error == null)
+                {
                     endTarget = Properties[NAntPropertyOnSuccess];
-                } else {
+                }
+                else {
                     endTarget = Properties[NAntPropertyOnFailure];
                 }
 
-                if (!String.IsNullOrEmpty(endTarget)) {
+                if (!String.IsNullOrEmpty(endTarget))
+                {
                     // executing the target identified by the 'nant.onsuccess' 
                     // or 'nant.onfailure' properties should not affect the 
                     // build outcome
@@ -1173,7 +1285,8 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="elementNode">The element XML node.</param>
         /// <returns>The created instance.</returns>
-        public DataTypeBase CreateDataTypeBase(XmlNode elementNode) {
+        public DataTypeBase CreateDataTypeBase(XmlNode elementNode)
+        {
             DataTypeBase type = TypeFactory.CreateDataType(elementNode, this);
 
             type.Project = this;
@@ -1188,7 +1301,8 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode) {
+        public Task CreateTask(XmlNode taskNode)
+        {
             return CreateTask(taskNode, null);
         }
 
@@ -1199,7 +1313,8 @@ namespace NAnt.Core {
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
         /// <param name="target">The owner <see cref="Target" />.</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode, Target target) {
+        public Task CreateTask(XmlNode taskNode, Target target)
+        {
             Task task = TypeFactory.CreateTask(taskNode, this);
 
             task.Project = this;
@@ -1215,7 +1330,8 @@ namespace NAnt.Core {
         /// <param name="input">The <see cref="string" /> with replacement tokens.</param>
         /// <param name="location">The location in the build file. Used to throw more accurate exceptions.</param>
         /// <returns>The expanded and replaced <see cref="string" />.</returns>
-        public string ExpandProperties(string input, Location location) {
+        public string ExpandProperties(string input, Location location)
+        {
             return Properties.ExpandProperties(input, location);
         }
 
@@ -1228,26 +1344,34 @@ namespace NAnt.Core {
         /// A rooted path, or the <see cref="BaseDirectory" /> of the <see cref="Project" /> 
         /// if the <paramref name="path" /> parameter is a null reference.
         /// </returns>
-        public string GetFullPath(string path) {
-            if (String.IsNullOrEmpty(path)) {
+        public string GetFullPath(string path)
+        {
+            if (String.IsNullOrEmpty(path))
+            {
                 return BaseDirectory;
             }
 
             // check whether path is a file URI
-            try {
+            try
+            {
                 Uri uri = new Uri(path);
-                if (uri.IsFile) {
+                if (uri.IsFile)
+                {
                     path = uri.LocalPath;
-                } else {
+                }
+                else {
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture,
-                        ResourceUtils.GetString("NA1061"), 
+                        ResourceUtils.GetString("NA1061"),
                         path, uri.Scheme), Location.UnknownLocation);
                 }
-            } catch {
+            }
+            catch
+            {
                 // ignore exception and treat path as normal path
             }
 
-            if (!Path.IsPathRooted(path)) {
+            if (!Path.IsPathRooted(path))
+            {
                 path = Path.GetFullPath(Path.Combine(BaseDirectory, path));
             }
 
@@ -1258,7 +1382,8 @@ namespace NAnt.Core {
         /// Creates the default <see cref="IBuildLogger" /> and attaches it to
         /// the <see cref="Project" />.
         /// </summary>
-        public void CreateDefaultLogger() {
+        public void CreateDefaultLogger()
+        {
             IBuildLogger buildLogger = new DefaultLogger();
 
             // hook up to build events
@@ -1280,13 +1405,15 @@ namespace NAnt.Core {
         /// <summary>
         /// Increases the <see cref="IndentationLevel" /> of the <see cref="Project" />.
         /// </summary>
-        public void Indent() {
+        public void Indent()
+        {
             _indentationLevel++;
         }
         /// <summary>
         /// Decreases the <see cref="IndentationLevel" /> of the <see cref="Project" />.
         /// </summary>
-        public void Unindent() {
+        public void Unindent()
+        {
             _indentationLevel--;
         }
 
@@ -1294,8 +1421,10 @@ namespace NAnt.Core {
         /// Detaches the currently attached <see cref="IBuildListener" /> instances
         /// from the <see cref="Project" />.
         /// </summary>
-        public void DetachBuildListeners() {
-            foreach (IBuildListener listener in BuildListeners) {
+        public void DetachBuildListeners()
+        {
+            foreach (IBuildListener listener in BuildListeners)
+            {
                 BuildStarted -= new BuildEventHandler(listener.BuildStarted);
                 BuildFinished -= new BuildEventHandler(listener.BuildFinished);
                 TargetStarted -= new BuildEventHandler(listener.TargetStarted);
@@ -1305,8 +1434,9 @@ namespace NAnt.Core {
                 MessageLogged -= new BuildEventHandler(listener.MessageLogged);
 
                 IBuildLogger buildLogger = listener as IBuildLogger;
-                
-                if (buildLogger != null) {
+
+                if (buildLogger != null)
+                {
                     buildLogger.Flush();
                 }
             }
@@ -1323,10 +1453,12 @@ namespace NAnt.Core {
         /// be detached before the new <see cref="IBuildListener" /> instances 
         /// are attached.
         /// </remarks>
-        public void AttachBuildListeners(BuildListenerCollection listeners) {
+        public void AttachBuildListeners(BuildListenerCollection listeners)
+        {
             // detach currently attached build listeners
             DetachBuildListeners();
-            foreach (IBuildListener listener in listeners) {
+            foreach (IBuildListener listener in listeners)
+            {
                 // hook up listener to project build events
                 BuildStarted += new BuildEventHandler(listener.BuildStarted);
                 BuildFinished += new BuildEventHandler(listener.BuildFinished);
@@ -1362,8 +1494,10 @@ namespace NAnt.Core {
         /// <param name="indentLevel">The project indentation level.</param>
         /// <param name="optimization">Optimization flags.</param>
         /// <exception cref="ArgumentNullException"><paramref name="doc" /> is <see langword="null" />.</exception>
-        private void CtorHelper(XmlDocument doc, Level threshold, int indentLevel, Optimizations optimization) {
-            if (doc == null) {
+        private void CtorHelper(XmlDocument doc, Level threshold, int indentLevel, Optimizations optimization)
+        {
+            if (doc == null)
+            {
                 throw new ArgumentNullException("doc");
             }
 
@@ -1392,13 +1526,16 @@ namespace NAnt.Core {
 
             // fill the namespace manager up, so we can make qualified xpath 
             // expressions
-            if (String.IsNullOrEmpty(doc.DocumentElement.NamespaceURI)) {
+            if (String.IsNullOrEmpty(doc.DocumentElement.NamespaceURI))
+            {
                 string defURI;
 
                 XmlAttribute nantNS = doc.DocumentElement.Attributes["xmlns", "nant"];
-                if (nantNS == null) {
+                if (nantNS == null)
+                {
                     defURI = @"http://none";
-                } else {
+                }
+                else {
                     defURI = nantNS.Value;
                 }
 
@@ -1410,35 +1547,44 @@ namespace NAnt.Core {
             NamespaceManager.AddNamespace("nant", doc.DocumentElement.NamespaceURI);
 
             // check to make sure that the root element in named correctly
-            if (!doc.DocumentElement.LocalName.Equals(RootXml)) {
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, 
+            if (!doc.DocumentElement.LocalName.Equals(RootXml))
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
                     ResourceUtils.GetString("NA1059"), doc.BaseURI, RootXml));
             }
 
             // get project attributes
-            if (doc.DocumentElement.HasAttribute(ProjectNameAttribute)) {
+            if (doc.DocumentElement.HasAttribute(ProjectNameAttribute))
+            {
                 _projectName = doc.DocumentElement.GetAttribute(ProjectNameAttribute);
             }
 
-            if (doc.DocumentElement.HasAttribute(ProjectBaseDirAttribute)) {
+            if (doc.DocumentElement.HasAttribute(ProjectBaseDirAttribute))
+            {
                 newBaseDir = doc.DocumentElement.GetAttribute(ProjectBaseDirAttribute);
             }
 
-            if (doc.DocumentElement.HasAttribute(ProjectDefaultAttribte)) {
+            if (doc.DocumentElement.HasAttribute(ProjectDefaultAttribte))
+            {
                 _defaultTargetName = doc.DocumentElement.GetAttribute(ProjectDefaultAttribte);
             }
 
             // give the project a meaningful base directory
-            if (String.IsNullOrEmpty(newBaseDir)) {
-                if (!String.IsNullOrEmpty(BuildFileLocalName)) {
+            if (String.IsNullOrEmpty(newBaseDir))
+            {
+                if (!String.IsNullOrEmpty(BuildFileLocalName))
+                {
                     newBaseDir = Path.GetDirectoryName(BuildFileLocalName);
-                } else {
+                }
+                else {
                     newBaseDir = Environment.CurrentDirectory;
                 }
-            } else {
+            }
+            else {
                 // if basedir attribute is set to a relative path, then resolve 
                 // it relative to the build file path
-                if (!String.IsNullOrEmpty(BuildFileLocalName) && !Path.IsPathRooted(newBaseDir)) {
+                if (!String.IsNullOrEmpty(BuildFileLocalName) && !Path.IsPathRooted(newBaseDir))
+                {
                     newBaseDir = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(BuildFileLocalName), newBaseDir));
                 }
             }
@@ -1452,7 +1598,8 @@ namespace NAnt.Core {
             bool scan = ((optimization & Optimizations.SkipAutomaticDiscovery) == 0);
             TypeFactory.AddProject(this, scan);
 
-            if ((optimization & Optimizations.SkipFrameworkConfiguration) == 0) {
+            if ((optimization & Optimizations.SkipFrameworkConfiguration) == 0)
+            {
                 // load settings out of settings file
                 ProjectSettingsLoader psl = new ProjectSettingsLoader(this);
                 psl.ProcessSettings();
@@ -1467,10 +1614,11 @@ namespace NAnt.Core {
             Properties.AddReadOnly(NAntPropertyVersion, ass.GetName().Version.ToString());
             Properties.AddReadOnly(NAntPropertyLocation, AppDomain.CurrentDomain.BaseDirectory);
             Properties.AddReadOnly(NAntPropertyProjectName, ProjectName);
-            if (BuildFileUri != null) {
+            if (BuildFileUri != null)
+            {
                 Properties.AddReadOnly(NAntPropertyProjectBuildFile, BuildFileUri.ToString());
             }
-            Properties.AddReadOnly(NAntPropertyProjectDefault, 
+            Properties.AddReadOnly(NAntPropertyProjectDefault,
                 StringUtils.ConvertNullToEmpty(DefaultTargetName));
         }
 
@@ -1478,15 +1626,18 @@ namespace NAnt.Core {
         /// This method is only meant to be used by the <see cref="Project"/> 
         /// class and <see cref="T:NAnt.Core.Tasks.IncludeTask"/>.
         /// </summary>
-        internal void InitializeProjectDocument(XmlDocument doc) {
+        internal void InitializeProjectDocument(XmlDocument doc)
+        {
             // load line and column number information into position map
             LocationMap.Add(doc);
 
             // initialize targets first
-            foreach (XmlNode childNode in doc.DocumentElement.ChildNodes) {
+            foreach (XmlNode childNode in doc.DocumentElement.ChildNodes)
+            {
                 // skip non-nant namespace elements and special elements like 
                 // comments, pis, text, etc.
-                if (childNode.LocalName.Equals(TargetXml) && childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant"))) {
+                if (childNode.LocalName.Equals(TargetXml) && childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant")))
+                {
                     Target target = new Target();
 
                     target.Project = this;
@@ -1498,32 +1649,40 @@ namespace NAnt.Core {
             }
 
             // initialize datatypes and execute global tasks
-            foreach (XmlNode childNode in doc.DocumentElement.ChildNodes) {
+            foreach (XmlNode childNode in doc.DocumentElement.ChildNodes)
+            {
                 // skip targets that were handled above, skip non-nant namespace 
                 // elements and special elements like comments, pis, text, etc.
-                if (!(childNode.NodeType == XmlNodeType.Element) || !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant")) || childNode.LocalName.Equals(TargetXml)) {
+                if (!(childNode.NodeType == XmlNodeType.Element) || !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant")) || childNode.LocalName.Equals(TargetXml))
+                {
                     continue;
                 }
 
-                if (TypeFactory.TaskBuilders.Contains(childNode.Name)) {
+                if (TypeFactory.TaskBuilders.Contains(childNode.Name))
+                {
                     // create task instance
                     Task task = CreateTask(childNode);
                     task.Parent = this;
                     // execute task
                     task.Execute();
-                } else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name)) {
+                }
+                else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
+                {
                     // we are an datatype declaration
                     DataTypeBase dataType = CreateDataTypeBase(childNode);
 
                     Log(Level.Debug, "Adding a {0} reference with id '{1}'.", childNode.Name, dataType.ID);
-                    if (! DataTypeReferences.Contains(dataType.ID)) {
+                    if (!DataTypeReferences.Contains(dataType.ID))
+                    {
                         DataTypeReferences.Add(dataType.ID, dataType);
-                    } else {
+                    }
+                    else {
                         DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
                     }
-                } else {
-                    throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                        ResourceUtils.GetString("NA1071"), childNode.Name), 
+                }
+                else {
+                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                        ResourceUtils.GetString("NA1071"), childNode.Name),
                         LocationMap.GetLocation(childNode));
                 }
             }
@@ -1541,33 +1700,46 @@ namespace NAnt.Core {
         /// An <see cref="XmlDocument" /> based on the specified project 
         /// definition.
         /// </returns>
-        private XmlDocument LoadBuildFile(string uriOrFilePath) {
+        private XmlDocument LoadBuildFile(string uriOrFilePath)
+        {
             string path = uriOrFilePath;
 
             //if the source is not a valid uri, pass it thru.
             //if the source is a file uri, pass the localpath of it thru.
-            try {
+            try
+            {
                 Uri testURI = new Uri(uriOrFilePath);
 
-                if (testURI.IsFile) {
+                if (testURI.IsFile)
+                {
                     path = testURI.LocalPath;
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 logger.Debug("Error creating URI in project constructor. Moving on... ", ex);
-            } finally {
-                if (path == null) {
+            }
+            finally
+            {
+                if (path == null)
+                {
                     path = uriOrFilePath;
                 }
             }
 
             XmlDocument doc = new XmlDocument();
 
-            try {
+            try
+            {
                 doc.Load(path);
-            } catch (XmlException ex) {
+            }
+            catch (XmlException ex)
+            {
                 Location location = new Location(path, ex.LineNumber, ex.LinePosition);
                 throw new BuildException("Error loading buildfile.", location, ex);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Location location = new Location(path);
                 throw new BuildException("Error loading buildfile.", location, ex);
             }
@@ -1578,10 +1750,12 @@ namespace NAnt.Core {
         /// Configures the platform properties for the current platform.
         /// </summary>
         /// <exception cref="BuildException">NAnt does not support the current platform.</exception>
-        private void ConfigurePlatformProperties() {
+        private void ConfigurePlatformProperties()
+        {
             Properties.AddReadOnly(NAntPlatformName, PlatformName);
 
-            switch (PlatformName) {
+            switch (PlatformName)
+            {
                 case "win32":
                     Properties.AddReadOnly(NAntPlatform + ".unix", "false");
                     Properties.AddReadOnly(NAntPlatform + "." + PlatformName, "true");
@@ -1591,10 +1765,10 @@ namespace NAnt.Core {
                     Properties.AddReadOnly(NAntPlatform + ".win32", "false");
                     break;
                 default:
-                    throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                        ResourceUtils.GetString("NA1060"), 
+                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                        ResourceUtils.GetString("NA1060"),
                         Environment.OSVersion.Platform.ToString(CultureInfo.InvariantCulture),
-                        (int) Environment.OSVersion.Platform));
+                        (int)Environment.OSVersion.Platform));
             }
         }
 
@@ -1602,14 +1776,17 @@ namespace NAnt.Core {
         /// Updates dependent properties when the <see cref="TargetFramework" /> 
         /// is set.
         /// </summary>
-        private void UpdateTargetFrameworkProperties() {
+        private void UpdateTargetFrameworkProperties()
+        {
             Properties["nant.settings.currentframework"] = TargetFramework.Name;
             Properties["nant.settings.currentframework.version"] = TargetFramework.Version.ToString();
             Properties["nant.settings.currentframework.description"] = TargetFramework.Description;
             Properties["nant.settings.currentframework.frameworkdirectory"] = TargetFramework.FrameworkDirectory.FullName;
-            if (TargetFramework.SdkDirectory != null) {
+            if (TargetFramework.SdkDirectory != null)
+            {
                 Properties["nant.settings.currentframework.sdkdirectory"] = TargetFramework.SdkDirectory.FullName;
-            } else {
+            }
+            else {
                 Properties["nant.settings.currentframework.sdkdirectory"] = "";
             }
 
@@ -1617,13 +1794,15 @@ namespace NAnt.Core {
             Properties["nant.settings.currentframework.runtimeengine"] = TargetFramework.RuntimeEngine;
         }
 
-        private XmlNode GetConfigurationNode() {
+        private XmlNode GetConfigurationNode()
+        {
             XmlNode configurationNode = ConfigurationSettings.GetConfig("nant") as XmlNode;
-            if (configurationNode == null) { 
-                throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                    "The NAnt configuration settings in file '{0}' could" 
+            if (configurationNode == null)
+            {
+                throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                    "The NAnt configuration settings in file '{0}' could"
                     + " not be loaded.  Please ensure this file is available"
-                    + " and contains a 'nant' settings node.", 
+                    + " and contains a 'nant' settings node.",
                     AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));
             }
             return configurationNode;
@@ -1638,7 +1817,8 @@ namespace NAnt.Core {
         /// A collection of <see cref="Target" /> instances in sorted order.
         /// </returns>
         /// <exception cref="BuildException">There is a cyclic dependecy among the targets, or a named target does not exist.</exception>
-        public TargetCollection TopologicalTargetSort(string root, TargetCollection targets) {
+        public TargetCollection TopologicalTargetSort(string root, TargetCollection targets)
+        {
             TargetCollection executeTargets = new TargetCollection();
             Hashtable state = new Hashtable();
             Stack visiting = new Stack();
@@ -1652,12 +1832,16 @@ namespace NAnt.Core {
             // build Target.
             TopologicalTargetSort(root, targets, state, visiting, executeTargets);
             Log(Level.Debug, "Build sequence for target `{0}' is {1}", root, executeTargets);
-            foreach (Target target in targets) {
-                string st = (string) state[target.Name];
+            foreach (Target target in targets)
+            {
+                string st = (string)state[target.Name];
 
-                if (st == null) {
+                if (st == null)
+                {
                     TopologicalTargetSort(target.Name, targets, state, visiting, executeTargets);
-                } else if (st == Project.Visiting) {
+                }
+                else if (st == Project.Visiting)
+                {
                     throw new Exception("Unexpected node in visiting state: " + target.Name);
                 }
             }
@@ -1706,27 +1890,32 @@ namespace NAnt.Core {
         ///   <para>-or-</para>
         ///   <para>A circular dependency is detected.</para>
         /// </exception>
-        private void TopologicalTargetSort(string root, TargetCollection targets, Hashtable state, Stack visiting, TargetCollection executeTargets) {
+        private void TopologicalTargetSort(string root, TargetCollection targets, Hashtable state, Stack visiting, TargetCollection executeTargets)
+        {
             state[root] = Project.Visiting;
             visiting.Push(root);
 
-            Target target = (Target) targets.Find(root);
-            if (target == null) {
+            Target target = (Target)targets.Find(root);
+            if (target == null)
+            {
                 // check if there's a wildcard target defined
-                target = (Target) targets.Find(WildTarget);
-                if (target != null) {
+                target = (Target)targets.Find(WildTarget);
+                if (target != null)
+                {
                     // if a wildcard target exists, then treat the wildcard
                     // target as the requested target
                     target = target.Clone();
                     target.Name = root;
-                } else {
+                }
+                else {
                     StringBuilder sb = new StringBuilder("Target '");
                     sb.Append(root);
                     sb.Append("' does not exist in this project.");
 
                     visiting.Pop();
-                    if (visiting.Count > 0) {
-                        string parent = (string) visiting.Peek();
+                    if (visiting.Count > 0)
+                    {
+                        string parent = (string)visiting.Peek();
                         sb.Append(" ");
                         sb.Append("It is used from target '");
                         sb.Append(parent);
@@ -1737,21 +1926,26 @@ namespace NAnt.Core {
                 }
             }
 
-            foreach (string dependency in target.Dependencies) {
-                string m = (string) state[dependency];
+            foreach (string dependency in target.Dependencies)
+            {
+                string m = (string)state[dependency];
 
-                if (m == null) {
+                if (m == null)
+                {
                     // Not been visited
                     TopologicalTargetSort(dependency, targets, state, visiting, executeTargets);
-                } else if (m == Project.Visiting) {
+                }
+                else if (m == Project.Visiting)
+                {
                     // Currently visiting this node, so have a cycle
                     throw CreateCircularException(dependency, visiting);
                 }
             }
 
-            string p = (string) visiting.Pop();
+            string p = (string)visiting.Pop();
 
-            if (root != p) {
+            if (root != p)
+            {
                 throw new Exception("Unexpected internal error: expected to pop " + root + " but got " + p);
             }
 
@@ -1759,18 +1953,20 @@ namespace NAnt.Core {
             executeTargets.Add(target);
         }
 
-        private void PopulateExecutionGraph (string root, TargetCollection targets, ExecutionGraph graph)
+        private void PopulateExecutionGraph(string root, TargetCollection targets, ExecutionGraph graph)
         {
             Target target = targets.Find(root);
 
             ExecutionNode node = graph.GetNode(root);
 
-            if (target == null) {
+            if (target == null)
+            {
                 target = targets.Find(WildTarget);
             }
 
             bool noDependencies = true;
-            foreach (string dependencyName in target.Dependencies) {
+            foreach (string dependencyName in target.Dependencies)
+            {
                 PopulateExecutionGraph(dependencyName, targets, graph);
 
                 ExecutionNode dependencyNode = graph.GetNode(dependencyName);
@@ -1778,7 +1974,8 @@ namespace NAnt.Core {
                 noDependencies = false;
             }
 
-            if (noDependencies) {
+            if (noDependencies)
+            {
                 graph.RegisterLeafNode(node);
             }
         }
@@ -1793,14 +1990,16 @@ namespace NAnt.Core {
         /// A <see cref="BuildException" /> detailing the specified circular 
         /// dependency.
         /// </returns>
-        private static BuildException CreateCircularException(string end, Stack stack) {
+        private static BuildException CreateCircularException(string end, Stack stack)
+        {
             StringBuilder sb = new StringBuilder("Circular dependency: ");
             sb.Append(end);
 
             string c;
 
-            do {
-                c = (string) stack.Pop();
+            do
+            {
+                c = (string)stack.Pop();
                 sb.Append(" <- ");
                 sb.Append(c);
             } while (!c.Equals(end));
@@ -1815,7 +2014,8 @@ namespace NAnt.Core {
     /// <remarks>
     /// Use this with care!
     /// </remarks>
-    internal enum Optimizations {
+    internal enum Optimizations
+    {
         /// <summary>
         /// Do not perform any optimizations.
         /// </summary>
