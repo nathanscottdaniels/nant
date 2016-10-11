@@ -476,12 +476,18 @@ namespace NAnt.Core {
                 
                 tmp = fs as DirectoryInfo;
 
-                // If the current directory does not contain any files or directories,
-                // indicate that BaseDirectory has empty directories and exit loop.
-                if (tmp.GetFiles().Length == 0 && tmp.GetDirectories().Length == 0)
+                try {
+                    // If the current directory does not contain any files or directories,
+                    // indicate that BaseDirectory has empty directories and exit loop.
+                    if (tmp.GetFiles().Length == 0 && tmp.GetDirectories().Length == 0)
+                    {
+                        _hasEmptyDirectories = true;
+                        break;
+                    }
+                }
+                catch (DirectoryNotFoundException dnfe)
                 {
-                    _hasEmptyDirectories = true;
-                    break;
+                    logger.Warn($"{tmp.FullName} does not exist!  It may be a junction to an invalid location.");
                 }
             }
         }
@@ -811,20 +817,25 @@ namespace NAnt.Core {
                 }
             }
 
-            foreach (DirectoryInfo directoryInfo in currentDirectoryInfo.GetDirectories()) {
-                if (recursive) {
-                    // scan subfolders if we are running recursively
-                    ScanDirectory(directoryInfo.FullName, true);
-                } else {
-                    if (IsPathExcluded(directoryInfo.FullName, excludedPatterns))
-                    {
-                        _excludedDirectoryNames.Add(directoryInfo.FullName);
-                    }
-                    // otherwise just test to see if the subdirectories are included
-                    else if (IsPathIncluded(directoryInfo.FullName, includedPatterns)) {
-                        _directoryNames.Add(directoryInfo.FullName);
+            try {
+                foreach (DirectoryInfo directoryInfo in currentDirectoryInfo.GetDirectories()) {
+                    if (recursive) {
+                        // scan subfolders if we are running recursively
+                        ScanDirectory(directoryInfo.FullName, true);
+                    } else {
+                        if (IsPathExcluded(directoryInfo.FullName, excludedPatterns))
+                        {
+                            _excludedDirectoryNames.Add(directoryInfo.FullName);
+                        }
+                        // otherwise just test to see if the subdirectories are included
+                        else if (IsPathIncluded(directoryInfo.FullName, includedPatterns)) {
+                            _directoryNames.Add(directoryInfo.FullName);
+                        }
                     }
                 }
+            }
+            catch (DirectoryNotFoundException)
+            {
             }
 
             // scan files
@@ -1007,15 +1018,21 @@ namespace NAnt.Core {
             // If the rootDir parameter does not point to an existing directory
             // on the underlying system, exit the method.
             if (!rootDir.Exists) return;
-            
-            // Get the files located in rootDir
-            foreach (FileInfo f in rootDir.GetFiles()) _baseDirFileSystem.Add(f);
-            
-            // Retrieve all the subdirectory info
-            foreach (DirectoryInfo d in rootDir.GetDirectories())
+
+            try {
+                // Get the files located in rootDir
+                foreach (FileInfo f in rootDir.GetFiles()) _baseDirFileSystem.Add(f);
+
+                // Retrieve all the subdirectory info
+                foreach (DirectoryInfo d in rootDir.GetDirectories())
+                {
+                    _baseDirFileSystem.Add(d);
+                    GetAllFileSystemInfo(d);
+                }
+            }
+            catch (DirectoryNotFoundException dnfe)
             {
-                _baseDirFileSystem.Add(d);
-                GetAllFileSystemInfo(d);
+                logger.Warn($"{rootDir.FullName} does not exist!  It may be a junction to an invalid location.");
             }
         }
         private static StringBuilder CleanPath(string nantPath) {
