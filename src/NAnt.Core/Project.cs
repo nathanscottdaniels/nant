@@ -62,7 +62,6 @@ namespace NAnt.Core {
     /// </example>
     [Serializable()]
     public class Project {
-        #region Private Static Fields
 
         /// <summary>
         /// Holds the logger for this class.
@@ -89,10 +88,6 @@ namespace NAnt.Core {
         /// </summary>
         private const string Visited = "VISITED";
 
-        #endregion Private Static Fields
-
-        #region Internal Static Fields
-
         // named properties
         internal const string NAntPlatform = "nant.platform";
         internal const string NAntPlatformName = NAntPlatform + ".name";
@@ -105,10 +100,6 @@ namespace NAnt.Core {
         internal const string NAntPropertyProjectDefault = "nant.project.default";
         internal const string NAntPropertyOnSuccess = "nant.onsuccess";
         internal const string NAntPropertyOnFailure = "nant.onfailure";
-
-        #endregion Internal Static Fields
-
-        #region Public Instance Events
 
         /// <summary>
         /// Occurs when a build is started.
@@ -145,10 +136,6 @@ namespace NAnt.Core {
         /// </summary>
         public event BuildEventHandler MessageLogged;
 
-        #endregion Public Instance Events
-
-        #region Private Instance Fields
-
         private string _baseDirectory;
         private string _projectName = "";
         private string _defaultTargetName;
@@ -181,10 +168,6 @@ namespace NAnt.Core {
         /// Holds the default threshold for build loggers.
         /// </summary>
         private Level _threshold = Level.Info;
-
-        #endregion Private Instance Fields
-
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new <see cref="Project" /> class with the given 
@@ -275,10 +258,6 @@ namespace NAnt.Core {
                 Optimizations.None);
         }
 
-        #endregion Public Instance Constructors
-
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Initializes a <see cref="Project" /> as subproject of the specified
         /// <see cref="Project" />.
@@ -333,10 +312,6 @@ namespace NAnt.Core {
             CtorHelper(doc, Level.None, 0, Optimizations.SkipAutomaticDiscovery |
                 Optimizations.SkipFrameworkConfiguration);
         }
-    
-        #endregion Internal Instance Constructors
-
-        #region Public Instance Properties
 
         /// <summary>
         /// Gets or sets the indendation level of the build output.
@@ -778,17 +753,9 @@ namespace NAnt.Core {
             get { return _buildListeners; }
         }
 
-        #endregion Public Instance Properties
-
-        #region Internal Instance Properties
-
         internal LocationMap LocationMap {
             get { return _locationMap; }
         }
-
-        #endregion Internal Instance Properties
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Returns the <see cref="Location"/> of the given node in an XML
@@ -1374,10 +1341,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Public Instance Methods
-
-        #region Protected Instance Methods
-
         /// <summary>
         /// Inits stuff:
         ///     <para>TypeFactory: Calls Initialize and AddProject </para>
@@ -1511,10 +1474,6 @@ namespace NAnt.Core {
                 StringUtils.ConvertNullToEmpty(DefaultTargetName));
         }
 
-        #endregion Protected Instance Methods
-
-        #region Internal Instance Methods
-
         /// <summary>
         /// This method is only meant to be used by the <see cref="Project"/> 
         /// class and <see cref="T:NAnt.Core.Tasks.IncludeTask"/>.
@@ -1569,10 +1528,6 @@ namespace NAnt.Core {
                 }
             }
         }
-
-        #endregion Internal Instance Methods
-
-        #region Private Instance Methods
 
         /// <summary>
         /// Creates a new <see cref="XmlDocument" /> based on the project 
@@ -1673,8 +1628,6 @@ namespace NAnt.Core {
             }
             return configurationNode;
         }
-
-        #endregion Private Instance Methods
 
         /// <summary>
         /// Topologically sorts a set of targets.
