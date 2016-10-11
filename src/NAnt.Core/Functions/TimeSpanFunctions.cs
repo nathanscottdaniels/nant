@@ -26,7 +26,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("timespan", "Date/Time")]
     public class TimeSpanFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeSpanFunctions"/> class.
@@ -36,9 +35,6 @@ namespace NAnt.Core.Functions {
         public TimeSpanFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Returns the total number of days represented by the specified 
@@ -282,8 +278,6 @@ namespace NAnt.Core.Functions {
         public static TimeSpan FromTicks(long value) {
             return TimeSpan.FromTicks(value);
         }
-
-        #endregion Public Static Methods
     }
 
     /// <summary>
@@ -291,7 +285,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("timespan", "Conversion")]
     public class TimeSpanConversionFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeSpanConversionFunctions"/> class.
@@ -301,9 +294,6 @@ namespace NAnt.Core.Functions {
         public TimeSpanConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Constructs a <see cref="TimeSpan" /> from a time indicated by a 
@@ -333,7 +323,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(TimeSpan value) {
             return value.ToString();
         }
-
-        #endregion Public Static Methods
     }
 }

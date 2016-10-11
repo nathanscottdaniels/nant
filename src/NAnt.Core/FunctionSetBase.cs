@@ -22,7 +22,6 @@ namespace NAnt.Core {
     /// Base class for implementing NAnt functions.
     /// </summary>
     public abstract class FunctionSetBase {
-        #region Protected Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FunctionSetBase"/> class.
@@ -32,10 +31,7 @@ namespace NAnt.Core {
         protected FunctionSetBase(Project project, PropertyDictionary properties) {
             _project = project;
         }
-        
-        #endregion Protected Instance Constructors
 
-        #region Public Instance Properties
 
         /// <summary>
         /// Gets or sets the <see cref="Project" /> that this functionset will 
@@ -49,12 +45,7 @@ namespace NAnt.Core {
             set { _project = value; }
         }
 
-        #endregion Public Instance Properties
-
-        #region Private Instance Fields
 
         private Project _project;
-
-        #endregion Private Instance Fields
     }
 }

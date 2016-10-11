@@ -31,7 +31,6 @@ using NAnt.Core.Util;
 namespace NAnt.Core.Functions {
     [FunctionSet("pkg-config", "Unix/Cygwin")]
     public class PkgConfigFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PkgConfigFunctions"/> class.

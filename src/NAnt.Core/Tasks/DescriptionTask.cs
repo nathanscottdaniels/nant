@@ -33,7 +33,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("description")]
     public class DescriptionTask : Task {
-        #region Override implementation of Task
 
         /// <summary>
         /// Executes the task.

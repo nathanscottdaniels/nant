@@ -179,7 +179,6 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("if")]
     public class IfTask : TaskContainer {
-        #region Private Instance Fields
 
         private string _propNameTrue;
         private string _propNameExists;
@@ -188,9 +187,6 @@ namespace NAnt.Core.Tasks {
         private FileSet _compareFiles;
         private FileSet _uptodateFiles;
 
-        #endregion Private Instance Fields
-
-        #region Public Instance Properties
 
         /// <summary>
         /// The file to compare if uptodate.
@@ -288,9 +284,6 @@ namespace NAnt.Core.Tasks {
             set { _test = StringUtils.ConvertEmptyToNull(value); }
         }
 
-        #endregion Public Instance Properties
-
-        #region Protected Instance Properties
 
         protected virtual bool ConditionsTrue {
             get {
@@ -354,9 +347,6 @@ namespace NAnt.Core.Tasks {
             }
         }
 
-        #endregion Protected Instance Properties
-
-        #region Override implementation of TaskContainer
 
         /// <summary>
         /// Executes the task.
@@ -367,9 +357,6 @@ namespace NAnt.Core.Tasks {
             }
         }
 
-        #endregion Override implementation of TaskContainer
-
-        #region Override implementation of Task
 
         /// <summary>
         /// Automatically exclude build elements that are defined on the task
@@ -387,8 +374,6 @@ namespace NAnt.Core.Tasks {
                         " must be set (test, propertytrue, targetexists, etc...):", Location);
             }
         }
-
-        #endregion Override implementation of Task
     }
 
     /// <summary>
@@ -425,12 +410,9 @@ namespace NAnt.Core.Tasks {
     [TaskName("ifnot")]
     [Obsolete("Use the <if> task instead.", false)]
     public class IfNotTask : IfTask {
-        #region Override implementation of IfTask
 
         protected override bool ConditionsTrue {
             get { return !base.ConditionsTrue; }
         }
-
-        #endregion Override implementation of IfTask
     }
 }

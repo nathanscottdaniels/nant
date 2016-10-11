@@ -31,7 +31,6 @@ namespace NAnt.Core.Util {
     /// Represents a valid command-line argument.
     /// </summary>
     public class CommandLineArgument {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLineArgument"/> class.

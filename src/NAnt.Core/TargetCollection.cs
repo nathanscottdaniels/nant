@@ -90,8 +90,6 @@ namespace NAnt.Core {
             return Add(value as Target);
         }
 
-        #region Override implementation of Object
-
         /// <summary>
         /// Gets the names of the targets in the <see cref="TargetCollection" />
         /// combined into one comma-separated list.
@@ -103,7 +101,5 @@ namespace NAnt.Core {
         public override string ToString() {
             return ToString(", ");
         }
-
-        #endregion Override implementation of Object
     }
 }

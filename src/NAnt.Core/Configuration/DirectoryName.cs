@@ -8,8 +8,6 @@ namespace NAnt.Core.Configuration {
         private bool _ifDefined = true;
         private bool _unlessDefined;
 
-        #region Public Instance Properties
-
         [TaskAttribute("name", Required = true)]
         public string DirName
         {
@@ -18,8 +16,6 @@ namespace NAnt.Core.Configuration {
         }
 
         #endregion
-
-        #region Protected Instance Properties
 
         [TaskAttribute("if")]
         [BooleanValidator()]
@@ -37,9 +33,6 @@ namespace NAnt.Core.Configuration {
             set { _unlessDefined = value; }
         }
 
-        #endregion Protected Instance Properties
-
-        #region Explicit Interface Implementation
 
         bool IConditional.IfDefined
         {

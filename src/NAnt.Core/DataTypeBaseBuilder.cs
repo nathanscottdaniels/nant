@@ -100,8 +100,6 @@ namespace NAnt.Core {
 
         #endregion Public Instance Properties
 
-        #region Public Instance Methods
-
         /// <summary>
         /// Creates the <see cref="DataTypeBase"/> instance.
         /// </summary>

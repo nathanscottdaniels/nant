@@ -28,7 +28,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("datetime", "Date/Time")]
     public class DateTimeFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeFunctions"/> class.
@@ -38,9 +37,6 @@ namespace NAnt.Core.Functions {
         public DateTimeFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Gets a <see cref="DateTime" /> that is the current local date and 
@@ -204,8 +200,6 @@ namespace NAnt.Core.Functions {
         public static bool IsLeapYear(int year) {
             return DateTime.IsLeapYear(year);
         }
-
-        #endregion Public Static Methods
     }
 
     /// <summary>
@@ -213,7 +207,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("datetime", "Conversion")]
     public class DateTimeConversionFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeConversionFunctions"/> class.
@@ -223,9 +216,6 @@ namespace NAnt.Core.Functions {
         public DateTimeConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Converts the specified string representation of a date and time to 
@@ -282,6 +272,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(DateTime value, string format) {
             return value.ToString(format, CultureInfo.InvariantCulture);
         }
-        #endregion Public Static Methods
     }
 }

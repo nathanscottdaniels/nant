@@ -28,7 +28,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("fileversioninfo", "Version")]
     public class FileVersionInfoFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileVersionInfoFunctions"/> class.

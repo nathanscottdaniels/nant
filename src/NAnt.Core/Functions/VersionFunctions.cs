@@ -27,14 +27,10 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("version", "Version")]
     public class VersionFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         public VersionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Gets the value of the major component of a given version.
@@ -95,8 +91,6 @@ namespace NAnt.Core.Functions {
         public static int GetRevision(Version version) {
             return version.Revision;
         }
-
-        #endregion Public Static Methods
     }
 
     /// <summary>
@@ -104,14 +98,10 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("version", "Conversion")]
     public class VersionConversionFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         public VersionConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Converts the specified string representation of a version to 
@@ -146,7 +136,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(Version value) {
             return value.ToString();
         }
-
-        #endregion Public Static Methods
     }
 }

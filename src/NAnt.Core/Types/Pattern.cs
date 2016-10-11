@@ -24,15 +24,11 @@ namespace NAnt.Core.Types {
     /// Pattern which is used by a <see cref="PatternSet"/> to include or exclude specific files.
     /// </summary>
     public class Pattern : Element, IConditional {
-        #region Private Instance Fields
 
         private string _patternName;
         private bool _ifDefined = true;
         private bool _unlessDefined;
 
-        #endregion Private Instance Fields
-
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pattern" /> class.
@@ -40,18 +36,12 @@ namespace NAnt.Core.Types {
         public Pattern() {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Internal Instance Constructors
 
         internal Pattern(Project project, string patternName) {
             PatternName = patternName;
             Project = project;
         }
 
-        #endregion Internal Instance Constructors
-
-        #region Public Instance Properties
 
         /// <summary>
         /// The name pattern to include/exclude.
@@ -85,14 +75,9 @@ namespace NAnt.Core.Types {
             set { _unlessDefined = value; }
         }
 
-        #endregion Public Instance Properties
-
-        #region Internal Instance Properties
 
         internal bool Enabled {
             get { return IfDefined && !UnlessDefined; }
         }
-
-        #endregion Internal Instance Properties
     }
 }

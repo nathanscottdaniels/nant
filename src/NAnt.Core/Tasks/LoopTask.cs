@@ -277,8 +277,6 @@ namespace NAnt.Core.Tasks {
 
         #endregion Public Instance Properties
 
-        #region Override implementation of TaskContainer
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -516,8 +514,6 @@ namespace NAnt.Core.Tasks {
         private FileSet _items;
 
         #endregion Private Instance Fields
-
-        #region Public Instance Properties
 
         /// <summary>
         /// Gets or sets the items.

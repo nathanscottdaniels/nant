@@ -150,7 +150,6 @@ namespace NAnt.Core
         private PropertyDictionary _properties;
         private PropertyDictionary _frameworkNeutralProperties;
         private Target _currentTarget;
-        private bool _runTargetsInParallel;
 
         // info about frameworks
         private FrameworkInfoDictionary _frameworks = new FrameworkInfoDictionary();
@@ -712,11 +711,7 @@ namespace NAnt.Core
         /// <see langword="true" /> if targets should be executed in parallel
         /// otherwise, <see langword="false" />.
         /// </value>
-        public bool RunTargetsInParallel
-        {
-            get { return _runTargetsInParallel; }
-            set { _runTargetsInParallel = value; }
-        }
+        public bool RunTargetsInParallel { get; set; }
 
         /// <summary>
         /// The list of targets to build.
@@ -1098,8 +1093,7 @@ namespace NAnt.Core
         /// </remarks>
         public void Execute(string targetName, bool forceDependencies)
         {
-            bool singleThreaded = !RunTargetsInParallel;
-            if (singleThreaded)
+            if (!this.RunTargetsInParallel)
             {
                 // sort the dependency tree, and run everything from the
                 // beginning until we hit our targetName.

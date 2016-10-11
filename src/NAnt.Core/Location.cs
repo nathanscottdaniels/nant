@@ -37,8 +37,6 @@ namespace NAnt.Core {
         private int _lineNumber;
         private int _columnNumber;
 
-        #endregion Private Instance Fields
-
         /// <summary>
         /// The unknown location representation.
         /// </summary>

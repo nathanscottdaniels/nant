@@ -26,7 +26,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("operating-system", "Operating System")]
     public class OperatingSystemFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OperatingSystemFunctions"/> class.
@@ -35,9 +34,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public OperatingSystemFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
         
         /// <summary>
         /// Gets a <see cref="PlatformID" /> value that identifies the operating 
@@ -97,7 +93,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(OperatingSystem operatingSystem) {
             return operatingSystem.ToString();
         }
-        
-        #endregion Public Static Methods
     }
 }

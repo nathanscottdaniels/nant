@@ -41,7 +41,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("nant", "NAnt")]
     public class NAntFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NAntFunctions"/> class.
@@ -51,9 +50,6 @@ namespace NAnt.Core.Functions {
         public NAntFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Gets the base directory of the appdomain in which NAnt is running.
@@ -208,8 +204,6 @@ namespace NAnt.Core.Functions {
             }
             return libPath;
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
@@ -217,7 +211,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("project", "NAnt")]
     public class ProjectFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectFunctions"/> class.
@@ -227,9 +220,6 @@ namespace NAnt.Core.Functions {
         public ProjectFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Gets the name of the current project.
@@ -294,8 +284,6 @@ namespace NAnt.Core.Functions {
         public string GetBaseDirectory() {
             return Project.BaseDirectory;
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
@@ -303,7 +291,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("target", "NAnt")]
     public class TargetFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TargetFunctions"/> class.
@@ -313,9 +300,6 @@ namespace NAnt.Core.Functions {
         public TargetFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Checks whether the specified target exists.
@@ -378,8 +362,6 @@ namespace NAnt.Core.Functions {
 
             return target.Executed;
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
@@ -387,7 +369,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("task", "NAnt")]
     public class TaskFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskFunctions"/> class.
@@ -397,9 +378,6 @@ namespace NAnt.Core.Functions {
         public TaskFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Checks whether the specified task exists.
@@ -433,8 +411,6 @@ namespace NAnt.Core.Functions {
 
             return task.Assembly;
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
@@ -442,7 +418,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("property", "NAnt")]
     public class PropertyFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyFunctions"/> class.
@@ -452,9 +427,6 @@ namespace NAnt.Core.Functions {
         public PropertyFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Checks whether the specified property exists.
@@ -531,8 +503,6 @@ namespace NAnt.Core.Functions {
 
             return Project.Properties.IsDynamicProperty(name);
         }
-
-        #endregion Public Instance Methods
     }
 
     /// <summary>
@@ -540,7 +510,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("platform", "NAnt")]
     public class PlatformFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlatformFunctions"/> class.
@@ -550,9 +519,6 @@ namespace NAnt.Core.Functions {
         public PlatformFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Gets the name of the platform on which NAnt is running.
@@ -565,9 +531,6 @@ namespace NAnt.Core.Functions {
             return Project.PlatformName;
         }
 
-        #endregion Public Instance Methods
-
-        #region Public Static Methods
 
         /// <summary>
         /// Checks whether NAnt is running on Windows (and not just 32-bit Windows
@@ -606,7 +569,5 @@ namespace NAnt.Core.Functions {
         public static bool IsUnix() {
             return PlatformHelper.IsUnix;
         }
-        
-        #endregion Public Static Methods
     }
 }

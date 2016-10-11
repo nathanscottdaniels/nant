@@ -145,8 +145,6 @@ namespace NAnt.Core {
 
         #endregion Internal Instance Properties
 
-        #region Implementation of IDictionary
-
         /// <summary>
         /// Gets the enumerator.
         /// </summary>
@@ -329,8 +327,6 @@ namespace NAnt.Core {
 
         #endregion Implementation of ICollection
 
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Clones this instance.
         /// </summary>
@@ -352,8 +348,6 @@ namespace NAnt.Core {
         }
 
         #endregion Implementation of ICloneable
-        
-        #region HashTable Methods
 
         /// <summary>
         /// Determines whether the dictionary contains the specified key.
@@ -417,8 +411,6 @@ namespace NAnt.Core {
 
         #endregion Internal Instance Constructors
 
-        #region Implementation of IDictionaryEnumerator
-
         /// <summary>
         /// Gets the key of the current dictionary entry.
         /// </summary>
@@ -455,8 +447,6 @@ namespace NAnt.Core {
         }
 
         #endregion Implementation of IDictionaryEnumerator
-
-        #region Implementation of IEnumerator
 
         /// <summary>
         /// Sets the enumerator to its initial position, which is before the first element in the collection.

@@ -29,7 +29,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("path", "Path")]
     public class PathFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathFunctions"/> class.
@@ -39,9 +38,6 @@ namespace NAnt.Core.Functions {
         public PathFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Returns the fully qualified path.
@@ -59,9 +55,6 @@ namespace NAnt.Core.Functions {
             return Project.GetFullPath(path);
         }
 
-        #endregion Public Instance Methods
-
-        #region Public Static Methods
 
         /// <summary>
         /// Combines two paths.
@@ -244,7 +237,5 @@ namespace NAnt.Core.Functions {
         public static bool IsPathRooted(string path) {
             return Path.IsPathRooted(path);
         }
-
-        #endregion Public Static Methods
    }
 }

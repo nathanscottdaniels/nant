@@ -75,14 +75,9 @@ namespace NAnt.Core {
             DoubleColon,
         }
 
-        #region Public Instance Constructors
-
         public ExpressionTokenizer() {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Static Constructor
 
         static ExpressionTokenizer() {
             for (int i = 0; i < 128; ++i)
@@ -92,9 +87,6 @@ namespace NAnt.Core {
                 charIndexToTokenType[(int) cht.ch] = cht.tokenType;
         }
 
-        #endregion Static Constructor
-
-        #region Public Instance Properties
 
         public bool IgnoreWhitespace {
             get { return _ignoreWhiteSpace; }
@@ -118,9 +110,6 @@ namespace NAnt.Core {
             get { return _tokenStartPosition; }
         }
 
-        #endregion Public Instance Properties
-
-        #region Public Instance Methods
 
         public void InitTokenizer(string s) {
             _text = s;
@@ -282,9 +271,6 @@ namespace NAnt.Core {
             return (_tokenType == TokenType.Keyword) && (_tokenText == k);
         }
 
-        #endregion Public Instance Methods
-
-        #region Private Instance Methods
 
         private int ReadChar() {
             if (_position < _text.Length)
@@ -308,9 +294,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Private Instance Methods
-
-        #region Private Instance Fields
 
         private string _text;
         private int _position;
@@ -320,9 +303,6 @@ namespace NAnt.Core {
         private bool _ignoreWhiteSpace = true;
         private bool _singleCharacterMode;
 
-        #endregion Private Instance Fields
-
-        #region Private Static Fields
 
         private static CharToTokenType[] charToTokenType = {
             new CharToTokenType('+', TokenType.Plus),
@@ -343,8 +323,6 @@ namespace NAnt.Core {
         };
 
         private static TokenType[] charIndexToTokenType = new TokenType[128];
-
-        #endregion Private Static Fields
 
         private struct CharToTokenType {
             public readonly char ch;

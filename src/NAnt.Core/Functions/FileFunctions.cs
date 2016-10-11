@@ -32,7 +32,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("file", "File")]
     public class FileFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileFunctions"/> class.

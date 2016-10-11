@@ -29,13 +29,9 @@ namespace NAnt.Core
     /// </summary>
     public class ElementContainer : Element
     {
-        #region Private Instance Fields
 
         private StringCollection _subXMLElements;
 
-        #endregion Private Instance Fields
-
-        #region Override implementation of Element
 
         /// <summary>
         /// Gets a value indicating whether the element is performing additional
@@ -50,9 +46,6 @@ namespace NAnt.Core
             get { return true;}
         }
 
-        #endregion Override implementation of Element
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Executes this instance.
@@ -61,9 +54,6 @@ namespace NAnt.Core
             ExecuteChildTasks();
         }
 
-        #endregion Public Instance Methods
-
-        #region Protected Instance Methods
 
         /// <summary>
         /// Creates and executes the embedded (child XML nodes) elements.
@@ -132,8 +122,6 @@ namespace NAnt.Core
             if (!_subXMLElements.Contains(name))
                 _subXMLElements.Add(name);
         }
-
-        #endregion Protected Instance Methods
     }
 }
 

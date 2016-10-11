@@ -27,7 +27,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("math", "Math")]
     public class MathFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
       /// <summary>
       /// Initializes a new instance of the <see cref="MathFunctions"/> class.
@@ -37,9 +36,6 @@ namespace NAnt.Core.Functions {
         public MathFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Rounds the value to the nearest whole number
@@ -90,7 +86,5 @@ namespace NAnt.Core.Functions {
         public static double Abs(double value) {
             return Math.Abs(value);
         }
-
-        #endregion Public Static Methods
     }
 }

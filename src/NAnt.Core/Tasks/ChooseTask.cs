@@ -130,8 +130,6 @@ namespace NAnt.Core.Tasks {
 
         #endregion Private Instance Properties
 
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -208,8 +206,6 @@ namespace NAnt.Core.Tasks {
             }
     
             #endregion Public Instance Properties
-    
-            #region Override implementation of NestedTaskContainer
 
             /// <summary>
             /// Executes this instance.

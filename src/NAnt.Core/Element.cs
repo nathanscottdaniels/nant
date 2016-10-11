@@ -461,8 +461,6 @@ namespace NAnt.Core {
 
         #endregion Protected Instance Instance Methods
 
-        #region Public Static Methods
-
         /// <summary>
         /// Initializes the build element.
         /// </summary>
@@ -692,8 +690,6 @@ namespace NAnt.Core {
 
             #endregion Public Instance Properties
 
-            #region Public Instance Methods
-
             /// <summary>
             /// Initializes this instance.
             /// </summary>
@@ -774,8 +770,6 @@ namespace NAnt.Core {
                 XmlNode attributeNode = null;
                 string attributeValue = null;
                 XmlNode frameworkAttributeNode = null;
-
-                #region Initialize property using framework configuration
 
                 FrameworkConfigurableAttribute frameworkAttribute = (FrameworkConfigurableAttribute) 
                     Attribute.GetCustomAttribute(propertyInfo, typeof(FrameworkConfigurableAttribute),

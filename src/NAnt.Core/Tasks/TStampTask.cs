@@ -172,8 +172,6 @@ namespace NAnt.Core.Tasks {
 
         #endregion Public Instance Properties
 
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the task.
         /// </summary>

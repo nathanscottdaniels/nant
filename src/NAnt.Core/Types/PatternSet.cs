@@ -205,7 +205,6 @@ namespace NAnt.Core.Types {
     /// <seealso cref="FileSet" />
     [ElementName("patternset")]
     public class PatternSet : DataTypeBase {
-        #region Public Instance Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PatternSet" /> class.
@@ -217,9 +216,6 @@ namespace NAnt.Core.Types {
             _excludesFile = new PatternCollection();
         }
 
-        #endregion Public Instance Constructor
-
-        #region Public Instance Properties
 
         /// <summary>
         /// Defines a single pattern for files to include.
@@ -255,9 +251,6 @@ namespace NAnt.Core.Types {
             get { return _excludesFile; }
         }
 
-        #endregion Public Instance Properties
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Adds a nested set of patterns, or references other standalone 
@@ -320,9 +313,6 @@ namespace NAnt.Core.Types {
             return (string[]) excludes.ToArray(typeof(string));
         }
 
-        #endregion Public Instance Methods
-
-        #region Private Instance Methods
 
         private void ReadPatterns(string fileName, ArrayList patterns) {
             using (StreamReader sr = new StreamReader(fileName, Encoding.Default, true)) {
@@ -341,15 +331,10 @@ namespace NAnt.Core.Types {
             }
         }
 
-        #endregion Private Instance Methods
-
-        #region Private Instance Fields
 
         private readonly PatternCollection _include;
         private readonly PatternCollection _exclude;
         private readonly PatternCollection _includesFile;
         private readonly PatternCollection _excludesFile;
-
-        #endregion Private Instance Fields
    }
 }

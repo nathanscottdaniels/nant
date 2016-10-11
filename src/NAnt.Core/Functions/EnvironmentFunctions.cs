@@ -29,7 +29,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("environment", "Environment")]
     public class EnvironmentFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnvironmentFunctions"/> class.

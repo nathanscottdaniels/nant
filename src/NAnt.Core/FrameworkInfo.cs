@@ -35,7 +35,6 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public class FrameworkInfo : ISerializable {
-        #region Private Instance Fields
 
         private readonly XmlNode _frameworkNode;
         private readonly XmlNamespaceManager _nsMgr;
@@ -56,9 +55,6 @@ namespace NAnt.Core {
         private string[] _toolPaths;
         private InitStatus _status = InitStatus.Uninitialized;
 
-        #endregion Private Instance Fields
-
-        #region Internal Instance Constructors
 
         internal FrameworkInfo(XmlNode frameworkNode, XmlNamespaceManager nsMgr) {
             if (frameworkNode == null) {
@@ -104,9 +100,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Internal Instance Constructors
-
-        #region Protected Instance Constructors
 
         protected FrameworkInfo(SerializationInfo info, StreamingContext context) {
             _name = info.GetString("Name");
@@ -131,9 +124,6 @@ namespace NAnt.Core {
             _toolPaths = (string[]) info.GetValue("ToolPaths", typeof(string[]));
         }
 
-        #endregion Protected Instance Constructors
-
-        #region Private Instance Constructors
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
             info.AddValue("Name", Name);
@@ -155,10 +145,7 @@ namespace NAnt.Core {
                 info.AddValue("ToolPaths", ToolPaths);
             }
         }
-
-        #endregion Private Instance Constructors
               
-        #region Public Instance Properties
 
         /// <summary>
         /// Gets the name of the framework.
@@ -495,9 +482,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Public Instance Properties
-
-        #region Internal Instance Properties
 
         /// <summary>
         /// Gets the reference assemblies for the current framework.
@@ -578,9 +562,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Internal Instance Properties
-
-        #region Private Instance Properties
 
         /// <summary>
         /// Gets the <see cref="XmlNamespaceManager" />.
@@ -596,9 +577,6 @@ namespace NAnt.Core {
             get { return _nsMgr; }
         }
 
-        #endregion Private Instance Properties
-
-        #region Internal Static Properties
 
         internal static IComparer NameComparer {
             get {
@@ -606,9 +584,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Internal Static Properties
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Resolves the specified assembly to a full path by matching it
@@ -636,9 +611,6 @@ namespace NAnt.Core {
             return resolvedAssembly;
         }
 
-        #endregion Public Instance Methods
-
-        #region Internal Instance Methods
 
         internal void Validate() {
             if (_status == InitStatus.Valid) {
@@ -714,9 +686,6 @@ namespace NAnt.Core {
             return FileUtils.ResolveFile(ToolPaths, tool, false);
         }
 
-        #endregion Internal Instance Methods
-
-        #region Private Instance Methods
 
         private void Init() {
             if (_status != InitStatus.Uninitialized) {
@@ -790,9 +759,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Private Instance Methods
-
-        #region Private Static Methods
 
         /// <summary>
         /// Gets the value of the specified attribute from the specified node.
@@ -816,8 +782,6 @@ namespace NAnt.Core {
 
             return attributeValue;
         }
-
-        #endregion Private Static Methods
 
         private enum InitStatus {
             Uninitialized,

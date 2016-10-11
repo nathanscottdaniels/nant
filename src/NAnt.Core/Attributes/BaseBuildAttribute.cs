@@ -36,8 +36,6 @@ namespace NAnt.Core.Attributes
             ProcessXml = true;
             Required = false;
         }
-
-        #region Public Instance Properties
         /// <summary>
         /// Gets or sets the name of the item.
         /// </summary>
@@ -92,14 +90,9 @@ namespace NAnt.Core.Attributes
             set { _procXml = value; } 
         }
 
-        #endregion Public Instance Properties
-
-        #region Private Instance Fields
 
         private string _name;
         private bool _procXml;
         private bool _req;
-
-        #endregion Private Instance Fields
     }
 }

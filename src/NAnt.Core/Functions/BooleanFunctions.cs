@@ -27,7 +27,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("bool", "Conversion")]
     public class BooleanConversionFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BooleanConversionFunctions"/> class.
@@ -37,9 +36,6 @@ namespace NAnt.Core.Functions {
         public BooleanConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Converts the specified string representation of a logical value to 
@@ -69,7 +65,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(bool value) {
             return value.ToString(CultureInfo.InvariantCulture);
         }
-
-        #endregion Public Static Methods
     }
 }

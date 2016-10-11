@@ -51,15 +51,11 @@ namespace NAnt.Core.Tasks {
     /// </example>
     [TaskName("nantschema")]
     public class NAntSchemaTask : Task {
-        #region Private Instance Fields
 
         private FileInfo _outputFile;
         private string _forType;
         private string _targetNamespace = "http://tempuri.org/nant-donotuse.xsd";
 
-        #endregion Private Instance Fields
-
-        #region Private Static Fields
 
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
@@ -69,9 +65,6 @@ namespace NAnt.Core.Tasks {
             "NAnt.Core.Tasks.EchoTask",
         };
 
-        #endregion Private Static Fields
-
-        #region Public Instance Properties
 
         /// <summary>
         /// The name of the output file to which the XSD should be written.
@@ -101,9 +94,6 @@ namespace NAnt.Core.Tasks {
             set { _forType = StringUtils.ConvertEmptyToNull(value); }
         }
 
-        #endregion Public Instance Properties
-
-        #region Override implementation of Task
 
         /// <summary>
         /// Executes the task.
@@ -164,9 +154,6 @@ namespace NAnt.Core.Tasks {
             Log(Level.Info, "Wrote schema to '{0}'.", OutputFile.FullName);
         }
 
-        #endregion Override implementation of Task
-
-        #region Public Static Methods
 
         /// <summary>
         /// Creates a NAnt Schema for given types
@@ -190,9 +177,6 @@ namespace NAnt.Core.Tasks {
             return gen.Schema;
         }
 
-        #endregion Public Static Methods
-
-        #region Protected Static Methods
 
         protected static string GenerateIDFromType(Type type) {
             return type.ToString().Replace("+", "-").Replace("[", "_").Replace("]", "_");
@@ -244,18 +228,12 @@ namespace NAnt.Core.Tasks {
             return new XmlNode[1] {doc.CreateTextNode(text)};
         }
 
-        #endregion Protected Static Methods
-
         private class NAntSchemaGenerator {
-            #region Private Instance Fields
 
             private IDictionary _nantComplexTypes;
             private XmlSchemaComplexType _targetCT;
             private XmlSchema _nantSchema = new XmlSchema();
 
-            #endregion Private Instance Fields
-
-            #region Public Instance Constructors
 
             /// <summary>
             /// Creates a new instance of the <see cref="NAntSchemaGenerator" />
@@ -380,9 +358,6 @@ namespace NAnt.Core.Tasks {
                 Compile();
             }
 
-            #endregion Public Instance Constructors
-
-            #region Public Instance Properties
 
             public XmlSchema Schema {
                 get {
@@ -393,17 +368,11 @@ namespace NAnt.Core.Tasks {
                 }
             }
 
-            #endregion Public Instance Properties
-
-            #region Public Instance Methods
 
             public void Compile() {
                 _nantSchema.Compile(new ValidationEventHandler(ValidationEH));
             }
 
-            #endregion Public Instance Methods
-
-            #region Protected Instance Methods
 
             protected XmlSchemaComplexType CreateTaskListComplexType(Type[] tasks) {
                 return CreateTaskListComplexType(tasks, new Type[0], false);
@@ -647,9 +616,6 @@ namespace NAnt.Core.Tasks {
                 return ct;
             }
 
-            #endregion Protected Instance Methods
-
-            #region Private Instance Methods
 
             private string GetTaskName(Type t) {
                 TaskNameAttribute[] attrs = (TaskNameAttribute[])t.GetCustomAttributes(typeof(TaskNameAttribute), false);
@@ -668,8 +634,6 @@ namespace NAnt.Core.Tasks {
                     return null;
                 }
             }
-
-            #endregion Private Instance Methods
         }
     }
 }

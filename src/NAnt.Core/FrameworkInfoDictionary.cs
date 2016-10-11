@@ -237,8 +237,6 @@ namespace NAnt.Core {
 
         #endregion Implementation of ICollection
 
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Clones this instance.
         /// </summary>

@@ -32,7 +32,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("framework", "NAnt")]
     public class FrameworkFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrameworkFunctions"/> class.
@@ -42,9 +41,6 @@ namespace NAnt.Core.Functions {
         public FrameworkFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Checks whether the specified framework exists, and is valid.
@@ -373,9 +369,6 @@ namespace NAnt.Core.Functions {
             return sb.ToString();
         }
 
-        #endregion Public Instance Methods
-
-        #region Private Instance Methods
 
         /// <summary>
         /// Checks whether the specified framework is valid.
@@ -397,7 +390,5 @@ namespace NAnt.Core.Functions {
                 return fi;
             }
         }
-
-        #endregion Private Instance Methods
     }
 }

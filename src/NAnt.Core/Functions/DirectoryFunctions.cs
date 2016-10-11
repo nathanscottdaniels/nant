@@ -30,7 +30,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("directory", "Directory")]
     public class DirectoryFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DirectoryFunctions"/> class.

@@ -35,8 +35,6 @@ namespace NAnt.Core {
 
         #endregion Private Instance Fields
 
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionEvaluator"/> class.
         /// </summary>

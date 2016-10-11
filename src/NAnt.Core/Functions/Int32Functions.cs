@@ -27,7 +27,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("int", "Conversion")]
     public class Int32ConversionFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
       /// <summary>
       /// Initializes a new instance of the <see cref="Int32ConversionFunctions"/> class.
@@ -37,9 +36,6 @@ namespace NAnt.Core.Functions {
         public Int32ConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Converts the specified string representation of a number to its 
@@ -79,7 +75,5 @@ namespace NAnt.Core.Functions {
         public static string ToString(int value) {
             return value.ToString(CultureInfo.InvariantCulture);
         }
-
-        #endregion Public Static Methods
     }
 }

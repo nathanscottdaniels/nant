@@ -28,7 +28,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("assemblyname", "Assembly")]
     public class AssemblyNameFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssemblyNameFunctions"/> class.

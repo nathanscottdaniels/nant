@@ -197,8 +197,6 @@ namespace NAnt.VSNet.Tasks {
         /// </summary>
         ArrayList _customproperties;
 
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SolutionTask" /> class.
         /// </summary>
@@ -214,9 +212,6 @@ namespace NAnt.VSNet.Tasks {
             _configuration = new Configuration ();
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Instance Properties
 
         /// <summary>
         /// The projects to build.
@@ -400,9 +395,6 @@ namespace NAnt.VSNet.Tasks {
             }
         }
 
-        #endregion Public Instance Properties
-
-        #region Internal Instance Properties
 
         internal ProjectFactory ProjectFactory {
             get { return _projectFactory; }
@@ -412,9 +404,6 @@ namespace NAnt.VSNet.Tasks {
             get { return _solutionFactory; }
         }
 
-        #endregion Internal Instance Properties
-
-        #region Implementation of IPluginConsumer
 
         void IPluginConsumer.ConsumePlugin(IPlugin plugin) {
             if (plugin is IProjectBuildProvider)
@@ -423,9 +412,6 @@ namespace NAnt.VSNet.Tasks {
                 SolutionFactory.RegisterProvider((ISolutionBuildProvider) plugin);
         }
 
-        #endregion Implementation of IPluginConsumer
-
-        #region Override implementation of Task
 
         /// <summary>
         /// Executes the task.
@@ -509,9 +495,6 @@ namespace NAnt.VSNet.Tasks {
             }
         }
 
-        #endregion Override implementation of Task
-
-        #region Internal Instance Methods
 
         /// <summary>
         /// Expands the given macro.
@@ -572,9 +555,6 @@ namespace NAnt.VSNet.Tasks {
             }
         }
 
-        #endregion Internal Instance Methods
-
-        #region Private Instance Methods
 
         /// <summary>
         /// Builds the list of folders that should be scanned for assembly 
@@ -639,9 +619,6 @@ namespace NAnt.VSNet.Tasks {
             }
         }
 
-        #endregion Private Instance Methods
-
-        #region Private Instance Fields
 
         private FileInfo _solutionFile;
         private Configuration _configuration;
@@ -656,7 +633,5 @@ namespace NAnt.VSNet.Tasks {
         private bool _enableWebDav;
         private readonly SolutionFactory _solutionFactory;
         private readonly ProjectFactory _projectFactory;
-
-        #endregion Private Instance Fields
     }
 }

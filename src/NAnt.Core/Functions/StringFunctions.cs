@@ -28,7 +28,6 @@ namespace NAnt.Core.Functions {
     /// </summary>
     [FunctionSet("string", "String")]
     public class StringFunctions : FunctionSetBase {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StringFunctions"/> class.
@@ -38,9 +37,6 @@ namespace NAnt.Core.Functions {
         public StringFunctions(Project project, PropertyDictionary propDict) : base(project, propDict) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Returns the length of the specified string.
@@ -488,7 +484,5 @@ namespace NAnt.Core.Functions {
         public static string TrimEnd(string s) {
             return s.TrimEnd();
         }
-
-        #endregion Public Static Methods
     }
 }

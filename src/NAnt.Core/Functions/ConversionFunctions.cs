@@ -28,8 +28,6 @@ namespace NAnt.Core.Functions {
     [FunctionSet("convert", "Conversion")]
     public class ConversionFunctions : FunctionSetBase {
 
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ConversionFunctions"/> class.
         /// </summary>
@@ -37,9 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="propDict">The projects property dictionary.</param>
         public ConversionFunctions(Project project, PropertyDictionary propDict ) : base(project, propDict) {}
 
-        #endregion Public Instance Constructors
-
-        #region Public Static Methods
 
         /// <summary>
         /// Converts the argument to an integer.
@@ -105,7 +100,5 @@ namespace NAnt.Core.Functions {
         public static bool ToBoolean(bool value) {
             return value; // conversion is done at the invocation level
         }
-
-        #endregion Public Static Methods
     }
 }

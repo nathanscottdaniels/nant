@@ -31,7 +31,6 @@ namespace NAnt.Core {
     /// Class to create NAnt tasks from an existing assembly.
     /// </summary>
     public class TaskBuilder : ExtensionBuilder {
-        #region Public Instance Constructors
 
         /// <summary>
         /// Creates a new instance of the <see cref="TaskBuilder" /> class
@@ -48,9 +47,6 @@ namespace NAnt.Core {
             : this (ExtensionAssembly.Create (assembly), className) {
         }
 
-        #endregion Public Instance Constructors
-
-        #region Internal Instance Constructors
 
         /// <summary>
         /// Creates a new instance of the <see cref="TaskBuilder" /> class
@@ -63,9 +59,6 @@ namespace NAnt.Core {
             _className = className;
         }
 
-        #endregion Internal Instance Constructors
-
-        #region Public Instance Properties
 
         /// <summary>
         /// Gets the name of the <see cref="Task" /> class that can be created
@@ -99,9 +92,6 @@ namespace NAnt.Core {
             }
         }
 
-        #endregion Public Instance Properties
-
-        #region Public Instance Methods
 
         /// <summary>
         /// Creates the task with the previously passed assembly and name.
@@ -124,13 +114,8 @@ namespace NAnt.Core {
             return task;
         }
 
-        #endregion Public Instance Methods
-
-        #region Private Instance Fields
 
         private readonly string _className;
         private string _taskName;
-
-        #endregion Private Instance Fields
     }
 }
