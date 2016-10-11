@@ -102,8 +102,6 @@ namespace NAnt.DotNet.Tasks {
 
         // framework configuration settings
         private bool _supportsTemplate = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies an algorithm (in hexadecimal) to hash all files in a 
         /// multifile assembly except the file that contains the assembly 
@@ -458,8 +456,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _win32Res; }
             set { _win32Res = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command-line arguments for the external program.
         /// </summary>
@@ -673,8 +669,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines whether the assembly manifest needs compiling or is 
         /// uptodate.

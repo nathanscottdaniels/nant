@@ -42,8 +42,6 @@ namespace NAnt.SourceControl.Tasks {
         private string _password;
         private FileInfo _passFile;
         private string _cvsRoot;
-        #region Public Instance Properties
-
         /// <summary>
         /// Password to append or update to the .cvspass file.
         /// </summary>
@@ -79,8 +77,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return this._cvsRoot; }
             set { this._cvsRoot = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Ensures all information is available to execute the <see cref="Task" />.
         /// </summary>

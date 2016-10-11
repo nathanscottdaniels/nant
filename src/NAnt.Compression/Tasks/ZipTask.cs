@@ -72,8 +72,6 @@ namespace NAnt.Compression.Tasks {
         private Encoding _encoding;
         private Hashtable _addedDirs = new Hashtable();
         private Hashtable _fileEntries = new Hashtable();
-        #region Public Instance Properties
-
         /// <summary>
         /// The zip file to create.
         /// </summary>
@@ -169,8 +167,6 @@ namespace NAnt.Compression.Tasks {
             }
             set { _encoding = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Creates the zip file.
         /// </summary>
@@ -366,8 +362,6 @@ namespace NAnt.Compression.Tasks {
                 CleanUp();
             }
         }
-        #region Private Instance Methods
-
         private void CleanUp() {
             _addedDirs.Clear();
             _fileEntries.Clear();

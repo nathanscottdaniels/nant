@@ -15,8 +15,6 @@ namespace NAnt.Core.Configuration {
             set { _name = value; }
         }
 
-        #endregion
-
         [TaskAttribute("if")]
         [BooleanValidator()]
         protected bool IfDefined
@@ -45,7 +43,5 @@ namespace NAnt.Core.Configuration {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-
-        #endregion
     }
 }

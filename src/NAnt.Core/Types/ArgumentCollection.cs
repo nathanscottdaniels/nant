@@ -77,14 +77,11 @@ namespace NAnt.Core.Types {
                 return null;
             }
         }
-        #region Override implementation of Object
-
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
             ToString (sb);
             return sb.ToString ();
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="Argument"/> to the end of the collection.
@@ -187,8 +184,6 @@ namespace NAnt.Core.Types {
         public void Remove(Argument item) {
             base.List.Remove(item);
         }
-        #region Internal Instance Methods
-
         internal void ToString(StringBuilder sb) {
             foreach (Argument arg in this) {
                 if (arg.IfDefined && !arg.UnlessDefined) {
@@ -214,7 +209,6 @@ namespace NAnt.Core.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -257,7 +251,6 @@ namespace NAnt.Core.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

@@ -36,8 +36,6 @@ namespace NAnt.VSNet.Types {
         private bool _caseSensitive;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies the URL of the project file, or a URL fragment to match.
         /// </summary>

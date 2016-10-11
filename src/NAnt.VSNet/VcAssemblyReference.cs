@@ -121,8 +121,6 @@ namespace NAnt.VSNet {
             // assembly reference could not be resolved
             return null;
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets the name of the referenced assembly.
         /// </summary>
@@ -133,8 +131,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Is called each time a regular expression match is found during a 
         /// <see cref="M:Regex.Replace(string, MatchEvaluator)" /> operation.
@@ -165,8 +161,6 @@ namespace NAnt.VSNet {
                 + " \"{2}\" is not supported in assembly references.", macro, 
                 Name, Parent.Name), Location.UnknownLocation);
         }
-        #region Private Instance Fields
-
         private string _assemblyFile;
         private readonly bool _isPrivateSpecified;
         private readonly bool _isPrivate;

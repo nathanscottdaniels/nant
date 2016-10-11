@@ -50,8 +50,6 @@ namespace NAnt.Win32.Tasks {
         private readonly string _registryBase = @"SOFTWARE\Microsoft\Microsoft SDKs\Windows";
         private readonly string _registryBaseWow6432 = @"SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows";
         private readonly string _regexNetFxTools = @"^WinSDK.*NetFx.*Tools.*$";
-        #region Public Instance Properties
-
         /// <summary>
         ///     <para>
         ///     The property to set to the value stored in the InstalledFolder key of the located WinSDK version.
@@ -107,7 +105,6 @@ namespace NAnt.Win32.Tasks {
             get { return _maxNetFxVer; }
             set { _maxNetFxVer = value; }
         }
-        #region Override implementation of Task
         
         /// <summary>
         /// locate the most recent WinSDK installed
@@ -263,7 +260,6 @@ namespace NAnt.Win32.Tasks {
                 throw new BuildException(String.Format(CultureInfo.InvariantCulture,"System does not have minimum specified Windows SDK {0}!", _minWinSdkVer));
             }
         }
-        #region Private Instance Methods
         
         /// <summary>
         /// Converts a version expressed as a string into a Version object 

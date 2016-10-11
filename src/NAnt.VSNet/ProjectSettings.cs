@@ -148,8 +148,6 @@ namespace NAnt.VSNet {
                 _settings.Add(string.Format(de.Value.ToString(), value));
             }
         }
-        #region Public Instance Properties
-
         public string[] Settings {
             get { return (string[]) _settings.ToArray(typeof(string)); }
         }
@@ -257,13 +255,9 @@ namespace NAnt.VSNet {
         public string PostBuildEvent {
             get { return _postBuildEvent; }
         }
-        #region Private Instance Properties
-
         private ManagedProjectBase Project {
             get { return _project; }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines the output type of the project from its XML definition.
         /// </summary>
@@ -302,8 +296,6 @@ namespace NAnt.VSNet {
                         outputTypeAttribute.Value, Project.Name), Location.UnknownLocation);
             }
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Gets the project GUID from the given <see cref="XmlElement" /> 
         /// holding a <c>&lt;VisualStudioProject&gt;</c> node.
@@ -324,13 +316,9 @@ namespace NAnt.VSNet {
             }
             return projectGuid.Value.ToUpper(CultureInfo.InvariantCulture);
         }
-        #region Public Instance Methods
-
         public string GetTemporaryFilename(string fileName) {
             return FileUtils.CombinePaths(TemporaryFiles.BasePath, fileName);
         }
-        #region Private Instance Fields
-
         private readonly ArrayList _settings;
         private readonly FileInfo _applicationIcon;
         private readonly ManagedProjectBase _project;

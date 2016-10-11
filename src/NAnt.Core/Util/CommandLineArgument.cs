@@ -55,8 +55,6 @@ namespace NAnt.Core.Util {
             Debug.Assert((!IsCollection && !IsArray && !IsNameValueCollection) || AllowMultiple, "Collection and array arguments must have allow multiple");
             Debug.Assert(!Unique || (IsCollection || IsArray || IsNameValueCollection), "Unique only applicable to collection arguments");
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the property that backs the argument.
         /// </summary>
@@ -244,8 +242,6 @@ namespace NAnt.Core.Util {
         public bool IsExclusive {
             get { return 0 != (_argumentType & CommandLineArgumentTypes.Exclusive); }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Sets the value of the argument on the specified object.
         /// </summary>
@@ -402,8 +398,6 @@ namespace NAnt.Core.Util {
                 _argumentValue = newValue;
             }
         }
-        #region Private Instance Methods
-
         private object ParseValue(Type type, string stringData) {
             // null is only valid for bool variables
             // empty string is never valid
@@ -491,8 +485,6 @@ namespace NAnt.Core.Util {
                 ResourceUtils.GetString("NA1170"), stringData, 
                 LongName));
         }
-        #region Private Static Methods
-
         private static CommandLineArgumentTypes GetArgumentType(CommandLineArgumentAttribute attribute, PropertyInfo propertyInfo) {
             if (attribute != null) {
                 return attribute.Type;
@@ -569,8 +561,6 @@ namespace NAnt.Core.Util {
         private static bool IsArrayType(Type type) {
             return type.IsArray;
         }
-        #region Private Instance Fields
-
         private Type _elementType;
         private bool _seenValue;
         private CommandLineArgumentTypes _argumentType;

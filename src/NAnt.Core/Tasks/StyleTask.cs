@@ -109,8 +109,6 @@ namespace NAnt.Core.Tasks {
         private XsltParameterCollection _xsltParameters = new XsltParameterCollection();
         private XsltExtensionObjectCollection _xsltExtensions = new XsltExtensionObjectCollection();
         private Proxy _proxy;
-        #region Public Instance Properties
-
         /// <summary>
         /// Directory in which to store the results. The default is the project
         /// base directory.
@@ -405,8 +403,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-        #region Protected Instance Methods
-
         protected virtual XmlReader CreateXmlReader(Uri uri) {
             Stream stream = null;
             XmlUrlResolver resolver = null;

@@ -32,14 +32,11 @@ namespace NAnt.Core {
     internal class LocationMap {
         // The LocationMap uses a hash table to map filenames to resolve specific maps.
         private Hashtable _fileMap = new Hashtable();
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LocationMap" /> class.
         /// </summary>
         public LocationMap() {
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Determines if a file has been loaded by the current project. 
@@ -194,8 +191,6 @@ namespace NAnt.Core {
             Location location = new Location(fileName, pos.Line, pos.Column);
             return location;
         }
-        #region Private Instance Methods
-
         private string GetXPathFromNode(XmlNode node) {
             // IM TODO review this algorithm - tidy up
             XPathNavigator nav = node.CreateNavigator();
@@ -252,8 +247,6 @@ namespace NAnt.Core {
                 Line = line;
                 Column = column;
             }
-            #region Public Instance Fields
-
             /// <summary>
             /// The line coordinate of the position.
             /// </summary>

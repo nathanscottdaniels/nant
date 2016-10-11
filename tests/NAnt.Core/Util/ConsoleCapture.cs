@@ -49,13 +49,9 @@ namespace Tests.NAnt.Core.Util {
             System.Console.SetOut(_writer);
             System.Console.SetError(_writer);
         }
-        #region Finalizer
-
         ~ConsoleCapture() {
             Dispose();
         }
-        #region Implementation of IDisposable
-
         public void Dispose() {
             if (!_disposed) {
                 Close ();
@@ -64,8 +60,6 @@ namespace Tests.NAnt.Core.Util {
             _disposed = true;
             GC.SuppressFinalize(this);
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns the contents of the capture buffer.  Can be called after 
         /// <see cref="Close()" /> is called.
@@ -73,8 +67,6 @@ namespace Tests.NAnt.Core.Util {
         public override string ToString() {
             return _writer.ToString();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Restores console output and returns the contents of the captured 
         /// buffer.
@@ -90,8 +82,6 @@ namespace Tests.NAnt.Core.Util {
             System.Console.SetError(_oldErrorWriter);
             return ToString();
         }
-        #region Private Instance Fields
-
         private bool _disposed;
         private ConsoleWriter _writer;
         private TextWriter   _oldWriter;

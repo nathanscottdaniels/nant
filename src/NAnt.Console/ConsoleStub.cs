@@ -53,8 +53,6 @@ namespace NAnt.Console {
                 Platform = "unix";
             }
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Entry point for executable
         /// </summary>
@@ -195,8 +193,6 @@ namespace NAnt.Console {
                 return helper.ExitCode;
             }
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Constructs the privatebinpath.
         /// </summary>
@@ -334,8 +330,6 @@ namespace NAnt.Console {
             relativePath += fullAbsolutePath.Substring(commonPath.Length);
             return relativePath;
         }
-        #region Private Static Fields
-
         private static readonly string FrameworkFamily;
         private static readonly string Platform;
 
@@ -356,8 +350,6 @@ namespace NAnt.Console {
                 _args = args;
                 _probePaths = probePaths;
             }
-            #region Public Instance Properties
-
             /// <summary>
             /// Gets the status that the build process returned when it exited.
             /// </summary>
@@ -367,8 +359,6 @@ namespace NAnt.Console {
             public int ExitCode {
                 get { return _exitCode; }
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Invokes the application entry point in NAnt.Core.
             /// </summary>
@@ -417,13 +407,9 @@ namespace NAnt.Console {
                     "'{0}' returned {1}", 
                     mainMethodInfo.ToString(), ExitCode);
             }
-            #region Private Instance Fields
-
             private string[] _args;
             private string _probePaths;
             private int _exitCode = -1;
-            #region Private Static Fields
-
             private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(
                 System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         }

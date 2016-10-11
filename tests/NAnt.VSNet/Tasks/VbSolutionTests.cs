@@ -26,14 +26,12 @@ namespace Tests.NAnt.VSNet.Tasks {
     [TestFixture]
     public class VbSolutionTests : SolutionTestBase {
         // add fields here
-        #region Protected Static Fields 
         /// <summary>
         /// LanguageType that is being tested.
         /// </summary>
         protected override LanguageType CurrentLanguage {
             get {return LanguageType.vb;}
         }
-        #endregion
         /// <summary>
         /// Initialize example directory.
         /// </summary>
@@ -55,8 +53,6 @@ namespace Tests.NAnt.VSNet.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Tests that the winforms solution builds using the nant solution task.  Ensures that
         /// the outputs are generated correctly.

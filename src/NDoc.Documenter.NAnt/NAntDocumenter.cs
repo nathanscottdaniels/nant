@@ -46,16 +46,12 @@ namespace NDoc.Documenter.NAnt {
         private XmlDocument _xmlDocumentation;
         private string _resourceDirectory;
         private StringDictionary _writtenFiles = new StringDictionary();
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NAntDocumenter" /> class.
         /// </summary>
         public NAntDocumenter() : base("NAnt") {
             Clear();
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the documenter's output directory.
         /// </summary>
@@ -122,8 +118,6 @@ namespace NDoc.Documenter.NAnt {
                 return ((NAntDocumenterConfig) Config).ProductUrl;
             } 
         }
-        #region Override implementation of IDocumenter
-
         /// <summary>
         /// Gets the documenter's main output file.
         /// </summary>
@@ -256,8 +250,6 @@ namespace NDoc.Documenter.NAnt {
 
             OnDocBuildingStep(100, "Complete");
         }
-        #region Private Instance Methods
-
         private void DocumentType(XmlNode typeNode, ElementDocType docType, NAntXsltUtilities utilities) {
             if (typeNode == null) {
                 throw new ArgumentNullException("typeNode");

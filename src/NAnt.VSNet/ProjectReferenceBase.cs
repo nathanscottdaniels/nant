@@ -32,8 +32,6 @@ namespace NAnt.VSNet {
     public abstract class ProjectReferenceBase : ReferenceBase {
         protected ProjectReferenceBase(ReferencesResolver referencesResolver, ProjectBase parent) : base(referencesResolver, parent) {
         }
-        #region Protected Instance Properties
-
         protected abstract bool IsPrivate {
             get;
         }
@@ -41,8 +39,6 @@ namespace NAnt.VSNet {
         protected abstract bool IsPrivateSpecified {
             get;
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets a value indicating whether the output file(s) of this reference 
         /// should be copied locally.
@@ -179,13 +175,9 @@ namespace NAnt.VSNet {
                 return DateTime.MaxValue;
             }
         }
-        #region Public Instance Properties
-
         public abstract ProjectBase Project {
             get;
         }
-        #region Protected Instance Methods
-
         protected ProjectBase LoadProject(SolutionBase solution, TempFileCollection tfc, GacCache gacCache, DirectoryInfo outputDir, string projectFile) {
             if (ProjectStack.Contains(projectFile)) {
                 throw new BuildException(string.Format(CultureInfo.InvariantCulture,
@@ -205,8 +197,6 @@ namespace NAnt.VSNet {
                 ProjectStack.Pop();
             }
         }
-        #region Private Static Fields
-
         private static readonly Stack ProjectStack = new Stack();
     }
 }

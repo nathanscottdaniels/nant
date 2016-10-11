@@ -41,13 +41,9 @@ namespace NAnt.Core.Types {
             get { return (Pattern) List[index] ;}
             set { List[index] = value; }
         }
-        #region Private Instance Properties
-
         private ArrayList List {
             get { return _list; }
         }
-        #region Implementation of ICollection
-
         /// <summary>
         /// Gets the number of elements contained in the <see cref="T:System.Collections.ICollection" />.
         /// </summary>
@@ -77,13 +73,9 @@ namespace NAnt.Core.Types {
         object ICollection.SyncRoot {
             get { return List.SyncRoot; }
         }
-        #region Implementation of IEnumerable
-
         IEnumerator IEnumerable.GetEnumerator() {
             return List.GetEnumerator();
         }
-        #region Implementation of IList
-
         object IList.this [int index] {
             get {
                 return this [index];
@@ -185,7 +177,6 @@ namespace NAnt.Core.Types {
         void IList.RemoveAt (int index) {
             List.RemoveAt(index);
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="Pattern"/> to the end of the collection.
@@ -275,8 +266,6 @@ namespace NAnt.Core.Types {
         public void Remove(Pattern item) {
             List.Remove(item);
         }
-        #region Private Instance Fields
-
         private readonly ArrayList _list;
     }
 
@@ -293,7 +282,6 @@ namespace NAnt.Core.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -334,8 +322,6 @@ namespace NAnt.Core.Types {
         public void Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
-
         private IEnumerator _baseEnumerator;
     }
 }

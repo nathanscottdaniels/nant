@@ -79,8 +79,6 @@ namespace NAnt.Core.Filters {
 
         //Method used for Read
         private AcquireCharDelegate ReadChar;
-        #region Public Instance Properties
-
         /// <summary>
         /// The string to be replaced.
         /// </summary>
@@ -112,8 +110,6 @@ namespace NAnt.Core.Filters {
             get { return _ignoreCase; }
             set { _ignoreCase = value; }
         }
-        #region Override implementation of ChainableReader
-
         /// <summary>
         /// Construct that allows this filter to be chained to the one
         /// in the parameter chainedReader.
@@ -145,8 +141,6 @@ namespace NAnt.Core.Filters {
             //Need to maintain seperate state for Read and Peek for this to work
             throw new ApplicationException(ResourceUtils.GetString("String_PeekNotSupported"));
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// <para>
         /// Helper function used to search for the filter's traget string. If the string

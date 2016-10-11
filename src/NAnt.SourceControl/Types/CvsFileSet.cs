@@ -31,8 +31,6 @@ namespace NAnt.SourceControl.Types {
     [ElementName("cvsfileset")]
     public class CvsFileSet : FileSet {
         private bool _useCvsIgnore = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// Indicates whether the entires in the .cvsignore should be used to limit the 
         /// file list; <see langword="true"/> to exclude files in .cvsignore, otherwise
@@ -43,8 +41,6 @@ namespace NAnt.SourceControl.Types {
             get { return this._useCvsIgnore; }
             set { this._useCvsIgnore = value; }
         }
-        #region Override Implementation of Element
-
         /// <summary>
         /// Initialize the <see cref="CvsFileSet"/> object and locate the .cvsignore
         /// files to add to the exclude list.
@@ -61,8 +57,6 @@ namespace NAnt.SourceControl.Types {
 
             base.Initialize();
         }
-        #region Private Instance Methods
-
         private void ScanCvsIgnores(DirectoryInfo dir, ArrayList ignoreFiles) {
             foreach (FileInfo file in dir.GetFiles("*.cvsignore")) {
                 AddCvsIgnores(file, ignoreFiles);

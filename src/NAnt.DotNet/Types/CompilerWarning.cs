@@ -28,8 +28,6 @@ namespace NAnt.DotNet.Types {
         private string  _number;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// A warning number, or comma-separated list of warnings, that you want 
         /// the compiler to suppress or report.

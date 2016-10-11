@@ -34,16 +34,12 @@ namespace NAnt.DotNet.Types {
         private bool _asIs;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AssemblyAttribute" /> 
         /// class.
         /// </summary>
         public AssemblyAttribute() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Typename of the assembly-level attribute.
         /// </summary>

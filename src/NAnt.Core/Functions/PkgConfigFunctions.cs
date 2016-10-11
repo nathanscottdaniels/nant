@@ -39,8 +39,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public PkgConfigFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the value of a variable for the specified package.
         /// </summary>
@@ -207,7 +205,6 @@ namespace NAnt.Core.Functions {
         public bool Exists(string package) {
             return RunPkgConfigBool( new Argument[]{ new Argument("--exists"), new Argument(package)} );
         }
-        #region Private Instance Methods
         
         /// <summary>
         /// Runs pkg-config with the specified arguments and returns a 

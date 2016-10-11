@@ -37,8 +37,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public EnvironmentFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the path to the system special folder identified by the 
         /// specified enumeration.

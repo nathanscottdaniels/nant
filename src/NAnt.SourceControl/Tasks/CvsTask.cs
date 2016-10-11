@@ -37,8 +37,6 @@ namespace NAnt.SourceControl.Tasks {
     [TaskName("cvs")]
     public class CvsTask : AbstractCvsTask {
         private string _commandName;
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// The cvs command to execute.
         /// </summary>

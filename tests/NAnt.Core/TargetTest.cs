@@ -53,8 +53,6 @@ namespace Tests.NAnt.Core {
                 <target name='Release' depends='Init'/>
                 <target name='Build' depends='Release'/>
             </project>";
-        #region Public Instance Methods
-
         [Test]
         public void Test_Normal() {
             // create new listener that allows us to track build events
@@ -199,8 +197,6 @@ namespace Tests.NAnt.Core {
             // run the build with an unknown default target
             RunBuild(FormatBuildFile("Unknown", "true", "false", string.Empty));
         }
-        #region Private Instance Methods
-
         private string FormatBuildFile(string defaultTarget, string a, string b, string target3Depends) {
             return string.Format(CultureInfo.InvariantCulture, BuildFragment, 
                 defaultTarget, a, b, target3Depends);

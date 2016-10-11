@@ -36,8 +36,6 @@ namespace NAnt.DotNet.Types {
         protected DataTypeCollectionBase() {
             _list = new ArrayList();
         }
-        #region ICollection Members
-
         /// <summary>
         /// Gets a value indicating whether access to the collection is 
         /// synchronized (thread-safe).
@@ -79,8 +77,6 @@ namespace NAnt.DotNet.Types {
         object ICollection.SyncRoot {
             get { return this; }
         }
-
-        #endregion
         /// <summary>
         /// Returns an enumerator that can iterate through a collection.
         /// </summary>
@@ -91,8 +87,6 @@ namespace NAnt.DotNet.Types {
         IEnumerator IEnumerable.GetEnumerator() {
             return List.GetEnumerator();
         }
-
-        #endregion
         /// <summary>
         /// Gets a value indicating whether the collection has a fixed size.
         /// </summary>
@@ -128,8 +122,6 @@ namespace NAnt.DotNet.Types {
         public void Clear() {
             List.Clear();
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the list of elements contained in the 
         /// <see cref="DataTypeCollectionBase" /> instance.
@@ -151,8 +143,6 @@ namespace NAnt.DotNet.Types {
         protected abstract Type ItemType {
             get;
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Used by methods that take <see cref="object" /> instances as argument
         /// to verify whether the instance is valid for the collection class.
@@ -181,8 +171,6 @@ namespace NAnt.DotNet.Types {
                     + "the number of items in the collection.");
             }
         }
-        #region Private Instance Fields
-
         private ArrayList _list;
     }
 
@@ -262,8 +250,6 @@ namespace NAnt.DotNet.Types {
                 return null;
             }
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns a comma-delimited list of namespace imports.
         /// </summary>
@@ -295,8 +281,6 @@ namespace NAnt.DotNet.Types {
 
             return sb.ToString();
         }
-        #region Override implementation of DataTypeCollectionBase
-
         /// <summary>
         /// Gets the <see cref="Type" /> of the items in this collection.
         /// </summary>
@@ -306,8 +290,6 @@ namespace NAnt.DotNet.Types {
         protected override Type ItemType {
             get { return typeof(NamespaceImport); }
         }
-        #region IList Members
-
         /// <summary>
         /// Gets or sets the item at the specified index.
         /// </summary>
@@ -382,8 +364,6 @@ namespace NAnt.DotNet.Types {
             ValidateType(value);
             return Add((NamespaceImport) value);
         }
-
-        #endregion
         /// <summary>
         /// Adds the items of a <see cref="NamespaceImportCollection"/> to the end of the collection.
         /// </summary>
@@ -467,7 +447,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current item in the collection.
@@ -516,7 +495,6 @@ namespace NAnt.DotNet.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

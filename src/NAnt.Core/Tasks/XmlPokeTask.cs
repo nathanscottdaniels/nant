@@ -96,8 +96,6 @@ namespace NAnt.Core.Tasks {
         private string _xPathExpression;
         private bool _preserveWhitespace;
         private XmlNamespaceCollection _namespaces = new XmlNamespaceCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the file that contains the XML document that is going 
         /// to be poked.

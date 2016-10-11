@@ -104,8 +104,6 @@ namespace NAnt.DotNet.Tasks {
         private AssemblyAttributeCollection _attributes = new AssemblyAttributeCollection();
         private NamespaceImportCollection _imports = new NamespaceImportCollection();
         private AssemblyFileSet _references = new AssemblyFileSet();
-        #region Public Instance Properties
-
         /// <summary>
         /// Name of the AssemblyInfo file to generate.
         /// </summary>
@@ -168,8 +166,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _references; }
             set { _references = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Generates an AssemblyInfo file.
         /// </summary>
@@ -234,8 +230,6 @@ namespace NAnt.DotNet.Tasks {
                     ResourceUtils.GetString("NA2004"), Output.FullName), Location, ex);
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Determines whether the specified AssemblyInfo file in the given
         /// <see cref="Stream" /> needs to be persisted.
@@ -308,8 +302,6 @@ namespace NAnt.DotNet.Tasks {
         internal class CodeProvider {
             private readonly CodeLanguage _language;
             private readonly ICodeGenerator _generator;
-            #region Public Instance Constructors
-
             /// <summary>
             /// Initializes a new instance of the <see cref="CodeProvider" />
             /// for the specified <see cref="CodeLanguage" />.
@@ -335,8 +327,6 @@ namespace NAnt.DotNet.Tasks {
                 _generator = provider.CreateGenerator();
                 _language = codeLanguage;
             }
-            #region Private Instance Properties
-
             /// <summary>
             /// Gets the <see cref="CodeLanguage" /> in which the AssemblyInfo
             /// code will be generated.
@@ -352,8 +342,6 @@ namespace NAnt.DotNet.Tasks {
             private ICodeGenerator Generator {
                 get { return _generator; }
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Generates code for the specified imports.
             /// </summary>
@@ -414,8 +402,6 @@ namespace NAnt.DotNet.Tasks {
 
                 Generator.GenerateCodeFromCompileUnit(codeCompileUnit, writer, new CodeGeneratorOptions());
             }
-            #region Private Instance Methods
-
             private object GetTypedValue(AssemblyAttribute attribute, StringCollection assemblies, StringCollection imports) {
                 // locate type assuming TypeName is fully qualified typename
                 PermissionSet domainPermSet = new PermissionSet(PermissionState.Unrestricted);
@@ -468,8 +454,6 @@ namespace NAnt.DotNet.Tasks {
                 }
                 return lease;
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Retrieves the specified <see cref="Type" /> corresponding with the specified 
             /// type name from a list of assemblies.
@@ -561,8 +545,6 @@ namespace NAnt.DotNet.Tasks {
                     assemblyResolver.Detach();
                 }
             }
-            #region Private Instance Methods
-
             /// <summary>
             /// Finds a given type from a given list of assemblies and import statements.
             /// </summary>

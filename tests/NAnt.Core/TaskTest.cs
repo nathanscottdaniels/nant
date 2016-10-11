@@ -34,8 +34,6 @@ namespace Tests.NAnt.Core {
     [TaskName("test")]
     public class TestTask : Task {
         private bool _fail = false;
-        #region Public Instance Properties
-
         [TaskAttribute("fail", Required=false)]
         [BooleanValidator()]
         public bool Fail {
@@ -56,8 +54,6 @@ namespace Tests.NAnt.Core {
             get { return ""; }
             set { }
         }
-        #region Override implementation of Task
-
         protected override void ExecuteTask() {
             Log(Level.Info, "TestTask executed");
             Log(Level.Verbose, "Verbose message");
@@ -76,7 +72,6 @@ namespace Tests.NAnt.Core {
                     <test {1}/>
                 </target>
             </project>";
-        #region Public Instance Methods
         
         [Test]
         public void Test_Simple() {
@@ -151,14 +146,10 @@ namespace Tests.NAnt.Core {
         public void Test_UnknownAttribute() {
             RunBuild(FormatBuildFile("FaIL='false'"));
         }
-        #region Protected Instance Methods
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
         }
-        #region Private Instance Methods
-
         private string FormatBuildFile(string attributes) {
             return string.Format(CultureInfo.InvariantCulture, _format, Assembly.GetExecutingAssembly().Location, attributes);
         }

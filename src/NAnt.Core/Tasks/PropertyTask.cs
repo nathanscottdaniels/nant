@@ -91,8 +91,6 @@ namespace NAnt.Core.Tasks {
         private bool _readOnly;
         private bool _dynamic;
         private bool _overwrite = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the NAnt property to set.
         /// </summary>

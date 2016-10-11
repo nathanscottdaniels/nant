@@ -37,8 +37,6 @@ namespace NAnt.DotNet.Types {
     public class WarningAsError : DataTypeBase {
         private CompilerWarningCollection _includes = new CompilerWarningCollection();
         private CompilerWarningCollection _excludes = new CompilerWarningCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies a list of warnings that the compiler should treat as 
         /// errors. This overrides the <see cref="CompilerBase.WarnAsError" /> 

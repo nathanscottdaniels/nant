@@ -130,7 +130,6 @@ namespace NAnt.Core.Tasks {
         private int _portNumber = 25;
         private FileSet _files = new FileSet();
         private FileSet _attachments = new FileSet();
-        #region Public Instance Properties
   
         /// <summary>
         /// Email address of sender.
@@ -315,8 +314,6 @@ namespace NAnt.Core.Tasks {
             get { return _attachments; }
             set { _attachments = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Initializes task and ensures the supplied attributes are valid.
         /// </summary>
@@ -508,8 +505,6 @@ namespace NAnt.Core.Tasks {
             }
 #endif
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Reads a text file and returns the content
         /// in a string.

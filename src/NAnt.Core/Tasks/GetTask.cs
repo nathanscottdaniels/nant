@@ -89,8 +89,6 @@ namespace NAnt.Core.Tasks {
         private bool _useTimeStamp;
         private Credential _credentials;
         private FileSet _certificates = new FileSet();
-        #region Public Instance Properties
-
         /// <summary>
         /// The URL from which to retrieve a file.
         /// </summary>
@@ -182,8 +180,6 @@ namespace NAnt.Core.Tasks {
             get { return _certificates; }
             set { _certificates = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Initializes task and ensures the supplied attributes are valid.
         /// </summary>
@@ -349,8 +345,6 @@ namespace NAnt.Core.Tasks {
                     Location, ex);
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Sets the timestamp of a given file to a specified time.
         /// </summary>
@@ -368,8 +362,6 @@ namespace NAnt.Core.Tasks {
                 Log(Level.Verbose, "Error: {0}.", e.ToString());
             }
         }
-        #region Private Instance Methods
-
         private WebRequest GetWebRequest(string url, DateTime fileLastModified) {
             WebRequest webRequest = null;
             Uri uri = new Uri(url);

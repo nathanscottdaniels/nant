@@ -45,8 +45,6 @@ namespace NAnt.VSNet {
             }
             return lease;
         }
-        #region Public Instance Methods
-
         public void AppendReferencedModulesLocatedInGivenDirectory(string moduleDirectory, string moduleName, ref Hashtable allReferences, ref Hashtable unresolvedReferences) {
             Assembly module = null;
 

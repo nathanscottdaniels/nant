@@ -147,8 +147,6 @@ namespace NAnt.Core.Tasks {
         private Encoding _outputEncoding;
         private long _fileCount = 0;
         private long _dirCount = 0;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initialize new instance of the <see cref="CopyTask" />.
         /// </summary>
@@ -159,8 +157,6 @@ namespace NAnt.Core.Tasks {
                 _fileCopyMap = CollectionsUtil.CreateCaseInsensitiveHashtable();
             }
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The file to copy.
         /// </summary>
@@ -260,8 +256,6 @@ namespace NAnt.Core.Tasks {
             get { return _outputEncoding; }
             set { _outputEncoding = value; }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// The set of files to perform a file operation on.
         /// </summary>
@@ -297,8 +291,6 @@ namespace NAnt.Core.Tasks {
         {
             get { return _dirCount; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Checks whether the task is initialized with valid attributes.
         /// </summary>
@@ -566,7 +558,6 @@ namespace NAnt.Core.Tasks {
             // do all the actual copy operations now
             DoFileOperations();
         }
-        #region Protected Instance Methods
         
         /// <summary>
         /// Actually does the file copies.
@@ -682,8 +673,6 @@ namespace NAnt.Core.Tasks {
                 _lastWriteTime = lastWriteTime;
                 _isDir = isDir;
             }
-            #region Public Instance Properties
-
             /// <summary>
             /// Gets the absolute path of the current file.
             /// </summary>
@@ -712,16 +701,12 @@ namespace NAnt.Core.Tasks {
             {
                 get { return _isDir; }
             }
-            #region Public Instance Methods
-
             /// <inheritdoc/>
             public override string ToString()
             {
                 return String.Format("Path: '{0}'; IsDirectory: '{1}'; LastWriteTime: '{2}'",
                     _path, _isDir.ToString(), _lastWriteTime.ToString());
             }
-
-            #endregion
             
             private DateTime _lastWriteTime;
             private string _path;

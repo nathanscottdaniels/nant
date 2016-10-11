@@ -38,8 +38,6 @@ namespace NAnt.VSNet {
     /// </summary>
     public abstract class VcConfigurationBase : ConfigurationBase {
         public delegate string ExpansionHandler(string value);
-        #region Protected Instance Constructors
-
         protected VcConfigurationBase(XmlElement elem, ProjectBase parentProject, DirectoryInfo outputDir) : base(parentProject) {
             if (elem == null) {
                 throw new ArgumentNullException("elem");
@@ -72,8 +70,6 @@ namespace NAnt.VSNet {
             // set output directory (if specified)
             _outputDir = outputDir;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the intermediate directory, specified relative to project 
         /// directory.
@@ -120,8 +116,6 @@ namespace NAnt.VSNet {
                 return (UsePrecompiledHeader) Enum.ToObject(typeof(UsePrecompiledHeader), intVal);
             }
         }
-        #region Internal Instance Properties
-
         /// <summary>
         /// Gets the name of the configuration, including the platform it
         /// targets.
@@ -132,8 +126,6 @@ namespace NAnt.VSNet {
         internal string FullName {
             get { return _name; }
         }
-        #region Override implementation of ConfigurationBase
-
         /// <summary>
         /// Gets the output directory.
         /// </summary>
@@ -260,8 +252,6 @@ namespace NAnt.VSNet {
                     }
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the value of a given setting for a specified tool.
         /// </summary>
@@ -301,15 +291,9 @@ namespace NAnt.VSNet {
         }
 
         public abstract Hashtable GetToolArguments(string toolName, VcArgumentMap argMap, VcArgumentMap.ArgGroup ignoreGroup);
-        #region Protected Instance Fields
-
         protected readonly Hashtable Tools = CollectionsUtil.CreateCaseInsensitiveHashtable();
-        #region Private Instance Fields
-
         private readonly string _name;
         private DirectoryInfo _outputDir;
-        #region Internal Static Fields
-
         internal const string CLCompilerTool = "VCCLCompilerTool";
         internal const string CustomBuildTool = "VCCustomBuildTool";
         internal const string LinkerTool = "VCLinkerTool";

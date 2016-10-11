@@ -54,8 +54,6 @@ namespace NAnt.NUnit2.Types {
     public class Categories : DataTypeBase {
         private CategoryCollection _includes = new CategoryCollection();
         private CategoryCollection _excludes = new CategoryCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies a list of categories to include.
         /// </summary>

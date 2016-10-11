@@ -42,8 +42,6 @@ namespace NAnt.NUnit2.Types {
         private AssemblyFileSet _references = new AssemblyFileSet();
         private FileInfo _appConfigFile;
         private Categories _categories = new Categories();
-        #region Public Instance Properties
-
         /// <summary>
         /// Name of the assembly to search for tests.
         /// </summary>

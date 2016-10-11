@@ -32,8 +32,6 @@ namespace Tests.NAnt.Core.Tasks {
     [TestFixture]
     public class XmlPeekTest : BuildTestBase {
         private CultureInfo originalCulture;
-        #region Private Static Fields
-
         private const string _projectXml = "<?xml version=\"1.0\"?>"
             + "<project>"
                 + "<xmlpeek {0} property=\"configuration.server\" />"
@@ -75,8 +73,6 @@ namespace Tests.NAnt.Core.Tasks {
                     + "<add key=\"server\" value=\"testhost.somecompany.com\" />"
                 + "</appSettings>"
             + "</configuration>";
-        #region Public Instance Methods
-
         [Test]
         public void Test_PeekValidXml() {
             // write xml content to file
@@ -404,8 +400,6 @@ namespace Tests.NAnt.Core.Tasks {
                 Assert.IsTrue((ex.InnerException.InnerException != null && ex.InnerException.InnerException.GetType() == typeof(XmlException)));
             }
         }
-        #region Override implementation of BuildTestBase
-
         protected override void SetUp() {
             base.SetUp();
 

@@ -47,8 +47,6 @@ namespace NAnt.Compression.Types {
         public TarFileSetCollection(TarFileSet[] value) {
             AddRange(value);
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>
@@ -72,8 +70,6 @@ namespace NAnt.Compression.Types {
                 return fileCount;
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds a <see cref="TarFileSet"/> to the end of the collection.
         /// </summary>
@@ -176,8 +172,6 @@ namespace NAnt.Compression.Types {
             IEnumerable temp = (IEnumerable) (TarFileSets);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
-
         /// <summary>
         /// Gets the current element in the collection.
         /// </summary>
@@ -219,8 +213,6 @@ namespace NAnt.Compression.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
-
         private IEnumerator _baseEnumerator;
     }
 }

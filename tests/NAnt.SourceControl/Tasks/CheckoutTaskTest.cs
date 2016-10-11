@@ -33,8 +33,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
     [TestFixture]
     public class CheckoutTaskTest : BuildTestBase {
         private string destination;
-        #region Private Static Fields
-
         private const string TestModule = "sharpcvslib";
         private const string CheckFile = "lib/ICSharpCode.SharpZipLib.dll";
 
@@ -76,8 +74,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
                     />
                 </target>
             </project>";
-        #region Override implementation of BuildTestBase
-
         /// <summary>
         /// Create the directory needed for the test if it does not exist.
         /// </summary>
@@ -94,8 +90,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
         protected override void TearDown () {
             base.TearDown ();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Tests that the directory for the cvs checkout gets created and
         /// that at least the master.build file comes down from the 
@@ -177,8 +171,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
 
             RunBuild(FormatBuildFile(_checkoutByDateProjectXML, args), Level.Info);
         }
-        #region Private Instance Methods
-
         private string FormatBuildFile(string baseFile, object[] args) {
             return string.Format(CultureInfo.InvariantCulture, baseFile, args);
         }

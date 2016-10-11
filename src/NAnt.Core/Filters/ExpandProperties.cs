@@ -50,23 +50,17 @@ namespace NAnt.Core.Filters {
         /// Holds data for expression expansion between input and output.
         /// </summary>
         private StringBuilder _buffer;
-        #region Private Static Fields
-
         // Due to limitations on buffering, expressions longer than this number of characters are not guaranteed to be expanded.
         const ushort MAX_RELIABLE_EXPRESSION_LENGTH = 2048;
 
         // A buffer this size ensures that any expression up to MAX_RELIABLE_EXPRESSION_LENGTH will be sent in one piece to ExpandExpression.
         const int BUFFER_LENGTH = MAX_RELIABLE_EXPRESSION_LENGTH * 2 - 1;
-        #region Private Instance Properties
-
         /// <summary>
         /// Determines whether we've passed the end of our data.
         /// </summary>
         private bool AtEnd {
             get { return _buffer.Length == 0; }
         }
-        #region Override implementation of Filter
-
         /// <summary>
         /// Called after construction and after properties are set. Allows
         /// for filter initialization.
@@ -75,8 +69,6 @@ namespace NAnt.Core.Filters {
             _buffer = new StringBuilder(BUFFER_LENGTH);
             ReplenishBuffer();
         }
-        #region Override implementation of ChainableReader
-
         /// <summary>
         /// Reads the next character applying the filter logic.
         /// </summary>
@@ -100,8 +92,6 @@ namespace NAnt.Core.Filters {
                 return _buffer[0];
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Moves to the next character.
         /// </summary>

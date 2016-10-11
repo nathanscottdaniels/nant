@@ -37,8 +37,6 @@ namespace NAnt.VSNet {
             _culture = CompilerBase.GetResourceCulture(resourceSourceFile.FullName, 
                 dependentFile);
         }
-        #region Public Instance Properties
-
         public CultureInfo Culture {
             get { return _culture; }
         }
@@ -82,8 +80,6 @@ namespace NAnt.VSNet {
                 return InputFile.Extension.Equals(".resx", StringComparison.OrdinalIgnoreCase);
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Compiles the resource file.
         /// </summary>
@@ -159,8 +155,6 @@ namespace NAnt.VSNet {
                         "Unsupported project type '{0}'.", Project.Type));
             }
         }
-        #region Private Instance Methods
-
         private string GetManifestResourceNameCSharp(ConfigurationSettings configSetting, string dependentFile) {
             // defer to the resource management code in CscTask
             CscTask csc = new CscTask();
@@ -301,8 +295,6 @@ namespace NAnt.VSNet {
             // batch using the ResGen task in ManagedProjectBase
             throw new InvalidOperationException();
         }
-        #region Private Instance Fields
-
         private readonly CultureInfo _culture;
         private readonly FileInfo _resourceSourceFile;
         private readonly string _dependentFile;

@@ -49,8 +49,6 @@ namespace NAnt.Core.Util {
         /// <param name="innerException">A nested exception that is the cause of the current exception.</param>
         public CommandLineArgumentException(string message, Exception innerException) : base(message, innerException) {
         }
-        #region Private Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLineArgumentException" /> class 
         /// with serialized data.

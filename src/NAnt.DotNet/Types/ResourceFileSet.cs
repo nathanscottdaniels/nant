@@ -47,8 +47,6 @@ namespace NAnt.DotNet.Types {
         /// <param name="fs"></param>
         public ResourceFileSet(FileSet fs) : base(fs) {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Indicates the prefix to prepend to the actual resource. 
         /// This is usually the default namspace of the assembly.
@@ -117,8 +115,6 @@ namespace NAnt.DotNet.Types {
                 return retFileSet;
             }
         }
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="ResourceFileSet" />.
         /// </summary>
@@ -132,8 +128,6 @@ namespace NAnt.DotNet.Types {
             clone._prefix = _prefix;
             return clone;
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the manifest resource name for the specified resource file.
         /// </summary>
@@ -219,8 +213,6 @@ namespace NAnt.DotNet.Types {
             // return manifest resource name
             return manifestResourceName.ToString();
         }
-        #region Private Instance Fields
-
         private string _prefix;
         private bool _dynamicprefix;
     }

@@ -31,8 +31,6 @@ namespace NAnt.DotNet.Types {
         private string _namespace;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NamespaceImport" /> 
         /// class.
@@ -53,8 +51,6 @@ namespace NAnt.DotNet.Types {
 
             this._namespace = nameSpace;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the namespace to import.
         /// </summary>

@@ -143,8 +143,6 @@ namespace NAnt.Core.Tasks {
         private string _target;
         private bool _force;
         private bool _cascade = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// NAnt target to call.
         /// </summary>
@@ -177,8 +175,6 @@ namespace NAnt.Core.Tasks {
             get { return _cascade; }
             set { _cascade = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the specified target.
         /// </summary>

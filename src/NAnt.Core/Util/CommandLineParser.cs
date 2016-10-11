@@ -60,8 +60,6 @@ namespace NAnt.Core.Util {
             _argumentSpecification = argumentSpecification;
             _supportsResponseFile = supportsResponseFile;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets a logo banner using version and copyright attributes defined on the 
         /// <see cref="Assembly.GetEntryAssembly()" /> or the 
@@ -254,8 +252,6 @@ namespace NAnt.Core.Util {
                 return false;
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Parses an argument list.
         /// </summary>
@@ -283,7 +279,6 @@ namespace NAnt.Core.Util {
                 _defaultArgument.Finish(destination);
             }
         }
-        #region Private Instance Methods
         
         /// <summary>
         /// Splits a string and removes any empty strings from the 
@@ -441,8 +436,6 @@ namespace NAnt.Core.Util {
                 }
             }
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Returns the <see cref="CommandLineArgumentAttribute" /> that's applied 
         /// on the specified property.
@@ -460,8 +453,6 @@ namespace NAnt.Core.Util {
             Debug.Assert(attributes.Length == 0);
             return null;
         }
-        #region Private Instance Fields
-
         private CommandLineArgumentCollection _argumentCollection; 
         private CommandLineArgument _defaultArgument;
         private Type _argumentSpecification;

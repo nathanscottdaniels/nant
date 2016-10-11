@@ -57,8 +57,6 @@ namespace NAnt.Core.Tasks {
         private string _propertyName;
         private FileSet _sourceFiles;
         private FileSet _targetFiles;
-        #region Public Instance Properties
-
         /// <summary>
         /// Property that will be set to <see langword="true" /> or <see langword="false" /> depending on the 
         /// result of the date check.

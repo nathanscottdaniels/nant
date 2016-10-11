@@ -99,8 +99,6 @@ namespace NAnt.DotNet.Tasks {
         private bool _supportsDocGeneration;
         private bool _supportsNoStdLib;
         private bool _supportsPlatform;
-        #region Private Static Fields
-
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.]+|Class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.]+|Namespace\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
      
@@ -355,8 +353,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsPlatform; }
             set { _supportsPlatform = value; }
         }
-        #region Override implementation of CompilerBase
-
         /// <summary>
         /// Finds the correct namespace/classname for a resource file from the 
         /// given dependent source file, and ensure the <see cref="RootNamespace" />

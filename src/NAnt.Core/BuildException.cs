@@ -33,8 +33,6 @@ namespace NAnt.Core {
         /// The location of the exception in the build document (xml file).
         /// </summary>
         private Location _location = Location.UnknownLocation;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildException" /> class.
         /// </summary>
@@ -80,8 +78,6 @@ namespace NAnt.Core {
         public BuildException(String message, Location location, Exception innerException) : base(message, innerException) {
             _location = location;
         }
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildException" /> class 
         /// with serialized data.
@@ -91,8 +87,6 @@ namespace NAnt.Core {
         protected BuildException(SerializationInfo info, StreamingContext context) : base(info, context) {
             _location = info.GetValue("Location", _location.GetType()) as Location;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the raw message as specified when the exception was 
         /// constructed.
@@ -116,8 +110,6 @@ namespace NAnt.Core {
         public Location Location {
             get { return _location; }
         }
-        #region Override implementation of ISerializable
-
         /// <summary>
         /// Serializes this object into the <see cref="SerializationInfo" /> provided.
         /// </summary>
@@ -128,8 +120,6 @@ namespace NAnt.Core {
             base.GetObjectData(info, context);
             info.AddValue("Location", _location);      
         }
-        #region Override implementation of ApplicationException
-
         /// <summary>
         /// Gets a message that describes the current exception.
         /// </summary>

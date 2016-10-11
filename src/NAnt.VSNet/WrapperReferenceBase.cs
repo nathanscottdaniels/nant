@@ -43,8 +43,6 @@ namespace NAnt.VSNet {
     public abstract class WrapperReferenceBase : FileReferenceBase {
         protected WrapperReferenceBase(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache) : base(xmlDefinition, referencesResolver, parent, gacCache) {
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets a value indicating whether the output file(s) of this reference 
         /// should be copied locally.
@@ -136,8 +134,6 @@ namespace NAnt.VSNet {
         public override DateTime GetTimestamp(Configuration solutionConfiguration) {
             return GetFileTimestamp(WrapperAssembly);
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the name of the tool that should be used to create the 
         /// <see cref="WrapperAssembly" />.
@@ -171,8 +167,6 @@ namespace NAnt.VSNet {
         public bool IsCreated {
             get { return _isCreated; }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the path of the Primary Interop Assembly.
         /// </summary>
@@ -227,8 +221,6 @@ namespace NAnt.VSNet {
                 return GetTypeLibraryName(GetTypeLibrary());
             }
         }
-        #region Protected Instance Methods
-
         protected abstract void ImportTypeLibrary();
         protected abstract void ImportActiveXLibrary();
 
@@ -346,8 +338,6 @@ namespace NAnt.VSNet {
             return Marshal.GetTypeLibName((UCOMITypeLib) typeLib);
 #endif
         }
-        #region Private Instance Methods
-
         private string CreateWrapper(ConfigurationBase config) {
             // if wrapper assembly was created during the current build, then
             // there's no need to create it again
@@ -475,13 +465,9 @@ namespace NAnt.VSNet {
             }
             return new BuildException(msg, Location.UnknownLocation);
         }
-        #region Private Static Methods
-
         [DllImport( "oleaut32.dll", CharSet=CharSet.Unicode, PreserveSig=false)]
         private static extern void LoadTypeLibEx(string strTypeLibName, int regKind, 
             [MarshalAs(UnmanagedType.Interface)] out Object typeLib);
-        #region Private Instance Fields
-
         private bool _isCreated;
     }
 }

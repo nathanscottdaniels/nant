@@ -35,8 +35,6 @@ namespace NAnt.VSNet {
             _referencesResolver = referencesResolver;
             _parent = parent;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets a value indicating whether the output file(s) of this reference 
         /// should be copied locally.
@@ -64,8 +62,6 @@ namespace NAnt.VSNet {
         public abstract string Name {
             get;
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the project in which the reference is defined.
         /// </summary>
@@ -80,8 +76,6 @@ namespace NAnt.VSNet {
         protected ReferencesResolver ReferencesResolver {
             get { return _referencesResolver; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the output path of the reference, without taking the "copy local"
         /// setting into consideration.
@@ -135,8 +129,6 @@ namespace NAnt.VSNet {
         /// specified configuration; otherwise, <see langword="false" />.
         /// </returns>
         public abstract bool IsManaged(Configuration solutionConfiguration);
-        #region Protected Instance Methods
-
         /// <summary>
         /// Returns the date and time the specified file was last written to.
         /// </summary>
@@ -179,8 +171,6 @@ namespace NAnt.VSNet {
         protected void Log(Level messageLevel, string message, params object[] args) {
             SolutionTask.Log(messageLevel, message, args);
         }
-        #region Public Static Methods
-
         public static void GetRelatedFiles(string file, Hashtable relatedFiles) {
             // determine directory of specified file
             string directory = Path.GetDirectoryName(file);
@@ -215,8 +205,6 @@ namespace NAnt.VSNet {
                 relatedFiles[relatedFile] = Path.GetFileName(relatedFile);
             }
         }
-        #region Private Instance Fields
-
         private ProjectBase _parent;
         private ReferencesResolver _referencesResolver;
     }

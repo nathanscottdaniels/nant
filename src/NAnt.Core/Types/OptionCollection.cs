@@ -76,7 +76,6 @@ namespace NAnt.Core.Types {
                 return null;
             }
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="Option"/> to the end of the collection.
@@ -193,7 +192,6 @@ namespace NAnt.Core.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -236,7 +234,6 @@ namespace NAnt.Core.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

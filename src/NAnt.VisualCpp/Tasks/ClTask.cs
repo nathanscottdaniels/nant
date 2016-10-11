@@ -80,8 +80,6 @@ namespace NAnt.VisualCpp.Tasks {
         private Hashtable _resolvedIncludes;
         private Regex _includeRegex;
         private StringCollection _dirtySources = new StringCollection();
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClTask" /> class.
         /// </summary>
@@ -89,8 +87,6 @@ namespace NAnt.VisualCpp.Tasks {
             _resolvedIncludes = CollectionsUtil.CreateCaseInsensitiveHashtable();
             _includeRegex = new Regex("^[\\s]*#include[\\s]*[\"<](?'includefile'[^\">]+)[\">][\\S\\s]*$");
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Directory where all output files are placed.
         /// </summary>
@@ -250,8 +246,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return (_pdbFile != null ? Path.Combine(OutputDir.FullName, _pdbFile) : OutputDir.FullName + "/"); }
             set { _pdbFile = StringUtils.ConvertEmptyToNull(value); }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the filename of the external program to start.
         /// </summary>
@@ -267,8 +261,6 @@ namespace NAnt.VisualCpp.Tasks {
         public override string ProgramArguments {
             get { return "@" + "\"" + _responseFileName + "\""; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Compiles the sources.
         /// </summary>
@@ -418,8 +410,6 @@ namespace NAnt.VisualCpp.Tasks {
                 }
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines if the sources need to be compiled.
         /// </summary>
@@ -432,8 +422,6 @@ namespace NAnt.VisualCpp.Tasks {
             }
             return !AreObjsUpToDate();
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Determines whether the precompiled header file is up-to-date.
         /// </summary>
@@ -674,8 +662,6 @@ namespace NAnt.VisualCpp.Tasks {
 
             return null;
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Quotes an argument value and duplicates trailing backslahes.
         /// </summary>

@@ -93,11 +93,7 @@ namespace NAnt.DotNet.Tasks {
         // framework configuration settings
         private bool _supportsAssemblyReferences;
         private bool _supportsExternalFileReferences;
-        #region Private Static Fields
-
         private const int _maxCmdLineLength = 30000;
-        #region Public Instance Properties
-
         /// <summary>
         /// Input file to process.
         /// </summary>
@@ -194,8 +190,6 @@ namespace NAnt.DotNet.Tasks {
         public ArrayList QualifiedResources {
             get { return _qualifiedResources; }
         }
-        #region Private Instance Properties
-
         private bool RequiresAssemblyReferences {
             get {
                 if (Resources.FileNames.Count > 0 || QualifiedResources.Count > 0) {
@@ -216,8 +210,6 @@ namespace NAnt.DotNet.Tasks {
                 return false;
             }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the working directory for the application.
         /// </summary>
@@ -439,8 +431,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Cleans up generated files.
         /// </summary>
@@ -464,8 +454,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines whether the specified input file needs to be compiled.
         /// </summary>
@@ -514,8 +502,6 @@ namespace NAnt.DotNet.Tasks {
             // if we made it here then we don't have to recompile
             return false;
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Determines the full path and extension for the output file.
         /// </summary>
@@ -726,8 +712,6 @@ namespace NAnt.DotNet.Tasks {
     public class QualifiedResource {
         private FileInfo _inputFile;
         private FileInfo _outputFile;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="QualifiedResource" />
         /// class for a given input and output file.
@@ -738,8 +722,6 @@ namespace NAnt.DotNet.Tasks {
             _inputFile = input;
             _outputFile = output;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the resource file to compile.
         /// </summary>

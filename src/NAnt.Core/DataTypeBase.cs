@@ -31,8 +31,6 @@ namespace NAnt.Core {
     public abstract class DataTypeBase : Element {
         private string _id;
         private string _refID;
-        #region Public Instance Properties
-
         /// <summary>
         /// The ID used to be referenced later.
         /// </summary>
@@ -62,7 +60,6 @@ namespace NAnt.Core {
         public bool CanBeReferenced {
             get { return Name != null; }
         }
-        #region Override implementation of Element
         
         /// <summary>
         /// Gets the name of the datatype.
@@ -122,16 +119,12 @@ namespace NAnt.Core {
                 }
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Should be overridden by derived classes. clones the referenced types 
         /// data into the current instance.
         /// </summary>
         public virtual void Reset( ) {
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Copies all instance data of the <see cref="DataTypeBase" /> to a given
         /// <see cref="DataTypeBase" />.

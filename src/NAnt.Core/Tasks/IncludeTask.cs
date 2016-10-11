@@ -66,8 +66,6 @@ namespace NAnt.Core.Tasks {
     [TaskName("include")]
     public class IncludeTask : Task {
         private string _buildFileName;
-        #region Private Static Fields
-
         /// <summary>
         /// Used to check for recursived includes.
         /// </summary>
@@ -75,8 +73,6 @@ namespace NAnt.Core.Tasks {
 
         private static string _currentBasedir = "";
         private static int _nestinglevel = 0;
-        #region Public Instance Properties
-
         /// <summary>
         /// Build file to include.
         /// </summary>
@@ -86,8 +82,6 @@ namespace NAnt.Core.Tasks {
             get { return _buildFileName; }
             set { _buildFileName = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Verifies parameters.
         /// </summary>

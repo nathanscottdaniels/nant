@@ -67,8 +67,6 @@ namespace NAnt.Core {
         /// <param name="innerException">A nested exception that is the cause of the current exception.</param>
         public ValidationException(String message, Location location, Exception innerException) : base(message, location, innerException) {
         }
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationException" /> 
         /// class with serialized data.

@@ -145,13 +145,9 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Public Instance Properties
-
         public ProjectSettings ProjectSettings {
             get { return _projectSettings; }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the default file extension of sources for this project.
         /// </summary>
@@ -161,8 +157,6 @@ namespace NAnt.VSNet {
         protected abstract string FileExtension {
             get;
         }
-        #region Private Instance Properties
-
         /// <summary>
         /// Gets a value indicating if this is a web project.
         /// </summary>
@@ -179,8 +173,6 @@ namespace NAnt.VSNet {
         private bool IsWebProject {
             get { return ProjectFactory.IsUrl(_projectPath); }
         }
-        #region Override implementation of ProjectBase
-
         /// <summary>
         /// Gets the name of the VS.NET project.
         /// </summary>
@@ -496,8 +488,6 @@ namespace NAnt.VSNet {
                         SolutionTask.Project.Unindent();
                     }
                 }
-                #region Register project output for COM Interop
-
                 // check if we need to build type library
                 if (cs.RegisterForComInterop) {
                     // create type library in output dir, and register it using 
@@ -511,8 +501,6 @@ namespace NAnt.VSNet {
                     CopyFile(new FileInfo(typeLibPath), new FileInfo (objTypeLibPath), 
                         SolutionTask);
                 }
-                #region Deploy project and configuration level output files
-
                 // copy primary project output (and related files)
                 Hashtable outputFiles = CollectionsUtil.CreateCaseInsensitiveHashtable();
                 GetOutputFiles(solutionConfiguration, outputFiles);
@@ -553,8 +541,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Returns a <see cref="ProcessStartInfo" /> for launching the compiler
         /// for this project.
@@ -648,8 +634,6 @@ namespace NAnt.VSNet {
         ///   <para>The project location is invalid.</para>
         /// </exception>
         protected abstract ProjectLocation DetermineProjectLocation(XmlElement docElement);
-        #region Private Instance Methods
-
         /// <summary>
         /// Gets the absolute path of the type library for the project 
         /// output.
@@ -1111,8 +1095,6 @@ namespace NAnt.VSNet {
             }
             return regasm;
         }
-        #region Public Static Methods
-
         public static bool IsEnterpriseTemplateProject(string fileName) {
             try {
                 using (StreamReader sr = new StreamReader(fileName, Encoding.Default, true)) {
@@ -1155,8 +1137,6 @@ namespace NAnt.VSNet {
             throw new BuildException("Couldn't locate project GUID.",
                 Location.UnknownLocation);
         }
-        #region Protected Static Methods
-
         /// <summary>
         /// Returns the Visual Studio product version of the specified project
         /// XML fragment.
@@ -1242,8 +1222,6 @@ namespace NAnt.VSNet {
                     Location.UnknownLocation, ex);
             }
         }
-        #region Private Instance Fields
-
         private ArrayList _references;
 
         /// <summary>
@@ -1262,8 +1240,6 @@ namespace NAnt.VSNet {
         private readonly string _webProjectBaseUrl;
         private readonly ProjectSettings _projectSettings;
         private readonly ProjectLocation _projectLocation;
-        #region Private Static Fields
-
         private const string CommandFile = "compile-commands.txt";
         /// <summary>
         /// Groups a set of <see cref="Resource" /> instances for a specific
@@ -1272,8 +1248,6 @@ namespace NAnt.VSNet {
         private class LocalizedResourceSet {
             private readonly CultureInfo _culture;
             private readonly ArrayList _resources;
-            #region Public Instance Constructors
-
             /// <summary>
             /// Initializes a new <see cref="LocalizedResourceSet" /> instance
             /// for the specified culture.
@@ -1287,8 +1261,6 @@ namespace NAnt.VSNet {
                 _culture = culture;
                 _resources = new ArrayList();
             }
-            #region Public Instance Properties
-
             /// <summary>
             /// Gets the <see cref="CultureInfo" /> of the 
             /// <see cref="LocalizedResourceSet" />.
@@ -1303,8 +1275,6 @@ namespace NAnt.VSNet {
             public ArrayList Resources {
                 get { return _resources; }
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Gets the intermediate build directory in which the satellite
             /// assembly is built.
@@ -1348,8 +1318,6 @@ namespace NAnt.VSNet {
                 return FileUtils.CombinePaths(Culture.Name, GetSatelliteFileName(
                     projectSettings));
             }
-            #region Private Instance Methods
-
             private string GetSatelliteFileName(ProjectSettings projectSettings) {
                 return string.Format(CultureInfo.InvariantCulture, 
                     "{0}.resources.dll", projectSettings.AssemblyName);

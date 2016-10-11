@@ -77,8 +77,6 @@ namespace NAnt.NUnit1.Tasks {
         private bool _errorsPresent = false;
         private NUnitTestCollection _tests = new NUnitTestCollection();
         private FormatterElementCollection _formatterElements = new FormatterElementCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// Stops running tests when a test causes an error. The default is 
         /// <see langword="false" />.
@@ -129,8 +127,6 @@ namespace NAnt.NUnit1.Tasks {
         public FormatterElementCollection FormatterElements {
             get { return _formatterElements; }
         }
-        #region Override implementation of Task
-
         protected override void ExecuteTask() {
             foreach (NUnitTest test in _tests) {
                 ExecuteTest(test);
@@ -143,8 +139,6 @@ namespace NAnt.NUnit1.Tasks {
                 throw new BuildException("Unit test had errors, see build log.", Location);
             }
         }
-        #region Private Instance Methods
-
         private void ExecuteTest(NUnitTest test) {
             // Set Defaults
             RunnerResult result = RunnerResult.Success;

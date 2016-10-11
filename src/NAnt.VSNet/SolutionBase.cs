@@ -43,8 +43,6 @@ namespace NAnt.VSNet {
                 LoadProjects(gacCache, refResolver, CollectionsUtil.CreateCaseInsensitiveHashtable());
             }
         }
-        #region Private Instance Constructors
-
         private SolutionBase(TempFileCollection tfc, SolutionTask solutionTask) {
             _htOutputFiles = CollectionsUtil.CreateCaseInsensitiveHashtable();
             _projectEntries = new ProjectEntryCollection();
@@ -54,8 +52,6 @@ namespace NAnt.VSNet {
             _outputDir = solutionTask.OutputDir;
             _webMaps = solutionTask.WebMaps;
         }
-        #region Public Instance Properties
-
         public FileInfo File {
             get { return _file; }
         }
@@ -63,8 +59,6 @@ namespace NAnt.VSNet {
         public TempFileCollection TemporaryFiles {
             get { return _tfc; }
         }
-        #region Protected Instance Properties {
-
         protected WebMapCollection WebMaps {
             get { return _webMaps; }
         }
@@ -72,8 +66,6 @@ namespace NAnt.VSNet {
         public ProjectEntryCollection ProjectEntries {
             get { return _projectEntries; }
         }
-        #region Public Instance Methods
-
         public void RecursiveLoadTemplateProject(string fileName) {
             XmlDocument doc = _solutionTask.ProjectFactory.LoadProjectXml(fileName);
 
@@ -277,8 +269,6 @@ namespace NAnt.VSNet {
 
             return success;
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Logs a message with the given priority.
         /// </summary>
@@ -742,8 +732,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Determines whether any of the project dependencies of the specified
         /// project still needs to be built.
@@ -771,8 +759,6 @@ namespace NAnt.VSNet {
             }
             return string.Empty;
         }
-        #region Private Instance Fields
-
         private readonly FileInfo _file;
         private readonly ProjectEntryCollection _projectEntries;
         private readonly Hashtable _htOutputFiles;

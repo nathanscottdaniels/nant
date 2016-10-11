@@ -53,11 +53,7 @@ namespace NAnt.Core.Types {
     public class PathSet : DataTypeBase {
         private ArrayList _elements = new ArrayList();
         private StringCollection _translatedElements = new StringCollection();
-        #region Private Static Fields
-
         private static readonly bool _dosBasedFileSystem = (Path.PathSeparator == ';');
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PathSet" /> class.
         /// </summary>
@@ -74,8 +70,6 @@ namespace NAnt.Core.Types {
             base.Project = project;
             _translatedElements = PathSet.TranslatePath(project, path);
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns a textual representation of the path, which can be used as
         /// PATH environment variable definition.
@@ -99,8 +93,6 @@ namespace NAnt.Core.Types {
 
             return result.ToString();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Defines a set of path elements to add to the current path.
         /// </summary>
@@ -151,8 +143,6 @@ namespace NAnt.Core.Types {
 
             return result;
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Splits a PATH (with ; or : as separators) into its parts, while 
         /// resolving references to environment variables.

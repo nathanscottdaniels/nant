@@ -35,8 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public DoubleConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Converts the specified string representation of a number to its 
         /// double-precision floating point number equivalent.

@@ -40,14 +40,12 @@ namespace NAnt.Core {
     [Serializable()]
     public abstract class Task : Element, IConditional {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        #region Private Instance Fields
 
         private bool _failOnError = true;
         private bool _verbose;
         private bool _ifDefined = true;
         private bool _unlessDefined;
         private Level _threshold = Level.Debug;
-        #region Public Instance Properties
 
         /// <summary>
         /// Determines if task failure stops the build, or is just reported. 
@@ -136,7 +134,6 @@ namespace NAnt.Core {
             get { return _threshold; }
             set { _threshold = value; }
         }
-        #region Internal Instance Properties
 
         /// <summary>
         /// Returns the TaskBuilder used to construct an instance of this
@@ -147,7 +144,6 @@ namespace NAnt.Core {
                 return TypeFactory.TaskBuilders [Name];
             }
         }
-        #region Public Instance Methods
 
         /// <summary>
         /// Executes the task unless it is skipped.
@@ -403,7 +399,6 @@ namespace NAnt.Core {
                 }
             }
         }
-        #region Protected Instance Methods
 
         /// <summary>Initializes the task.</summary>
         protected override void Initialize() {

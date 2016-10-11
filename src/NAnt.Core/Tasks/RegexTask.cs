@@ -88,8 +88,6 @@ namespace NAnt.Core.Tasks {
         private string _pattern;
         private string _input;
         private RegexOptions _options = RegexOptions.None;
-        #region Public Instance Properties
-
         /// <summary>
         /// Represents the regular expression to be evalued.
         /// </summary>
@@ -130,8 +128,6 @@ namespace NAnt.Core.Tasks {
             get { return _input;}
             set { _input = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the task.
         /// </summary>

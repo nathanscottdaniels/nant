@@ -176,8 +176,6 @@ namespace NAnt.Core.Types {
     public class EnvironmentSet : Element {
         private OptionCollection _options = new OptionCollection();
         private EnvironmentVariableCollection _environmentVariables = new EnvironmentVariableCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// Environment variable to pass to a program.
         /// </summary>

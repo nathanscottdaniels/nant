@@ -133,8 +133,6 @@ namespace NAnt.DotNet.Tasks {
         private bool _noreconfig = false;
         private bool _componentsOnly = false;
         private string _partitionName = null;
-        #region Public Instance Properties
-
         /// <summary>
         /// Defines the action to take with the assembly. The default is 
         /// <see cref="ActionType.FindOrCreate" />.
@@ -235,8 +233,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _partitionName; }
             set { _partitionName = StringUtils.ConvertEmptyToNull(value); }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command-line arguments for the external program.
         /// </summary>

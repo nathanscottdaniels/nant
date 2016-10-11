@@ -183,8 +183,6 @@ namespace NAnt.Core.Tasks {
         private ElementContainer _tryBlock;
         private CatchElement _catchBlock;
         private ElementContainer _finallyBlock;
-        #region Public Instance Properties
-
         /// <summary>
         /// The tasks in this block will be executed as a normal part of
         /// the build script.
@@ -218,8 +216,6 @@ namespace NAnt.Core.Tasks {
             get { return _finallyBlock; }
             set { _finallyBlock = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -242,8 +238,6 @@ namespace NAnt.Core.Tasks {
         }
         public class CatchElement : ElementContainer {
             private string _property;
-            #region Public Instance Properties
-
             /// <summary>
             /// Defines the name of the property to save the message describing
             /// the failure that has been caught.
@@ -264,8 +258,6 @@ namespace NAnt.Core.Tasks {
                 get { return _property; }
                 set { _property = StringUtils.ConvertEmptyToNull(value); }
             }
-            #region Public Instance Methods
-
             public void Catch(BuildException be) {
                 bool propertyExists = false;
                 string originalPropertyValue = null;
@@ -290,8 +282,6 @@ namespace NAnt.Core.Tasks {
                     }
                 }
             }
-            #region Private Instance Methods
-
             /// <summary>
             /// Parses out the complete exception and inner exception information to be
             /// consumed by the catch element.
@@ -342,8 +332,6 @@ namespace NAnt.Core.Tasks {
                 }
                 return sb.ToString().Trim();
             }
-
-            #endregion
         }
     }
 }

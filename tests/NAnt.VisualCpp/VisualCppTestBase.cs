@@ -96,8 +96,6 @@ namespace Tests.NAnt.VisualCpp {
         protected static bool ResourceCompilerPresent {
             get { return _resourceCompilerPresent; }
         }
-        #region Private Static Properties
-
         private static string[] ExpectedLibs {
             get { return _expectedLibs; }
         }
@@ -105,7 +103,6 @@ namespace Tests.NAnt.VisualCpp {
         private static string[] ExpectedHeaderFiles {
             get { return _expectedHeaderFiles; }
         }
-        #region Private Static Methods
         
         /// <summary>
         /// Routine which checks if the libs are present.
@@ -202,8 +199,6 @@ namespace Tests.NAnt.VisualCpp {
             scanner.Add("rc.exe");
             return scanner.Scan("PATH").Count > 0;
         }
-        #region Private Static Fields
-
         private static string[] _expectedLibs = new string[] {
                                                                  "kernel32.lib",
                                                                  "user32.lib",

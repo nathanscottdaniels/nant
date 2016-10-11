@@ -44,8 +44,6 @@ namespace NAnt.Win32.Tasks {
         /// in the running machine.
         /// </summary>
         private const string _defaultRegKey = @"SOFTWARE\Mono";
-        #region Private Instance Fields
-
         /// <summary>
         /// Private property name to assign the Mono registry path to.
         /// </summary>
@@ -61,8 +59,6 @@ namespace NAnt.Win32.Tasks {
             @"SOFTWARE\Wow6432Node\Novell\Mono",
             @"SOFTWARE\Novell\Mono"
         };
-        #region Public Instance Properties
-
         /// <summary>
         /// <para>
         /// The property to set to the Mono registry path.
@@ -74,8 +70,6 @@ namespace NAnt.Win32.Tasks {
             get { return _propName; }
             set { _propName = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Locates the appropriate Mono registry path to use.
         /// </summary>

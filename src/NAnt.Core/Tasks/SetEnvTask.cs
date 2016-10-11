@@ -96,9 +96,7 @@ using NAnt.Core.Util;
         private DirectoryInfo _directory;
         private PathSet _path;
         private EnvironmentVariableCollection _environmentVariables = new EnvironmentVariableCollection();
-        #region Private Static Fields
-        #region Public Instance Properties
-        
+
         /// <summary>
         /// The name of a single Environment variable to set
         /// </summary>
@@ -198,7 +196,6 @@ using NAnt.Core.Util;
                 }
             }
         }
-        #region Private Instance Methods
         
         /// <summary>
         /// Do the actual work here.

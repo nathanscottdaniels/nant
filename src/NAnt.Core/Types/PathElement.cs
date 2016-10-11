@@ -35,8 +35,6 @@ namespace NAnt.Core.Types {
         private PathSet _path;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of a file to add to the path. Will be replaced with 
         /// the absolute path of the file.
@@ -114,8 +112,6 @@ namespace NAnt.Core.Types {
                 return new StringCollection();
             }
         }
-        #region Override implementation of Element
-
         protected override void Initialize() {
             if (File == null && Directory == null && Path == null) {
                 throw new BuildException(string.Format(CultureInfo.InstalledUICulture,

@@ -35,15 +35,11 @@ namespace NAnt.Core.Types {
         private Credential _credentials;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy" /> class.
         /// </summary>
         public Proxy() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the proxy host. 
         /// </summary>
@@ -107,8 +103,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets a <see cref="WebProxy" /> instance representing the current
         /// <see cref="Proxy" />.

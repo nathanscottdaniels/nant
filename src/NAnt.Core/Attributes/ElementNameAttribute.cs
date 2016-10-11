@@ -40,8 +40,6 @@ namespace NAnt.Core.Attributes {
         public ElementNameAttribute(string name) {
             Name = name;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the name of the element.
         /// </summary>
@@ -64,8 +62,6 @@ namespace NAnt.Core.Attributes {
                 }
             }
         }
-        #region Private Instance Fields
-
         private string _name;
     }
 }

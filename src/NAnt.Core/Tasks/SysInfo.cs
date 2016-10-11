@@ -156,7 +156,6 @@ namespace NAnt.Core.Tasks {
     [TaskName("sysinfo")]
     public class SysInfoTask : Task {
         private string _prefix = "sys.";
-        #region Public Instance Properties
        
         /// <summary>
         /// The string to prefix the property names with. The default is "sys.".

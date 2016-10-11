@@ -73,8 +73,6 @@ namespace NAnt.Core.Types {
         private string _line;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Argument" /> class.
         /// </summary>
@@ -104,8 +102,6 @@ namespace NAnt.Core.Types {
         public Argument(PathSet value) {
             _path = value;
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns the argument as a <see cref="string" />.
         /// </summary>
@@ -130,8 +126,6 @@ namespace NAnt.Core.Types {
                 return string.Empty;
             }
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// A single command-line argument; can contain space characters.
         /// </summary>
@@ -237,8 +231,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-        #region Internal Instance Properties
-
         /// <summary>
         /// Gets string value corresponding with the argument.
         /// </summary>
@@ -257,8 +249,6 @@ namespace NAnt.Core.Types {
                 }
             }
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Quotes a command line argument if it contains a single quote or a
         /// space.

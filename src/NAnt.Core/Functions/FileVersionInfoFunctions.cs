@@ -35,8 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
         public FileVersionInfoFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-        #region Public Instance Methods
-
         /// <summary>
         /// Returns a <see cref="FileVersionInfo" /> representing the version 
         /// information associated with the specified file.
@@ -51,8 +49,6 @@ namespace NAnt.Core.Functions {
             return FileVersionInfo.GetVersionInfo(
                 Project.GetFullPath(fileName));
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Gets the name of the company that produced the file.
         /// </summary>

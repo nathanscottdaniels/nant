@@ -42,8 +42,6 @@ namespace NAnt.Core.Util {
         public AssemblyResolver(Task task) : this() {
             _task = task;
         }
-        #region Public Instance Methods
-
         /// <summary> 
         /// Installs the assembly resolver by hooking up to the 
         /// <see cref="AppDomain.AssemblyResolve" /> event.
@@ -68,8 +66,6 @@ namespace NAnt.Core.Util {
 
             this._assemblyCache.Clear();
         }
-        #region Private Instance Methods
-
         /// <summary> 
         /// Resolves an assembly not found by the system using the assembly 
         /// cache.
@@ -159,8 +155,6 @@ namespace NAnt.Core.Util {
                 _task.Log(messageLevel, message, args);
             }
         }
-        #region Private Instance Fields
-
         /// <summary>
         /// Holds the loaded assemblies.
         /// </summary>

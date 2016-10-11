@@ -34,15 +34,11 @@ namespace NAnt.Core {
     internal class ProjectSettingsLoader {
         private Project _project;
         private XmlNamespaceManager _nsMgr;
-        #region Private Static Fields
-
         /// <summary>
         /// Holds a value indicating whether a scan for tasks, types and functions
         /// has already been performed for the current runtime framework.
         /// </summary>
         private static bool ScannedTasks;
-        #region Internal Instance Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectSettingsLoader" />
         /// class for the given <see cref="Project" />.
@@ -55,8 +51,6 @@ namespace NAnt.Core {
             _nsMgr = new XmlNamespaceManager(new NameTable());
             _nsMgr.AddNamespace("nant", _nsMgr.DefaultNamespace);
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the underlying <see cref="Project" /> instance.
         /// </summary>
@@ -66,8 +60,6 @@ namespace NAnt.Core {
         protected Project Project {
             get { return _project; }
         }
-        #region Private Instance Properties
-
         /// <summary>
         /// Gets the <see cref="XmlNamespaceManager" />.
         /// </summary>
@@ -81,8 +73,6 @@ namespace NAnt.Core {
         private XmlNamespaceManager NamespaceManager {
             get { return _nsMgr; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Loads and processes settings from the specified <see cref="XmlNode" /> 
         /// of the configuration file.
@@ -101,8 +91,6 @@ namespace NAnt.Core {
             ProcessGlobalProperties(Project.ConfigurationNode.SelectNodes(
                 "nant:properties/nant:property", NamespaceManager));
         }
-        #region Private Instance Methods
-
         private void ProcessPlatform(XmlNode platformNode) {
             if (platformNode == null) {
                 throw new ArgumentNullException("platformNode");
@@ -288,8 +276,6 @@ namespace NAnt.Core {
 
             return framework;
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Gets the value of the specified attribute from the specified node.
         /// </summary>

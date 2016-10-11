@@ -33,8 +33,6 @@ namespace NAnt.Core.Util {
         /// </remarks>
         private ReflectionUtils() {
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Loads the type specified in the type string with assembly qualified name.
         /// </summary>

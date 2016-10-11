@@ -43,7 +43,6 @@ namespace NAnt.NUnit.Types {
     [ElementName("formatter")]
     public class FormatterElement : NAnt.Core.Element {
         private FormatterData _data = new FormatterData();
-        #region Public Instance Properties
         
         /// <summary>
         /// Type of formatter.

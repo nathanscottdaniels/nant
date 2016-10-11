@@ -87,8 +87,6 @@ namespace NAnt.Core.Tasks {
         private bool _normalAttrib;
         private bool _readOnlyAttrib;
         private bool _systemAttrib;
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the file which will have its attributes set. This is 
         /// provided as an alternate to using the task's fileset.
@@ -206,8 +204,6 @@ namespace NAnt.Core.Tasks {
                 Log(Level.Verbose, "No matching files or directories found.");
             }
         }
-        #region Private Instance Methods
-
         private FileAttributes GetFileAttributes() {
             FileAttributes fileAttributes = 0;
 

@@ -41,8 +41,6 @@ namespace NAnt.Core {
     public sealed class PathScanner : ICloneable {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);        
         private StringCollection _unscannedNames = new StringCollection();
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="PathScanner" />.
         /// </summary>
@@ -64,8 +62,6 @@ namespace NAnt.Core {
             clone._unscannedNames = Clone(_unscannedNames);
             return clone;
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds a file to the list of files to be scanned for.
         /// </summary>
@@ -160,8 +156,6 @@ namespace NAnt.Core {
             // return an enumerator to the scanned (& found) files
             return scannedNames;
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Creates a shallow copy of the specified <see cref="StringCollection" />.
         /// </summary>

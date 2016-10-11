@@ -71,8 +71,6 @@ namespace NAnt.DotNet.Tasks {
         private bool _supportsKeyContainer;
         private bool _supportsKeyFile;
         private bool _supportsDelaySign;
-        #region Protected Static Fields
-
         /// <summary>
         /// Contains a list of extensions for all file types that should be treated as
         /// 'code-behind' when looking for resources.  Ultimately this will determine
@@ -89,7 +87,6 @@ namespace NAnt.DotNet.Tasks {
         /// the value is <see langword="null" />.
         /// </remarks>
         protected readonly static Hashtable CultureNames;
-        #region Static Constructor
         
         /// <summary>
         /// Class constructor for <see cref="CompilerBase" />.
@@ -106,8 +103,6 @@ namespace NAnt.DotNet.Tasks {
                 CultureNames[ci.Name] = null;
             }
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Generate debug output. The default is <see langword="false" />.
         /// </summary>
@@ -446,8 +441,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsDelaySign; }
             set { _supportsDelaySign = value; }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the file extension required by the current compiler.
         /// </summary>
@@ -471,8 +464,6 @@ namespace NAnt.DotNet.Tasks {
         protected abstract Regex NamespaceRegex {
             get;
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command-line arguments for the external program.
         /// </summary>
@@ -722,8 +713,6 @@ namespace NAnt.DotNet.Tasks {
                 }
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Determines the manifest resource name of the given resource file.
         /// </summary>
@@ -957,8 +946,6 @@ namespace NAnt.DotNet.Tasks {
             }
             return new ResourceLinkage(namespaceName, className);
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Writes package references to the specified <see cref="TextWriter" />.
         /// </summary>
@@ -1418,8 +1405,6 @@ namespace NAnt.DotNet.Tasks {
                 Project.Unindent();
             }
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Determines the culture associated with a given resource file by
         /// scanning the filename for valid culture names.
@@ -1462,8 +1447,6 @@ namespace NAnt.DotNet.Tasks {
             private string _namespaceName;
             private string _className;
             private CultureInfo _culture;
-            #region Public Instance Constructors
-
             /// <summary>
             /// Initializes a new instance of the <see cref="ResourceLinkage" />
             /// class.
@@ -1474,7 +1457,6 @@ namespace NAnt.DotNet.Tasks {
                 _namespaceName = namespaceName;
                 _className = className;
             }
-            #region Override implementation of Object
  
             /// <summary>
             /// Returns the resource linkage as a string.
@@ -1505,7 +1487,6 @@ namespace NAnt.DotNet.Tasks {
 
                 return resourceName;
             }
-            #region Public Instance Properties
   
             /// <summary>
             /// Gets a value indicating whether the <see cref="ResourceLinkage" />

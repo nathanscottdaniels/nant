@@ -44,13 +44,9 @@ namespace NAnt.Core.Util {
             _gacQueryCache = CollectionsUtil.CreateCaseInsensitiveHashtable();
             RecreateDomain();
         }
-        #region Public Instance Destructors
-
         ~GacCache() {
             Dispose(false);
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the <see cref="Project" /> context of the <see cref="GacCache" />.
         /// </summary>
@@ -60,8 +56,6 @@ namespace NAnt.Core.Util {
         public Project Project {
             get { return _project; }
         }
-        #region Private Instance Properties
-
         private AppDomain Domain {
             get { return _domain; }
         }
@@ -94,8 +88,6 @@ namespace NAnt.Core.Util {
                 _disposed = true;
             }
         }
-        #region Public Instance Methods
-
         public void RecreateDomain() {
             // don't recreate this domain unless it has actually loaded an assembly
             if (!_hasLoadedAssembly && _domain != null)
@@ -152,8 +144,6 @@ namespace NAnt.Core.Util {
             _gacQueryCache[assemblyFilePath] = Resolver.IsAssemblyInGac(assemblyFilePath);
             return (bool) _gacQueryCache[assemblyFilePath];
         }
-        #region Private Instance Fields
-
         /// <summary>
         /// Holds the <see cref="AppDomain" /> in which assemblies will be loaded
         /// to determine whether they are in the Global Assembly Cache.
@@ -204,8 +194,6 @@ namespace NAnt.Core.Util {
                 }
                 return lease;
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Determines whether an assembly is installed in the Global
             /// Assembly Cache given its file name or path.

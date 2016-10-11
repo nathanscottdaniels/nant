@@ -38,12 +38,8 @@ namespace NAnt.Compression.Types {
         private string _groupName;
         private int _gid;
         private string _prefix;
-        #region Private Static Fields
-
         private const int _dirFlag = 16384; // = 40000 octal
         private const int _fileFlag = 32768; // = 100000 octal
-        #region Public Instance Properties
-
         /// <summary>
         /// A 3 digit octal string, specify the user, group and other modes 
         /// in the standard Unix fashion. Only applies to plain files. The 

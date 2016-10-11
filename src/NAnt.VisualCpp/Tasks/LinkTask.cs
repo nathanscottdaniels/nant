@@ -69,8 +69,6 @@ namespace NAnt.VisualCpp.Tasks {
         private SymbolCollection _symbols = new SymbolCollection();
         private LibraryCollection _ignoreLibraries = new LibraryCollection();
         private string _options;
-        #region Public Instance Properties
-
         /// <summary>
         /// Options to pass to the compiler.
         /// </summary>
@@ -188,8 +186,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _ignoreLibraries; }
             set { _ignoreLibraries = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the filename of the external program to start.
         /// </summary>
@@ -325,8 +321,6 @@ namespace NAnt.VisualCpp.Tasks {
             }
             
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines if the output needs linking.
         /// </summary>
@@ -373,8 +367,6 @@ namespace NAnt.VisualCpp.Tasks {
 
             return false;
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Quotes an argument value and duplicates trailing backslahes.
         /// </summary>

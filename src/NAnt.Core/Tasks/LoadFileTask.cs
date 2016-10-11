@@ -88,8 +88,6 @@ namespace NAnt.Core.Tasks {
         private Encoding _encoding;
         private string _property;
         private FilterChain _filterChain;
-        #region Public Instance Properties
-
         /// <summary>
         /// The file to load.
         /// </summary>

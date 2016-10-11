@@ -43,8 +43,6 @@ namespace NAnt.NUnit1.Tasks {
             _suite = GetSuite(nunitsuite);
             testData.Suite = _suite;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the collection of registered formatters.
         /// </summary>
@@ -60,12 +58,8 @@ namespace NAnt.NUnit1.Tasks {
         public RunnerResult ResultCode {
             get { return _resultCode; }
         }
-        #region Override implementation of BaseTestRunner
-
         protected override void RunFailed(string message) {
         }
-        #region Override implementation of IListener
-
         public override void AddError(ITest test, Exception t) {
             foreach (IResultFormatter formatter in Formatters) {
                 formatter.AddError(test, t);
@@ -97,8 +91,6 @@ namespace NAnt.NUnit1.Tasks {
                 formatter.EndTest(test);
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Determines if the unit test needs running.
         /// </summary>
@@ -182,8 +174,6 @@ namespace NAnt.NUnit1.Tasks {
             }
            
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Creates the formatters to be used when running this test.
         /// </summary>
@@ -239,8 +229,6 @@ namespace NAnt.NUnit1.Tasks {
             }
             return retFormatter;
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Returns the test suite from a given class.
         /// </summary>
@@ -269,8 +257,6 @@ namespace NAnt.NUnit1.Tasks {
                 formatter.EndTestSuite(_result);
             }
         }
-        #region Private Instance Fields
-
         IResultFormatterCollection _formatters = new IResultFormatterCollection();
         NUnitTestData _nunittest = null;
         ITest _suite = null;

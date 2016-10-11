@@ -33,8 +33,6 @@ namespace NAnt.Core.Util {
         public CommandLineArgumentAttribute(CommandLineArgumentTypes argumentType) {
             _argumentType = argumentType;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the checking to be done on the argument.
         /// </summary>
@@ -69,8 +67,6 @@ namespace NAnt.Core.Util {
             get { return _description; }
             set { _description = value; }
         }
-        #region Private Instance Fields
-
         private CommandLineArgumentTypes _argumentType;
         private string _name;
         private string _shortName;

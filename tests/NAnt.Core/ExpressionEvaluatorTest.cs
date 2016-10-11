@@ -41,8 +41,6 @@ namespace Tests.NAnt.Core {
 
         private string _buildFileName;
         private Project _project;
-        #region Override implementation of BuildTestBase
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
@@ -52,8 +50,6 @@ namespace Tests.NAnt.Core {
             _project = new Project(_buildFileName, Level.Info, 0);
             _project.Properties["prop1"] = "asdf";
         }
-        #region Public Instance Methods
-
         [Test]
         public void TestRelationOperators() {
             // string & string
@@ -556,8 +552,6 @@ namespace Tests.NAnt.Core {
 
             eval.CheckSyntax("1 + 2 * 3 1");
         }
-        #region Private Instance Methods
-
         private void AssertExpression(string expression, object expectedReturnValue) {
             string value = _project.ExpandProperties("${" + expression + "}", Location.UnknownLocation);
             string expectedStringValue = Convert.ToString(expectedReturnValue, CultureInfo.InvariantCulture);
@@ -750,7 +744,5 @@ namespace Tests.NAnt.Core {
         public uint ToUInt32(IFormatProvider provider) {
             return 0;
         }
-
-        #endregion
     }
 }

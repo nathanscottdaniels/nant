@@ -73,8 +73,6 @@ namespace NAnt.NUnit2.Types {
         {
             AddRange(value);
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns a comma-delimited list of categories.
         /// </summary>
@@ -112,8 +110,6 @@ namespace NAnt.NUnit2.Types {
                 return null;
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds the elements of a <see cref="Category"/> array to the end of the
         /// collection.

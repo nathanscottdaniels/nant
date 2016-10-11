@@ -41,8 +41,6 @@ namespace NAnt.Core.Filters {
         public FilterBuilder (Assembly assembly, string className)
             : this (ExtensionAssembly.Create (assembly), className) {
         }
-        #region Internal Instance Constructors
-
         /// <summary>
         /// Creates a new instance of the <see cref="FilterBuilder" /> class
         /// for the specified <see cref="Filter" /> class in the specified
@@ -60,8 +58,6 @@ namespace NAnt.Core.Filters {
 
             _filterName = ElementNameAttribute.Name;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the name of the <see cref="Filter" /> class that can be created
         /// using this <see cref="FilterBuilder" />.
@@ -85,8 +81,6 @@ namespace NAnt.Core.Filters {
         public string FilterName {
             get { return _filterName; }
         }
-        #region Public Instance Methods
-
         [ReflectionPermission(SecurityAction.Demand, Flags=ReflectionPermissionFlag.NoFlags)]
         public Filter CreateFilter() {
             return (Filter) Assembly.CreateInstance(
@@ -98,8 +92,6 @@ namespace NAnt.Core.Filters {
                 CultureInfo.InvariantCulture,
                 null);
         }
-        #region Private Instance Fields
-
         private readonly string _className;
         private readonly string _filterName;
     }

@@ -34,8 +34,6 @@ namespace NAnt.Core.Attributes {
         /// </summary>
         public DateTimeValidatorAttribute() {
         }
-        #region Override implementation of ValidatorAttribute
-
         /// <summary>
         /// Checks if the specified value can be converted to a <see cref="DateTime" />.
         /// </summary>

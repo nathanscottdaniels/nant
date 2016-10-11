@@ -28,8 +28,6 @@ namespace Tests.NAnt.Core {
     [TestFixture]
     public class LocationTest {
         private string _tempFileName = null;
-        #region Public Instance Methods
-
         [Test]
         public void Test_Constructor_FileName() {
             Location l = new Location(_tempFileName);
@@ -65,8 +63,6 @@ namespace Tests.NAnt.Core {
             string actual = location.ToString();
             Assert.AreEqual(expected, actual);
         }
-        #region Protected Instance Methods
-
         [SetUp]
         protected void SetUp() {
             _tempFileName = TempFile.Create();

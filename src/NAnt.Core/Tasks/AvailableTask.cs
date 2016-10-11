@@ -171,8 +171,6 @@ namespace NAnt.Core.Tasks {
             get { return _propertyName; }
             set { _propertyName = StringUtils.ConvertEmptyToNull(value); }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the task.
         /// </summary>
@@ -187,8 +185,6 @@ namespace NAnt.Core.Tasks {
         protected override void ExecuteTask() {
             Project.Properties[PropertyName] = Evaluate().ToString(CultureInfo.InvariantCulture);
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Evaluates the availability of a resource.
         /// </summary>
@@ -223,8 +219,6 @@ namespace NAnt.Core.Tasks {
 
             return resourceAvailable;
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Checks if the file specified in the <see cref="Resource" /> property is 
         /// available on the filesystem.
@@ -291,8 +285,6 @@ namespace NAnt.Core.Tasks {
                 return false;
             }
         }
-        #region Private Instance Fields
-
         private ResourceType _resourceType;
         private string _resource;
         private string _propertyName;

@@ -137,13 +137,9 @@ namespace NAnt.Core {
 
         // Indicates whether or not the base directory contains empty subdirectories.
         private bool _hasEmptyDirectories = false;
-        #region Private Static Fields
-
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Hashtable cachedCaseSensitiveRegexes = new Hashtable();
         private static Hashtable cachedCaseInsensitiveRegexes = new Hashtable();
-        #region Public Instance Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DirectoryScanner" />.
         /// </summary>
@@ -162,8 +158,6 @@ namespace NAnt.Core {
         public DirectoryScanner (bool caseSensitive) {
             _caseSensitive = caseSensitive;
         }
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="DirectoryScanner" />.
         /// </summary>
@@ -232,8 +226,6 @@ namespace NAnt.Core {
 
             return clone;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or set a value indicating whether or not to use case-sensitive
         /// pattern matching.
@@ -372,8 +364,6 @@ namespace NAnt.Core {
         {
             get { return _hasEmptyDirectories; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Uses <see cref="Includes" /> and <see cref="Excludes" /> search criteria (relative to 
         /// <see cref="BaseDirectory" /> or absolute), to search for filesystem objects.
@@ -453,8 +443,6 @@ namespace NAnt.Core {
             Console.WriteLine("*********************************************************************");
 #endif
         }
-        #region Private Instance Methods
-
         private void Reset () 
         {
             _isEverythingIncluded = true;
@@ -1030,8 +1018,6 @@ namespace NAnt.Core {
                 GetAllFileSystemInfo(d);
             }
         }
-        #region Private Static Methods
-
         private static StringBuilder CleanPath(string nantPath) {
             StringBuilder pathBuilder = new StringBuilder(nantPath);
 
@@ -1136,8 +1122,6 @@ namespace NAnt.Core {
             clone.AddRange(strings);
             return clone;
         }
-        #region Override implemenation of Object
-
         /// <summary>
         /// Creates a string representing a list of the strings in the collection.
         /// </summary>
@@ -1166,8 +1150,6 @@ namespace NAnt.Core {
         public DirScannerStringCollection (bool caseSensitive) {
             _caseSensitive = caseSensitive;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets a value indicating whether string comparison is case-sensitive.
         /// </summary>
@@ -1177,8 +1159,6 @@ namespace NAnt.Core {
         public bool CaseSensitive {
             get { return _caseSensitive; }
         }
-        #region Override implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="DirScannerStringCollection" />.
         /// </summary>
@@ -1192,8 +1172,6 @@ namespace NAnt.Core {
             clone.AddRange(strings);
             return clone;
         }
-        #region Override implementation of StringCollection
-
         /// <summary>
         /// Determines whether the specified string is in the 
         /// <see cref="DirScannerStringCollection" />.
@@ -1237,8 +1215,6 @@ namespace NAnt.Core {
                 return -1;
             }
         }
-        #region Private Instance Fields
-
         private readonly bool _caseSensitive;
     }
 }

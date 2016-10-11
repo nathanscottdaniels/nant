@@ -92,8 +92,6 @@ namespace NAnt.Core.Tasks {
         private EnvironmentSet _environmentSet = new EnvironmentSet();
         private string _resultProperty;
         private string _processIdProperty;
-        #region Public Instance Properties
-
         /// <summary>
         /// The program to execute without command arguments.
         /// </summary>
@@ -169,8 +167,6 @@ namespace NAnt.Core.Tasks {
             get { return _resultProperty; }
             set { _resultProperty = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Specifies whether the external program should be executed using a 
         /// runtime engine, if configured. The default is <see langword="false" />.

@@ -467,8 +467,6 @@ namespace NAnt.Core {
                 string.Format(CultureInfo.InvariantCulture, "{0} does not implement {1}.",
                     listener.GetType().FullName, typeof(IBuildListener).FullName));
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Add the listeners specified in the command line arguments,
         /// along with the default listener, to the specified project.
@@ -578,8 +576,6 @@ namespace NAnt.Core {
                 cause = cause.InnerException;
             }
         }
-        #region Private Static Fields
-
         private const int INDENTATION_SIZE = 4;
     }
 }

@@ -65,8 +65,6 @@ namespace NAnt.Core.Tasks {
         private long _millis;
         private DateTime _datetime;
         private FileSet _fileset = new FileSet();
-        #region Public Instance Properties
-
         /// <summary>
         /// The file to touch.
         /// </summary>
@@ -105,8 +103,6 @@ namespace NAnt.Core.Tasks {
             get { return _fileset; }
             set { _fileset = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Ensures the supplied attributes are valid.
         /// </summary>
@@ -154,8 +150,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-        #region Private Instance Methods
-
         private void TouchFile(string path, DateTime touchDateTime) {
             try {
                 if (System.IO.File.Exists(path)) {

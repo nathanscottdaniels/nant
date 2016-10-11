@@ -38,16 +38,12 @@ namespace NAnt.Core.Types {
         private FileInfo _assemblyPath;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XsltExtensionObject" /> 
         /// class.
         /// </summary>
         public XsltExtensionObject() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The namespace URI to associate with the extension object.
         /// </summary>
@@ -105,8 +101,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-        #region Public Instance Methods
-
         public object CreateInstance() {
             // test whether extension assembly exists
             if (!AssemblyPath.Exists) {
@@ -132,8 +126,6 @@ namespace NAnt.Core.Types {
             }
             return extensionInstance;
         }
-
-        #endregion
     }
 }
 

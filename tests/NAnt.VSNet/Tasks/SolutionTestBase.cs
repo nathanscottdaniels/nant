@@ -223,8 +223,6 @@ namespace Tests.NAnt.VSNet.Tasks {
                 this.RunSimpleBuild("clean");
             }
         }
-        #region "Private Instance Methods"
-
         private void RunSimpleBuild(string target) {
             // run Release build
             object[] args = {target, "{target::get-current-target()}", this.CurrentBaseDir.FullName};

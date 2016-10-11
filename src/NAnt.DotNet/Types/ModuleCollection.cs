@@ -42,8 +42,6 @@ namespace NAnt.DotNet.Types {
             _moduleSet = moduleSet;
             _list = new ArrayList();
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the item at the specified index.
         /// </summary>
@@ -64,8 +62,6 @@ namespace NAnt.DotNet.Types {
                 List[index] = value;
             }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the list of elements contained in the 
         /// <see cref="ModuleCollection" /> instance.
@@ -77,8 +73,6 @@ namespace NAnt.DotNet.Types {
         protected ArrayList List {
             get { return _list; }
         }
-        #region Implementation of IEnumerable
-
         /// <summary>
         /// Returns an enumerator that can iterate through the collection.
         /// </summary>
@@ -88,8 +82,6 @@ namespace NAnt.DotNet.Types {
         IEnumerator IEnumerable.GetEnumerator() {
             return List.GetEnumerator();
         }
-        #region Implementation of ICollection
-
         /// <summary>
         /// Gets a value indicating whether access to the collection is 
         /// synchronized (thread-safe).
@@ -131,8 +123,6 @@ namespace NAnt.DotNet.Types {
         object ICollection.SyncRoot {
             get { return this; }
         }
-        #region Implementation of IList
-
         /// <summary>
         /// Gets a value indicating whether the collection has a fixed size.
         /// </summary>
@@ -277,8 +267,6 @@ namespace NAnt.DotNet.Types {
             }
             return Add((Module) value);
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds the items of a <see cref="ModuleCollection"/> to the end of the collection.
         /// </summary>
@@ -367,8 +355,6 @@ namespace NAnt.DotNet.Types {
         public int IndexOf(Module value) {
             return List.IndexOf(value);
         }
-        #region Private Instance Fields
-
         private readonly ModuleSet _moduleSet;
         private readonly ArrayList _list;
     }
@@ -386,7 +372,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current item in the collection.
@@ -427,7 +412,6 @@ namespace NAnt.DotNet.Types {
         public void Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

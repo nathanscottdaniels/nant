@@ -80,15 +80,11 @@ namespace NAnt.SourceControl.Tasks {
         /// The command being executed.
         /// </summary>
         internal const string CvsCommandName = "checkout";
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckoutTask" /> class.
         /// </summary>
         public CheckoutTask() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Specify the revision to checkout.  This corresponds to the "sticky-tag"
         /// of the file.
@@ -154,8 +150,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return OverrideDir; }
             set { OverrideDir = value; }
         }
-
-        #endregion
         /// <summary>
         /// The name of the cvs command that is going to be executed.
         /// </summary>

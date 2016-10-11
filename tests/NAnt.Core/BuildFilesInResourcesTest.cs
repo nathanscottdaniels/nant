@@ -78,8 +78,6 @@ namespace Tests.NAnt.Core {
                 }
             }
         }
-        #region Private Instance Fields
-
         private string _tempFolder;
     }
 }

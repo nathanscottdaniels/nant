@@ -47,16 +47,12 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Override implementation of ManagedProjectBase
-
         protected override void WriteProjectOptions(StreamWriter sw) {
             // write namespace imports
             if (_imports.Count > 0) {
                 sw.WriteLine("/imports:{0}", _imports.ToString());
             }
         }
-        #region Override implementation of ProjectBase
-
         /// <summary>
         /// Gets the type of the project.
         /// </summary>
@@ -110,8 +106,6 @@ namespace NAnt.VSNet {
             }
             return GetProductVersion(docElement.SelectSingleNode("./VisualBasic"));
         }
-        #region Override implemenation of ManagedProjectBase
-
         /// <summary>
         /// Gets the default file extension of sources for this project.
         /// </summary>
@@ -165,8 +159,6 @@ namespace NAnt.VSNet {
             }
             return psi;
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Returns a value indicating whether the project represented by the
         /// specified XML fragment is supported by <see cref="VBProject" />.
@@ -219,8 +211,6 @@ namespace NAnt.VSNet {
 
             return true;
         }
-        #region Private Instance Fields
-
         private readonly NamespaceImportCollection _imports;
     }
 }

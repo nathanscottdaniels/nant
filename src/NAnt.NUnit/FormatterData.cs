@@ -30,8 +30,6 @@ namespace NAnt.NUnit.Types {
         private bool _usefile;
         private FormatterType _formatterType = FormatterType.Plain;
         private DirectoryInfo _outputDirectory;
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the type of the formatter.
         /// </summary>

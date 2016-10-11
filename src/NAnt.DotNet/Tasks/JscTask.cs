@@ -57,12 +57,8 @@ namespace NAnt.DotNet.Tasks {
 
         // framework configuration settings
         private bool _supportsPlatform;
-        #region Private Static Fields
-
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|namespace\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
-        #region Public Instance Properties
-
         /// <summary>
         /// Automatically references assemblies if they have the same name as 
         /// an imported namespace or as a type annotation when declaring a 
@@ -298,8 +294,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsPlatform; }
             set { _supportsPlatform = value; }
         }
-        #region Override implementation of CompilerBase
-
         /// <summary>
         /// Link the specified modules into this assembly.
         /// </summary>

@@ -25,8 +25,6 @@ namespace NAnt.Core.Filters {
     public abstract class Filter : ChainableReader {
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// If <see langword="true" /> then the filter will be used; otherwise, 
         /// skipped. The default is <see langword="true" />.
@@ -49,8 +47,6 @@ namespace NAnt.Core.Filters {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Called after construction and after properties are set. Allows
         /// for filter initialization.

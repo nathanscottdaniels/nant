@@ -42,8 +42,6 @@ namespace NAnt.NUnit2.Tasks {
         /// </summary>
         public NUnit2TestDomain() {
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Runs a single testcase.
         /// </summary>
@@ -116,8 +114,6 @@ namespace NAnt.NUnit2.Tasks {
                 }
             }
         }
-        #region Private Instance Methods
-
         private AppDomain CreateDomain(DirectoryInfo basedir, FileInfo assemblyFile, FileInfo configFile) {
             // spawn new domain in specified directory
             AppDomainSetup domSetup = new AppDomainSetup();
@@ -165,8 +161,6 @@ namespace NAnt.NUnit2.Tasks {
 #endif
             return (RemoteTestRunner) oh.Unwrap();
         }
-        #region Private Instance Fields
-
         private AppDomain _domain;
         /// <summary>
         /// Helper class called when an assembly resolve event is raised.
@@ -189,8 +183,6 @@ namespace NAnt.NUnit2.Tasks {
                     new AssemblyLoadEventHandler(AssemblyLoad);
 
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Called back when the CLR cannot resolve a given assembly.
             /// </summary>
@@ -276,8 +268,6 @@ namespace NAnt.NUnit2.Tasks {
                 // store assembly in cache
                 _assemblyCache[args.LoadedAssembly.FullName] = args.LoadedAssembly;
             }
-            #region Private Instance Fields
-
             /// <summary>
             /// Holds the list of directories that will be scanned for missing
             /// assembly references.

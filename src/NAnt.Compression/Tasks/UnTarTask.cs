@@ -49,8 +49,6 @@ namespace NAnt.Compression.Tasks {
         private FileInfo _srcFile;
         private DirectoryInfo _destDir;
         private TarCompressionMethod _compressionMethod = TarCompressionMethod.None;
-        #region Public Instance Properties
-
         /// <summary>
         /// The archive file to expand.
         /// </summary>
@@ -82,8 +80,6 @@ namespace NAnt.Compression.Tasks {
             get { return _compressionMethod; }
             set { _compressionMethod = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Extracts the files from the archive.
         /// </summary>

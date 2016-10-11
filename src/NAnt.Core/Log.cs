@@ -172,8 +172,6 @@ namespace NAnt.Core {
             _target = task.Parent as Target;
             _task = task;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the message associated with this event.
         /// </summary>
@@ -239,8 +237,6 @@ namespace NAnt.Core {
         public Task Task {
             get { return _task; }
         }
-        #region Private Instance Fields
-
         private readonly Project _project;
         private readonly Target _target;
         private readonly Task _task;
@@ -385,8 +381,6 @@ namespace NAnt.Core {
         /// </summary>
         public DefaultLogger() {
         }
-        #region Implementation of IBuildLogger
-
         /// <summary>
         /// Gets or sets the highest level of message this logger should respond 
         /// to.
@@ -437,8 +431,6 @@ namespace NAnt.Core {
                 OutputWriter.Flush();
             }
         }
-        #region Implementation of IBuildListener
-
         /// <summary>
         /// Signals that a build has started.
         /// </summary>
@@ -604,8 +596,6 @@ namespace NAnt.Core {
             // output the message
             OutputMessage(e);
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Empty implementation which allows derived classes to receive the
         /// output that is generated in this logger.
@@ -613,8 +603,6 @@ namespace NAnt.Core {
         /// <param name="message">The message being logged.</param>
         protected virtual void Log(string message) {
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Outputs an indented message to the build log if its priority is 
         /// greather than or equal to the <see cref="Threshold" /> of the 
@@ -691,16 +679,12 @@ namespace NAnt.Core {
                 }
             }
         }
-        #region Private Static Methods
-
         private static BuildEventArgs CreateBuildEvent(Level messageLevel, string message) {
             BuildEventArgs buildEvent = new BuildEventArgs();
             buildEvent.MessageLevel = messageLevel;
             buildEvent.Message = message;
             return buildEvent;
         }
-        #region Private Instance Fields
-
         private Level _threshold = Level.Info;
         private TextWriter _outputWriter;
         private bool _emacsMode;
@@ -824,8 +808,6 @@ namespace NAnt.Core {
         /// </summary>
         public MailLogger() : base() {
         }
-        #region Override implementation of DefaultLogger
-
         /// <summary>
         /// Signals that a build has started.
         /// </summary>
@@ -985,8 +967,6 @@ namespace NAnt.Core {
         protected override void Log(string message) {
             _buffer.Append(message).Append(Environment.NewLine);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Gets the value of the specified property.
         /// </summary>
@@ -1055,8 +1035,6 @@ namespace NAnt.Core {
                 mail.Attachments.Add(attachment);
             }
         }
-        #region Private Instance Fields
-
         /// <summary>
         /// Buffer in which the message is constructed prior to sending.
         /// </summary>
@@ -1106,7 +1084,6 @@ namespace NAnt.Core {
             get { return ((IBuildListener)(base.List[index])); }
             set { base.List[index] = value; }
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="IBuildListener"/> to the end of the collection.
@@ -1210,7 +1187,6 @@ namespace NAnt.Core {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -1253,7 +1229,6 @@ namespace NAnt.Core {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }
@@ -1275,8 +1250,6 @@ namespace NAnt.Core {
             _task = task;
             _outputLevel = outputLevel;
         }
-        #region Override implementation of TextWriter
-
         /// <summary>
         /// Gets the <see cref="Encoding" /> in which the output is written.
         /// </summary>
@@ -1360,8 +1333,6 @@ namespace NAnt.Core {
             Flush();
             base.Close();
         }
-        #region Override implementation of MarshalByRefObject
-
         /// <summary>
         /// Obtains a lifetime service object to control the lifetime policy for 
         /// this instance.
@@ -1379,8 +1350,6 @@ namespace NAnt.Core {
             }
             return lease;
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the <see cref="Level" /> with which messages will be output to
         /// the build log.
@@ -1388,8 +1357,6 @@ namespace NAnt.Core {
         protected Level OutputLevel {
             get { return _outputLevel; }
         }
-        #region Private Instance Fields
-
         private readonly Task _task;
         private readonly Level _outputLevel;
         private StringBuilder _message = new StringBuilder();

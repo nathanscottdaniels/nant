@@ -31,8 +31,6 @@ namespace NAnt.Core.Types {
         public XmlNode Xml {
             get { return base.XmlNode; }
         }
-        #region Override implementation of Element
-
         /// <summary>
         /// Gets a value indicating whether the element is performing additional
         /// processing using the <see cref="XmlNode" /> that was use to 

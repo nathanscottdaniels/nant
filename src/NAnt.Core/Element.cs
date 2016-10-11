@@ -54,11 +54,7 @@ namespace NAnt.Core {
         private object _parent;
         [NonSerialized()]
         private XmlNamespaceManager _nsMgr;
-        #region Private Static Fields
-
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Element" /> class.
         /// </summary>
@@ -76,8 +72,6 @@ namespace NAnt.Core {
             _xmlNode = e._xmlNode;
             _nsMgr = e._nsMgr;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the parent of the element.
         /// </summary>
@@ -139,8 +133,6 @@ namespace NAnt.Core {
             get { return _nsMgr; }
             set { _nsMgr = value; }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets or sets the XML node of the element.
         /// </summary>
@@ -186,8 +178,6 @@ namespace NAnt.Core {
         protected virtual bool CustomXmlProcessing {
             get { return false; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Performs default initialization.
         /// </summary>
@@ -236,8 +226,6 @@ namespace NAnt.Core {
                 Project.Log(messageLevel, format, args);
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Derived classes should override to this method to provide extra 
         /// initialization and validation not covered by the base class.
@@ -271,8 +259,6 @@ namespace NAnt.Core {
                 clone._xmlNode = _xmlNode.Clone();
             }
         }
-        #region Internal Instance Methods
-
         /// <summary>
         /// Performs initialization using the given set of properties.
         /// </summary>
@@ -303,8 +289,6 @@ namespace NAnt.Core {
             InitializeElement(elementNode);
             Initialize();
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Initializes all build attributes and child elements.
         /// </summary>
@@ -348,8 +332,6 @@ namespace NAnt.Core {
             return GetAttributeConfigurationNode(Project.ConfigurationNode,
                 framework, attributeName);
         }
-        #region Protected Instance Instance Methods
-
         protected XmlNode GetAttributeConfigurationNode(XmlNode configSection, FrameworkInfo framework, string attributeName) {
             XmlNode attributeNode = null;
             string xpath = "";
@@ -388,8 +370,6 @@ namespace NAnt.Core {
             }
 
             xpath += "]";
-            #region Retrieve framework-specific configuration node
-
             if (framework != null) {
                 // locate framework node for current framework
                 XmlNode frameworkNode = configSection.SelectSingleNode("frameworks/platform[@name=\"" 
@@ -402,8 +382,6 @@ namespace NAnt.Core {
                         NamespaceManager);
                 }
             }
-            #region Retrieve framework-neutral configuration node
-
             if (attributeNode == null) {
                 // locate framework-neutral node
                 XmlNode frameworkNeutralNode = configSection.SelectSingleNode(
@@ -490,8 +468,6 @@ namespace NAnt.Core {
                 return buildElement;
             }
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Returns the <see cref="ElementNameAttribute.Name" /> of the 
         /// <see cref="ElementNameAttribute" /> assigned to the specified
@@ -581,8 +557,6 @@ namespace NAnt.Core {
                     _unprocessedChildNodes.Add(childNode.Name);
                 }
             }
-            #region Public Instance Properties
-
             public Element Element {
                 get { return _element; }
             }
@@ -754,8 +728,6 @@ namespace NAnt.Core {
                         }
                     }
                 }
-                #region Initialize property with an assigned BuildAttribute
-
                 // process all BuildAttribute attributes
                 BuildAttributeAttribute buildAttribute = (BuildAttributeAttribute) 
                     Attribute.GetCustomAttribute(propertyInfo, typeof(BuildAttributeAttribute),
@@ -1345,8 +1317,6 @@ namespace NAnt.Core {
                 // initialize the element
                 return Element.InitializeBuildElement(Element, childNode, childElement, elementType);
             }
-            #region Private Instance Methods
-
             /// <summary>
             /// Creates a child <see cref="Element" /> using property set/get methods.
             /// </summary>
@@ -1461,8 +1431,6 @@ namespace NAnt.Core {
 
                 return attributeSetter;
             }
-            #region Private Instance Fields
-
             /// <summary>
             /// Holds the <see cref="Element" /> that should be initialized.
             /// </summary>
@@ -1499,8 +1467,6 @@ namespace NAnt.Core {
             /// processed.
             /// </summary>
             private readonly StringCollection _unprocessedChildNodes;
-            #region Private Static Fields
-
             /// <summary>
             /// Holds the logger for the current class.
             /// </summary>

@@ -40,15 +40,11 @@ namespace NAnt.Core {
         private string _unlessCondition;
         private StringCollection _dependencies = new StringCollection();
         private bool _executed;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Target" /> class.
         /// </summary>
         public Target() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// This indicates whether the target has already executed.
         /// </summary>
@@ -185,8 +181,6 @@ namespace NAnt.Core {
         public StringCollection Dependencies {
             get { return _dependencies; }
         }
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="Target" />.
         /// </summary>
@@ -196,8 +190,6 @@ namespace NAnt.Core {
         object ICloneable.Clone() {
             return Clone();
         }
-
-        #endregion
         /// <summary>
         /// Creates a shallow copy of the <see cref="Target" />.
         /// </summary>

@@ -43,8 +43,6 @@ namespace NAnt.Core {
             _state = state;
             _visiting = visiting;
         }
-        #region Override implementation of ExpressionEvalBase
-
         protected override object EvaluateProperty(string propertyName) {
             return GetPropertyValue(propertyName);
         }
@@ -71,8 +69,6 @@ namespace NAnt.Core {
                 throw;
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the value of the specified property.
         /// </summary>

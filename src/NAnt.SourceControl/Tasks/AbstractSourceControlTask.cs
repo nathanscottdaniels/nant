@@ -56,8 +56,6 @@ namespace NAnt.SourceControl.Tasks {
         ///     used as a readonly property.
         /// </summary>
         protected const string PropExeName = "sourcecontrol.exename";
-
-        #endregion
         private string _exeName;
         private string _root;
         private DirectoryInfo _destinationDirectory;
@@ -72,20 +70,14 @@ namespace NAnt.SourceControl.Tasks {
 
         private FileInfo _ssh;
         private FileSet _fileset = new FileSet();
-        #region Private Static Fields
-
         private static readonly log4net.ILog Logger = 
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractCvsTask" /> 
         /// class.
         /// </summary>
         protected AbstractSourceControlTask () : base() {
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// The name of the passfile, overriden for each version control system (VCS).
         /// </summary>
@@ -119,8 +111,6 @@ namespace NAnt.SourceControl.Tasks {
         /// The name of the version control system (VCS) executable file.
         /// </summary>
         protected abstract string VcsExeName {get;}
-
-        #endregion
         /// <summary>
         /// <para>
         /// The root variable contains information on how to locate a repository.  
@@ -254,16 +244,12 @@ namespace NAnt.SourceControl.Tasks {
             get {return _ssh;}
             set {_ssh = value;}
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// The environment name for the ssh variable.
         /// </summary>
         protected abstract string SshEnv {
             get;
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// The name of the version control system executable.
         /// </summary>
@@ -289,8 +275,6 @@ namespace NAnt.SourceControl.Tasks {
             base.PrepareProcess(process);
             SetEnvironment(process);
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Adds a new global option if none exists.  If one does exist then
         /// the use switch is toggled on or of.
@@ -402,8 +386,6 @@ namespace NAnt.SourceControl.Tasks {
             }
             return vcsFile;
         }
-        #region Private Instance Methods
-
         private FileInfo DeriveFullPathFromEnv(string environmentVar, string fileName) {
             string environmentValue = StringUtils.ConvertEmptyToNull(
                 System.Environment.GetEnvironmentVariable(environmentVar));

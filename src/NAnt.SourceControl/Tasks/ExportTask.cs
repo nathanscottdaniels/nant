@@ -69,8 +69,6 @@ namespace NAnt.SourceControl.Tasks {
         /// The command being executed.
         /// </summary>
         private const string CvsCommandName = "export";
-        #region Public Instance Constructors
-
         /// <summary>
         /// Create a new instance of the <see cref="ExportTask"/>.
         /// </summary>
@@ -83,8 +81,6 @@ namespace NAnt.SourceControl.Tasks {
         public ExportTask() {
             Recursive = true;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// No shortening.  Do not shorten module paths if -d specified.
         /// </summary>
@@ -176,8 +172,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return ((Option)CommandOptions["overridedir"]).Value; }
             set { SetCommandOption("overridedir", String.Format(CultureInfo.InvariantCulture,"-d{0}", value), true); }
         }
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// The export command name for the cvs client.
         /// </summary>

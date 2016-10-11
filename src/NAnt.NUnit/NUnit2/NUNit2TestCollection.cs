@@ -57,7 +57,6 @@ namespace NAnt.NUnit2.Types {
             get {return ((NUnit2Test)(base.List[index]));}
             set {base.List[index] = value;}
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="NUnit2Test"/> to the end of the collection.
@@ -161,7 +160,6 @@ namespace NAnt.NUnit2.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -204,7 +202,6 @@ namespace NAnt.NUnit2.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

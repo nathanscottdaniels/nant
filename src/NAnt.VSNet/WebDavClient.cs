@@ -26,8 +26,6 @@ namespace NAnt.VSNet {
         public WebDavClient(Uri uriBase) {
             _webProjectBaseUrl = uriBase.ToString();
         }
-        #region Public Instance Methods
-
         public void UploadFile(string localFileName, string remoteFileName) {
             WebRequest request = WebRequest.Create(_webProjectBaseUrl + "/" + remoteFileName);
             request.Method = "PUT";
@@ -108,8 +106,6 @@ namespace NAnt.VSNet {
                 return sr.ReadToEnd();
             }
         }
-        #region Public Static Methods
-
         public static string GetFileContentsStatic(string remoteFileName) {
             WebRequest request = WebRequest.Create(remoteFileName);
             request.Method = "GET";
@@ -120,8 +116,6 @@ namespace NAnt.VSNet {
                 return sr.ReadToEnd();
             }
         }
-        #region Private Instance Fields
-
         private string _webProjectBaseUrl;
     }
 }

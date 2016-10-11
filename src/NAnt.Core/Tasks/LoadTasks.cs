@@ -99,7 +99,6 @@ namespace NAnt.Core.Tasks {
             get { return _fileset; }
             set { _fileset = value; }
         }
-        #region Override implemenation of Task
         
         /// <summary>
         /// Executes the Load Tasks task.

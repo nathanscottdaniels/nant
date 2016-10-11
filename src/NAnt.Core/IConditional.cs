@@ -35,7 +35,5 @@ namespace NAnt.Core
         /// Indicates whether or not the implementing class should NOT execute.
         /// </summary>
         bool UnlessDefined { get; set; }
-
-        #endregion
     }
 }

@@ -86,14 +86,10 @@ namespace NAnt.Core {
         public FrameworkInfoDictionary(int capacity, float loadFactor, IHashCodeProvider codeProvider, IComparer comparer) {
             _innerHash = new Hashtable (capacity, loadFactor, codeProvider, comparer);
         }
-        #region Internal Instance Properties
-
         internal Hashtable InnerHash {
             get { return _innerHash; }
             set { _innerHash = value ; }
         }
-        #region Implementation of IDictionary
-
         public FrameworkInfoDictionaryEnumerator GetEnumerator() {
             return new FrameworkInfoDictionaryEnumerator(this);
         }
@@ -192,8 +188,6 @@ namespace NAnt.Core {
         public bool IsFixedSize {
             get { return _innerHash.IsFixedSize; }
         }
-        #region Implementation of ICollection
-
         void ICollection.CopyTo(Array array, int index) {
             _innerHash.CopyTo(array, index);
         }
@@ -250,13 +244,9 @@ namespace NAnt.Core {
     
     public class FrameworkInfoDictionaryEnumerator : IDictionaryEnumerator {
         private IDictionaryEnumerator _innerEnumerator;
-        #region Internal Instance Constructors
-
         internal FrameworkInfoDictionaryEnumerator(FrameworkInfoDictionary enumerable) {
             _innerEnumerator = enumerable.InnerHash.GetEnumerator();
         }
-        #region Implementation of IDictionaryEnumerator
-
         public string Key {
             get { return (string) _innerEnumerator.Key; }
         }
@@ -276,8 +266,6 @@ namespace NAnt.Core {
         public DictionaryEntry Entry {
             get { return _innerEnumerator.Entry; }
         }
-        #region Implementation of IEnumerator
-
         public void Reset() {
             _innerEnumerator.Reset();
         }

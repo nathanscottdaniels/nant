@@ -95,8 +95,6 @@ namespace NAnt.MSNet.Tasks {
         private FileInfo _outputFile;
         private FileSet _assemblies;
         private string _options;
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies whether or not the disassembler should combine the
         /// <c>/HEADER</c>, <c>/BYTE</c>, and <c>/TOKENS</c> options. The default 
@@ -471,8 +469,6 @@ namespace NAnt.MSNet.Tasks {
             get { return _assemblies; }
             set { _assemblies = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// The command-line arguments for the external program.
         /// </summary>
@@ -533,8 +529,6 @@ namespace NAnt.MSNet.Tasks {
                 }
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Disassembles the specified PE file.
         /// </summary>

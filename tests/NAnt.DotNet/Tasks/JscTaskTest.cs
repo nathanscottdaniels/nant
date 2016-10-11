@@ -29,8 +29,6 @@ namespace Tests.NAnt.DotNet.Tasks {
     [TestFixture]
     public class JscTaskTest : BuildTestBase {
         private string _sourceFileName;
-        #region Private Static Fields
-
         private const string _format = @"<?xml version='1.0'?>
             <project>
                 <jsc target='exe' output='{0}.exe' {1}>
@@ -44,16 +42,12 @@ namespace Tests.NAnt.DotNet.Tasks {
             </project>";
 
         private const string _sourceCode = @"print(""Hello World using JScript.NET"");";
-        #region Override implementation of BuildTestBase
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
             _sourceFileName = Path.Combine(TempDirName, "HelloWorld.js");
             TempFile.CreateWithContents(_sourceCode, _sourceFileName);
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Test to make sure debug option works.
         /// </summary>
@@ -87,8 +81,6 @@ namespace Tests.NAnt.DotNet.Tasks {
                 Path.Combine("bin", "HelloWorld.js"), null, null, null));
             Assert.IsTrue(File.Exists(_sourceFileName + ".exe"), _sourceFileName + ".exe does not exists, program did compile.");            // Comment this for now as its hard to know which framework was used to compile and it was mono there will be no pdb file.
         }
-        #region Private Instance Methods
-
         private string FormatBuildFile (string attributes)
         {
             return FormatBuildFile(

@@ -94,8 +94,6 @@ namespace NAnt.Win32.Tasks {
         private bool _registered;
         private AssemblyFileSet _assemblies = new AssemblyFileSet();
         private AssemblyFileSet _references = new AssemblyFileSet();
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the file to register. This is provided as an alternate 
         /// to using the task's <see cref="Assemblies" />.
@@ -172,8 +170,6 @@ namespace NAnt.Win32.Tasks {
             get { return _references; }
             set { _references = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the working directory for the application.
         /// </summary>
@@ -315,8 +311,6 @@ namespace NAnt.Win32.Tasks {
             // further delegate preparation to base class
             base.PrepareProcess(process);
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Registers or unregisters a single assembly, or a group of assemblies.
         /// </summary>
@@ -396,8 +390,6 @@ namespace NAnt.Win32.Tasks {
                 }
             }
         }
-        #region Private Instance Methods
-
         private string GetAssemblyPath(string assembly) {
             if (_workingDirectory == null) {
                 return assembly;

@@ -28,8 +28,6 @@ namespace NAnt.Core.Types {
         private string _value;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// Token to be replaced.
         /// </summary>

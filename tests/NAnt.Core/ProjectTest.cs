@@ -52,8 +52,6 @@ namespace Tests.NAnt.Core {
             </project>";
 
         private string _buildFileName;
-        #region Public Instance Methods
-
         [Test]
         public void Test_Initialization_FSBuildFile() {
             // create the build file in the temp folder
@@ -257,14 +255,11 @@ namespace Tests.NAnt.Core {
                 Assert.AreEqual("value", ex.ParamName, "#6");
             }
         }
-        #region Protected Instance Methods
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
             _buildFileName = Path.Combine(TempDirName, "test.build");
         }
-        #region Private Instance Methods
         
         private void CheckCommon(Project p) {
             Assert.AreEqual("ProjectTest", p.Properties["nant.project.name"], "#1");

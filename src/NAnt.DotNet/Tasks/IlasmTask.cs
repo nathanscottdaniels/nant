@@ -64,8 +64,6 @@ namespace NAnt.DotNet.Tasks {
         private FileInfo _resourceFile;
         private FileSet _sources;
         private string _options;
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies whether or not the compiler should measure and report
         /// the compilation times.
@@ -358,8 +356,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _sources; }
             set { _sources = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command-line arguments for the external program.
         /// </summary>
@@ -398,8 +394,6 @@ namespace NAnt.DotNet.Tasks {
                 base.ExecuteTask();
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Writes the compiler options.
         /// </summary>

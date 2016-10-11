@@ -26,8 +26,6 @@ namespace NAnt.Core.Types {
         private string _pattern;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the NAnt property to set.
         /// </summary>

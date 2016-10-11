@@ -47,8 +47,6 @@ namespace NAnt.Win32.Functions {
         /// <param name="properties">The set of properties to use for macro expansion.</param>
         public CygpathFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the DOS (short) form of the specified path.
         /// </summary>
@@ -93,7 +91,6 @@ namespace NAnt.Win32.Functions {
             return RunCygpathString(new Argument[] {
                 new Argument("--windows \"" + path + "\"") });
         }
-        #region Private Instance Methods
         
         /// <summary>
         /// Runs cygpath with the specified arguments and returns the result 

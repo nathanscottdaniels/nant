@@ -51,8 +51,6 @@ namespace NAnt.Core.Attributes {
         public FrameworkConfigurableAttribute(string name) {
             Name = name;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the name of the framework configuration attribute.
         /// </summary>

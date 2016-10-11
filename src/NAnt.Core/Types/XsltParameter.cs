@@ -30,16 +30,12 @@ namespace NAnt.Core.Types {
         private string _value = string.Empty;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XsltParameter" /> 
         /// class.
         /// </summary>
         public XsltParameter() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the XSLT parameter.
         /// </summary>

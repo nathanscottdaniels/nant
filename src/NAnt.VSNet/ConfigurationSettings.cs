@@ -154,8 +154,6 @@ namespace NAnt.VSNet {
 
             _settings.Add(string.Format(CultureInfo.InvariantCulture, "/out:\"{0}\"", BuildPath));
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the platform that the configuration targets.
         /// </summary>
@@ -211,8 +209,6 @@ namespace NAnt.VSNet {
         public bool RegisterForComInterop {
             get { return _registerForComInterop; }
         }
-        #region Private Instance Properties
-
         private bool IncrementalBuildSupported {
             get {
                 FrameworkInfo tf = SolutionTask.Project.TargetFramework;
@@ -220,8 +216,6 @@ namespace NAnt.VSNet {
                 return (tf.Family == "net" && tf.Version <= new Version (2, 0));
             }
         }
-        #region Private Instance Fields
-
         private readonly ArrayList _settings;
         private readonly string _relativeOutputDir;
         private readonly DirectoryInfo _outputDir;

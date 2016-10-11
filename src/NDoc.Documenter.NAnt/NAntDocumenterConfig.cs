@@ -36,8 +36,6 @@ namespace NDoc.Documenter.NAnt {
         private string _productUrl = "";
         private string _nantBaseUri = "";
         private string _namespaceFilter = "";
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NAntDocumenterConfig" /> 
         /// class.
@@ -59,8 +57,6 @@ namespace NDoc.Documenter.NAnt {
             SkipNamespacesWithoutSummaries = false;
             EditorBrowsableFilter = EditorBrowsableFilterLevel.HideAdvanced;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the output directory.
         /// </summary>

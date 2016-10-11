@@ -50,8 +50,6 @@ namespace NAnt.Win32.Tasks {
         private FileInfo _outputFile;
         private FileInfo _namesFile;
         private StringBuilder _argumentBuilder;
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies the assembly for which to export a type library.
         /// </summary>
@@ -91,8 +89,6 @@ namespace NAnt.Win32.Tasks {
             get { return _namesFile; }
             set { _namesFile = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command line arguments for the external program.
         /// </summary>
@@ -145,8 +141,6 @@ namespace NAnt.Win32.Tasks {
                 base.ExecuteTask();
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines whether the assembly needs to be exported to a type 
         /// library again.

@@ -31,16 +31,12 @@ namespace Tests.NAnt.VSNet.Tasks {
     [TestFixture]
     public class CSharpSolutionTests : SolutionTestBase {
         private const string SharpSchedule = "sharpschedule";
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets the language that is being tested.
         /// </summary>
         protected override LanguageType CurrentLanguage {
             get {return LanguageType.cs;}
         }
-        #region Override implementation of SolutionTestBase
-
         /// <summary>
         /// Initialize example directory.
         /// </summary>
@@ -62,8 +58,6 @@ namespace Tests.NAnt.VSNet.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Checks whether solution task fails if solution file does not exist.
         /// </summary>
@@ -113,8 +107,6 @@ namespace Tests.NAnt.VSNet.Tasks {
             this.GetCurrentSolutionFile("WinForms");
             this.RunTestPlain();
         }
-        #region Private Instance Methods
-
         private void GetProject (DirectoryInfo destination) {
             string cvsroot = ":pserver:anonymous@cvs.sourceforge.net:/cvsroot/sharpschedule";
             string module = SharpSchedule;

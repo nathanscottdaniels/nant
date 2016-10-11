@@ -45,8 +45,6 @@ namespace NAnt.Core.Attributes {
             MinValue = minValue;
             MaxValue = maxValue;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the minimum value.
         /// </summary>
@@ -82,8 +80,6 @@ namespace NAnt.Core.Attributes {
             get { return _base; }
             set { _base = value; }
         }
-        #region Override implementation of ValidatorAttribute
-
         /// <summary>
         /// Checks whether the specified value can be converted to an <see cref="Int32" /> 
         /// and whether the value lies within the range defined by the <see cref="MinValue" /> 
@@ -120,8 +116,6 @@ namespace NAnt.Core.Attributes {
                     MinValue, MaxValue));
             }
         }
-        #region Private Instance Fields
-
         private int _minValue = Int32.MinValue;
         private int _maxValue = Int32.MaxValue;
         private int _base = 10;

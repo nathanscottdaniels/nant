@@ -50,8 +50,6 @@ namespace NAnt.SourceControl.Tasks {
         /// The command being executed.
         /// </summary>
         private const string CvsCommandName = "xml";
-        #region Public Instance Properties
-
         /// <summary>
         /// Name of the xml file that will contain the cvs log information.
         /// </summary>
@@ -92,8 +90,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return Convert.ToDateTime(((Option)CommandOptions["end"]).Value); }
             set { SetCommandOption("end", string.Format(CultureInfo.InvariantCulture,"-D \"{0}\"", ToCvsDateTimeString(value)), true); }
         }
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// The cvs command to execute.
         /// </summary>

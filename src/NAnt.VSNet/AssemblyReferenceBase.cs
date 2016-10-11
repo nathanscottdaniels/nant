@@ -32,8 +32,6 @@ namespace NAnt.VSNet {
     public abstract class AssemblyReferenceBase : FileReferenceBase {
         protected AssemblyReferenceBase(XmlElement xmlDefinition, ReferencesResolver referencesResolver, ProjectBase parent, GacCache gacCache) : base(xmlDefinition, referencesResolver, parent, gacCache) {
         }
-        #region Protected Instance Properties
-
         protected abstract bool IsPrivate {
             get;
         }
@@ -41,8 +39,6 @@ namespace NAnt.VSNet {
         protected abstract bool IsPrivateSpecified {
             get;
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets a value indicating whether the output file(s) of this reference 
         /// should be copied locally.
@@ -171,14 +167,10 @@ namespace NAnt.VSNet {
             }
             return GetFileTimestamp(assemblyFile);
         }
-        #region Public Instance Methods
-
         public ProjectReferenceBase CreateProjectReference(ProjectBase project) {
             return project.CreateProjectReference(project, IsPrivateSpecified, 
                 IsPrivate);
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Resolves an assembly reference.
         /// </summary>

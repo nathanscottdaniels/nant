@@ -41,8 +41,6 @@ namespace NAnt.DotNet.Types {
         public LibDirectorySet(AssemblyFileSet parent) {
             _parent = parent;
         }
-        #region Overrides from FileSet
-
         /// <summary>
         /// override this. We will always use the base directory of the parent.
         /// overriding without the TaskAttribute attribute prevents it being set 
@@ -52,8 +50,6 @@ namespace NAnt.DotNet.Types {
             get { return _parent.BaseDirectory; }
            
         }
-        #region Private Instance Fields
-
         private AssemblyFileSet _parent;
     }
 
@@ -161,7 +157,6 @@ namespace NAnt.DotNet.Types {
         public AssemblyFileSet(FileSet fs) : base(fs) {
            _lib = new LibDirectorySet(this);
         }
-        #region Public Instance Properties
                 
         /// <summary>
         /// Additional directories to search in for assembly references.
@@ -233,8 +228,6 @@ namespace NAnt.DotNet.Types {
                 }
             }
         }
-        #region Private Instance Fields
-
         private LibDirectorySet _lib = null;
     }
 }

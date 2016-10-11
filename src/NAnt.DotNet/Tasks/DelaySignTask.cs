@@ -57,8 +57,6 @@ namespace NAnt.DotNet.Tasks {
         private FileInfo _keyFile;
         private string _keyContainer;
         private StringBuilder _argumentBuilder;
-        #region Public Instance Properties
-
         /// <summary>
         /// List of assemblies/executables to sign.
         /// </summary>
@@ -85,8 +83,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _keyContainer; }
             set { _keyContainer = StringUtils.ConvertEmptyToNull(value); }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command line arguments for the external program.
         /// </summary>

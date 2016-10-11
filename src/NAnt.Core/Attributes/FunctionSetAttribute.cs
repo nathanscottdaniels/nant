@@ -63,8 +63,6 @@ namespace NAnt.Core.Attributes {
             _prefix = prefix;
             _category = category;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the category of the function set.
         /// </summary>
@@ -89,8 +87,6 @@ namespace NAnt.Core.Attributes {
             get { return _prefix; }
             set { _prefix = value; }
         }
-        #region Private Instance Fields
-
         private string _prefix;
         private string _category;
     }

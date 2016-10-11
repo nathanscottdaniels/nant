@@ -30,7 +30,6 @@ namespace NAnt.VSNet {
         private readonly string _path;
         private ProjectBase _project;
         private ConfigurationMap _buildConfigurations;
-        #region Public Instance Constructors
             
         public ProjectEntry(string guid, string path) {
             if (guid == null) {
@@ -43,8 +42,6 @@ namespace NAnt.VSNet {
             _guid = guid;
             _path = path;
         }
-        #region Public Instance Properties
-
         public string Guid {
             get { return _guid; }
         }
@@ -175,7 +172,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="ProjectEntry"/> to the end of the collection.
@@ -308,7 +304,6 @@ namespace NAnt.VSNet {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -351,7 +346,6 @@ namespace NAnt.VSNet {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

@@ -92,12 +92,8 @@ namespace NAnt.DotNet.Tasks {
         private bool _supportsDocGeneration = true;
         private bool _supportsPlatform;
         private bool _supportsLangVersion;
-        #region Private Static Fields
-
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|namespace\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
-        #region Public Instance Properties
-
         /// <summary>
         /// The preferred base address at which to load a DLL. The default base 
         /// address for a DLL is set by the .NET Framework common language 
@@ -352,8 +348,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _supportsLangVersion; }
             set { _supportsLangVersion = value; }
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// Gets or sets the mcs sdk version to apply to the new mcs compiler
         /// for Mono 3.0+
@@ -364,8 +358,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _mcsSdk; }
             set { _mcsSdk = value; }
         }
-        #region Override implementation of CompilerBase
-
         /// <summary>
         /// Writes the compiler options to the specified <see cref="TextWriter" />.
         /// </summary>

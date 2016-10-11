@@ -41,8 +41,6 @@ namespace NAnt.MSBuild.BuildEngine {
                 _po.Reset();
             }
         }
-        #endregion
-
         object _obj;
         Type _t;
 

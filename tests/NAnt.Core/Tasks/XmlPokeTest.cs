@@ -79,8 +79,6 @@ namespace Tests.NAnt.Core.Tasks {
                     + " <add key=\"server\" value=\"testhost.somecompany.com\" />"
                 + " </appSettings>"
             + " </configuration>";            
-        #region Public Instance Methods
-
         [Test]
         public void Test_PokeValidXml() {
             // write xml content to file

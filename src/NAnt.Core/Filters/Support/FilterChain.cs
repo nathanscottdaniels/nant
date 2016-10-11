@@ -87,8 +87,6 @@ namespace NAnt.Core.Filters {
     public class FilterChain : DataTypeBase {
         private Encoding _inputEncoding;
         private FilterCollection _filters = new FilterCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// The filters to apply.
         /// </summary>
@@ -107,8 +105,6 @@ namespace NAnt.Core.Filters {
             get { return _inputEncoding; }
             set { _inputEncoding = value; }
         }
-        #region Override implementation of Element
-
         /// <summary>
         /// Initializes all build attributes and child elements.
         /// </summary>
@@ -123,8 +119,6 @@ namespace NAnt.Core.Filters {
                 this, elementNode, properties, framework);
             configurator.Initialize();
         }
-        #region Internal Instance Methods
-
         /// <summary>
         /// Used to to instantiate and return the chain of stream based filters.
         /// </summary>
@@ -161,8 +155,6 @@ namespace NAnt.Core.Filters {
 
             return parentFilter;
         }
-        #region Internal Static Methods
-
         /// <summary>
         /// Determines whether a given FilterChain is null or empty.
         /// </summary>

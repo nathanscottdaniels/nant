@@ -32,8 +32,6 @@ namespace Tests.NAnt.Core {
         private string _folder2;
         private string _folder3;
         private DirectoryScanner _scanner;
-        #region Public Instance Methods
-
         [Test]
         public void CaseSensitive () {
             Assert.AreEqual (PlatformHelper.IsUnix, _scanner.CaseSensitive, "#1");
@@ -762,8 +760,6 @@ namespace Tests.NAnt.Core {
             _scanner.Scan();
             Assert.AreEqual(1, _scanner.FileNames.Count, "#4");
         }
-        #region Protected Instance Methods
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
@@ -778,8 +774,6 @@ namespace Tests.NAnt.Core {
             _scanner = new DirectoryScanner();
             _scanner.BaseDirectory = TempDirectory;
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Helper function for running scan tests.
         /// </summary>

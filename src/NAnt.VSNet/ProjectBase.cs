@@ -74,8 +74,6 @@ namespace NAnt.VSNet {
             _refResolver = referencesResolver;
             _productVersion = DetermineProductVersion(xmlDefinition);
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the Visual Studio product version of the project.
         /// </summary>
@@ -213,8 +211,6 @@ namespace NAnt.VSNet {
         public Hashtable ExtraOutputFiles {
             get { return _extraOutputFiles; }
         }
-        #region Protected Instance Properties
-
         protected DirectoryInfo OutputDir {
             get { return _outputDir; }
         }
@@ -258,8 +254,6 @@ namespace NAnt.VSNet {
                 return FileUtils.CombinePaths(vs7CommonDir, @"IDE\");
             }
         }
-        #region Private Instance Properties
-
         /// <summary>
         /// TODO: refactor this !!!
         /// </summary>
@@ -276,8 +270,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Public Instance Methods
-
         public abstract ProjectReferenceBase CreateProjectReference(
             ProjectBase project, bool isPrivateSpecified, bool isPrivate);
 
@@ -445,8 +437,6 @@ namespace NAnt.VSNet {
         /// configuration is managed; otherwise, <see langword="false" />.
         /// </returns>
         public abstract bool IsManaged(Configuration configuration);
-        #region Protected Internal Instance Methods
-
         /// <summary>
         /// Expands the given macro.
         /// </summary>
@@ -475,8 +465,6 @@ namespace NAnt.VSNet {
                     return null;
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Returns the Visual Studio product version of the specified project
         /// XML fragment.
@@ -710,8 +698,6 @@ namespace NAnt.VSNet {
                 SolutionTask.Log(messageLevel, message, args);
             }
         }
-        #region Private Instance Fields
-
         private readonly ProductVersion _productVersion;
         private readonly SolutionTask _solutionTask;
         private readonly TempFileCollection _temporaryFiles;
@@ -875,7 +861,6 @@ namespace NAnt.VSNet {
                 return null;
             }
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="ProjectBase"/> to the end of the collection.
@@ -1013,7 +998,6 @@ namespace NAnt.VSNet {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -1056,7 +1040,6 @@ namespace NAnt.VSNet {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

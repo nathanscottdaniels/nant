@@ -44,8 +44,6 @@ namespace NAnt.Core {
         private static FilterBuilderCollection _filterBuilders = new FilterBuilderCollection();
         private static Hashtable _methodInfoCollection = new Hashtable();
         private static PluginScanner _pluginScanner = new PluginScanner();
-        #region Internal Static Properties
-
         /// <summary>
         /// Gets the list of loaded <see cref="TaskBuilder" /> instances.
         /// </summary>
@@ -79,8 +77,6 @@ namespace NAnt.Core {
         internal static PluginScanner PluginScanner {
             get { return _pluginScanner; }
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Scans the given assembly for tasks, types, functions and filters.
         /// </summary>
@@ -495,8 +491,6 @@ namespace NAnt.Core {
             }
             return element;
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Scans a given <see cref="Type" /> for tasks.
         /// </summary>

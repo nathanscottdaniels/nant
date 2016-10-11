@@ -55,8 +55,6 @@ namespace NAnt.Win32.Tasks {
         private string _regKeyValueName;
         private RegistryHive[] _regHive = {RegistryHive.LocalMachine};
         private string _regHiveString = RegistryHive.LocalMachine.ToString();
-        #region Public Instance Properties
-
         /// <summary>
         ///     <para>The property to set to the specified registry key value.</para>
         ///     <para>If this attribute is used then a single value will be read.</para>
@@ -122,7 +120,6 @@ namespace NAnt.Win32.Tasks {
                 }
             }
         }
-        #region Override implementation of Task
         
         /// <summary>
         /// read the specified registry value
@@ -153,8 +150,6 @@ namespace NAnt.Win32.Tasks {
                 throw new BuildException("Missing both a property name and property prefix; atleast one if required!");
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Returns the hive for a given key.
         /// </summary>

@@ -83,7 +83,6 @@ namespace NAnt.Core.Tasks {
         private string _property;
         private string _xPath;
         private XmlNamespaceCollection _namespaces = new XmlNamespaceCollection();
-        #region Public Instance Properties
         
         /// <summary>
         /// The name of the file that contains the XML document
@@ -135,8 +134,6 @@ namespace NAnt.Core.Tasks {
             get { return _namespaces; }
             set { _namespaces = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Executes the XML peek task.
         /// </summary>

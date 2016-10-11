@@ -100,8 +100,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
                     </fileset>
                 </cvs-update>
             </project>";
-        #region Override implementation of BuildTestBase
-
         /// <summary>
         /// Run the checkout command so we have something to update.
         /// </summary>
@@ -123,8 +121,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
         protected override void TearDown () {
             base.TearDown();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Test that a file deleted from the local working directory
         /// is retrieved from the cvs repository during an update.
@@ -196,8 +192,6 @@ namespace Tests.NAnt.SourceControl.Tasks {
             replacedReader = null;
             Assert.AreEqual(checkContents, checkContentsReplaced);
         }
-        #region Private Instance Methods
-
         private string FormatBuildFile(string baseFile, object[] args) {
             return string.Format(CultureInfo.InvariantCulture, baseFile, args);
         }

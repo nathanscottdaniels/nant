@@ -34,15 +34,11 @@ namespace NAnt.Core.Util {
     public sealed class ResourceUtils {
         private static ResourceManager _sharedResourceManager;
         private static readonly Hashtable _resourceManagerDictionary = new Hashtable();
-        #region Private Instance Constructors
-
         /// <summary>
         /// Prevents the <see cref="ResourceUtils" /> class from being 
         /// instantiated explicitly.
         /// </summary>
         private ResourceUtils() {}
-        #region Public Static Methods
-
         /// <summary>
         /// Registers the assembly to be used as the fallback if resources
         /// aren't found in the local satellite assembly.
@@ -185,8 +181,6 @@ namespace NAnt.Core.Util {
             }
             return localizedString;
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Registers the specified assembly.
         /// </summary>

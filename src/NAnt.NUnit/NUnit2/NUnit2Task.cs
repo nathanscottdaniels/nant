@@ -127,7 +127,6 @@ namespace NAnt.NUnit2.Tasks {
         private List<FormatterElement> _formatterElements = new List<FormatterElement>();
         //private NUnit2TestCollection _tests = new NUnit2TestCollection();
         //private FormatterElementCollection _formatterElements = new FormatterElementCollection();
-        #region Public Instance Properties
        
         /// <summary>
         /// Stop the test run if a test fails. The default is <see langword="false" />.
@@ -164,8 +163,6 @@ namespace NAnt.NUnit2.Tasks {
         public List<FormatterElement> FormatterElements {
             get { return _formatterElements; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Runs the tests and sets up the formatters.
         /// </summary>
@@ -307,8 +304,6 @@ namespace NAnt.NUnit2.Tasks {
                 }
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Gets a new EventListener to use for the unit tests.
         /// </summary>
@@ -323,8 +318,6 @@ namespace NAnt.NUnit2.Tasks {
         {
             return new EventCollector(logWriter, logWriter, _labels);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Gets the logging threshold to use for a test runner based on
         /// the current threshold of this task.

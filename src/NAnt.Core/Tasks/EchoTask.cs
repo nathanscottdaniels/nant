@@ -118,8 +118,6 @@ namespace NAnt.Core.Tasks {
         private bool _append;
         private Level _messageLevel = Level.Info;
         private Encoding _encoding;
-        #region Public Instance Properties
-
         /// <summary>
         /// The encoding to use when writing message to a file. The default is
         /// UTF-8 encoding without a Byte Order Mark (BOM).
@@ -213,8 +211,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Outputs the message to the build log or the specified file.
         /// </summary>

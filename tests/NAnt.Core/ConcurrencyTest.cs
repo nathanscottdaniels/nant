@@ -50,8 +50,6 @@ namespace Tests.NAnt.Core {
                     <sleep seconds='1' />
                 </target>
             </project>";
-        #region Public Instance Methods
-
         [Test]
         public void IndependentTargetsExecuteInParallel() {
             // create new listener that allows us to track build events

@@ -64,22 +64,16 @@ namespace NAnt.SourceControl.Tasks {
     [TaskName("cvs-tag")]
     public class TagTask : AbstractCvsTask {
         private string _tag;
-        #region Internal Static Fields
-
         /// <summary>
         /// Cvs command to be executed.
         /// </summary>
         internal const string CvsCommandName = "tag";
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TagTask" /> 
         /// class.
         /// </summary>
         public TagTask() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the tag to assign or remove.
         /// </summary>
@@ -204,8 +198,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return ((Option)CommandOptions["fail-if-modified"]).IfDefined; }
             set { SetCommandOption("fail-if-modified", "-c", value); }
         }
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// The name of the cvs command that is going to be executed.
         /// </summary>

@@ -78,8 +78,6 @@ namespace NAnt.NUnit1.Types {
             get { return _appConfigFile; }
             set { _appConfigFile = value; }
         }
-        #region Private Instance Fields
-
         string _todir = null;
         string _outfile = null;
         string _class = null;

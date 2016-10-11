@@ -55,8 +55,6 @@ namespace NAnt.VSNet {
                 return 0;
             return 1;
         }
-        #region Override implementation of Object
-
         public override bool Equals(object obj) {
             if (obj == null)
                 return false;

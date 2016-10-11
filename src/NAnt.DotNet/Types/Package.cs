@@ -28,8 +28,6 @@ namespace NAnt.DotNet.Types {
         private string _name;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// Name of the package to reference. Multiple package can be specified
         /// with a single element as a semi-colon separated list of 

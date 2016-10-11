@@ -101,8 +101,6 @@ namespace NAnt.Core.Tasks {
     [TaskName("choose")]
     public class ChooseTask : Task {
         private List<ElementContainer> _elementContainers = new List<ElementContainer>();
-        #region Private Instance Properties
-
         /// <summary>
         /// Gets a value indicating whether a fallback element is defined.
         /// </summary>
@@ -139,8 +137,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// One or more alternative sets of tasks to execute.
         /// </summary>

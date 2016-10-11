@@ -37,14 +37,10 @@ namespace NAnt.NUnit1.Types {
         public XmlResultFormatter() {
             _document = new XmlDocument();
         }
-        #region Public Instance Properties
-
         public TextWriter Writer {
             get { return _writer; }
             set { _writer = value; }
         }
-        #region Implemenation of IResultFormatter
-
         /// <summary>
         /// Sets the <see cref="TextWriter" /> the formatter is supposed to 
         /// write its results to.
@@ -88,8 +84,6 @@ namespace NAnt.NUnit1.Types {
             Writer.Flush();
             Writer.Close();
         }
-        #region Implemenation of ITestListener
-
         public void AddError(ITest test, Exception t) {
             FormatError(ElementError, test, t);
         }
@@ -115,8 +109,6 @@ namespace NAnt.NUnit1.Types {
             time /= 1000D;
             _currentTest.SetAttribute(AttributeTime, time.ToString("#####0.000", NumberFormatInfo.InvariantInfo));
         }
-        #region Private Instance Methods
-
         private void FormatError(string type, ITest test, Exception t) {
             if (test != null) {
                 EndTest(test);
@@ -138,8 +130,6 @@ namespace NAnt.NUnit1.Types {
             XmlText traceElement = _document.CreateTextNode(t.StackTrace);
             nested.AppendChild(traceElement);
         }
-        #region Private Instance Fields
-
         TextWriter _writer;
 
         XmlDocument _document;
@@ -147,8 +137,6 @@ namespace NAnt.NUnit1.Types {
         XmlElement _currentTest;
 
         DateTime _testStartTime;
-        #region Private Static Fields
-
         const string ElementTestSuite = "testsuite";
         const string ElementTestCase = "testcase";
         const string ElementError = "error";

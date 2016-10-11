@@ -39,8 +39,6 @@ namespace NAnt.NUnit1.Types {
         private string _appConfigFile = null;
         private string _todir = null;
         private string _outfile = null;
-        #region Public Instance Properties
-
         /// <summary>
         /// Base name of the test result. The full filename is determined by this 
         /// attribute and the extension of formatter.
@@ -119,8 +117,6 @@ namespace NAnt.NUnit1.Types {
             get { return _appConfigFile; }
             set { _appConfigFile = value; }
         }
-        #region Internal Instance Methods
-
         internal NUnitTestData GetTestData() {
             NUnitTestData data = new NUnitTestData();
             data.OutFile = OutFile;

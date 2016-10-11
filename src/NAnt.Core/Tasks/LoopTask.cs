@@ -178,8 +178,6 @@ namespace NAnt.Core.Tasks {
         private string _delim;
         private InElement _inElement;
         private TaskContainer _doStuff;
-        #region Public Instance Properties
-
         /// <summary>
         /// The NAnt property name(s) that should be used for the current 
         /// iterated item.
@@ -446,8 +444,6 @@ namespace NAnt.Core.Tasks {
                 StuffToDo.Execute();
             }
         }
-        #region Protected Instance Methods
-
         protected virtual void DoWork(params string[] propVals) {
             for (int nIndex = 0; nIndex < propVals.Length; nIndex++) {
                 string propValue = propVals[nIndex];
@@ -469,8 +465,6 @@ namespace NAnt.Core.Tasks {
             }
             base.ExecuteTask();
         }
-        #region Private Instance Methods
-
         private void DoWorkOnFileLines(string filename) {
             using (StreamReader sr = File.OpenText(filename)) {
                 while (true) {

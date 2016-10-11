@@ -33,15 +33,11 @@ namespace NAnt.Core.Types {
         private string _userName;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Credential" /> class.
         /// </summary>
         public Credential() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The domain or computer name that verifies the credentials.
         /// </summary>
@@ -94,8 +90,6 @@ namespace NAnt.Core.Types {
             get { return _unlessDefined; }
             set { _unlessDefined = value; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Returns a <see cref="NetworkCredential" /> instance representing
         /// the current <see cref="Credential" />.

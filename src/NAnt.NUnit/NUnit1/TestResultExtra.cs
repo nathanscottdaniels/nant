@@ -31,8 +31,6 @@ namespace NAnt.NUnit1.Types {
         /// </summary>
         public TestResultExtra() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the total run-time of a test.
         /// </summary>
@@ -41,8 +39,6 @@ namespace NAnt.NUnit1.Types {
             get { return _runTime; }
             set { _runTime = value; }
         }
-        #region Private Instance Fields
-
         private long _runTime;
     }
 }

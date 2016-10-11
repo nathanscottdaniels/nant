@@ -30,14 +30,10 @@ namespace NAnt.NUnit1.Types {
     public class PlainTextFormatter : IResultFormatter {
         public PlainTextFormatter() {
         }
-        #region Public Instance Properties
-
         public TextWriter Writer {
             get { return _writer; }
             set { _writer = value; }
         }
-        #region Implementation of IResultFormatter
-
         /// <summary>Sets the Writer the formatter is supposed to write its results to.</summary>
         public void SetOutput(TextWriter writer) {
             Writer = writer;
@@ -59,8 +55,6 @@ namespace NAnt.NUnit1.Types {
             Writer.Flush();
             Writer.Close();
         }
-        #region Implementation of ITestListener
-
         public void AddError(ITest test, Exception e) {
             Writer.WriteLine("ERROR: " + test.ToString());
             Writer.WriteLine(FormatError(e.StackTrace, e.Message));
@@ -78,8 +72,6 @@ namespace NAnt.NUnit1.Types {
 
         public void EndTest(ITest test) {
         }
-        #region Private Static Methods
-
         /// <summary>Convert a stack trace line into something that can be clicked on in an IDE output window.</summary>
         /// <param name="trace">The StackTrace string, see <see cref="Exception.StackTrace"/>.</param>
         /// <param name="message">The string that gets appended to the end of file(line): portion.</param>
@@ -100,8 +92,6 @@ namespace NAnt.NUnit1.Types {
             }
             return line;
         }
-        #region Private Instance Fields
-
         TextWriter _writer = null;
     }
 }

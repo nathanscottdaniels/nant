@@ -65,8 +65,6 @@ namespace NAnt.SourceControl.Tasks {
         /// The command being executed.
         /// </summary>
         internal const string CvsCommandName = "update";
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateTask" /> 
         /// class.
@@ -79,8 +77,6 @@ namespace NAnt.SourceControl.Tasks {
             BuildDirs = true;
             PruneEmpty = true;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// If <see langword="true" />. new directories will be created on the local
         /// sandbox. The default is <see langword="true" />.
@@ -194,8 +190,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return Convert.ToDateTime(((Option)CommandOptions["date"]).Value); }
             set { SetCommandOption("date", String.Format(CultureInfo.InvariantCulture,"-D \"{0}\"", ToCvsDateTimeString(value)), true); }
         }
-
-        #endregion
         /// <summary>
         /// Specify if the module is needed for this cvs command.  It is
         /// only needed if there is no module information on the local file

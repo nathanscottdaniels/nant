@@ -54,8 +54,6 @@ namespace NAnt.Win32.Tasks {
 
         // framework configuration settings
         private bool _supportsRcw = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// Filename of the .ocx file.
         /// </summary>
@@ -158,8 +156,6 @@ namespace NAnt.Win32.Tasks {
             get { return _supportsRcw; }
             set { _supportsRcw = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command-line arguments for the external program.
         /// </summary>
@@ -235,8 +231,6 @@ namespace NAnt.Win32.Tasks {
                     Location, ex);
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines whether the assembly needs to be created again.
         /// </summary>

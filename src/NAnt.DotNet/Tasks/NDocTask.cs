@@ -117,8 +117,6 @@ namespace NAnt.DotNet.Tasks {
         private RawXml _documenters;
         private DirSet _referencePaths = new DirSet();
         private string _hhcexe;
-        #region Public Instance Properties
-
         /// <summary>
         /// The set of assemblies to document.
         /// </summary>
@@ -155,8 +153,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _referencePaths; }
             set { _referencePaths = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Initializes the taks and verifies the parameters.
         /// </summary>
@@ -311,8 +307,6 @@ namespace NAnt.DotNet.Tasks {
                 throw new BuildException(ResourceUtils.GetString("NA2023"), Location, ex);
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Represents the method that will be called to update the overall 
         /// percent complete value and the current step name.

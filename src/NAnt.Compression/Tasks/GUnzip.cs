@@ -41,8 +41,6 @@ namespace NAnt.Compression.Tasks {
     public class GUnzip : Task {
         private FileInfo _srcFile;
         private FileInfo _destFile;
-        #region Public Instance Properties
-
         /// <summary>
         /// The file to expand.
         /// </summary>
@@ -60,8 +58,6 @@ namespace NAnt.Compression.Tasks {
             get { return _destFile; }
             set { _destFile = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Extracts the file from the gzip archive.
         /// </summary>

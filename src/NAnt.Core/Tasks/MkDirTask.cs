@@ -48,8 +48,6 @@ namespace NAnt.Core.Tasks {
     [TaskName("mkdir")]
     public class MkDirTask : Task {
         private DirectoryInfo _dir;
-        #region Public Instance Properties
-
         /// <summary>
         /// The directory to create.
         /// </summary>
@@ -58,8 +56,6 @@ namespace NAnt.Core.Tasks {
             get { return _dir; }
             set { _dir = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Creates the directory specified by the <see cref="Dir" /> property.
         /// </summary>

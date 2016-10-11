@@ -151,8 +151,6 @@ namespace Tests.NAnt.Core.Tasks
         /// </remarks>
         private const string _badAngleBracketEmailName =
             "<<jake@example.com>> Jake Example";
-        #region Private Instance Fields
-
         /// <summary>
         /// Holds the version of NAnt to print in the email messages.
         /// </summary>
@@ -292,8 +290,6 @@ namespace Tests.NAnt.Core.Tasks
             "<janet@invalid.net> Janet Invalid",
             "<shannon@localhost.com> Shannon Localhost"
         };
-        #region SetUp/TearDown Methods
-
         [TestFixtureSetUp]
         public void Init()
         {
@@ -353,8 +349,6 @@ namespace Tests.NAnt.Core.Tasks
             // before running the next test.
             _smtpServer.ClearReceivedEmail();
         }
-        #region Simple Email Test Methods
-
         [Test]
         public void IncludeTrailingSemiColon()
         {
@@ -488,8 +482,6 @@ namespace Tests.NAnt.Core.Tasks
 
             Assert.AreEqual(1, _smtpServer.ReceivedEmailCount);
         }
-        #region Mulitple To Email Test Methods
-
         /// <summary>
         /// Test a simple email scenario with 2 email addresses in the
         /// To Address field.
@@ -737,8 +729,6 @@ namespace Tests.NAnt.Core.Tasks
             Assert.AreEqual(1, _smtpServer.ReceivedEmailCount);
             Assert.AreEqual(6, _smtpServer.ReceivedEmail[0].ToAddresses.Length);
         }
-        #region Mulitple CC Email Test Methods
-
         /// <summary>
         /// Test a simple email scenario with 2 email addresses in the
         /// CC Address field.
@@ -1088,8 +1078,6 @@ namespace Tests.NAnt.Core.Tasks
                 Assert.Fail("Test email did not contain addresses in the CC line");
             }
         }
-        #region Mulitple BCC Email Test Methods
-
         /// <summary>
         /// Test a simple email scenario with 2 email addresses in the
         /// BCC Address field.
@@ -1340,8 +1328,6 @@ namespace Tests.NAnt.Core.Tasks
             Assert.AreEqual(1, _smtpServer.ReceivedEmailCount);
             Assert.AreEqual(6, _smtpServer.ReceivedEmail[0].ToAddresses.Length);
         }
-        #region Misc Email Test Methods
-
         /// <summary>
         /// Tests sending an email with the To, CC, and BCC address fields
         /// filled in at once.
@@ -1402,8 +1388,6 @@ namespace Tests.NAnt.Core.Tasks
             Assert.AreEqual(1, _smtpServer.ReceivedEmailCount);
             Assert.AreEqual(10, _smtpServer.ReceivedEmail[0].ToAddresses.Length);
         }
-        #region Email With External Files Test Methods
-
         /// <summary>
         /// Tests sending an email where the body of the email was filled in
         /// using external files.
@@ -1482,8 +1466,6 @@ namespace Tests.NAnt.Core.Tasks
 
             Assert.AreEqual(1, _smtpServer.ReceivedEmailCount);
         }
-        #region Exception Test Methods
-
         /// <summary>
         /// Tests sending an email with a badly formatted email address.
         /// </summary>
@@ -1597,8 +1579,6 @@ namespace Tests.NAnt.Core.Tasks
 
             mailTask.Execute();
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Creates a simple message <see cref="System.String"/> to use for all
         /// email tests that do not retrieve message text from external files.

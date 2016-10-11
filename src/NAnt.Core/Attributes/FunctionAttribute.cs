@@ -59,8 +59,6 @@ namespace NAnt.Core.Attributes {
             get { return _name; }
             set { _name = value; }
         }
-        #region Private Instance Fields
-
         private string _name;
     }
 }

@@ -59,7 +59,6 @@ namespace Tests.NAnt.Core {
                     </if>
                 </target>
             </project>";
-        #region Public Instance Methods
         
         [Test]
         public void Test_IfFilesetDefine1() {
@@ -133,8 +132,6 @@ namespace Tests.NAnt.Core {
                 Assert.IsTrue(be.RawMessage.IndexOf("foo") != -1);
             }
         }
-        #region Private Instance Methods
-
         private string FormatBuildFile(string fmt,params object[] pars) {
             return string.Format(CultureInfo.InvariantCulture, fmt, pars);
         }

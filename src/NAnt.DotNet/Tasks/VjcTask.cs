@@ -75,12 +75,8 @@ namespace NAnt.DotNet.Tasks {
         private string _jcpa;
         private string _codepage;
         private string _warningLevel;
-        #region Private Static Fields
-
         private static Regex _classNameRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|class\s+(?<class>\w+)|(?<keyword>\w+))*");
         private static Regex _namespaceRegex = new Regex(@"^((?<comment>/\*.*?(\*/|$))|[\s\.\{]+|package\s+(?<namespace>(\w+(\.\w+)*)+)|(?<keyword>\w+))*");
-        #region Public Instance Properties
-
         /// <summary>
         /// The preferred base address at which to load a DLL. The default base 
         /// address for a DLL is set by the .NET Framework common language 
@@ -264,8 +260,6 @@ namespace NAnt.DotNet.Tasks {
         public override WarningAsError WarningAsError {
             get { return base.WarningAsError; }
         }
-        #region Override implementation of CompilerBase
-
         /// <summary>
         /// Reference packages 
         /// </summary>

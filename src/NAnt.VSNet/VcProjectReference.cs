@@ -58,8 +58,6 @@ namespace NAnt.VSNet {
             _isPrivateSpecified = isPrivateSpecified;
             _isPrivate = isPrivate;
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets a value indicating whether the reference is managed for the
         /// specified configuration.
@@ -72,8 +70,6 @@ namespace NAnt.VSNet {
         public override bool IsManaged(Configuration config) {
             return Project.IsManaged(config);            
         }
-        #region Override implementation of ProjectReferenceBase
-
         public override ProjectBase Project {
             get { return _project; }
         }
@@ -85,8 +81,6 @@ namespace NAnt.VSNet {
         protected override bool IsPrivateSpecified {
             get { return _isPrivateSpecified; }
         }
-        #region Private Instance Fields
-
         private readonly ProjectBase _project;
         private readonly bool _isPrivateSpecified;
         private readonly bool _isPrivate;

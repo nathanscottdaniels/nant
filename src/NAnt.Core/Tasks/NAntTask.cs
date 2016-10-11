@@ -101,8 +101,6 @@ namespace NAnt.Core.Tasks {
         private bool _inheritAll = true;
         private bool _inheritRefs;
         private ArrayList _overrideProperties = new ArrayList();
-        #region Public Instance Properties
-
         /// <summary>
         /// The build file to build.
         /// </summary>
@@ -164,8 +162,6 @@ namespace NAnt.Core.Tasks {
         public ArrayList OverrideProperties {
             get { return _overrideProperties; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Validates the <see cref="NAntTask" /> element.
         /// </summary>

@@ -32,7 +32,6 @@ namespace NAnt.Core {
     /// </summary>
     public class TaskContainer : Task {
         private StringCollection _subXMLElements;
-        #region Override implementation of Element
 
         /// <summary>
         /// Gets a value indicating whether the element is performing additional
@@ -46,7 +45,6 @@ namespace NAnt.Core {
         protected override bool CustomXmlProcessing {
             get { return true;}
         }
-        #region Override implementation of Task
 
         /// <summary>
         /// Automatically exclude build elements that are defined on the task 
@@ -77,7 +75,6 @@ namespace NAnt.Core {
         protected override void ExecuteTask() {
             ExecuteChildTasks();
         }
-        #region Protected Instance Methods
 
         /// <summary>
         /// Creates and executes the embedded (child XML nodes) elements.

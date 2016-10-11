@@ -73,8 +73,6 @@ namespace NAnt.DotNet.Tasks {
         // framework configuration settings
         private bool _supportsAssemblyReferences;
         private bool _hasCommandLineCompiler = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// Input file to process.
         /// </summary>
@@ -153,8 +151,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _hasCommandLineCompiler; }
             set { _hasCommandLineCompiler = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Initializes the <see cref="LicenseTask" /> class.
         /// </summary>
@@ -174,8 +170,6 @@ namespace NAnt.DotNet.Tasks {
                     Location);
             }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the working directory for the application.
         /// </summary>
@@ -430,8 +424,6 @@ namespace NAnt.DotNet.Tasks {
                 AppDomain.Unload(newDomain);
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Determines whether the <c>.licenses</c> file needs to be recompiled
         /// or is uptodate.
@@ -491,8 +483,6 @@ namespace NAnt.DotNet.Tasks {
                 }
                 return lease;
             }
-            #region Public Instance Methods
-
             /// <summary>
             /// Creates the whole license file.
             /// </summary>
@@ -655,8 +645,6 @@ namespace NAnt.DotNet.Tasks {
                     assemblyResolver.Detach();
                 }
             }
-            #region Private Instance Methods
-
             /// <summary>
             /// Determines whether the given object is serializable in binary
             /// format.

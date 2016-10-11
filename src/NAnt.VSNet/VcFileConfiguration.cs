@@ -69,8 +69,6 @@ namespace NAnt.VSNet {
             _parentName = parentName;
             _parentConfig = parentConfig;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets a value indication whether the file should be excluded from 
         /// the build for this configuration.
@@ -92,8 +90,6 @@ namespace NAnt.VSNet {
         public string RelativePath {
             get { return _relativePath; }
         }
-        #region Override implementation of ConfigurationBase
-
         /// <summary>
         /// Get the path of the output directory relative to the project
         /// directory.
@@ -138,8 +134,6 @@ namespace NAnt.VSNet {
                     return _parentConfig.ExpandMacro(macro);
             }
         }
-        #region Override implementation of VcConfigurationBase
-
         /// <summary>
         /// Gets the intermediate directory, specified relative to project 
         /// directory.
@@ -235,8 +229,6 @@ namespace NAnt.VSNet {
             }
             return args;
         }
-        #region Private Instance Fields
-
         private readonly string _relativePath;
         private readonly string _parentName;
         private readonly bool _excludeFromBuild;

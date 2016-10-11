@@ -54,8 +54,6 @@ namespace NAnt.Core.Attributes {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="name" /> is a zero-length <see cref="string" />.</exception>
         public BuildElementArrayAttribute(string name) : base(name) {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the type of objects that this container holds.
         /// </summary>
@@ -81,8 +79,6 @@ namespace NAnt.Core.Attributes {
                 _elementType = value; 
             }
         }
-        #region Private Instance Fields
-
         private Type _elementType;
     }
 }

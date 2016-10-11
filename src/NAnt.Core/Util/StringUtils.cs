@@ -34,8 +34,6 @@ namespace NAnt.Core.Util {
         /// </remarks>
         private StringUtils() {
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Determines whether the last character of the given <see cref="string" />
         /// matches the specified character.

@@ -38,8 +38,6 @@ namespace NAnt.SourceControl.Tasks {
     /// </summary>
     public abstract class AbstractCvsTask : AbstractSourceControlTask {
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        #region Protected Static Fields
-
         /// <summary>
         /// Default value for the recursive directive.  The default is
         /// <see langword="false" />.
@@ -100,8 +98,6 @@ namespace NAnt.SourceControl.Tasks {
         /// used or not.
         /// </summary>
         protected const string UseSharpCvsLibProp = "sourcecontrol.usesharpcvslib";
-        #region Private Instance Fields
-
         private string _module;
         private bool _useSharpCvsLib = DefaultUseSharpCvsLib;
         private bool _isUseSharpCvsLibSet = false;
@@ -109,7 +105,6 @@ namespace NAnt.SourceControl.Tasks {
         private string _sharpcvslibExeName;
 
         private CvsFileSet _cvsFileSet = new CvsFileSet();
-        #region Protected Instance Contructors
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractCvsTask" />
         /// class.
@@ -118,8 +113,6 @@ namespace NAnt.SourceControl.Tasks {
             _sharpcvslibExeName = 
                 Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, SharpCvsExe);
         }
-        #region Protected Instance Properties
-
         /// <summary>
         /// The environment name for the ssh variable.
         /// </summary>
@@ -159,8 +152,6 @@ namespace NAnt.SourceControl.Tasks {
         protected virtual bool IsModuleNeeded {
             get { return true; }
         }
-
-        #endregion
         /// <summary>
         /// Converts a date value to a string representation that can be
         /// interpreted by cvs.
@@ -173,8 +164,6 @@ namespace NAnt.SourceControl.Tasks {
             return string.Format("{0} {1,2} {2}", item.ToString("ddd MMM"), 
                 item.Day.ToString(), item.ToString("HH:mm:ss yyyy"));
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Used to specify the version control system (VCS) files that are going
         /// to be acted on.
@@ -422,8 +411,6 @@ namespace NAnt.SourceControl.Tasks {
             }
             set { SetGlobalOption("readwrite", String.Format("-z{0}", value), true); }
         }
-        #region Override Task Implementation
-
         /// <summary>
         /// Build up the command line arguments, determine which executable is being
         ///     used and find the path to that executable and set the working
@@ -507,8 +494,6 @@ namespace NAnt.SourceControl.Tasks {
         protected virtual void AppendSubCommandArgs() {
 
         }
-
-        #endregion
         private void AppendGlobalOptions () {
             foreach (Option option in GlobalOptions.Values) {
                 // Log(Level.Verbose, "Type '{0}'.", optionte.GetType());

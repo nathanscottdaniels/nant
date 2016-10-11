@@ -33,8 +33,6 @@ namespace Tests.NAnt.Core {
     /// </remarks>
     public abstract class BuildTestBase {
         private string _tempDirName = null;
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the temporary directory name for this test case.
         /// </summary>
@@ -60,8 +58,6 @@ namespace Tests.NAnt.Core {
         public DirectoryInfo TempDirectory {
             get { return new DirectoryInfo(_tempDirName); }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Runs the XML as a NAnt project and returns the console output as a 
         /// string.
@@ -288,8 +284,6 @@ namespace Tests.NAnt.Core {
         public string CreateTempDir(string name) {
             return TempDir.Create(Path.Combine(TempDirName, name));
         }
-        #region Protected Instance Methods
-
         /// <remarks>
         ///   <para>No need to add SetUp attribute to overriden method.</para>
         ///   <para>Super classes that override SetUp must call the base class first.</para>

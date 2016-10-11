@@ -90,8 +90,6 @@ namespace NAnt.Win32.Tasks {
 
         // framework configuration settings
         private bool _supportsTransform = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// Specifies the name of the output file.
         /// </summary>
@@ -313,8 +311,6 @@ namespace NAnt.Win32.Tasks {
             get { return _supportsTransform; }
             set { _supportsTransform = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the command line arguments for the external program.
         /// </summary>
@@ -418,8 +414,6 @@ namespace NAnt.Win32.Tasks {
                 base.ExecuteTask();
             }
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Returns the path of the type library, removing the identifier of 
         /// the type library from the specified string.
@@ -441,8 +435,6 @@ namespace NAnt.Win32.Tasks {
             }
             return path;
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines whether the type library needs to be imported again.
         /// </summary>

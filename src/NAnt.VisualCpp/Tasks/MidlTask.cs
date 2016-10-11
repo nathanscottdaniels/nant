@@ -84,11 +84,7 @@ namespace NAnt.VisualCpp.Tasks {
         private OptionCollection _defines = new OptionCollection();
         private OptionCollection _undefines = new OptionCollection();
         private FileSet _includeDirs = new FileSet();
-        #region Private Static Fields
-
         private const string PROG_FILE_NAME = "midl.exe";
-        #region Public Instance Properties
-
         /// <summary>
         /// The /acf switch allows the user to supply an
         /// explicit ACF file name. The switch also
@@ -281,8 +277,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _includeDirs; }
             set { _includeDirs = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Filename of program to execute
         /// </summary>
@@ -334,8 +328,6 @@ namespace NAnt.VisualCpp.Tasks {
                 }
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Check output files to see if we need rebuilding.
         /// </summary>

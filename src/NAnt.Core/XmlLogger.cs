@@ -46,8 +46,6 @@ namespace NAnt.Core {
         /// Holds the stack of currently executing projects.
         /// </summary>
         private Stack _projectStack = new Stack();
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlLogger" /> class.
         /// </summary>
@@ -61,8 +59,6 @@ namespace NAnt.Core {
             _xmlWriter = new XmlTextWriter(_buffer);
             _stopWatchStack = stopWatchStack;
         }
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlLogger" /> class 
         /// with serialized data.
@@ -76,8 +72,6 @@ namespace NAnt.Core {
             _xmlWriter = new XmlTextWriter(_buffer);
             _projectStack = (Stack) info.GetValue("ProjectStack", typeof (Stack));
         }
-        #region Implementation of ISerializable
-
         /// <summary>
         /// Populates <paramref name="info" /> with the data needed to serialize 
         /// the <see cref="XmlLogger" /> instance.
@@ -90,16 +84,12 @@ namespace NAnt.Core {
             info.AddValue("Threshold", _threshold);
             info.AddValue("ProjectStack", _projectStack);
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns the contents of log captured.
         /// </summary>
         public override string ToString() {
             return _buffer.ToString();
         }
-        #region Implementation of IBuildListener
-
         /// <summary>
         /// Signals that a build has started.
         /// </summary>
@@ -278,8 +268,6 @@ namespace NAnt.Core {
                 }
             }
         }
-        #region Implementation of IBuildLogger
-
         /// <summary>
         /// Gets or sets the highest level of message this logger should respond 
         /// to.
@@ -325,8 +313,6 @@ namespace NAnt.Core {
                 _xmlWriter.Flush();
             }
         }
-        #region Public Instance Methods
-
         public string StripFormatting(string message) {
             // will hold the message stripped from whitespace and null characters
             string strippedMessage;
@@ -353,8 +339,6 @@ namespace NAnt.Core {
             Regex r = new Regex(@"^[\s\0]*$");
             return r.Match(message).Success;
         }
-        #region Private Instance Methods
-
         private void WriteErrorNode(Exception exception) {
             // this method assumes that a synchronization
             // lock on _xmlWriter is already held

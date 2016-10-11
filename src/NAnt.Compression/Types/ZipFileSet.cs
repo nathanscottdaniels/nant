@@ -31,8 +31,6 @@ namespace NAnt.Compression.Types {
     [ElementName("zipfileset")]
     public class ZipFileSet : FileSet {
         private string _prefix;
-        #region Public Instance Properties
-
         /// <summary>
         /// The top level directory prefix. If set, all file and directory paths 
         /// in the fileset will have this value prepended. Can either be a single 

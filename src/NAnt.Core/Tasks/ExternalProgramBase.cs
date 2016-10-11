@@ -63,15 +63,11 @@ namespace NAnt.Core.Tasks {
         private bool _spawn;
         private int _processId = 0;
         private bool _useRuntimeEngine;
-        #region Public Static Fields
-
         /// <summary>
         /// Defines the exit code that will be returned by <see cref="ExitCode" />
         /// if the process could not be started, or did not exit (in time).
         /// </summary>
         public const int UnknownExitCode = -1000;
-        #region Private Static Fields
-
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
@@ -89,8 +85,6 @@ namespace NAnt.Core.Tasks {
         /// Will be used to ensure thread-safe operations.
         /// </summary>
         private static object _lockObject = new object();
-        #region Static Constructors
-
         /// <summary>
         /// Static constructor that retrieves the specified timeout value for program
         /// output.
@@ -122,8 +116,6 @@ namespace NAnt.Core.Tasks {
             // default value.
             outputTimeout = defaultTimeout;
         }
-
-        #endregion
         /// <summary>
         /// The name of the executable that should be used to launch the 
         /// external program.
@@ -376,8 +368,6 @@ namespace NAnt.Core.Tasks {
             get { return _spawn; }
             set { _spawn = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Starts the external process and captures its output.
         /// </summary>
@@ -466,8 +456,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Gets the command-line arguments, separated by spaces.
         /// </summary>
@@ -479,8 +467,6 @@ namespace NAnt.Core.Tasks {
                 return arguments.ToString();
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Updates the <see cref="ProcessStartInfo" /> of the specified 
         /// <see cref="Process"/>.
@@ -556,8 +542,6 @@ namespace NAnt.Core.Tasks {
                     ResourceUtils.GetString("NA1121"), p.StartInfo.FileName), Location, ex);
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Reads from the stream until the external program is ended.
         /// </summary>

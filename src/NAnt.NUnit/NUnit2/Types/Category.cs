@@ -29,8 +29,6 @@ namespace NAnt.NUnit2.Types {
         private string  _name;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// A name of a category, or comma-separated list of names.
         /// </summary>

@@ -35,8 +35,6 @@ namespace Tests.NAnt.DotNet.Tasks {
     [TestFixture]
     public class CscTaskTest : BuildTestBase {
         private string _sourceFileName;
-        #region Private Static Fields
-
         private const string _format = @"<?xml version='1.0'?>
             <project>
                 <csc target='exe' output='{0}.exe' {1}>
@@ -64,16 +62,12 @@ namespace Tests.NAnt.DotNet.Tasks {
                     }
                 }
             }";
-        #region Override implementation of BuildTestBase
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
             _sourceFileName = Path.Combine(TempDirName, "HelloWorld.cs");
             TempFile.CreateWithContents(_sourceCode, _sourceFileName);
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Test to make sure debug option works.
         /// </summary>
@@ -714,8 +708,6 @@ namespace Tests.NAnt.DotNet.Tasks {
             Assert.AreEqual(resources.Prefix + "." + "ResourceFile.en-US.resources", 
                 cscTask.GetManifestResourceName(resources, resourceFile));
         }
-        #region Private Instance Methods
-
         private void PerformDependentResxTests(CscTask cscTask, ResourceFileSet resources) {
             // holds the path to the resource file
             string resourceFile = null;

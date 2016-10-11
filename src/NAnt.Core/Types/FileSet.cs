@@ -236,11 +236,7 @@ namespace NAnt.Core.Types {
         private DirectoryScanner _scanner = new DirectoryScanner();
         private StringCollection _asis = new StringCollection();
         private PathScanner _pathFiles = new PathScanner();
-        #region Private Static Fields
-
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FileSet" /> class.
         /// </summary>
@@ -254,8 +250,6 @@ namespace NAnt.Core.Types {
         public FileSet(FileSet fs) {
             fs.CopyTo((FileSet)this);
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Indicates whether include and exclude patterns must be treated in a
         /// case-sensitive way. The default is <see langword="true" /> on Unix;
@@ -618,8 +612,6 @@ namespace NAnt.Core.Types {
                 return newestFile;
             }
         }
-        #region Implementation of ICloneable
-
         /// <summary>
         /// Creates a shallow copy of the <see cref="FileSet" />.
         /// </summary>
@@ -631,8 +623,6 @@ namespace NAnt.Core.Types {
             CopyTo(clone);
             return clone;
         }
-        #region Override implementation of Element
-
         protected override void Initialize() {
             base.Initialize();
             if (DefaultExcludes) {
@@ -666,14 +656,10 @@ namespace NAnt.Core.Types {
                 Excludes.Add("**/.DS_Store");
             }
         }
-        #region Override implementation of DataTypeBase
-
         public override void Reset() {
             // ensure that scanning will happen again for each use
             _hasScanned = false;
         }
-        #region Override implementation of Object
-
         public override string ToString() {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             if (!_hasScanned){
@@ -701,8 +687,6 @@ namespace NAnt.Core.Types {
 
             return sb.ToString();
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds a nested set of patterns, or references a standalone patternset.
         /// </summary>
@@ -744,8 +728,6 @@ namespace NAnt.Core.Types {
                     Location);
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Copies all instance data of the <see cref="FileSet" /> to a given
         /// <see cref="FileSet" />.
@@ -763,8 +745,6 @@ namespace NAnt.Core.Types {
             clone._pathFiles = _pathFiles.Clone();
             clone._scanner = (DirectoryScanner) _scanner.Clone();
         }
-        #region Internal Instance Methods
-
         internal string Find (string fileName) {
             CompareOptions compareOptions = CompareOptions.None;
             CompareInfo compare = CultureInfo.InvariantCulture.CompareInfo;
@@ -780,8 +760,6 @@ namespace NAnt.Core.Types {
 
             return null;
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Determines if a file has a more recent last write time than the 
         /// given time, or no longer exists.
@@ -838,8 +816,6 @@ namespace NAnt.Core.Types {
             private string _pattern;
             private bool _ifDefined = true;
             private bool _unlessDefined;
-            #region Public Instance Properties
-
             /// <summary>
             /// The pattern or file name to exclude.
             /// </summary>
@@ -877,8 +853,6 @@ namespace NAnt.Core.Types {
         public class Include : Exclude {
             private bool _asIs;
             private bool _fromPath;
-            #region Public Instance Properties
-
             /// <summary>
             /// If <see langword="true" /> then the file name will be added to 
             /// the <see cref="FileSet" /> without pattern matching or checking 
@@ -901,8 +875,6 @@ namespace NAnt.Core.Types {
                 get { return _fromPath; }
                 set { _fromPath = value; }
             }
-            #region Override implementation of Exclude
-
             /// <summary>
             /// The pattern or file name to include.
             /// </summary>
@@ -941,8 +913,6 @@ namespace NAnt.Core.Types {
             private bool _ifDefined = true;
             private bool _unlessDefined;
             private FileInfo _patternFile;
-            #region Public Instance Properties
-
             /// <summary>
             /// Gets the list of patterns in <see cref="PatternFile" />.
             /// </summary>
@@ -1015,8 +985,6 @@ namespace NAnt.Core.Types {
         public class IncludesFile : ExcludesFile {
             private bool _asIs;
             private bool _fromPath;
-            #region Public Instance Properties
-
             /// <summary>
             /// If <see langword="true" /> then the patterns in the include file 
             /// will be added to the <see cref="FileSet" /> without pattern 
@@ -1040,8 +1008,6 @@ namespace NAnt.Core.Types {
                 get { return _fromPath; }
                 set { _fromPath = value; }
             }
-            #region Override implementation of ExcludesFile
-
             /// <summary>
             /// If <see langword="true" /> then the patterns will be included;
             /// otherwise, skipped. The default is <see langword="true" />.

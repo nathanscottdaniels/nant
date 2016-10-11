@@ -93,8 +93,6 @@ namespace NAnt.Core.Filters {
 
         //Method used for Read
         private AcquireCharDelegate ReadChar;
-        #region Public Instance Properties
-
         /// <summary>
         /// Marks the beginning of a token. The default is "@".
         /// </summary>
@@ -134,8 +132,6 @@ namespace NAnt.Core.Filters {
             get { return _ignoreCase; }
             set { _ignoreCase = value; }
         }
-        #region Override implementation of ChainableReader
-
         /// <summary>
         /// Construct that allows this filter to be chained to the one
         /// in the parameter chainedReader.
@@ -167,8 +163,6 @@ namespace NAnt.Core.Filters {
             //Need to maintain seperate state for Read and Peek for this to work
             throw new ApplicationException(ResourceUtils.GetString("String_PeekNotSupported"));
         }
-        #region Override implementation of Element
-
         /// <summary>
         /// Initialize the filter by setting its parameters.
         /// </summary>
@@ -192,8 +186,6 @@ namespace NAnt.Core.Filters {
             // tokens
             _tokenString = new StringBuilder(_maxTokenLength + 1, _maxTokenLength + 1);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Finds a token give that we are positioned at a beginning token character.  Either a
         /// token replacement is returned or the characters that were read looking for the token.

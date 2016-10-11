@@ -41,7 +41,5 @@ namespace NAnt.MSBuild {
         public string LoadGuid(XmlElement xmlDefinition) {
             return MSBuildProject.LoadGuid(xmlDefinition);
         }
-
-        #endregion
     }
 }

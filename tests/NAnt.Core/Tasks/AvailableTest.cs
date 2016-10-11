@@ -51,8 +51,6 @@ namespace Tests.NAnt.Core.Tasks {
                 Directory.Delete(_notExistingTempDir);
             }
         }
-        #region Public Instance Methods
-
         [Test]
         public void Test_ExistingFile() {
             string xml= @"
@@ -167,8 +165,6 @@ namespace Tests.NAnt.Core.Tasks {
             RunBuild(string.Format(CultureInfo.InvariantCulture, 
                 xml, "InvalidResourceType", @"\\#(){/}.dddd", "${file.exists}"));
         }
-        #region Private Instance Fields
-
         private string _tempFile;
         private string _tempDir;
         private string _notExistingTempFile;

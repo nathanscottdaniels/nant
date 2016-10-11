@@ -62,8 +62,6 @@ namespace NAnt.Core.Tasks {
     public class FailTask : Task {
         private string _message;
         private string _contents;
-        #region Public Instance Properties
-
         /// <summary>
         /// A message giving further information on why the build exited.
         /// </summary>

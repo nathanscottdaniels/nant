@@ -52,8 +52,6 @@ namespace Tests.NAnt.Core.Tasks {
         private string _tempFileTargetTwo;
         private string _tempFileTargetThree;
         private string _tempFileTargetFour;
-        #region Private Static Fields
-
         private const string _xmlProjectTemplate = @"
             <project>
                 <move file='{0}' tofile='{1}' overwrite='{2}' />

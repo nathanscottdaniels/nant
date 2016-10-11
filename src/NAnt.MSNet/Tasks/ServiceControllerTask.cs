@@ -83,8 +83,6 @@ namespace NAnt.MSNet.Tasks {
         /// </summary>
         public ServiceControllerTask() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the service that should be controlled.
         /// </summary>
@@ -123,8 +121,6 @@ namespace NAnt.MSNet.Tasks {
             get { return _timeout; }
             set { _timeout = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Peforms actions on the service in order to reach the desired status.
         /// </summary>
@@ -168,8 +164,6 @@ namespace NAnt.MSNet.Tasks {
                 }
             }
         }
-        #region Private Instance Methods 
-
         /// <summary>
         /// Determines the desired status of the service based on the action
         /// that should be performed on it.
@@ -333,8 +327,6 @@ namespace NAnt.MSNet.Tasks {
                     Location, ex);
             }
         }
-        #region Private Instance Fields
-
         /// <summary>
         /// Holds the name of the service that should be controlled.
         /// </summary>

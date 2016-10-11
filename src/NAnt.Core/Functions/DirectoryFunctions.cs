@@ -38,8 +38,6 @@ namespace NAnt.Core.Functions {
         /// <param name="properties">The projects properties.</param>
         public DirectoryFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Returns the creation date and time of the specified directory.
         /// </summary>

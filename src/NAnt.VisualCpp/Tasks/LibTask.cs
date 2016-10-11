@@ -58,8 +58,6 @@ namespace NAnt.VisualCpp.Tasks {
         private LibraryCollection _ignoreLibraries = new LibraryCollection();
         private FileSet _libdirs = new FileSet();
         private string _options;
-        #region Public Instance Properties
-
         /// <summary>
         /// Options to pass to the compiler.
         /// </summary>
@@ -122,8 +120,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _libdirs; }
             set { _libdirs = value; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Gets the filename of the external program to start.
         /// </summary>
@@ -141,8 +137,6 @@ namespace NAnt.VisualCpp.Tasks {
         public override string ProgramArguments {
             get { return "@" + "\"" + _responseFileName + "\""; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Creates the library.
         /// </summary>
@@ -230,8 +224,6 @@ namespace NAnt.VisualCpp.Tasks {
                 _responseFileName = null;
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines if the sources need to be linked.
         /// </summary>

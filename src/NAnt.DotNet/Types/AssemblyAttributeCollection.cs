@@ -77,7 +77,6 @@ namespace NAnt.DotNet.Types {
                 return null;
             }
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="AssemblyAttribute"/> to the end of the collection.
@@ -195,7 +194,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -238,7 +236,6 @@ namespace NAnt.DotNet.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

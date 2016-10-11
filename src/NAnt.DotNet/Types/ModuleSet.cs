@@ -48,16 +48,12 @@ namespace NAnt.DotNet.Types {
     public class ModuleSet : DataTypeBase {
         private readonly ModuleCollection _modules;
         private DirectoryInfo _dir;
-         #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleSet" /> class.
         /// </summary>
         public ModuleSet() {
             _modules = new ModuleCollection(this);
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The base of the directory of this <see cref="ModuleSet" />. 
         /// The default is the project base directory.

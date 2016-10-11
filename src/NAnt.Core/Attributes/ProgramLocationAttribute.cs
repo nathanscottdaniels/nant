@@ -64,8 +64,6 @@ namespace NAnt.Core.Attributes {
         public ProgramLocationAttribute(LocationType type) {
             LocationType = type;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets the <see cref="LocationType" /> of the task.
         /// </summary>
@@ -76,8 +74,6 @@ namespace NAnt.Core.Attributes {
             get { return _locationType; }
             set { _locationType = value; }
         }
-        #region Private Instance Fields
-
         private LocationType _locationType;
     }
 }

@@ -74,8 +74,6 @@ namespace Tests.NAnt.Core {
                 }
             }
         }
-        #region Private Instance Methods
-
         private bool IsException(Type type) {
             Type baseType = null;
             while ((baseType = type.BaseType) != null) {
@@ -210,8 +208,6 @@ namespace Tests.NAnt.Core {
 
         public SimpleTestException(string message, Exception inner) : base(message, inner) {
         }
-        #region Protected Instance Constructors
-
         // deserialization constructor
         protected SimpleTestException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
@@ -223,8 +219,6 @@ namespace Tests.NAnt.Core {
     [Serializable]
     public class TestException : ApplicationException, ISerializable {
         private int _value;
-        #region Public Instance Constructors
-
         public TestException() {
         }
 
@@ -238,19 +232,13 @@ namespace Tests.NAnt.Core {
         public TestException(string message, int value) : base(message) {
             _value = value;
         }
-        #region Protected Instance Constructors
-
         // deserialization constructor
         protected TestException(SerializationInfo info, StreamingContext context) : base(info, context) {
             _value = info.GetInt32("Value");
         }
-        #region Public Instance Properties
-
         public int Value {
             get { return _value; }
         }
-        #region Override implementation of ApplicationException
-
         // Called by the frameworks during serialization
         // to fetch the data from an object.
         public override void GetObjectData(SerializationInfo info, StreamingContext context) {
@@ -287,8 +275,6 @@ namespace Tests.NAnt.Core {
         // constructors that take the added value
         public SealedTestException(string message, int value) : base(message, value) {
         }
-        #region Private Instance Constructors
-
         // deserialization constructor
         private SealedTestException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }

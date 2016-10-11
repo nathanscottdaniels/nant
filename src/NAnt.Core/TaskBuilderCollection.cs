@@ -77,7 +77,6 @@ namespace NAnt.Core {
                 return null;
             }
         }
-        #region Public Instance Methods
         
         /// <summary>
         /// Adds a <see cref="TaskBuilder"/> to the end of the collection.
@@ -194,7 +193,6 @@ namespace NAnt.Core {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current element in the collection.
@@ -237,7 +235,6 @@ namespace NAnt.Core {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

@@ -105,8 +105,6 @@ namespace NAnt.VSNet {
 
             _linkerConfiguration = new LinkerConfig(this);
         }
-        #region Public Instance Properties
-
         public ConfigurationType Type {
             get { return _type; }
         }
@@ -143,8 +141,6 @@ namespace NAnt.VSNet {
         public UseOfATL UseOfATL {
             get { return _useOfATL; }
         }
-        #region Internal Instance Properties
-
         internal string RawRelativeOutputDir {
             get { return _rawRelativeOutputDir;}
         }
@@ -228,8 +224,6 @@ namespace NAnt.VSNet {
                 return _idlConfigs;
             }
         }
-        #region Private Instance Properties
-
         /// <summary>
         /// Gets the target path for usage in macro expansion.
         /// </summary>
@@ -276,8 +270,6 @@ namespace NAnt.VSNet {
                 return targetPath;
             }
         }
-        #region Override implementation of ConfigurationBase
-
         /// <summary>
         /// Get the directory in which intermediate build output will be stored 
         /// for this configuration.
@@ -307,8 +299,6 @@ namespace NAnt.VSNet {
         public override string RelativeOutputDir {
             get { return ExpandMacros(RawRelativeOutputDir); }
         }
-        #region Override implementation of VcConfigurationBase
-
         /// <summary>
         /// Gets the intermediate directory, specified relative to project 
         /// directory.
@@ -434,8 +424,6 @@ namespace NAnt.VSNet {
                     return base.ExpandMacro(macro);
             }
         }
-        #region Private Instance Methods
-
         private void Initialize() {
             VcProject vcProject = (VcProject) Project;
 
@@ -614,8 +602,6 @@ namespace NAnt.VSNet {
 
             return outFile;
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Gets the value of the specified attribute from the specified node.
         /// </summary>
@@ -638,8 +624,6 @@ namespace NAnt.VSNet {
 
             return attributeValue;
         }
-        #region Private Instance Fields
-
         private readonly string _rawRelativeOutputDir;
         private readonly string _rawIntermediateDir;
         private readonly string _rawReferencesPath;
@@ -729,8 +713,6 @@ namespace NAnt.VSNet {
             internal LinkerConfig(VcProjectConfiguration projectConfig) {
                 _projectConfig = projectConfig;
             }
-            #region Public Instance Properties
-
             /// <summary>
             /// Gets a <see cref="FileInfo" /> instance representing the 
             /// absolute path to the import library to generate.
@@ -766,13 +748,9 @@ namespace NAnt.VSNet {
                     return new FileInfo(importLibrary);
                 }
             }
-            #region Private Instance Properties
-
             private VcProject Project {
                 get { return (VcProject) _projectConfig.Project; }
             }
-            #region Private Instance Fields
-
             private readonly VcProjectConfiguration _projectConfig;
         }
     }

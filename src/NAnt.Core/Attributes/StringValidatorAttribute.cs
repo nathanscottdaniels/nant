@@ -36,8 +36,6 @@ namespace NAnt.Core.Attributes {
         /// </summary>
         public StringValidatorAttribute() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets a value indicating whether an empty string or
         /// <see langword="null" /> should be a considered a valid value.
@@ -72,8 +70,6 @@ namespace NAnt.Core.Attributes {
             get { return this._expressionErrorMessage; }
             set { this._expressionErrorMessage = value; }
         }
-        #region Override implementation of ValidatorAttribute
-
         /// <summary>
         /// Checks if the specified value adheres to the rules defined by the 
         /// properties of the <see cref="StringValidatorAttribute" />.
@@ -112,8 +108,6 @@ namespace NAnt.Core.Attributes {
                 }
             }
         }
-        #region Private Instance Fields
-
         private bool _allowEmpty = true;
         private string _expression;
         private string _expressionErrorMessage;

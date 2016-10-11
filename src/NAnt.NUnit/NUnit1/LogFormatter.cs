@@ -38,8 +38,6 @@ namespace NAnt.NUnit1.Types {
             }
             _verbose = verbose;
         }
-        #region Protected Instance Properties
-
         protected bool Verbose {
             get { return _verbose; }
         }
@@ -47,8 +45,6 @@ namespace NAnt.NUnit1.Types {
         protected string Prefix {
             get { return _prefix; }
         }
-        #region Implementation of IResultFormatter
-
         /// <summary>Not used, all output goes to Log class.</summary>
         public void SetOutput(TextWriter writer) {
         }
@@ -71,8 +67,6 @@ namespace NAnt.NUnit1.Types {
                 Console.WriteLine(Prefix + "{0} tests: FAILURES: {1} ERRORS: {2}", result.RunCount, result.FailureCount, result.ErrorCount);
             }
         }
-        #region Implementation of ITestListener
-
         public void AddError(ITest test, Exception e) {
             Console.WriteLine(Prefix + "ERROR: " + GetTestSummary(test));
             Console.WriteLine(FormatError(e.StackTrace, e.Message));
@@ -97,8 +91,6 @@ namespace NAnt.NUnit1.Types {
 
         public void EndTest(ITest test) {
         }
-        #region Private Static Methods
-
         // NOTE: When test.ToString() displays something less stupid than 
         // MethodName(Namespace.ClassName) think about changing to that.  As it 
         // is now its impossible to sort the test output.
@@ -130,8 +122,6 @@ namespace NAnt.NUnit1.Types {
 
             return line;
         }
-        #region Private Instance Fields
-
         private string _prefix;
         private bool _verbose;
     }

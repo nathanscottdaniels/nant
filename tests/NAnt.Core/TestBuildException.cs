@@ -27,8 +27,6 @@ namespace Tests.NAnt.Core {
     [Serializable]
     public class TestBuildException : ApplicationException {
         private string _buildResults;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestBuildException" />
         /// class.
@@ -73,8 +71,6 @@ namespace Tests.NAnt.Core {
         public TestBuildException(string message, string buildResult, Exception innerException) : base(message, innerException) {
             _buildResults = buildResult;
         }
-        #region Protected Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestBuildException" /> 
         /// class with serialized data.
@@ -84,8 +80,6 @@ namespace Tests.NAnt.Core {
         protected TestBuildException(SerializationInfo info, StreamingContext context) : base(info, context) {
             _buildResults = (string) info.GetValue("BuildResults", typeof(string));
         }
-        #region Override implementation of ApplicationException
-
         public override string Message {
             get {
                 if (_buildResults == null || _buildResults.Length == 0) {

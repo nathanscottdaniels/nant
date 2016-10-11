@@ -63,8 +63,6 @@ namespace NAnt.Compression.Tasks {
         private bool _includeEmptyDirs = false;
         private TarCompressionMethod _compressionMethod = TarCompressionMethod.None;
         private Hashtable _addedDirs = new Hashtable();
-        #region Public Instance Properties
-
         /// <summary>
         /// The tar file to create.
         /// </summary>
@@ -113,8 +111,6 @@ namespace NAnt.Compression.Tasks {
             get { return _compressionMethod; }
             set { _compressionMethod = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Creates the tar file.
         /// </summary>
@@ -278,8 +274,6 @@ namespace NAnt.Compression.Tasks {
                     Location, ex);
             }
         }
-        #region Private Instance Methods
-
         private void CreateDirectoryEntry(TarArchive archive, string entryName, TarFileSet fileset) {
             // skip directories that were already added before
             if (_addedDirs.ContainsKey(entryName)) {

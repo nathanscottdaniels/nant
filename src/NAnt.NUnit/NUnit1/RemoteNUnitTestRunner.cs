@@ -26,8 +26,6 @@ namespace NAnt.NUnit1.Tasks {
         public RemoteNUnitTestRunner(NUnitTestData testData) {
             _runner = new NUnitTestRunner(testData);
         }
-        #region Public Instance Properties
-
         public RunnerResult ResultCode {
             get { return _runner.ResultCode; }
         }
@@ -35,13 +33,9 @@ namespace NAnt.NUnit1.Tasks {
         public IResultFormatterCollection Formatters {
             get { return _runner.Formatters; }
         }
-        #region Public Instance Methods
-
         public void Run(string logPrefix, bool verbose) {
             _runner.Run(logPrefix, verbose);
         }
-        #region Private Instance Fields
-
         private NUnitTestRunner _runner;
     }
 }

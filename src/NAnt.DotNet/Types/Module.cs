@@ -63,8 +63,6 @@ namespace NAnt.DotNet.Types {
             get { return _moduleSet; }
             set { _moduleSet = value; }
         }
-        #region Override implementation of Object
-
         /// <summary>
         /// Returns a textual representation of the module, which can be used as
         /// argument for command-line tools.
@@ -85,8 +83,6 @@ namespace NAnt.DotNet.Types {
             }
             return sb.ToString();
         }
-        #region Private Instance Fields
-
         private string _file;
         private string _target;
         private ModuleSet _moduleSet;

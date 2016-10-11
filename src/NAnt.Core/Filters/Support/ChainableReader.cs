@@ -56,8 +56,6 @@ namespace NAnt.Core.Filters {
         public bool Base{
             get { return _baseReader; }
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Makes it so all calls to Read and Peek are passed  the ChainableReader
         /// passed as a parameter.
@@ -120,8 +118,6 @@ namespace NAnt.Core.Filters {
         public virtual void Close() {
             InternalClose();
         }
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Calls close and supresses the finalizer for the object.
         /// </summary>

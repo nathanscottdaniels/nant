@@ -103,7 +103,6 @@ namespace NAnt.VisualCpp.Tasks {
             get { return _mcFile; }
             set { _mcFile = value; }
         }
-        #region Override implementation of ExternalProgramBase
         
         /// <summary>
         /// Gets the filename of the external program to start.
@@ -150,8 +149,6 @@ namespace NAnt.VisualCpp.Tasks {
                 return str.ToString();
             }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Compiles the sources.
         /// </summary>
@@ -174,8 +171,6 @@ namespace NAnt.VisualCpp.Tasks {
                 base.ExecuteTask();
             }
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Determine if source files need re-building.
         /// </summary>

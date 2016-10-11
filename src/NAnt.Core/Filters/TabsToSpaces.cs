@@ -53,8 +53,6 @@ namespace NAnt.Core.Filters {
 
         //Method used for Read
         private AcquireCharDelegate ReadChar;
-        #region Public Instance Properties
-
         /// <summary>
         /// The number of spaces used when converting a tab. The default is 
         /// "8".
@@ -65,8 +63,6 @@ namespace NAnt.Core.Filters {
             get { return _tabLength; }
             set { _tabLength = value; }
         }
-        #region Override implementation of ChainableReader
-
         /// <summary>
         /// Construct that allows this filter to be chained to the one
         /// in the parameter chainedReader.
@@ -94,8 +90,6 @@ namespace NAnt.Core.Filters {
         public override int Read() {
             return GetNextCharacter(ReadChar);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Returns the next character in the stream replacing the specified character. Using the
         /// <see cref="AcquireCharDelegate"/> allows for the same implementation for Read and Peek

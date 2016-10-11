@@ -46,8 +46,6 @@ namespace NAnt.VSNet {
             _cachedProjectGuids = CollectionsUtil.CreateCaseInsensitiveHashtable();
             _cachedProjectXml = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-        #region Public Static Methods
-
         public static ProjectFactory Create(SolutionTask solutionTask) {
             return new ProjectFactory(solutionTask);
         }
@@ -59,8 +57,6 @@ namespace NAnt.VSNet {
 
             return false;
         }
-        #region Public Instance Methods
-
         public XmlDocument LoadProjectXml(string path) {
             if (!_cachedProjectXml.Contains(path)) {
                 XmlDocument doc = new XmlDocument();
@@ -131,8 +127,6 @@ namespace NAnt.VSNet {
         public void RegisterProvider(IProjectBuildProvider provider) {
             _projectprovs.Add(provider);
         }
-        #region Private Instance Methods
-
         private ProjectBase CreateProject(SolutionBase solution, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver referencesResolver, DirectoryInfo outputDir, string projectPath) {
             // determine the filename of the project
             string projectFileName = ProjectFactory.GetProjectFileName(projectPath);
@@ -182,8 +176,6 @@ namespace NAnt.VSNet {
             }
             return res;
         }
-        #region Private Static Methods
-
         private static string GetProjectFileName(string fileName) {
             string projectPath = null;
 
@@ -201,8 +193,6 @@ namespace NAnt.VSNet {
             // return filename part
             return Path.GetFileName(projectPath);
         }
-        #region Private Instance Fields
-
         /// <summary>
         /// Holds a case-insensitive list of cached projects.
         /// </summary>

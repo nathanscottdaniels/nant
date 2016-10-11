@@ -29,8 +29,6 @@ namespace NAnt.MSBuild.Functions {
     public class MSBuildFunctions : FunctionSetBase {
         /// <exclude/>
         public MSBuildFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-        #region Public Instance Methods
-
         /// <summary>
         /// Test whether project is VS2005 project and could be built using &lt;msbuild&gt;
         /// </summary>

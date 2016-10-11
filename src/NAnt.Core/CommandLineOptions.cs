@@ -300,8 +300,6 @@ namespace NAnt.Core {
             get { return _useJobs; }
             set { _useJobs = value; }
         }
-        #region Private Instance Fields
-
         private string _targetFramework;
         private string _buildFile;
         private bool _noLogo;

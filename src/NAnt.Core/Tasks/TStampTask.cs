@@ -77,8 +77,6 @@ namespace NAnt.Core.Tasks {
         private string _property;
         private string _pattern;
         private FormatterCollection _formatters = new FormatterCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// The property to receive the date/time string in the given pattern.
         /// </summary>

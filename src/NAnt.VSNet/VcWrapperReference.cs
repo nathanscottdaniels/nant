@@ -50,8 +50,6 @@ namespace NAnt.VSNet {
             // determine filename of wrapper assembly
             _wrapperAssembly = ResolveWrapperAssembly();
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets the name of the referenced assembly.
         /// </summary>
@@ -61,8 +59,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-        #region Override implementation of WrapperReferenceBase
-
         /// <summary>
         /// Gets the name of the tool that should be used to create the 
         /// <see cref="WrapperAssembly" />.
@@ -153,8 +149,6 @@ namespace NAnt.VSNet {
                 return "0";
             }
         }
-        #region Private Instance Methods
-
         protected override void ImportTypeLibrary() {
             TlbImpTask tlbImp = new TlbImpTask();
 
@@ -268,8 +262,6 @@ namespace NAnt.VSNet {
                 axImp.Project.Unindent();
             }
         }
-        #region Private Instance Fields
-
         private readonly string _name = string.Empty;
         private readonly string _wrapperTool;
         private readonly string _wrapperAssembly;

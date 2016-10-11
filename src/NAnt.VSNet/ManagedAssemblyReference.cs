@@ -180,8 +180,6 @@ namespace NAnt.VSNet {
             // assembly reference could not be resolved
             return null;
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets the name of the referenced assembly.
         /// </summary>
@@ -192,8 +190,6 @@ namespace NAnt.VSNet {
         public override string Name {
             get { return _name; }
         }
-        #region Private Instance Properties
-
         /// <summary>
         /// Gets the Visual Studio .NET AssemblyFolders registry key matching
         /// the current target framework.
@@ -217,8 +213,6 @@ namespace NAnt.VSNet {
                     visualStudioVersion);
             }
         }
-        #region Private Instance Methods
-
         private string GetComponentAssemblyFolder(XmlElement referenceElement) {
             string componentAssemblyFolder = null;
 
@@ -315,8 +309,6 @@ namespace NAnt.VSNet {
 
             return resolvedAssemblyFile;
         }
-        #region Private Instance Fields
-
         private readonly string _assemblyFile;
         private readonly bool _isPrivateSpecified;
         private readonly bool _isPrivate;

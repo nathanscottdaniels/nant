@@ -50,8 +50,6 @@ namespace Tests.NAnt.Core.Tasks {
         private string _xmlSingletonSrcFileNameFull;
         private string _xslSrcFileNameFull;
         private string _xslPassthroughSrcFileNameFull;
-        #region Private Static Fields
-
         private const string _xmlSrcFile = @"<?xml version=""1.0"" encoding=""ISO-8859-1"" ?> 
             <catalog>
                 <cd>
@@ -117,8 +115,6 @@ namespace Tests.NAnt.Core.Tasks {
                 <xsl:attribute name=""type"">xslttype</xsl:attribute>
             </xsl:template>
         </xsl:stylesheet>";
-        #region Override implementation of BuildTestBase
-
         [SetUp]
         protected override void SetUp() {
             base.SetUp();
@@ -133,8 +129,6 @@ namespace Tests.NAnt.Core.Tasks {
             _xslPassthroughSrcFileNameFull = Path.Combine(TempDirName, _xslPassthroughSrcFileName + "." + _xslSrcFileExtension);
             TempFile.CreateWithContents(_xslPassthroughSrcFile, _xslPassthroughSrcFileNameFull);
         }
-        #region Public Instance Methods
-
         [Test]
         public void Test_Simple() {
             string _xml = @"

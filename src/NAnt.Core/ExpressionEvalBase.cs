@@ -1131,8 +1131,6 @@ namespace NAnt.Core {
                 return t.FullName;
             }
         }
-        #region Overridables
-
         protected abstract object EvaluateFunction(MethodInfo method, object[] args);
         protected abstract object EvaluateProperty(string propertyName);
 

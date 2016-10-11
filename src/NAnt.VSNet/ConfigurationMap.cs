@@ -40,13 +40,9 @@ namespace NAnt.VSNet {
         public ConfigurationMap(int capacity) {
             _innerHash = CollectionsUtil.CreateCaseInsensitiveHashtable(capacity);
         }
-        #region Internal Instance Properties
-
         internal Hashtable InnerHash {
             get { return _innerHash; }
         }
-        #region Implementation of IDictionary
-
         public ConfigurationMapEnumerator GetEnumerator() {
             return new ConfigurationMapEnumerator(this);
         }
@@ -112,8 +108,6 @@ namespace NAnt.VSNet {
         public bool IsFixedSize {
             get { return _innerHash.IsFixedSize; }
         }
-        #region Implementation of ICollection
-
         void ICollection.CopyTo(Array array, int index) {
             _innerHash.CopyTo(array, index);
         }
@@ -133,13 +127,9 @@ namespace NAnt.VSNet {
     
     public class ConfigurationMapEnumerator : IDictionaryEnumerator {
         private readonly IDictionaryEnumerator _innerEnumerator;
-        #region Internal Instance Constructors
-
         internal ConfigurationMapEnumerator(ConfigurationMap enumerable) {
             _innerEnumerator = enumerable.InnerHash.GetEnumerator();
         }
-        #region Implementation of IDictionaryEnumerator
-
         public Configuration Key {
             get { return (Configuration) _innerEnumerator.Key; }
         }
@@ -159,8 +149,6 @@ namespace NAnt.VSNet {
         public DictionaryEntry Entry {
             get { return new DictionaryEntry (Key, Value); }
         }
-        #region Implementation of IEnumerator
-
         public void Reset() {
             _innerEnumerator.Reset();
         }

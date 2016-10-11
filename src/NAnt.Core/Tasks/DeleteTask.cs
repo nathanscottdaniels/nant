@@ -89,8 +89,6 @@ namespace NAnt.Core.Tasks {
         private DirectoryInfo _dir;
         private FileSet _fileset = new FileSet();
         private bool _includeEmptyDirs = true;
-        #region Public Instance Properties
-
         /// <summary>
         /// The file to delete.
         /// </summary>
@@ -128,8 +126,6 @@ namespace NAnt.Core.Tasks {
             get { return _fileset; }
             set { _fileset = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Controls whether to show the name of each deleted file or directory.
         /// The default is <see langword="false" />.
@@ -220,8 +216,6 @@ namespace NAnt.Core.Tasks {
                 }
             }
         }
-        #region Private Instance Methods
-
         private void RecursiveDeleteDirectory(string path) {
             try {
                 // skip the directory if it doesn't exist

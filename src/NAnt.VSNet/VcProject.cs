@@ -145,8 +145,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Override implementation of ProjectBase
-
         /// <summary>
         /// Gets the name of the Visual C++ project.
         /// </summary>
@@ -375,13 +373,9 @@ namespace NAnt.VSNet {
 
             return BuildResult.Success;
         }
-        #region Internal Instance Properties
-
         internal ArrayList ProjectFiles {
             get { return _projectFiles; }
         }
-        #region Protected Internal Instance Methods
-
         /// <summary>
         /// Expands the given macro.
         /// </summary>
@@ -412,8 +406,6 @@ namespace NAnt.VSNet {
                     return base.ExpandMacro(macro);
             }
         }
-        #region Internal Instance Methods
-
         internal string GetObjOutputFile(string fileName, VcConfigurationBase fileConfig, string intermediateDir) {
             string objectFile = GetObjectFile(fileConfig);
             if (objectFile == null) {
@@ -427,8 +419,6 @@ namespace NAnt.VSNet {
                 fileConfig.GetToolSetting(VcConfigurationBase.ResourceCompilerTool,
                     "ResourceOutputFileName", "$(IntDir)/$(InputName).res"));
         }
-        #region Protected Instance Methods
-
         protected virtual ReferenceBase CreateReference(SolutionBase solution, XmlElement xmlDefinition) {
             if (solution == null) {
                 throw new ArgumentNullException("solution");
@@ -457,8 +447,6 @@ namespace NAnt.VSNet {
                         Location.UnknownLocation);
             }
         }
-        #region Private Instance Methods
-
         private void RunNMake(string nmakeCommand) {
             // store current directory
             string originalCurrentDirectory = Directory.GetCurrentDirectory();
@@ -1796,8 +1784,6 @@ namespace NAnt.VSNet {
 
             return vcProjectDependencies;
         }
-        #region Public Static Methods
-
         public static string LoadGuid(XmlElement xmlDefinition) {
             return xmlDefinition.GetAttribute("ProjectGUID");
         }
@@ -1855,8 +1841,6 @@ namespace NAnt.VSNet {
 
             return true;
         }
-        #region Private Static Methods
-
         /// <summary>
         /// Removes leading and trailing quotes from the specified path.
         /// </summary>
@@ -1924,8 +1908,6 @@ namespace NAnt.VSNet {
                 "Visual Studio version \"{0}\" is not supported.",
                 productVersion.ToString()), Location.UnknownLocation);
         }
-        #region Private Instance Fields
-
         private readonly string _name;
         private readonly string _projectPath;
         private string _guid;
@@ -1950,8 +1932,6 @@ namespace NAnt.VSNet {
         ///   </para>
         /// </remarks>
         private readonly ArrayList _projectFiles;
-        #region Private Static Fields
-
         private static string[] _defaultLibraries = new string[] { 
                                                                      "kernel32.lib", "user32.lib", "gdi32.lib", "winspool.lib", "comdlg32.lib",
                                                                      "advapi32.lib", "shell32.lib", "ole32.lib", "oleaut32.lib", "uuid.lib", 

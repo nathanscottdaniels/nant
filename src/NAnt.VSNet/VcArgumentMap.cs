@@ -38,8 +38,6 @@ namespace NAnt.VSNet {
         public VcArgumentMap() {
             _htArgs = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-        #region Public Instance Methods
-
         public void AddString(string propName, string argName) {
             AddString(ArgGroup.Unassigned, propName, argName);
         }
@@ -122,8 +120,6 @@ namespace NAnt.VSNet {
             }
             return arg.MapValue(propValue);
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Creates a mapping between configuration properties for the Visual
         /// C++ compiler and corresponding command-line arguments.
@@ -452,8 +448,6 @@ namespace NAnt.VSNet {
             map.AddEnum("StructMemberAlignment", null, null, "/Zp1", "/Zp2", "/Zp4", "/Zp8");
             return map;
         }
-        #region Private Instance Fields
-
         private Hashtable _htArgs;
         private abstract class VcArgument {
             private string _name;
@@ -490,21 +484,15 @@ namespace NAnt.VSNet {
 
         private class VcStringArgument: VcArgument {
             private bool _ignoreEmptyValue;
-            #region Internal Instance Constructors
-
             internal VcStringArgument(ArgGroup group, string name): this(group, name, false) {
             }
 
             internal VcStringArgument(ArgGroup group, string name, bool ignoreEmptyValue): base(group, name) {
                 _ignoreEmptyValue = ignoreEmptyValue;
             }
-            #region Protected Instance Properties
-
             protected bool IgnoreEmptyValue {
                 get { return _ignoreEmptyValue; }
             }
-            #region Override implementation of VcArgument
-
             internal override string MapValue(string propValue) {
                 if (IgnoreEmptyValue && String.IsNullOrEmpty(propValue)) {
                     return null;
@@ -524,8 +512,6 @@ namespace NAnt.VSNet {
 
             internal LinkerStringArgument(ArgGroup group, string name, bool ignoreEmptyValue): base(group, name, ignoreEmptyValue) {
             }
-            #region Override implementation of VcArgument
-
             internal override string MapValue(string value) {
                 if (IgnoreEmptyValue && String.IsNullOrEmpty(value)) {
                     return null;
@@ -549,8 +535,6 @@ namespace NAnt.VSNet {
 
             internal QuotedLinkerStringArgument(ArgGroup group, string name, bool ignoreEmptyValue): base(group, name, ignoreEmptyValue) {
             }
-            #region Override implementation of VcArgument
-
             internal override string MapValue(string value) {
                 if (IgnoreEmptyValue && String.IsNullOrEmpty(value)) {
                     return null;
@@ -571,8 +555,6 @@ namespace NAnt.VSNet {
             internal VcBoolArgument(ArgGroup group, string name, string match): base(group, name) {
                 _match = match;
             }
-            #region Internal Instance Properties
-
             /// <summary>
             /// Gets the string that the configuration setting should match in 
             /// order for the command line argument to be set.
@@ -580,16 +562,12 @@ namespace NAnt.VSNet {
             public string Match {
                 get { return _match; }
             }
-            #region Override implementation of VcArgument
-
             internal override string MapValue(string propValue) {
                 if (string.Compare(propValue, Match, true, CultureInfo.InvariantCulture) == 0) {
                     return FormatOption(string.Empty);
                 }
                 return null;
             }
-            #region Private Instance Methods
-
             private string _match = "true";
         }
 
@@ -597,8 +575,6 @@ namespace NAnt.VSNet {
             internal VcEnumArgument(ArgGroup group, string name, string[] values): base(group, name) {
                 _values = values;
             }
-            #region Override implementation of VcArgument
-
             internal override string MapValue(string propValue) {
                 int iValue = -1;
                 try {
@@ -612,8 +588,6 @@ namespace NAnt.VSNet {
                 }
                 return FormatOption(_values [iValue]);
             }
-            #region Private Instance Methods
-
             private string[] _values;
         }
 

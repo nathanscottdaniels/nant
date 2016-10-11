@@ -48,8 +48,6 @@ namespace NAnt.Compression.Tasks {
         private FileInfo _zipfile;
         private DirectoryInfo _toDir;
         private Encoding _encoding;
-        #region Public Instance Properties
-
         /// <summary>
         /// The archive file to expand.
         /// </summary>
@@ -87,8 +85,6 @@ namespace NAnt.Compression.Tasks {
             }
             set { _encoding = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Extracts the files from the zip file.
         /// </summary>

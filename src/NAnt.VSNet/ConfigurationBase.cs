@@ -44,8 +44,6 @@ namespace NAnt.VSNet {
             _project = project;
             _extraOutputFiles = CollectionsUtil.CreateCaseInsensitiveHashtable();
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets the project.
         /// </summary>
@@ -139,13 +137,9 @@ namespace NAnt.VSNet {
         public Hashtable ExtraOutputFiles {
             get { return _extraOutputFiles; }
         }
-        #region Protected Instance Properties
-
         protected SolutionTask SolutionTask {
             get { return Project.SolutionTask; }
         }
-        #region Public Instance Methods
-
         public string ExpandMacros(string s) {
             if (s == null) {
                 return s;
@@ -153,8 +147,6 @@ namespace NAnt.VSNet {
 
             return _rxMacro.Replace(s, new MatchEvaluator(EvaluateMacro));
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Expands the given macro.
         /// </summary>
@@ -211,8 +203,6 @@ namespace NAnt.VSNet {
             throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                 "Macro \"{0}\" is not supported.", macro), Location.UnknownLocation);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Is called each time a regular expression match is found during a 
         /// <see cref="M:Regex.Replace(string, MatchEvaluator)" /> operation.
@@ -224,8 +214,6 @@ namespace NAnt.VSNet {
         private string EvaluateMacro(Match m) {
             return ExpandMacro(m.Groups[1].Value);
         }
-        #region Private Instance Fields
-
         private readonly ProjectBase _project;
         private readonly Regex _rxMacro = new Regex(@"\$\((\w+)\)");
         private Hashtable _extraOutputFiles;

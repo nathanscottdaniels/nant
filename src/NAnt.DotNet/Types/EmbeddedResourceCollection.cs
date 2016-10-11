@@ -75,8 +75,6 @@ namespace NAnt.DotNet.Types {
                 return null;
             }
         }
-        #region Override implementation of DataTypeCollectionBase
-
         /// <summary>
         /// Gets the <see cref="Type" /> of the items in this collection.
         /// </summary>
@@ -86,8 +84,6 @@ namespace NAnt.DotNet.Types {
         protected override Type ItemType {
             get { return typeof(EmbeddedResource); }
         }
-        #region IList Members
-
         /// <summary>
         /// Gets or sets the item at the specified index.
         /// </summary>
@@ -162,8 +158,6 @@ namespace NAnt.DotNet.Types {
             ValidateType(value);
             return Add((EmbeddedResource) value);
         }
-
-        #endregion
         /// <summary>
         /// Adds the items of a <see cref="EmbeddedResourceCollection"/> to the end of the collection.
         /// </summary>
@@ -247,7 +241,6 @@ namespace NAnt.DotNet.Types {
             IEnumerable temp = (IEnumerable) (arguments);
             _baseEnumerator = temp.GetEnumerator();
         }
-        #region Implementation of IEnumerator
             
         /// <summary>
         /// Gets the current item in the collection.
@@ -296,7 +289,6 @@ namespace NAnt.DotNet.Types {
         void IEnumerator.Reset() {
             _baseEnumerator.Reset();
         }
-        #region Private Instance Fields
     
         private IEnumerator _baseEnumerator;
     }

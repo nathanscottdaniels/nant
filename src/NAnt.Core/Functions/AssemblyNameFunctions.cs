@@ -35,7 +35,6 @@ namespace NAnt.Core.Functions {
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
         public AssemblyNameFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-        #region Public Static Methods
         
         /// <summary>
         /// Gets the location of the assembly as a URL.

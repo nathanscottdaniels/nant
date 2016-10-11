@@ -32,8 +32,6 @@ namespace Tests.NAnt.Core {
             _targetFinishTimes = new Hashtable();
             _loggedMessages = new ArrayList();
         }
-        #region Implementation of IBuildListener
-
         public void BuildStarted(object sender, BuildEventArgs e) {
             _buildStartedFired = true;
         }
@@ -79,8 +77,6 @@ namespace Tests.NAnt.Core {
         public void TaskFinished(object sender, BuildEventArgs e) {
             _taskFinishedFired = true;
         }
-        #region Public Instance Methods
-
         public int GetTargetExecutionCount(string target) {
             if (_executedTargets.ContainsKey(target)) {
                 return (int) _executedTargets[target];
@@ -166,8 +162,6 @@ namespace Tests.NAnt.Core {
         public bool HasTaskFinishedFired {
             get { return _taskFinishedFired; }
         }
-        #region Private Instance Fields
-
         private Hashtable _executedTargets;
         private Hashtable _executedTasks;
         private Hashtable _targetStartTimes;

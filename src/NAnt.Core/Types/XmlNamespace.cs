@@ -31,8 +31,6 @@ namespace NAnt.Core.Types {
         private string _uri;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Properties
-
         /// <summary>
         /// The prefix to associate with the namespace.
         /// </summary>

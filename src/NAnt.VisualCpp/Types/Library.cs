@@ -30,8 +30,6 @@ namespace NAnt.VisualCpp.Types {
         private string _libraryName;
         private bool _ifDefined = true;
         private bool _unlessDefined;
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Library" /> class.
         /// </summary>
@@ -50,8 +48,6 @@ namespace NAnt.VisualCpp.Types {
 
             _libraryName = name;
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the library.
         /// </summary>

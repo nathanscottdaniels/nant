@@ -50,8 +50,6 @@ namespace NAnt.Core.Tasks {
         private int _minutes = 0;
         private int _seconds = 0;
         private int _milliseconds = 0;
-        #region Public Instance Properties
-
         /// <summary>
         /// Hours to add to the sleep time.
         /// </summary>
@@ -91,8 +89,6 @@ namespace NAnt.Core.Tasks {
             get { return _milliseconds; }
             set { _milliseconds = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         ///  Verify parameters.
         /// </summary>
@@ -110,8 +106,6 @@ namespace NAnt.Core.Tasks {
             Log(Level.Info, "Sleeping for {0} milliseconds.", sleepTime);
             DoSleep(sleepTime);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Return time to sleep.
         /// </summary>

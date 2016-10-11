@@ -78,8 +78,6 @@ namespace NAnt.Core.Attributes {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="name" /> is a zero-length <see cref="string" />.</exception>
         protected BuildAttributeAttribute(string name) : base(name) {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// Gets or sets a value indicating whether property references should 
         /// be expanded.
@@ -92,8 +90,6 @@ namespace NAnt.Core.Attributes {
             get { return _expandProperties; }
             set { _expandProperties = value; }
         }
-        #region Private Instance Fields
-
         private bool _expandProperties = true;
     }
 }

@@ -36,8 +36,6 @@ namespace NAnt.Core.Functions {
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
         public AssemblyFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
-        #region Public Instance Methods
-
         /// <summary>
         /// Loads an assembly given its file name or path.
         /// </summary>
@@ -81,7 +79,6 @@ namespace NAnt.Core.Functions {
         public Assembly Load(string assemblyString) {
             return Assembly.Load(assemblyString);
         }
-        #region Public Static Methods
         
         /// <summary>
         /// Gets the full name of the assembly, also known as the display name.

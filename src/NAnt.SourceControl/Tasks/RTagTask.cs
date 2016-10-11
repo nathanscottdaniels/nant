@@ -65,19 +65,13 @@ namespace NAnt.SourceControl.Tasks {
     [TaskName("cvs-rtag")]
     public class RTagTask : AbstractCvsTask {
         private string _tag;
-        #region Private Static Fields
-
         private const string CvsCommandName = "rtag";
-        #region Public Instance Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RTagTask" /> 
         /// class.
         /// </summary>
         public RTagTask() {
         }
-        #region Public Instance Properties
-
         /// <summary>
         /// The name of the tag to assign or remove.
         /// </summary>
@@ -186,8 +180,6 @@ namespace NAnt.SourceControl.Tasks {
             get { return ((Option)CommandOptions["force-head"]).IfDefined; }
             set { SetCommandOption("force-head", "-f", value); }
         }
-        #region Override implementation of AbstractCvsTask
-
         /// <summary>
         /// The name of the cvs command that is going to be executed.
         /// </summary>

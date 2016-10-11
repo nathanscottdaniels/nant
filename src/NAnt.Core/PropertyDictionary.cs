@@ -42,7 +42,6 @@ namespace NAnt.Core {
         public PropertyDictionary(Project project){
             _project = project;
         }
-        #region Public Instance Properties
         
         /// <summary>
         /// Indexer property. 
@@ -74,8 +73,6 @@ namespace NAnt.Core {
         public Project Project {
             get { return _project; }
         }
-        #region Override implementation of DictionaryBase
-
         protected override void OnClear() {
             _readOnlyProperties.Clear();
             _dynamicProperties.Clear();
@@ -144,8 +141,6 @@ namespace NAnt.Core {
             ValidatePropertyValue(propertyName, value, Location.UnknownLocation);
             base.OnValidate(key, value);
         }
-        #region Public Instance Methods
-
         /// <summary>
         /// Adds a property that cannot be changed.
         /// </summary>
@@ -278,8 +273,6 @@ namespace NAnt.Core {
         public void Remove(string name) {
             Dictionary.Remove(name);
         }
-        #region Internal Instance Methods
-
         internal string GetPropertyValue(string propertyName) {
             // check whether (built-in) property is deprecated
             CheckDeprecation(propertyName);
@@ -298,8 +291,6 @@ namespace NAnt.Core {
         internal string ExpandProperties(string input, Location location, Hashtable state, Stack visiting) {
             return EvaluateEmbeddedExpressions(input, location, state, visiting);
         }
-        #region Private Instance Methods
-
         /// <summary>
         /// Evaluates the given expression string and returns the result
         /// </summary>
@@ -478,8 +469,6 @@ namespace NAnt.Core {
                     break;
             }
         }
-        #region Private Static Methods
-
         private static void ValidatePropertyName(string propertyName, Location location) {
             const string propertyNamePattern = "^[_A-Za-z0-9][_A-Za-z0-9\\-.]*$";
 
@@ -520,8 +509,6 @@ namespace NAnt.Core {
                 throw new BuildException("Property value validation failed: ", loc, x);
             }
         }
-        #region Internal Static Methods
-
         /// <summary>
         /// Builds an appropriate exception detailing a specified circular
         /// reference.
@@ -546,8 +533,6 @@ namespace NAnt.Core {
 
             return new BuildException(sb.ToString());
         }
-        #region Private Instance Fields
-
         /// <summary>
         /// Maintains a list of the property names that are readonly.
         /// </summary>
@@ -563,8 +548,6 @@ namespace NAnt.Core {
         /// The project for which the dictionary holds properties.
         /// </summary>
         private readonly Project _project;
-        #region Internal Static Fields
-
         /// <summary>
         /// Constant for the "visiting" state, used when traversing a DFS of 
         /// property references.

@@ -39,13 +39,9 @@ namespace NAnt.VSNet {
         /// </summary>
         private SolutionFactory() {
         }
-        #region Internal Static Methods
-
         internal static SolutionFactory Create () {
             return new SolutionFactory();
         }
-        #region Public Instance Methods
-
         public SolutionBase LoadSolution(SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver) {
             if (solutionTask.SolutionFile == null) {
                 return new GenericSolution(solutionTask, tfc, gacCache, refResolver);
@@ -72,8 +68,6 @@ namespace NAnt.VSNet {
         public void RegisterProvider(ISolutionBuildProvider provider) {
             _projectProviders.Add(provider);
         }
-        #region Private Instance Methods
-
         private ISolutionBuildProvider FindProvider(string fileContents) {
             int max = 0;
             ISolutionBuildProvider res = null;

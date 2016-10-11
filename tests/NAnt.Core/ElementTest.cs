@@ -33,11 +33,7 @@ namespace Tests.NAnt.Core {
     class ElementTest1Task : Task {
         private OutputType _outputType = OutputType.None;
         private Uri _uri;
-        #region Internal Static Fields
-
         internal const string UriPropertyName = "elementTest1.uri";
-        #region Public Instance Properties
-
         [BuildElement("fileset")]
         public FileSet FileSet {
             get { return null; } // we'll test for null later!
@@ -54,8 +50,6 @@ namespace Tests.NAnt.Core {
             get { return _uri; }
             set { _uri = value; }
         }
-        #region Override implementation of Task
-
         protected override void ExecuteTask() { 
             Log(Level.Info, "OutputType is \"{0}\".", Type.ToString());
 
@@ -95,19 +89,13 @@ namespace Tests.NAnt.Core {
     class ConditionalElementTestTask : Task
     {
         internal const string PropName = "quote";
-
-        #endregion
         private string _quote;
-
-        #endregion
         [TaskAttribute("quote")]
         public string Quote
         {
             get { return _quote; }
             set { _quote = value; }
         }
-
-        #endregion
         protected override void ExecuteTask() { 
             string result = String.Format("The quote is \"{0}\".", Quote ?? String.Empty);
             Log(Level.Info, result);
@@ -123,8 +111,6 @@ namespace Tests.NAnt.Core {
     [TaskName("elementTest2")]
     class ElementTest2Task : Task {
         private ArrayList _children = new ArrayList();
-        #region Public Instance Properties
-
         [BuildElementCollection("children", "child", ElementType=typeof(object))]
         public ArrayList Children {
             get { return _children; }

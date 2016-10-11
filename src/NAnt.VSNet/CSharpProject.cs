@@ -32,8 +32,6 @@ namespace NAnt.VSNet {
     public class CSharpProject : ManagedProjectBase {
         public CSharpProject(SolutionBase solution, string projectPath, XmlElement xmlDefinition, SolutionTask solutionTask, TempFileCollection tfc, GacCache gacCache, ReferencesResolver refResolver, DirectoryInfo outputDir) : base(solution, projectPath, xmlDefinition, solutionTask, tfc, gacCache, refResolver, outputDir) {
         }
-        #region Override implementation of ProjectBase
-
         /// <summary>
         /// Gets the type of the project.
         /// </summary>
@@ -110,8 +108,6 @@ namespace NAnt.VSNet {
 
             return psi;
         }
-        #region Override implementation of ManagedProjectBase
-
         /// <summary>
         /// Gets the default file extension of sources for this project.
         /// </summary>
@@ -137,8 +133,6 @@ namespace NAnt.VSNet {
         protected override ProjectLocation DetermineProjectLocation(XmlElement docElement) {
             return GetProjectLocation(docElement.SelectSingleNode("./CSHARP"));
         }
-        #region Public Static Methods
-
         /// <summary>
         /// Returns a value indicating whether the project represented by the
         /// specified XML fragment is supported by <see cref="CSharpProject" />.

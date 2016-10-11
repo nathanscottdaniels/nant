@@ -67,8 +67,6 @@ namespace NAnt.VisualCpp.Tasks {
         private FileInfo _rcFile;
         private FileSet _includeDirs = new FileSet();
         private OptionCollection _defines = new OptionCollection();
-        #region Public Instance Properties
-
         /// <summary>
         /// Options to pass to the compiler.
         /// </summary>
@@ -127,8 +125,6 @@ namespace NAnt.VisualCpp.Tasks {
         public OptionCollection Defines {
             get { return _defines; }
         }
-        #region Override implementation of ExternalProgramBase
-
         /// <summary>
         /// Filename of program to execute
         /// </summary>
@@ -199,8 +195,6 @@ namespace NAnt.VisualCpp.Tasks {
                 base.ExecuteTask();
             }
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Determines if the resource need compiling.
         /// </summary>

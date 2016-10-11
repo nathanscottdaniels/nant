@@ -67,8 +67,6 @@ namespace NAnt.Core.Attributes {
                 throw new ArgumentOutOfRangeException("childName", childName, "A zero-length string is not an allowed value.");
             }
         }
-        #region Public Instance Constructors
-
         /// <summary>
         /// The name of the child element within the collection.
         /// </summary>
@@ -81,8 +79,6 @@ namespace NAnt.Core.Attributes {
         public string ChildElementName {
             get { return _elementName; }
         }
-        #region Private Instance Fields
-
         private string _elementName;
     }
 }

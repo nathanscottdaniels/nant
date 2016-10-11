@@ -41,8 +41,6 @@ namespace NAnt.VSNet {
             _xmlDefinition = xmlDefinition;
             _gacCache = gacCache;
         }
-        #region Protected Instance Properties
-
         protected XmlElement XmlDefinition {
             get { return _xmlDefinition; }
         }
@@ -50,8 +48,6 @@ namespace NAnt.VSNet {
         protected GacCache GacCache {
             get { return _gacCache; }
         }
-        #region Override implementation of ReferenceBase
-
         /// <summary>
         /// Gets a value indicating whether the reference is managed for the
         /// specified configuration.
@@ -63,8 +59,6 @@ namespace NAnt.VSNet {
         public override bool IsManaged(Configuration config) {
             return true;
         }
-        #region Protected Instance Methods
-
         /// <summary>
         /// Gets the complete set of output files for the specified assembly 
         /// and adds them to <paremref name="outputFiles"/> collection.
@@ -105,8 +99,6 @@ namespace NAnt.VSNet {
                 }
             }
         }
-        #region Private Instance Methods
-
         private string[] GetAllReferencedModules(string module) {
             string fullPathToModule = FileUtils.GetFullPath(module);
             string moduleDirectory = Path.GetDirectoryName(fullPathToModule);
@@ -140,8 +132,6 @@ namespace NAnt.VSNet {
             allReferences.Keys.CopyTo(result, 0);
             return result;
         }
-        #region Private Instance Fields
-
         private readonly XmlElement _xmlDefinition;
         private readonly GacCache _gacCache;
     }

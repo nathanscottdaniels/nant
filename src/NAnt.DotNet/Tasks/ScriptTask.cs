@@ -241,8 +241,6 @@ namespace NAnt.DotNet.Tasks {
         private string _prefix = "script";
         private NamespaceImportCollection _imports = new NamespaceImportCollection();
         private RawXml _code;
-        #region Private Static Fields
-
         private static readonly string[] _defaultNamespaces = {
                                                                   "System",
                                                                   "System.Collections",
@@ -250,8 +248,6 @@ namespace NAnt.DotNet.Tasks {
                                                                   "System.Text",
                                                                   "NAnt.Core",
                                                                   "NAnt.Core.Attributes"};
-        #region Public Instance Properties
-
         /// <summary>
         /// The language of the script block. Possible values are "VB", "vb", "VISUALBASIC", "C#", "c#", "CSHARP".
         /// "JS", "js", "JSCRIPT" "VJS", "vjs", "JSHARP" or a fully-qualified name for a class implementing 
@@ -309,8 +305,6 @@ namespace NAnt.DotNet.Tasks {
             get { return _code; }
             set { _code = value; }
         }
-        #region Override implementation of Task
-
         /// <summary>
         /// Initializes the task.
         /// </summary>
@@ -449,8 +443,6 @@ namespace NAnt.DotNet.Tasks {
                     ex.InnerException);
             }
         }
-        #region Private Instance Methods
-
         private CompilerInfo CreateCompilerInfo(string language) {
             CodeDomProvider provider = null;
 
@@ -497,8 +489,6 @@ namespace NAnt.DotNet.Tasks {
                     ResourceUtils.GetString("NA2036"), language), Location, ex);
             }
         }
-        #region Private Static Methods
-
         private static CodeDomProvider CreateCodeDomProvider(string typeName, string assemblyName) {
             Assembly providerAssembly = Assembly.LoadWithPartialName(assemblyName);
             if (providerAssembly == null) {
