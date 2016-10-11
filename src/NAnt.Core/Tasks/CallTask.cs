@@ -196,7 +196,7 @@ namespace NAnt.Core.Tasks {
                 }
             }
 
-            Project.Execute(TargetName, CascadeDependencies, this);
+            Project.Execute(TargetName, CascadeDependencies, this, this.CallStack);
         }
 
         /// <summary>

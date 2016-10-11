@@ -153,7 +153,7 @@ namespace NAnt.Core
         /// <see cref="CallTask"/> that call the target that owns this task, or container tasks such as
         /// <see cref="IfTask"/> that wrap this task.
         /// </summary>
-        public Task Caller { get; internal set; }
+        public CallStack CallStack{ get; internal set; }
 
         /// <summary>
         /// Returns the TaskBuilder used to construct an instance of this

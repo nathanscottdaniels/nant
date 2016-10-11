@@ -1,5 +1,7 @@
 ﻿using NAnt.Core.Attributes;
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 namespace NAnt.Core.Tasks
@@ -69,7 +71,7 @@ namespace NAnt.Core.Tasks
         /// <exception cref="BuildException">If a deadlock is detected</exception>
         private void CheckForDeadlocks()
         {
-            for (var ancestor = this.Caller; ancestor != null; ancestor = ancestor.Caller)
+            foreach (var ancestor in this.CallStack.Traverser.Select(sf => sf.Caller))
             {
                 var task = ancestor as MutexTask;
                 if (task != null)

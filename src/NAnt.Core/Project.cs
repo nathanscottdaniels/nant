@@ -1066,7 +1066,8 @@ namespace NAnt.Core
                 foreach (string targetName in BuildTargets)
                 {
                     //do not force dependencies of build targets.
-                    Execute(targetName, false, null);
+                    var cs = new CallStack();
+                    Execute(targetName, false, null, cs);
                 }
             }
         }
@@ -1076,12 +1077,13 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="targetName">The name of the target to execute.</param>
         /// <param name="caller">The task responsible for calling this target</param>
+        /// <param name="callStack">The current call stack for this task</param>
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, Task caller)
+        public void Execute(string targetName, Task caller, CallStack callStack)
         {
-            Execute(targetName, true, caller);
+            Execute(targetName, true, caller, callStack);
         }
 
         /// <summary>
@@ -1090,10 +1092,11 @@ namespace NAnt.Core
         /// <param name="targetName">The name of the target to execute.</param>
         /// <param name="forceDependencies">Whether dependencies should be forced to execute</param>
         /// <param name="caller">The task responsible for calling this target</param>
+        /// <param name="callStack">The current call stack for this task</param>
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, bool forceDependencies, Task caller)
+        public void Execute(string targetName, bool forceDependencies, Task caller, CallStack callStack)
         {
             if (!this.RunTargetsInParallel)
             {
@@ -1122,7 +1125,9 @@ namespace NAnt.Core
                     // we are not forcing.
                     if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                     {
-                        currentTarget.Execute(caller);
+                        callStack.Push(new StackFrame(currentTarget,caller));
+                        currentTarget.Execute(callStack);
+                        callStack.Pop();
                     }
                 } while (currentTarget.Name != targetName);
 
@@ -1170,7 +1175,7 @@ namespace NAnt.Core
                             {
                                 if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                                 {
-                                    currentTarget.Execute(caller);
+                                    currentTarget.Execute(callStack);
                                 }
                             }
                         }
@@ -1296,11 +1301,11 @@ namespace NAnt.Core
         /// Creates a new <see ref="Task" /> from the given <see cref="XmlNode" />.
         /// </summary>
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
-        /// <param name="caller">The task responsible for calling this target</param>
+        /// <param name="callStack">The current call stack for this task</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode, Task caller)
+        public Task CreateTask(XmlNode taskNode, CallStack callStack)
         {
-            return CreateTask(taskNode, null, caller);
+            return CreateTask(taskNode, null, callStack);
         }
 
         /// <summary>
@@ -1309,16 +1314,29 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
         /// <param name="target">The owner <see cref="Target" />.</param>
-        /// <param name="caller">The task responsible for calling this target</param>
+        /// <param name="callStack">The current call stack for this task</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode, Target target, Task caller)
+        public Task CreateTask(XmlNode taskNode, Target target, CallStack callStack)
         {
             Task task = TypeFactory.CreateTask(taskNode, this);
 
             task.Project = this;
             task.Parent = target;
             task.NamespaceManager = NamespaceManager;
-            task.Caller = caller;
+
+            if (callStack == null)
+            {
+                // When there is no call stack, it likely means we are in the very 
+                // early stages of the build and so we need to set up a stack here.
+                task.CallStack = new CallStack();
+                task.CallStack.Push(new StackFrame(target));
+            }
+            else
+            {
+                task.CallStack = callStack;
+            }
+
+
             task.Initialize(taskNode);
             return task;
         }

@@ -247,22 +247,22 @@ namespace NAnt.Core
         /// Executes dependent targets first, then the target.
         /// </summary>
         /// <param name="caller">The entity calling this target</param>
-        public void Execute(Task caller)
+        public void Execute(CallStack callStack)
         {
             if (this.Locked)
             {
                 lock (this)
                 {
-                    this.DoExecute(caller);
+                    this.DoExecute(callStack);
                 }
             }
             else
             {
-                this.DoExecute(caller);
+                this.DoExecute(callStack);
             }
         }
 
-        private void DoExecute(Task caller)
+        private void DoExecute(CallStack callStack)
         {
             if (IfDefined && !UnlessDefined)
             {
@@ -280,7 +280,7 @@ namespace NAnt.Core
 
                         if (TypeFactory.TaskBuilders.Contains(childNode.Name))
                         {
-                            Task task = Project.CreateTask(childNode, this, caller);
+                            Task task = Project.CreateTask(childNode, this, callStack);
                             if (task != null)
                             {
                                 task.Execute();

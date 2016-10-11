@@ -47,7 +47,7 @@ namespace NAnt.Core.Tasks
                 foreach (var targetElement in targets)
                 {
                     this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in sequence.");
-                    this.Project.Execute(targetElement.TargetName, this);
+                    this.Project.Execute(targetElement.TargetName, this, this.CallStack);
                 }
             }
             else
@@ -62,7 +62,7 @@ namespace NAnt.Core.Tasks
 
                             if (!state.IsExceptional && !state.IsStopped)
                             {
-                                this.Project.Execute(targetElement.TargetName, this);
+                                this.Project.Execute(targetElement.TargetName, this, this.CloneCallStack());
                             }
                         }
                         catch (Exception e)
@@ -99,6 +99,11 @@ namespace NAnt.Core.Tasks
             }
 
             this.Project.Unindent();
+        }
+
+        private CallStack CloneCallStack()
+        {
+            return this.CallStack.Clone() as CallStack;
         }
     }
 }
