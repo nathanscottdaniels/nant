@@ -1053,21 +1053,25 @@ namespace NAnt.Core
                 Log(Level.Info, string.Empty);
             }
 
-            // initialize the list of Targets, and execute any global tasks.
-            InitializeProjectDocument(Document);
+            var callStack = new TargetCallStack(this);
 
-            if (BuildTargets.Count == 0)
+            using (callStack.PushRoot())
             {
-                //It is okay if there are no targets defined in a build file. 
-                //It just means we have all global tasks. -- skot
-                //throw new BuildException("No Target Specified");
-            }
-            else {
-                foreach (string targetName in BuildTargets)
+                // initialize the list of Targets, and execute any global tasks.
+                InitializeProjectDocument(Document, callStack);
+
+                if (BuildTargets.Count == 0)
                 {
-                    //do not force dependencies of build targets.
-                    var cs = new CallStack();
-                    Execute(targetName, false, null, cs);
+                    //It is okay if there are no targets defined in a build file. 
+                    //It just means we have all global tasks. -- skot
+                    //throw new BuildException("No Target Specified");
+                }
+                else {
+                    foreach (string targetName in BuildTargets)
+                    {
+                        //do not force dependencies of build targets.
+                        Execute(targetName, false, null, callStack);
+                    }
                 }
             }
         }
@@ -1081,7 +1085,7 @@ namespace NAnt.Core
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, Task caller, CallStack callStack)
+        public void Execute(string targetName, Task caller, TargetCallStack callStack)
         {
             Execute(targetName, true, caller, callStack);
         }
@@ -1096,97 +1100,42 @@ namespace NAnt.Core
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, bool forceDependencies, Task caller, CallStack callStack)
+        public void Execute(string targetName, bool forceDependencies, Task caller, TargetCallStack callStack)
         {
-            if (!this.RunTargetsInParallel)
+            // sort the dependency tree, and run everything from the
+            // beginning until we hit our targetName.
+            // 
+            // sorting checks if all the targets (and dependencies)
+            // exist, and if there is any cycle in the dependency
+            // graph.
+            TargetCollection sortedTargets = TopologicalTargetSort(targetName, Targets);
+            int currentIndex = 0;
+            Target currentTarget;
+
+            // store calling target
+            Target callingTarget = _currentTarget;
+
+            do
             {
-                // sort the dependency tree, and run everything from the
-                // beginning until we hit our targetName.
-                // 
-                // sorting checks if all the targets (and dependencies)
-                // exist, and if there is any cycle in the dependency
-                // graph.
-                TargetCollection sortedTargets = TopologicalTargetSort(targetName, Targets);
-                int currentIndex = 0;
-                Target currentTarget;
+                // determine target that should be executed
+                currentTarget = (Target)sortedTargets[currentIndex++];
 
-                // store calling target
-                Target callingTarget = _currentTarget;
+                // store target that will be executed
+                _currentTarget = currentTarget;
 
-                do
+                // only execute targets that have not been executed already, if 
+                // we are not forcing.
+                if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                 {
-                    // determine target that should be executed
-                    currentTarget = (Target)sortedTargets[currentIndex++];
-
-                    // store target that will be executed
-                    _currentTarget = currentTarget;
-
-                    // only execute targets that have not been executed already, if 
-                    // we are not forcing.
-                    if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
-                    {
-                        callStack.Push(new StackFrame(currentTarget,caller));
-                        currentTarget.Execute(callStack);
-                        callStack.Pop();
-                    }
-                } while (currentTarget.Name != targetName);
-
-                // restore calling target, as a <call> task might have caused the 
-                // current target to be executed and when finished executing this 
-                // target, the target that contained the <call> task should be 
-                // considered the current target again
-                _currentTarget = callingTarget;
-            }
-            else {
-                // sorting checks if all the targets (and dependencies)
-                // exist, and if there is any cycle in the dependency
-                // graph.
-                TopologicalTargetSort(targetName, Targets);
-
-                // Dictionary is faster than implementation in TargetCollection.Find
-                System.Collections.Generic.Dictionary<string, Target> targets = new System.Collections.Generic.Dictionary<string, Target>();
-                foreach (Target target in Targets)
-                {
-                    targets[target.Name] = target;
+                    currentTarget.Execute(callStack);
                 }
+            } while (currentTarget.Name != targetName);
 
-                // Use execution graph to run targets in parallel
-                using (ExecutionGraph graph = new ExecutionGraph())
-                {
-
-                    PopulateExecutionGraph(targetName, Targets, graph);
-                    graph.WalkThrough(delegate (string currentTargetName)
-                    {
-
-                        Target currentTarget;
-                        if (!targets.TryGetValue(currentTargetName, out currentTarget))
-                        {
-                            Target wildcardTarget = targets[WildTarget];
-                            currentTarget = wildcardTarget.Clone();
-                            currentTarget.Name = targetName;
-                        }
-
-                        Target savedTarget = _currentTarget;
-                        _currentTarget = currentTarget;
-
-                        try
-                        {
-                            lock (currentTarget)
-                            {
-                                if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
-                                {
-                                    currentTarget.Execute(callStack);
-                                }
-                            }
-                        }
-                        finally
-                        {
-                            _currentTarget = savedTarget;
-                        }
-                    }
-                    );
-                }
-            }
+            // restore calling target, as a <call> task might have caused the 
+            // current target to be executed and when finished executing this 
+            // target, the target that contained the <call> task should be 
+            // considered the current target again
+            _currentTarget = callingTarget;
         }
 
         /// <summary>
@@ -1303,7 +1252,7 @@ namespace NAnt.Core
         /// <param name="taskNode">The <see cref="Task" /> definition.</param>
         /// <param name="callStack">The current call stack for this task</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode, CallStack callStack)
+        public Task CreateTask(XmlNode taskNode, TargetCallStack callStack)
         {
             return CreateTask(taskNode, null, callStack);
         }
@@ -1316,26 +1265,14 @@ namespace NAnt.Core
         /// <param name="target">The owner <see cref="Target" />.</param>
         /// <param name="callStack">The current call stack for this task</param>
         /// <returns>The new <see cref="Task" /> instance.</returns>
-        public Task CreateTask(XmlNode taskNode, Target target, CallStack callStack)
+        public Task CreateTask(XmlNode taskNode, Target target, TargetCallStack callStack)
         {
             Task task = TypeFactory.CreateTask(taskNode, this);
 
             task.Project = this;
             task.Parent = target;
             task.NamespaceManager = NamespaceManager;
-
-            if (callStack == null)
-            {
-                // When there is no call stack, it likely means we are in the very 
-                // early stages of the build and so we need to set up a stack here.
-                task.CallStack = new CallStack();
-                task.CallStack.Push(new StackFrame(target));
-            }
-            else
-            {
-                task.CallStack = callStack;
-            }
-
+            task.CallStack = callStack;
 
             task.Initialize(taskNode);
             return task;
@@ -1643,7 +1580,7 @@ namespace NAnt.Core
         /// This method is only meant to be used by the <see cref="Project"/> 
         /// class and <see cref="T:NAnt.Core.Tasks.IncludeTask"/>.
         /// </summary>
-        internal void InitializeProjectDocument(XmlDocument doc)
+        internal void InitializeProjectDocument(XmlDocument doc, TargetCallStack callStack)
         {
             // load line and column number information into position map
             LocationMap.Add(doc);
@@ -1664,7 +1601,6 @@ namespace NAnt.Core
                     Targets.Add(target);
                 }
             }
-
             // initialize datatypes and execute global tasks
             foreach (XmlNode childNode in doc.DocumentElement.ChildNodes)
             {
@@ -1678,7 +1614,7 @@ namespace NAnt.Core
                 if (TypeFactory.TaskBuilders.Contains(childNode.Name))
                 {
                     // create task instance
-                    Task task = CreateTask(childNode, null);
+                    Task task = CreateTask(childNode, callStack);
                     task.Parent = this;
                     // execute task
                     task.Execute();

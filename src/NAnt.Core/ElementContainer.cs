@@ -50,15 +50,15 @@ namespace NAnt.Core
         /// <summary>
         /// Executes this instance.
         /// </summary>
-        public virtual void Execute() {
-            ExecuteChildTasks();
+        public virtual void Execute(TargetCallStack callStack) {
+            ExecuteChildTasks(callStack);
         }
 
 
         /// <summary>
         /// Creates and executes the embedded (child XML nodes) elements.
         /// </summary>
-        protected virtual void ExecuteChildTasks() {
+        protected virtual void ExecuteChildTasks(TargetCallStack callStack) {
             foreach (XmlNode childNode in XmlNode) {
                 //we only care about xmlnodes (elements) that are of the right namespace.
                 if (!(childNode.NodeType == XmlNodeType.Element) || !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant"))) {
@@ -72,7 +72,7 @@ namespace NAnt.Core
 
                 if (TypeFactory.TaskBuilders.Contains(childNode.Name)) {
                     // create task instance
-                    Task task = CreateChildTask(childNode);
+                    Task task = CreateChildTask(childNode, callStack);
                     // for now, we should assume null tasks are because of 
                     // incomplete metadata about the XML
                     if (task != null) {
@@ -103,8 +103,8 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="node">The node specifiing the task.</param>
         /// <returns>The created task instance.</returns>
-        protected virtual Task CreateChildTask(XmlNode node) {
-            return Project.CreateTask(node, null);
+        protected virtual Task CreateChildTask(XmlNode node, TargetCallStack callStack) {
+            return Project.CreateTask(node, callStack);
         }
 
         protected virtual DataTypeBase CreateChildDataTypeBase(XmlNode node) {

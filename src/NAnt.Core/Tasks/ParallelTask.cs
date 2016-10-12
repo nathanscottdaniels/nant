@@ -18,7 +18,7 @@ namespace NAnt.Core.Tasks
         /// <summary>
         /// If true, the targets within this parallel will not run in parallel but instead in order.
         /// </summary>
-        [TaskAttribute("serial", Required = false)]
+        [TaskAttribute("forceSequential", Required = false)]
         [BooleanValidator]
         public Boolean RunInSerial { get; set; }
 
@@ -69,7 +69,7 @@ namespace NAnt.Core.Tasks
                         {
                             state.Stop();
 
-                            lock (this) // Prevent ourself from jumbling our loging, at least
+                            lock (this) // Prevent ourself from jumbling our logging, at least
                             {
                                 var message = $"ERROR: An exception has been thrown by the \"{targetElement.TargetName}\" target of the parallel.  Any currently executing targets will run to completion but the build will fail.";
 
@@ -101,9 +101,9 @@ namespace NAnt.Core.Tasks
             this.Project.Unindent();
         }
 
-        private CallStack CloneCallStack()
+        private TargetCallStack CloneCallStack()
         {
-            return this.CallStack.Clone() as CallStack;
+            return this.CallStack.Clone() as TargetCallStack;
         }
     }
 }

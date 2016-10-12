@@ -42,7 +42,7 @@ namespace NAnt.Core
     [Serializable()]
     public abstract class Task : Element, IConditional
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _failOnError = true;
         private bool _verbose;
@@ -153,7 +153,7 @@ namespace NAnt.Core
         /// <see cref="CallTask"/> that call the target that owns this task, or container tasks such as
         /// <see cref="IfTask"/> that wrap this task.
         /// </summary>
-        public CallStack CallStack{ get; internal set; }
+        public TargetCallStack CallStack { get; internal set; }
 
         /// <summary>
         /// Returns the TaskBuilder used to construct an instance of this
@@ -178,57 +178,67 @@ namespace NAnt.Core
 
             if (IfDefined && !UnlessDefined)
             {
-                try
+                if (this.CallStack == null)
                 {
-                    Project.OnTaskStarted(this, new BuildEventArgs(this));
-                    ExecuteTask();
+                    this.Log(Level.Warning, $"{this.Name} does not have a call stack");
+                    this.CallStack = new TargetCallStack(this.Project);
+                    this.CallStack.PushRoot();
                 }
-                catch (Exception ex)
-                {
-                    logger.ErrorFormat(
-                        CultureInfo.InvariantCulture,
-                        ResourceUtils.GetString("NA1077"),
-                        Name, ex);
 
-                    if (FailOnError)
+                using (this.CallStack.CurrentFrame.TaskCallStack.Push(this))
+                {
+                    try
                     {
-                        throw;
+                        Project.OnTaskStarted(this, new BuildEventArgs(this));
+                        ExecuteTask();
                     }
-                    else {
-                        if (this.Verbose)
+                    catch (Exception ex)
+                    {
+                        logger.ErrorFormat(
+                            CultureInfo.InvariantCulture,
+                            ResourceUtils.GetString("NA1077"),
+                            Name, ex);
+
+                        if (FailOnError)
                         {
-                            // output exception (with stacktrace) to build log
-                            Log(Level.Error, ex.ToString());
+                            throw;
                         }
                         else {
-                            string msg = ex.Message;
-                            // get first nested exception
-                            Exception nestedException = ex.InnerException;
-                            // set initial indentation level for the nested exceptions
-                            int exceptionIndentationLevel = 0;
-                            // output message of nested exceptions
-                            while (nestedException != null && !String.IsNullOrEmpty(nestedException.Message))
+                            if (this.Verbose)
                             {
-                                // indent exception message with 4 extra spaces 
-                                // (for each nesting level)
-                                exceptionIndentationLevel += 4;
-                                // start new line for each exception level
-                                msg = (msg != null) ? msg + Environment.NewLine : string.Empty;
-                                // output exception message
-                                msg += new string(' ', exceptionIndentationLevel)
-                                    + nestedException.Message;
-                                // move on to next inner exception
-                                nestedException = nestedException.InnerException;
+                                // output exception (with stacktrace) to build log
+                                Log(Level.Error, ex.ToString());
                             }
+                            else {
+                                string msg = ex.Message;
+                                // get first nested exception
+                                Exception nestedException = ex.InnerException;
+                                // set initial indentation level for the nested exceptions
+                                int exceptionIndentationLevel = 0;
+                                // output message of nested exceptions
+                                while (nestedException != null && !String.IsNullOrEmpty(nestedException.Message))
+                                {
+                                    // indent exception message with 4 extra spaces 
+                                    // (for each nesting level)
+                                    exceptionIndentationLevel += 4;
+                                    // start new line for each exception level
+                                    msg = (msg != null) ? msg + Environment.NewLine : string.Empty;
+                                    // output exception message
+                                    msg += new string(' ', exceptionIndentationLevel)
+                                        + nestedException.Message;
+                                    // move on to next inner exception
+                                    nestedException = nestedException.InnerException;
+                                }
 
-                            // output message of exception(s) to build log
-                            Log(Level.Error, msg);
+                                // output message of exception(s) to build log
+                                Log(Level.Error, msg);
+                            }
                         }
                     }
-                }
-                finally
-                {
-                    Project.OnTaskFinished(this, new BuildEventArgs(this));
+                    finally
+                    {
+                        Project.OnTaskFinished(this, new BuildEventArgs(this));
+                    }
                 }
             }
         }

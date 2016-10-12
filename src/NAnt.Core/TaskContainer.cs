@@ -104,7 +104,6 @@ namespace NAnt.Core {
                         task.Parent = this;
                         // execute task
                         task.Execute();
-                        task.CallStack.Pop();
                     }
                 } else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name)) {
                     // we are an datatype declaration
@@ -124,11 +123,8 @@ namespace NAnt.Core {
             }
         }
 
-        protected virtual Task CreateChildTask(XmlNode node) {
-
-            // Now is the time to push a new frame onto the call stack
-            this.CallStack.Push(new StackFrame(this.CallStack.CurrentFrame.Target, this));
-
+        protected virtual Task CreateChildTask(XmlNode node)
+        {
             var task = Project.CreateTask(node, this.CallStack);
             return task;
         }

@@ -235,7 +235,7 @@ namespace NAnt.Core.Tasks {
                     includeFileXW = null;
                 }
                 // Pass the loadDoc XmlDocument to the project.
-                Project.InitializeProjectDocument(loadDoc);
+                Project.InitializeProjectDocument(loadDoc, this.CallStack);
                 
             } catch (BuildException) {
                 // rethrow exception

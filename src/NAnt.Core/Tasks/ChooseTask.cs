@@ -129,11 +129,11 @@ namespace NAnt.Core.Tasks {
                 // execute the nested tasks of the first matching when element
                 if (when != null) {
                     if (when.Test) {
-                        when.Execute();
+                        when.Execute(this.CallStack);
                         break;
                     }
                 } else {
-                    container.Execute();
+                    container.Execute(this.CallStack);
                 }
             }
         }
@@ -185,12 +185,12 @@ namespace NAnt.Core.Tasks {
             /// <summary>
             /// Executes this instance.
             /// </summary>
-            public override void Execute() {
+            public override void Execute(TargetCallStack callStack) {
                 if (!Test) {
                     return;
                 }
     
-                base.Execute();
+                base.Execute(callStack);
             }
         }
     }

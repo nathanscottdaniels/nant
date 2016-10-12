@@ -21,10 +21,12 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 using NAnt.Core.Attributes;
 using NAnt.Core.Functions;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace NAnt.Core.Tasks {
     /// <summary>
@@ -169,8 +171,9 @@ namespace NAnt.Core.Tasks {
         /// Executes the task.
         /// </summary>
         protected override void ExecuteTask() {
-            Log(Level.Info, "Setting system information properties under {0}*", Prefix);
 
+            Log(Level.Info, "Setting system information properties under {0}*", Prefix);
+            
             // set properties
             Properties[Prefix + "clr.version"] = Environment.Version.ToString();
             Properties[Prefix + "os.platform"] = Environment.OSVersion.Platform.ToString(CultureInfo.InvariantCulture);

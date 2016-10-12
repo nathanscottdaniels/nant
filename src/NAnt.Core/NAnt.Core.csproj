@@ -72,6 +72,7 @@
     <Compile Include="Attributes\BaseBuildAttribute.cs" />
     <Compile Include="BuildException.cs" />
     <Compile Include="CallStack.cs" />
+    <Compile Include="TargetCallStack.cs" />
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
@@ -103,12 +104,13 @@
     <Compile Include="Project.cs" />
     <Compile Include="ProjectSettingsLoader.cs" />
     <Compile Include="PropertyDictionary.cs" />
-    <Compile Include="StackFrame.cs" />
+    <Compile Include="PropertyScope.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="TargetCollection.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskBuilder.cs" />
     <Compile Include="TaskBuilderCollection.cs" />
+    <Compile Include="TaskCallStack.cs" />
     <Compile Include="TaskContainer.cs" />
     <Compile Include="Tasks\MutexTask.cs" />
     <Compile Include="Tasks\ParallelTask.cs" />

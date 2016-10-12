@@ -247,7 +247,7 @@ namespace NAnt.Core
         /// Executes dependent targets first, then the target.
         /// </summary>
         /// <param name="caller">The entity calling this target</param>
-        public void Execute(CallStack callStack)
+        public void Execute(TargetCallStack callStack)
         {
             if (this.Locked)
             {
@@ -262,47 +262,50 @@ namespace NAnt.Core
             }
         }
 
-        private void DoExecute(CallStack callStack)
+        private void DoExecute(TargetCallStack callStack)
         {
             if (IfDefined && !UnlessDefined)
             {
                 try
                 {
-                    Project.OnTargetStarted(this, new BuildEventArgs(this));
-
-                    // select all the task nodes and execute them
-                    foreach (XmlNode childNode in XmlNode)
+                    using (callStack.Push(this))
                     {
-                        if (!(childNode.NodeType == XmlNodeType.Element) || !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant")))
-                        {
-                            continue;
-                        }
+                        Project.OnTargetStarted(this, new BuildEventArgs(this));
 
-                        if (TypeFactory.TaskBuilders.Contains(childNode.Name))
+                        // select all the task nodes and execute them
+                        foreach (XmlNode childNode in XmlNode)
                         {
-                            Task task = Project.CreateTask(childNode, this, callStack);
-                            if (task != null)
+                            if (!(childNode.NodeType == XmlNodeType.Element) || !childNode.NamespaceURI.Equals(NamespaceManager.LookupNamespace("nant")))
                             {
-                                task.Execute();
+                                continue;
                             }
-                        }
-                        else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
-                        {
-                            DataTypeBase dataType = Project.CreateDataTypeBase(childNode);
-                            Project.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
-                                childNode.Name, dataType.ID);
-                            if (!Project.DataTypeReferences.Contains(dataType.ID))
+
+                            if (TypeFactory.TaskBuilders.Contains(childNode.Name))
                             {
-                                Project.DataTypeReferences.Add(dataType.ID, dataType);
+                                Task task = Project.CreateTask(childNode, this, callStack);
+                                if (task != null)
+                                {
+                                    task.Execute();
+                                }
+                            }
+                            else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
+                            {
+                                DataTypeBase dataType = Project.CreateDataTypeBase(childNode);
+                                Project.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
+                                    childNode.Name, dataType.ID);
+                                if (!Project.DataTypeReferences.Contains(dataType.ID))
+                                {
+                                    Project.DataTypeReferences.Add(dataType.ID, dataType);
+                                }
+                                else {
+                                    Project.DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
+                                }
                             }
                             else {
-                                Project.DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
+                                throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                                    ResourceUtils.GetString("NA1071"),
+                                    childNode.Name), Project.LocationMap.GetLocation(childNode));
                             }
-                        }
-                        else {
-                            throw new BuildException(string.Format(CultureInfo.InvariantCulture,
-                                ResourceUtils.GetString("NA1071"),
-                                childNode.Name), Project.LocationMap.GetLocation(childNode));
                         }
                     }
                 }

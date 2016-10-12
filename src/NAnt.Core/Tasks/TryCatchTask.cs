@@ -222,17 +222,17 @@ namespace NAnt.Core.Tasks {
         protected override void ExecuteTask() {
             try {
                 if (TryBlock != null) {
-                    TryBlock.Execute();
+                    TryBlock.Execute(this.CallStack);
                 }
             } catch (BuildException be) {
                 if (CatchBlock != null) {
-                    CatchBlock.Catch(be);
+                    CatchBlock.Catch(be, this.CallStack);
                 } else {
                     throw;
                 }
             } finally {
                 if (FinallyBlock != null) {
-                    FinallyBlock.Execute();
+                    FinallyBlock.Execute(this.CallStack);
                 }
             }
         }
@@ -258,7 +258,7 @@ namespace NAnt.Core.Tasks {
                 get { return _property; }
                 set { _property = StringUtils.ConvertEmptyToNull(value); }
             }
-            public void Catch(BuildException be) {
+            public void Catch(BuildException be, TargetCallStack callStack) {
                 bool propertyExists = false;
                 string originalPropertyValue = null;
 
@@ -269,7 +269,7 @@ namespace NAnt.Core.Tasks {
                 }
 
                 try {
-                    Execute();
+                    Execute(callStack);
                 } finally {
                     if (Property != null) {
                         if (!propertyExists) {
