@@ -212,7 +212,7 @@ namespace NAnt.Core.Tasks {
                 excludes.Add(Project.NAntPropertyProjectDefault);
                 excludes.Add(Project.NAntPropertyProjectName);
                 excludes.Add(Project.NAntPropertyVersion);
-                project.Properties.Inherit(Properties, excludes);
+                this.PropertyAccessor.MergeInto(project, excludes);
             }
 
             // add/overwrite properties
@@ -220,9 +220,10 @@ namespace NAnt.Core.Tasks {
                 // expand properties in context of current project for non-dynamic
                 // properties
                 if (!property.Dynamic) {
-                    property.Value = Project.ExpandProperties(property.Value, Location);
+                    property.Value = this.PropertyAccessor.ExpandProperties(property.Value, Location);
                 }
                 property.Project = project;
+                property.CallStack = this.CallStack;
                 property.Execute();
             }
 

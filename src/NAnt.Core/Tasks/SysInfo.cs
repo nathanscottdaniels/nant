@@ -175,17 +175,17 @@ namespace NAnt.Core.Tasks {
             Log(Level.Info, "Setting system information properties under {0}*", Prefix);
             
             // set properties
-            Properties[Prefix + "clr.version"] = Environment.Version.ToString();
-            Properties[Prefix + "os.platform"] = Environment.OSVersion.Platform.ToString(CultureInfo.InvariantCulture);
-            Properties[Prefix + "os.version"]  = Environment.OSVersion.Version.ToString();
-            Properties[Prefix + "os.folder.applicationdata"] = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);  
-            Properties[Prefix + "os.folder.commonapplicationData"] = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);  
-            Properties[Prefix + "os.folder.commonprogramFiles"] = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);  
-            Properties[Prefix + "os.folder.desktopdirectory"] = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);                          
-            Properties[Prefix + "os.folder.programfiles"] = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);                        
-            Properties[Prefix + "os.folder.system"] = Environment.GetFolderPath(Environment.SpecialFolder.System);                                   
-            Properties[Prefix + "os.folder.temp"] = Path.GetTempPath();
-            Properties[Prefix + "os"] = Environment.OSVersion.ToString();
+            this.PropertyAccessor[Prefix + "clr.version"] = Environment.Version.ToString();
+            this.PropertyAccessor[Prefix + "os.platform"] = Environment.OSVersion.Platform.ToString(CultureInfo.InvariantCulture);
+            this.PropertyAccessor[Prefix + "os.version"]  = Environment.OSVersion.Version.ToString();
+            this.PropertyAccessor[Prefix + "os.folder.applicationdata"] = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            this.PropertyAccessor[Prefix + "os.folder.commonapplicationData"] = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            this.PropertyAccessor[Prefix + "os.folder.commonprogramFiles"] = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);
+            this.PropertyAccessor[Prefix + "os.folder.desktopdirectory"] = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            this.PropertyAccessor[Prefix + "os.folder.programfiles"] = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            this.PropertyAccessor[Prefix + "os.folder.system"] = Environment.GetFolderPath(Environment.SpecialFolder.System);
+            this.PropertyAccessor[Prefix + "os.folder.temp"] = Path.GetTempPath();
+            this.PropertyAccessor[Prefix + "os"] = Environment.OSVersion.ToString();
 
             // set environment variables
             IDictionary variables = Environment.GetEnvironmentVariables();
@@ -193,7 +193,7 @@ namespace NAnt.Core.Tasks {
                 try {
                     string safeName = name.EndsWith("(x86)") ? name.Replace("(x86)", ".x86") : name;    // since on 64bit Windows provide such variable names, let's make them nice
                     safeName = Regex.Replace(safeName, "[^_A-Za-z0-9\\-.]", "_");      // see PropertyDictionary.ValidatePropertyName
-                    Properties[Prefix + "env." + safeName] = (string)variables[name];
+                    this.PropertyAccessor[Prefix + "env." + safeName] = (string)variables[name];
                 } catch (Exception ex) {
                     if (!FailOnError) {
                         Log(Level.Warning, "Property could not be created for"
@@ -201,16 +201,6 @@ namespace NAnt.Core.Tasks {
                             ex.Message);
                     } else {
                         throw;
-                    }
-                }
-            }
-
-            // display the properties
-            if (Verbose) {
-                foreach (DictionaryEntry entry in Properties) {
-                    string name = (string) entry.Key;
-                    if (name.StartsWith(Prefix)) {
-                        Log(Level.Info, "{0} = {1}", name, entry.Value.ToString());
                     }
                 }
             }

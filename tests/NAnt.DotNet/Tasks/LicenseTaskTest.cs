@@ -36,6 +36,7 @@ namespace Tests.NAnt.DotNet.Tasks {
             LicenseTask lt = new LicenseTask();
             lt.Parent = project;
             lt.Project = project;
+            lt.CallStack = project.RootTargetCallStack;
             lt.Assemblies.Parent = project;
             lt.NamespaceManager = project.NamespaceManager;
 

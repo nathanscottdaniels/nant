@@ -105,30 +105,27 @@ namespace NAnt.Core
         /// <see langword="true" /> if the target should be executed; otherwise, 
         /// <see langword="false" />.
         /// </value>
-        public bool IfDefined
+        public bool IfDefined(PropertyAccessor propertyAccesor)
         {
-            get
+            // expand properties in condition
+            string expandedCondition = propertyAccesor.ExpandProperties(IfCondition, Location);
+
+            // if a condition is supplied, it should evaluate to a bool
+            if (!String.IsNullOrEmpty(expandedCondition))
             {
-                // expand properties in condition
-                string expandedCondition = Project.Properties.ExpandProperties(IfCondition, Location);
-
-                // if a condition is supplied, it should evaluate to a bool
-                if (!String.IsNullOrEmpty(expandedCondition))
+                try
                 {
-                    try
-                    {
-                        return Convert.ToBoolean(expandedCondition, CultureInfo.InvariantCulture);
-                    }
-                    catch (FormatException)
-                    {
-                        throw new BuildException(string.Format(CultureInfo.InvariantCulture,
-                            ResourceUtils.GetString("NA1070"), expandedCondition), Location);
-                    }
+                    return Convert.ToBoolean(expandedCondition, CultureInfo.InvariantCulture);
                 }
-
-                // no condition is supplied
-                return true;
+                catch (FormatException)
+                {
+                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                        ResourceUtils.GetString("NA1070"), expandedCondition), Location);
+                }
             }
+
+            // no condition is supplied
+            return true;
         }
 
         /// <summary>
@@ -150,12 +147,10 @@ namespace NAnt.Core
         /// <see langword="true" /> if the target should NOT be executed;
         /// otherwise, <see langword="false" />.
         /// </value>
-        public bool UnlessDefined
+        public bool UnlessDefined(PropertyAccessor propertyAccesor)
         {
-            get
-            {
                 // expand properties in condition
-                string expandedCondition = Project.Properties.ExpandProperties(UnlessCondition, Location);
+                string expandedCondition = propertyAccesor.ExpandProperties(UnlessCondition, Location);
 
                 // if a condition is supplied, it should evaluate to a bool
                 if (!String.IsNullOrEmpty(expandedCondition))
@@ -174,7 +169,6 @@ namespace NAnt.Core
 
                 // no condition is supplied
                 return false;
-            }
         }
 
         /// <summary>
@@ -264,7 +258,9 @@ namespace NAnt.Core
 
         private void DoExecute(TargetCallStack callStack)
         {
-            if (IfDefined && !UnlessDefined)
+            var propertyAccessor = new PropertyAccessor(this.Project, callStack);
+
+            if (IfDefined(propertyAccessor) && !UnlessDefined(propertyAccessor))
             {
                 try
                 {
@@ -290,7 +286,7 @@ namespace NAnt.Core
                             }
                             else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
                             {
-                                DataTypeBase dataType = Project.CreateDataTypeBase(childNode);
+                                DataTypeBase dataType = Project.CreateDataTypeBase(childNode, callStack);
                                 Project.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
                                     childNode.Name, dataType.ID);
                                 if (!Project.DataTypeReferences.Contains(dataType.ID))

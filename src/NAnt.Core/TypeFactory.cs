@@ -234,8 +234,8 @@ namespace NAnt.Core {
         /// and its <c>tasks</c> subdirectory.
         /// </summary>
         /// <param name="project">The project to work from.</param>
-        internal static void AddProject(Project project) {
-            AddProject(project, true);
+        internal static void AddProject(Project project, TargetCallStack targetCallStack) {
+            AddProject(project, true, targetCallStack);
         }
 
         /// <summary>
@@ -244,12 +244,14 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="project">The project to work from.</param>
         /// <param name="scan">Specified whether to scan the <see cref="Project.BaseDirectory" /> for extension assemblies.</param>
-        internal static void AddProject(Project project, bool scan) {
+        /// <param name="targetCallStack">The current target call stack.  Needed for accessing thread and target properties.</param>
+        internal static void AddProject(Project project, bool scan, TargetCallStack targetCallStack) {
             if (!scan || String.IsNullOrEmpty(project.BaseDirectory))
                 return;
 
             LoadTasksTask loadTasks = new LoadTasksTask();
             loadTasks.Project = project;
+            loadTasks.CallStack = targetCallStack;
             loadTasks.NamespaceManager = project.NamespaceManager;
             loadTasks.Parent = project;
             loadTasks.FailOnError = false;
@@ -355,10 +357,11 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="taskNode">The XML to initialize the task with.</param>
         /// <param name="proj">The <see cref="Project" /> that the <see cref="Task" /> belongs to.</param>
+        /// <param name="targetCallStack">The current target call stack.  Needed for accessing thread and target properties.</param>
         /// <returns>
         /// The new <see cref="Task" /> instance.
         /// </returns>
-        public static Task CreateTask(XmlNode taskNode, Project proj) {
+        public static Task CreateTask(XmlNode taskNode, Project proj, TargetCallStack targetCallStack) {
             if (taskNode == null) {
                 throw new ArgumentNullException("taskNode");
             }
@@ -377,6 +380,7 @@ namespace NAnt.Core {
 
             Task task = builder.CreateTask();
             task.Project = proj;
+            task.CallStack = targetCallStack;
             task.NamespaceManager = proj.NamespaceManager;
 
             // check whether the task (or its base class) is deprecated
@@ -399,7 +403,7 @@ namespace NAnt.Core {
             return task;
         }
 
-        public static Filter CreateFilter(XmlNode elementNode, Element parent) {
+        public static Filter CreateFilter(XmlNode elementNode, Element parent, TargetCallStack callStack) {
             if (elementNode == null) {
                 throw new ArgumentNullException("elementNode");
             }
@@ -419,6 +423,7 @@ namespace NAnt.Core {
             Filter filter = (Filter) builder.CreateFilter();
             filter.Parent = parent;
             filter.Project = parent.Project;
+            filter.CallStack = callStack;
             filter.NamespaceManager = parent.Project.NamespaceManager;
             filter.Initialize(elementNode);
 
@@ -447,12 +452,13 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="elementNode">The element XML node.</param>
         /// <param name="proj">The current project.</param>
+        /// <param name="targetCallStack">The current target call stack.  Needed for accessing thread and target properties.</param>
         /// <returns>The created instance.</returns>
         /// <exception cref="System.ArgumentNullException">If elementNode or proj is <c>null</c>.
         /// </exception>
         /// <exception cref="BuildException">If no builder for the elment can be found.
         /// </exception>
-        public static DataTypeBase CreateDataType(XmlNode elementNode, Project proj) {
+        public static DataTypeBase CreateDataType(XmlNode elementNode, Project proj, TargetCallStack targetCallStack) {
             if (elementNode == null) {
                 throw new ArgumentNullException("elementNode");
             }
@@ -471,6 +477,7 @@ namespace NAnt.Core {
 
             DataTypeBase element = (DataTypeBase) builder.CreateDataTypeBase();
             element.Project = proj;
+            element.CallStack = targetCallStack;
             element.NamespaceManager = proj.NamespaceManager;
 
             // check whether the type (or its base class) is deprecated

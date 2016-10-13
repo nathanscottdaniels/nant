@@ -5,6 +5,8 @@
     /// </summary>
     public enum PropertyScope
     {
+        Unchanged,
+
         /// <summary>
         /// Thread scope.  This is the default scope.  Properties in this scope are 
         /// visible to all future target, but changes to properties in this scope 

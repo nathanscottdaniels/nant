@@ -199,6 +199,7 @@ namespace NAnt.Core.Tasks {
                     _uptodateFiles = new FileSet();
                     _uptodateFiles.Parent = this;
                     _uptodateFiles.Project = Project;
+                    _uptodateFiles.CallStack = this.CallStack;
                     _uptodateFiles.NamespaceManager = NamespaceManager;
                 }
                 _uptodateFiles.Includes.Add(value); 
@@ -216,6 +217,7 @@ namespace NAnt.Core.Tasks {
                     _compareFiles = new FileSet();
                     _compareFiles.Parent = this;
                     _compareFiles.Project = Project;
+                    _compareFiles.CallStack = this.CallStack;
                     _compareFiles.NamespaceManager = NamespaceManager;
                 }
                 _compareFiles.Includes.Add(value); 
@@ -305,7 +307,7 @@ namespace NAnt.Core.Tasks {
 
                 // check if property exists
                 if (PropertyNameExists != null) {
-                    ret = ret && Properties.Contains(PropertyNameExists);
+                    ret = ret && this.PropertyAccessor.Contains(PropertyNameExists);
                     if (!ret) {
                         return false;
                     }
@@ -314,7 +316,7 @@ namespace NAnt.Core.Tasks {
                 // check if value of property is boolean true
                 if (PropertyNameTrue != null) {
                     try {
-                        ret = ret && bool.Parse(Properties[PropertyNameTrue]);
+                        ret = ret && bool.Parse(this.PropertyAccessor.Lookup(PropertyNameTrue));
                         if (!ret) {
                             return false;
                         }

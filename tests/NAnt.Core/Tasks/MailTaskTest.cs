@@ -374,6 +374,8 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -398,6 +400,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -422,6 +425,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -446,6 +450,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -470,6 +475,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -493,6 +499,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -518,6 +525,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -543,6 +551,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -568,6 +577,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -593,6 +603,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -618,6 +629,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -642,6 +654,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -666,6 +679,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -691,6 +705,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -716,6 +731,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -740,6 +756,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -775,6 +792,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -810,6 +828,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -845,6 +864,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -880,6 +900,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -915,6 +936,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -950,6 +972,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -985,6 +1008,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1020,6 +1044,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1055,6 +1080,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1089,6 +1115,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1115,6 +1142,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1140,6 +1168,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1165,6 +1194,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1190,6 +1220,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1215,6 +1246,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1240,6 +1272,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1265,6 +1298,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1290,6 +1324,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1315,6 +1350,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1339,6 +1375,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1375,6 +1412,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1401,6 +1439,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1427,6 +1466,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1453,6 +1493,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1477,6 +1518,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1500,6 +1542,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1523,6 +1566,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1546,6 +1590,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;
@@ -1569,6 +1614,7 @@ namespace Tests.NAnt.Core.Tasks
 
             MailTask mailTask = new MailTask();
             mailTask.Project = CreateEmptyProject();
+            mailTask.CallStack = mailTask.Project.RootTargetCallStack;
 
             mailTask.Mailhost = _mailHost;
             mailTask.Port = _port;

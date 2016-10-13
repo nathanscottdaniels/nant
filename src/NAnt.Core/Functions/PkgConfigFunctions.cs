@@ -37,7 +37,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public PkgConfigFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public PkgConfigFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
         /// <summary>
         /// Gets the value of a variable for the specified package.
@@ -277,6 +277,7 @@ namespace NAnt.Core.Functions {
             ExecTask execTask = new ExecTask();
             execTask.Parent = Project;
             execTask.Project = Project;
+            execTask.CallStack = CallStack;
             execTask.FileName = "pkg-config";
             execTask.Threshold = Level.None;
             execTask.ErrorWriter = execTask.OutputWriter = new StreamWriter(stream);

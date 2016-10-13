@@ -112,11 +112,11 @@ namespace NAnt.Core.Filters {
         /// <see cref="FilterChain" /> needs to maintain the order in which the
         /// filters are specified in the build file.
         /// </remarks>
-        protected override void InitializeXml(XmlNode elementNode, PropertyDictionary properties, FrameworkInfo framework) {
+        protected override void InitializeXml(XmlNode elementNode, PropertyAccessor accessor, FrameworkInfo framework) {
             XmlNode = elementNode;
 
             FilterChainConfigurator configurator = new FilterChainConfigurator(
-                this, elementNode, properties, framework);
+                this, elementNode, accessor, framework);
             configurator.Initialize();
         }
         /// <summary>
@@ -174,11 +174,11 @@ namespace NAnt.Core.Filters {
         /// been specified in the build file.
         /// </summary>
         public class FilterChainConfigurator : AttributeConfigurator {
-            public FilterChainConfigurator(Element element, XmlNode elementNode, PropertyDictionary properties, FrameworkInfo targetFramework) 
+            public FilterChainConfigurator(Element element, XmlNode elementNode, PropertyAccessor properties, FrameworkInfo targetFramework) 
                 : base(element, elementNode, properties, targetFramework) {
             }
 
-            protected override bool InitializeBuildElementCollection(System.Reflection.PropertyInfo propertyInfo) {
+            protected override bool InitializeBuildElementCollection(PropertyInfo propertyInfo) {
                 Type elementType = typeof(Filter);
 
                 BuildElementArrayAttribute buildElementArrayAttribute = (BuildElementArrayAttribute) 
@@ -203,8 +203,7 @@ namespace NAnt.Core.Filters {
                     UnprocessedChildNodes.Remove(childNode.Name);
 
                     // initialize child element (from XML or data type reference)
-                    Filter filter = TypeFactory.CreateFilter(childNode, 
-                        Element);
+                    Filter filter = TypeFactory.CreateFilter(childNode, Element, Element.CallStack);
 
                     list.Add(filter);
                 }

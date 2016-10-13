@@ -130,7 +130,7 @@ namespace NAnt.Core {
         }
 
         protected virtual DataTypeBase CreateChildDataTypeBase(XmlNode node) {
-            return Project.CreateDataTypeBase(node);
+            return Project.CreateDataTypeBase(node, this.CallStack);
         }
         
         protected virtual bool IsPrivateXmlElement(XmlNode node) {

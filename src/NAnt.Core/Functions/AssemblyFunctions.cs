@@ -35,7 +35,9 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public AssemblyFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
+        public AssemblyFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        { }
+
         /// <summary>
         /// Loads an assembly given its file name or path.
         /// </summary>

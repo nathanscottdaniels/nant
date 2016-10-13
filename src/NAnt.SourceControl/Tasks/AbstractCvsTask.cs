@@ -203,7 +203,7 @@ namespace NAnt.SourceControl.Tasks {
                 }
                 Logger.DebugFormat("_sharpcvslibExeName: {0}", _sharpcvslibExeName);
                 Logger.DebugFormat("_exeNameTemp: {0}", _exeNameTemp);
-                Properties[PropExeName] = _exeNameTemp;
+                this.PropertyAccessor[PropExeName] = _exeNameTemp;
                 return _exeNameTemp;
             }
         }
@@ -421,14 +421,14 @@ namespace NAnt.SourceControl.Tasks {
             // Although a global property can be set, take the property closest
             //  to the task execution, which is the attribute on the task itself.
             if (!_isUseSharpCvsLibSet &&
-                (null == Properties || null == Properties[UseSharpCvsLibProp])) {
+                (null == this.PropertyAccessor || null == this.PropertyAccessor[UseSharpCvsLibProp])) {
                 // if not set and the global property is null then use the default
                 _useSharpCvsLib = UseSharpCvsLib;
             } else if (!_isUseSharpCvsLibSet &&
-                null != Properties[UseSharpCvsLibProp]){
+                null != this.PropertyAccessor[UseSharpCvsLibProp]){
                 try {
                     _useSharpCvsLib =
-                        System.Convert.ToBoolean(Properties[UseSharpCvsLibProp]);
+                        System.Convert.ToBoolean(this.PropertyAccessor[UseSharpCvsLibProp]);
                 } catch (Exception) {
                     throw new BuildException (UseSharpCvsLib + " must be convertable to a boolean.");
                 }

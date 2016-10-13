@@ -35,7 +35,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public PathFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public PathFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 

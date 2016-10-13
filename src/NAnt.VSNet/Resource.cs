@@ -159,6 +159,7 @@ namespace NAnt.VSNet {
             // defer to the resource management code in CscTask
             CscTask csc = new CscTask();
             csc.Project = _solutionTask.Project;
+            csc.CallStack = _solutionTask.CallStack;
             csc.NamespaceManager = _solutionTask.NamespaceManager;
             csc.OutputFile = new FileInfo(FileUtils.CombinePaths(configSetting.OutputDir.FullName, 
                 Project.ProjectSettings.OutputFileName));
@@ -166,6 +167,7 @@ namespace NAnt.VSNet {
             // set-up resource fileset
             ResourceFileSet resources = new ResourceFileSet();
             resources.Project = _solutionTask.Project;
+            resources.CallStack = _solutionTask.CallStack;
             resources.NamespaceManager = _solutionTask.NamespaceManager;
             resources.Parent = csc;
             resources.BaseDirectory = new DirectoryInfo(Path.GetDirectoryName(Project.ProjectPath));
@@ -182,6 +184,7 @@ namespace NAnt.VSNet {
             // defer to the resource management code in VbcTask
             VbcTask vbc = new VbcTask();
             vbc.Project = _solutionTask.Project;
+            vbc.CallStack = _solutionTask.CallStack;
             vbc.NamespaceManager = _solutionTask.NamespaceManager;
             vbc.OutputFile = new FileInfo(FileUtils.CombinePaths(configSetting.OutputDir.FullName, 
                 Project.ProjectSettings.OutputFileName));
@@ -190,6 +193,7 @@ namespace NAnt.VSNet {
             // set-up resource fileset
             ResourceFileSet resources = new ResourceFileSet();
             resources.Project = _solutionTask.Project;
+            resources.CallStack = _solutionTask.CallStack;
             resources.NamespaceManager = _solutionTask.NamespaceManager;
             resources.Parent = vbc;
             resources.BaseDirectory = new DirectoryInfo(Path.GetDirectoryName(Project.ProjectPath));
@@ -206,6 +210,7 @@ namespace NAnt.VSNet {
             // defer to the resource management code in VjcTask
             VjcTask vjc = new VjcTask();
             vjc.Project = _solutionTask.Project;
+            vjc.CallStack = _solutionTask.CallStack;
             vjc.NamespaceManager = _solutionTask.NamespaceManager;
             vjc.OutputFile = new FileInfo(FileUtils.CombinePaths(configSetting.OutputDir.FullName,
                 Project.ProjectSettings.OutputFileName));
@@ -213,6 +218,7 @@ namespace NAnt.VSNet {
             // set-up resource fileset
             ResourceFileSet resources = new ResourceFileSet();
             resources.Project = _solutionTask.Project;
+            resources.CallStack = _solutionTask.CallStack;
             resources.NamespaceManager = _solutionTask.NamespaceManager;
             resources.Parent = vjc;
             resources.BaseDirectory = new DirectoryInfo(Path.GetDirectoryName(
@@ -236,6 +242,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task
             lt.Project = _solutionTask.Project;
+            lt.CallStack = _solutionTask.CallStack;
 
             // inherit namespace manager from solution task
             lt.NamespaceManager = _solutionTask.NamespaceManager;
@@ -254,6 +261,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task from parent task
             lt.Assemblies.Project = lt.Project;
+            lt.Assemblies.CallStack = lt.CallStack;
 
             // inherit namespace manager from parent task
             lt.Assemblies.NamespaceManager = lt.NamespaceManager;

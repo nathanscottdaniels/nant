@@ -48,17 +48,20 @@ namespace NAnt.Core {
     [Serializable()]
     public abstract class Element {
         private Location _location = Location.UnknownLocation;
-        private Project _project;
         [NonSerialized()]
         private XmlNode _xmlNode;
         private object _parent;
         [NonSerialized()]
         private XmlNamespaceManager _nsMgr;
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private Lazy<PropertyAccessor> propertyAccessorLazy;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Element" /> class.
         /// </summary>
         protected Element() {
+            this.propertyAccessorLazy = new Lazy<PropertyAccessor>(()=> new PropertyAccessor(this.Project, this.CallStack));
         }
 
         /// <summary>
@@ -68,7 +71,7 @@ namespace NAnt.Core {
         /// <param name="e">The element that should be used to create a new instance of the <see cref="Element" /> class.</param>
         protected Element(Element e) : this() {
             _location = e._location;
-            _project = e._project;
+            this.Project = e.Project;
             _xmlNode = e._xmlNode;
             _nsMgr = e._nsMgr;
         }
@@ -83,8 +86,8 @@ namespace NAnt.Core {
         /// <see cref="Project" /> depending on where the element is defined.
         /// </remarks>
         public object Parent {
-            get { return _parent; } 
-            set { _parent = value; } 
+            get { return _parent; }
+            set { _parent = value; }
         }
 
         /// <summary>
@@ -103,9 +106,22 @@ namespace NAnt.Core {
         /// <value>
         /// The <see cref="Project" /> to which this element belongs.
         /// </value>
-        public virtual Project Project {
-            get { return _project; }
-            set { _project = value; }
+        public virtual Project Project { get; set; }
+
+        /// <summary>
+        /// Gets or sets the call stack for this element
+        /// </summary>
+        public virtual TargetCallStack CallStack { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property accessor to be used for this element
+        /// </summary>
+        private PropertyAccessor PropertyAccessor
+        {
+            get
+            {
+                return this.propertyAccessorLazy.Value;
+            }
         }
 
         /// <summary>
@@ -115,9 +131,9 @@ namespace NAnt.Core {
         /// <value>
         /// The properties local to this <see cref="Element" /> and the <see cref="Project" />.
         /// </value>
-        public virtual PropertyDictionary Properties {
+    /*    public virtual PropertyDictionary Properties {
             get { return Project.Properties; }
-        }
+        } */
 
         /// <summary>
         /// Gets or sets the <see cref="XmlNamespaceManager" />.
@@ -186,7 +202,7 @@ namespace NAnt.Core {
         /// the <see cref="M:Initialize()" /> method.
         /// </remarks>
         public void Initialize(XmlNode elementNode) {
-            Initialize(elementNode, Project.Properties, Project.TargetFramework);
+            Initialize(elementNode, Project.TargetFramework);
         }
         
         /// <summary>
@@ -226,14 +242,6 @@ namespace NAnt.Core {
                 Project.Log(messageLevel, format, args);
             }
         }
-        /// <summary>
-        /// Derived classes should override to this method to provide extra 
-        /// initialization and validation not covered by the base class.
-        /// </summary>
-        /// <param name="elementNode">The XML node of the element to use for initialization.</param>
-        [Obsolete("Deprecated. Use Initialize() instead")]
-        protected virtual void InitializeElement(XmlNode elementNode) {
-        }
 
         /// <summary>
         /// Derived classes should override to this method to provide extra 
@@ -254,7 +262,9 @@ namespace NAnt.Core {
             clone._location = _location;
             clone._nsMgr = _nsMgr;
             clone._parent = _parent;
-            clone._project = _project;
+            clone.Project = this.Project;
+            clone.CallStack = this.CallStack;
+
             if (_xmlNode != null) {
                 clone._xmlNode = _xmlNode.Clone();
             }
@@ -262,7 +272,7 @@ namespace NAnt.Core {
         /// <summary>
         /// Performs initialization using the given set of properties.
         /// </summary>
-        internal void Initialize(XmlNode elementNode, PropertyDictionary properties, FrameworkInfo framework) {
+        internal void Initialize(XmlNode elementNode, FrameworkInfo framework) {
             if (Project == null) {
                 throw new InvalidOperationException("Element has invalid Project property.");
             }
@@ -274,7 +284,7 @@ namespace NAnt.Core {
                 logger.Warn("Location of Element node could be located.", ex);
             }
 
-            InitializeXml(elementNode, properties, framework);
+            InitializeXml(elementNode, this.PropertyAccessor, framework);
             
             // If the current instance implements IConditional, check to make sure
             // that IfDefined is true and UnlessDefined is false before initializing
@@ -286,13 +296,13 @@ namespace NAnt.Core {
             }
             
             // allow inherited classes a chance to do some custom initialization
-            InitializeElement(elementNode);
             Initialize();
         }
+
         /// <summary>
         /// Initializes all build attributes and child elements.
         /// </summary>
-        protected virtual void InitializeXml(XmlNode elementNode, PropertyDictionary properties, FrameworkInfo framework) {
+        protected virtual void InitializeXml(XmlNode elementNode, PropertyAccessor accessor, FrameworkInfo framework) {
             _xmlNode = elementNode;
 
             IConditional conditional = this as IConditional;
@@ -301,12 +311,12 @@ namespace NAnt.Core {
             if (conditional != null)
             {
                 configurator =
-                    new ConditionalConfigurator(this, elementNode, properties, framework);
+                    new ConditionalConfigurator(this, elementNode, this.PropertyAccessor, framework);
             }
             else
             {
                 configurator =
-                    new AttributeConfigurator(this, elementNode, properties, framework);
+                    new AttributeConfigurator(this, elementNode, this.PropertyAccessor, framework);
             }
             configurator.Initialize();
         }
@@ -514,7 +524,7 @@ namespace NAnt.Core {
             ///     <para>-or-</para>
             ///     <para><paramref name="properties" /> is <see langword="null" />.</para>
             /// </exception>
-            public AttributeConfigurator(Element element, XmlNode elementNode, PropertyDictionary properties, FrameworkInfo targetFramework) {
+            public AttributeConfigurator(Element element, XmlNode elementNode, PropertyAccessor properties, FrameworkInfo targetFramework) {
                 if (element == null) {
                     throw new ArgumentNullException("element");
                 }
@@ -527,7 +537,7 @@ namespace NAnt.Core {
 
                 _element = element;
                 _elementXml = elementNode;
-                _properties = properties;
+                this.Properties = properties;
                 _targetFramework = targetFramework;
 
                 // collect a list of attributes, we will check to see if we use them all.
@@ -577,9 +587,7 @@ namespace NAnt.Core {
                 get { return _elementXml; }
             }
 
-            public PropertyDictionary Properties {
-                get { return _properties; }
-            }
+            public PropertyAccessor Properties { get; }
 
             public FrameworkInfo TargetFramework {
                 get { return _targetFramework; }
@@ -703,7 +711,7 @@ namespace NAnt.Core {
                         if (frameworkAttribute.ExpandProperties && TargetFramework != null) {
                             try {
                                 // expand attribute properties
-                                attributeValue = TargetFramework.Project.Properties.ExpandProperties(
+                                attributeValue = this.Properties.ExpandProperties(
                                     attributeValue, Location);
                             } catch (BuildException ex) {
                                 // throw BuildException if required
@@ -1327,7 +1335,7 @@ namespace NAnt.Core {
             /// <param name="properties">The collection of property values to use for macro expansion.</param>
             /// <param name="framework">The <see cref="FrameworkInfo" /> from which to obtain framework-specific information.</param>
             /// <returns>The <see cref="Element" /> child.</returns>
-            private Element CreateChildBuildElement(PropertyInfo propInf, MethodInfo getter, MethodInfo setter, XmlNode xml, PropertyDictionary properties, FrameworkInfo framework) {
+            private Element CreateChildBuildElement(PropertyInfo propInf, MethodInfo getter, MethodInfo setter, XmlNode xml, PropertyAccessor properties, FrameworkInfo framework) {
                 Element childElement = null;
                 Type elementType = null;
 
@@ -1606,6 +1614,7 @@ namespace NAnt.Core {
                 public void Set(XmlNode attributeNode, Element parent, PropertyInfo property, string value) {
                     try {
                         PathSet propertyValue = new PathSet(parent.Project, value);
+                        propertyValue.CallStack = parent.CallStack;
                         property.SetValue(parent, propertyValue, BindingFlags.Public | BindingFlags.Instance, null, null, CultureInfo.InvariantCulture);
                     } catch (Exception ex) {
                         throw new BuildException(string.Format(CultureInfo.InvariantCulture,
@@ -1676,7 +1685,7 @@ namespace NAnt.Core {
 
         private class ConditionalConfigurator : AttributeConfigurator
         {
-            public ConditionalConfigurator(Element element, XmlNode elementNode, PropertyDictionary properties, FrameworkInfo targetFramework) :
+            public ConditionalConfigurator(Element element, XmlNode elementNode, PropertyAccessor properties, FrameworkInfo targetFramework) :
                 base(element, elementNode, properties, targetFramework)
             {
                 IConditional conditional = element as IConditional;

@@ -27,9 +27,15 @@ using NAnt.Core.Util;
 namespace NAnt.Core {
     [FunctionSet("property", "NAnt")]
     public class ExpressionEvaluator : ExpressionEvalBase {
-        private PropertyDictionary _properties;
+        private PropertyAccessor _properties;
         private Hashtable _state;
         private Stack _visiting;
+
+        /// <summary>
+        /// The call stack needed for executing certain functions along the way
+        /// </summary>
+        private readonly TargetCallStack callStack;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionEvaluator"/> class.
         /// </summary>
@@ -37,12 +43,15 @@ namespace NAnt.Core {
         /// <param name="properties">The projects properties.</param>
         /// <param name="state">The state.</param>
         /// <param name="visiting">The visiting.</param>
-        public ExpressionEvaluator(Project project, PropertyDictionary properties, Hashtable state, Stack visiting)
+        /// <param name="targetCallStack">The call stack needed for executing certain functions along the way</param>
+        public ExpressionEvaluator(Project project, PropertyAccessor properties, Hashtable state, Stack visiting, TargetCallStack targetCallStack)
             : base(project) {
             _properties = properties;
             _state = state;
             _visiting = visiting;
+            this.callStack = targetCallStack;
         }
+
         protected override object EvaluateProperty(string propertyName) {
             return GetPropertyValue(propertyName);
         }
@@ -55,8 +64,8 @@ namespace NAnt.Core {
                     return methodInfo.Invoke(this, args);
                 } else {
                     // create new instance.
-                    ConstructorInfo constructor = methodInfo.DeclaringType.GetConstructor(new Type[] {typeof(Project), typeof(PropertyDictionary)});
-                    object o = constructor.Invoke(new object[] {Project, _properties});
+                    ConstructorInfo constructor = methodInfo.DeclaringType.GetConstructor(new Type[] {typeof(Project), typeof(PropertyAccessor), typeof(TargetCallStack)});
+                    var o = constructor.Invoke(new object[] {Project, this._properties, this.callStack});
 
                     return methodInfo.Invoke(o, args);
                 }
@@ -90,7 +99,7 @@ namespace NAnt.Core {
                 _visiting.Push(propertyName);
                 _state[propertyName] = PropertyDictionary.Visiting;
 
-                string propertyValue = _properties.GetPropertyValue(propertyName);
+                string propertyValue = _properties.Lookup(propertyName);
                 if (propertyValue == null) {
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
                         ResourceUtils.GetString("NA1053"), propertyName));
@@ -107,7 +116,7 @@ namespace NAnt.Core {
                 _state[propertyName] = PropertyDictionary.Visited;
                 return propertyValue;
             } else {
-                string propertyValue = _properties.GetPropertyValue(propertyName);
+                string propertyValue = _properties.Lookup(propertyName);
                 if (propertyValue == null) {
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
                         ResourceUtils.GetString("NA1053"), propertyName));

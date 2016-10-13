@@ -149,7 +149,7 @@ namespace NAnt.Core.Tasks {
 
             try {
                 XmlDocument document = LoadDocument(XmlFile.FullName);
-                Properties[Property] = GetNodeContents(XPath, document, NodeIndex);
+                this.PropertyAccessor[Property] = GetNodeContents(XPath, document, NodeIndex);
             } catch (BuildException ex) {
                 throw ex; // Just re-throw the build exceptions.
             } catch (Exception ex) {

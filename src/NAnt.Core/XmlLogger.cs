@@ -149,7 +149,7 @@ namespace NAnt.Core {
                     OutputWriter.Flush();
                 }
                 else { // Xmlogger is used as BuildListener
-                    string outFileName = e.Project.Properties["XmlLogger.file"];
+                    string outFileName = e.Project.GetGlobalProperty("XmlLogger.file");
                     if (outFileName == null) {
                         outFileName = "log.xml";
                     }

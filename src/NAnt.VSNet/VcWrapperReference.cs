@@ -157,6 +157,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task
             tlbImp.Project = SolutionTask.Project;
+            tlbImp.CallStack = SolutionTask.CallStack;
 
             // inherit namespace manager from solution task
             tlbImp.NamespaceManager = SolutionTask.NamespaceManager;
@@ -227,6 +228,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task
             axImp.Project = SolutionTask.Project;
+            axImp.CallStack = SolutionTask.CallStack;
 
             // inherit namespace manager from solution task
             axImp.NamespaceManager = SolutionTask.NamespaceManager;

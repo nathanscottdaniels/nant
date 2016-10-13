@@ -153,6 +153,7 @@ reefer.maddness",
             XmlDocument doc = new XmlDocument();
             doc.LoadXml( "<includesList name=\"" + Path.Combine(_fileSet.BaseDirectory.FullName, "include.list") + "\" />" );
             elem.Project = CreateFilebasedProject("<project/>" );
+            elem.CallStack = elem.Project.RootTargetCallStack;
             elem.Initialize(doc.DocumentElement);
             _fileSet.IncludesFiles = new FileSet.IncludesFile[] { elem };
             Assert.AreEqual(3, _fileSet.FileNames.Count);
@@ -164,6 +165,7 @@ reefer.maddness",
             XmlDocument doc = new XmlDocument();
             doc.LoadXml( "<includesfile name=\"" + Path.Combine(_fileSet.BaseDirectory.FullName, "include.list") + "\" />" );
             elem.Project = CreateFilebasedProject("<project/>" );
+            elem.CallStack = elem.Project.RootTargetCallStack;
             elem.Initialize(doc.DocumentElement);
             _fileSet.IncludesFiles = new FileSet.IncludesFile[] { elem };
             Assert.AreEqual(3, _fileSet.FileNames.Count);

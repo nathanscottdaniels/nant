@@ -33,7 +33,8 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="propDict">The projects property dictionary.</param>
-        public ConversionFunctions(Project project, PropertyDictionary propDict ) : base(project, propDict) {}
+        public ConversionFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        { }
 
 
         /// <summary>

@@ -18,6 +18,7 @@
 // Gerry Shaw (gerry_shaw@yahoo.com)
 // Scott Hernandez (ScottHernandez@hotmail.com)
 
+using System;
 using System.Collections;
 using System.Globalization;
 
@@ -104,12 +105,20 @@ namespace NAnt.Core.Tasks {
         /// <summary>
         /// The value to assign to the NAnt property.
         /// </summary>
-        [TaskAttribute("value", Required=true, ExpandProperties=false)]
-        [StringValidator(AllowEmpty=true)]
-        public string Value {
+        [TaskAttribute("value", Required = true, ExpandProperties = false)]
+        [StringValidator(AllowEmpty = true)]
+        public string Value
+        {
             get { return _value; }
             set { _value = value; }
         }
+
+        /// <summary>
+        /// The value to assign to the NAnt property.
+        /// </summary>
+        [TaskAttribute("scope", Required = false, ExpandProperties = true)]
+        [StringValidator(AllowEmpty = false, Expression = "thread|global|target", ExpressionErrorMessage = "Scope must be either 'Target', 'Thread', or 'Global'")]
+        public string ScopeString { get; set; }
 
         /// <summary>
         /// Specifies whether the property is read-only or not. 
@@ -153,8 +162,30 @@ namespace NAnt.Core.Tasks {
         protected override void ExecuteTask() {
             string propertyValue;
 
+            var scope = PropertyScope.Unchanged;
+
+            if (!String.IsNullOrWhiteSpace(this.ScopeString)) 
+            {
+                if (this.ScopeString.Equals("thread", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    scope = PropertyScope.Thread;
+                }
+                else if (this.ScopeString.Equals("target", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    scope = PropertyScope.Target;
+                }
+                else if(this.ScopeString.Equals("global", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    scope = PropertyScope.Global;
+                }
+                else
+                {
+                    throw new BuildException($"\"{this.ScopeString}\" is not an expected scope value for property {this.Name}");
+                }
+            } 
+
             if (!Dynamic) {
-                propertyValue = Project.ExpandProperties(Value, Location);
+                propertyValue = this.PropertyAccessor.ExpandProperties(Value, Location);
             } else {
                 propertyValue = Value;
             }
@@ -196,19 +227,11 @@ namespace NAnt.Core.Tasks {
                 }
             }
 
-            if (!Project.Properties.Contains(PropertyName)) {
-                if (ReadOnly) {
-                    Properties.AddReadOnly(PropertyName, propertyValue);
-                } else {
-                    Properties[PropertyName] = propertyValue;
-                }
-
-                if (Dynamic) {
-                    Properties.MarkDynamic(PropertyName);
-                }
+            if (!this.PropertyAccessor.Contains(PropertyName)) {
+                this.PropertyAccessor.Set(PropertyName, propertyValue, scope, Dynamic, ReadOnly);
             } else {
                 if (Overwrite) {
-                    if (Project.Properties.IsReadOnlyProperty(PropertyName)) {
+                    if (this.PropertyAccessor.IsReadOnlyProperty(PropertyName)) {
                         // for now, just output a warning when attempting to 
                         // overwrite a readonly property
                         //
@@ -223,11 +246,7 @@ namespace NAnt.Core.Tasks {
                         Log(Level.Warning, "Read-only property \"{0}\" cannot"
                             + " be overwritten.", PropertyName);
                     } else {
-                        Properties[PropertyName] = propertyValue;
-
-                        if (Dynamic) {
-                            Properties.MarkDynamic(PropertyName);
-                        }
+                        this.PropertyAccessor.Set(PropertyName, propertyValue, scope, dynamic: Dynamic);
                     }
                 } else {
                     Log(Level.Verbose, "Property \"{0}\" already exists, and \"overwrite\" is set to false.", PropertyName);

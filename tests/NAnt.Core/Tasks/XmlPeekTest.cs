@@ -86,12 +86,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             Project p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("testhost.somecompany.com", p.Properties["configuration.server"]);
+            Assert.AreEqual("testhost.somecompany.com", propertyAccessor["configuration.server"]);
         }
 
         /// <summary>
@@ -114,15 +115,16 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
             Assert.AreEqual(expectedInnerText, 
-                p.Properties["configuration.server"], 
+                propertyAccessor["configuration.server"], 
                 string.Format("Expected Output: {0}\nActual Output: {1}", 
-                expectedInnerText, p.Properties["configuration.server"]));
+                expectedInnerText, propertyAccessor["configuration.server"]));
         }
         
         [Test]
@@ -140,12 +142,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("3.14159265", p.Properties["configuration.server"], "#A");
+            Assert.AreEqual("3.14159265", propertyAccessor["configuration.server"], "#A");
 
             // set-up task attributes
             taskAttributes = string.Format(CultureInfo.InvariantCulture,
@@ -155,12 +158,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("2.99E8", p.Properties["configuration.server"], "#B");
+            Assert.AreEqual("2.99E8", propertyAccessor["configuration.server"], "#B");
 
             // set-up task attributes
             taskAttributes = string.Format(CultureInfo.InvariantCulture,
@@ -170,12 +174,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("-56.43", p.Properties ["configuration.server"], "#C");
+            Assert.AreEqual("-56.43", propertyAccessor ["configuration.server"], "#C");
         }
 
         [Test]
@@ -191,12 +196,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             Project p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("4", p.Properties ["configuration.server"]);
+            Assert.AreEqual("4", propertyAccessor ["configuration.server"]);
         }
 
         [Test]
@@ -212,12 +218,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             Project p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("True", p.Properties ["configuration.server"]);
+            Assert.AreEqual("True", propertyAccessor ["configuration.server"]);
         }
 
         [Test]
@@ -233,12 +240,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             Project p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("backuphost2.somecompany.com", p.Properties ["configuration.server"]);
+            Assert.AreEqual("backuphost2.somecompany.com", propertyAccessor ["configuration.server"]);
         }
 
         [Test]
@@ -253,12 +261,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             Project p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXmlWithNamespace, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("testhost.somecompany.com", p.Properties ["configuration.server"]);
+            Assert.AreEqual("testhost.somecompany.com", propertyAccessor ["configuration.server"]);
         }
 
         /// <summary>
@@ -278,6 +287,7 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             Project p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             try {
                 // execute build
@@ -335,12 +345,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("backuphost1.somecompany.com", p.Properties ["configuration.server"], "#A");
+            Assert.AreEqual("backuphost1.somecompany.com", propertyAccessor ["configuration.server"], "#A");
 
             // set-up task attributes
             taskAttributes = string.Format(CultureInfo.InvariantCulture,
@@ -350,12 +361,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("-5", p.Properties ["configuration.server"], "#B");
+            Assert.AreEqual("-5", propertyAccessor ["configuration.server"], "#B");
 
             // set-up task attributes
             taskAttributes = string.Format(CultureInfo.InvariantCulture,
@@ -365,12 +377,13 @@ namespace Tests.NAnt.Core.Tasks {
             // create project
             p = CreateFilebasedProject(string.Format(CultureInfo.InvariantCulture,
                 _projectXml, taskAttributes, "${configuration.server}"));
+            propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
 
             // execute build
             ExecuteProject(p);
 
             // ensure the correct node was read
-            Assert.AreEqual("backuphost2.somecompany.com", p.Properties ["configuration.server"], "#C");
+            Assert.AreEqual("backuphost2.somecompany.com", propertyAccessor ["configuration.server"], "#C");
 
         }
 

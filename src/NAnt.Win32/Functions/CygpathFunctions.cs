@@ -45,8 +45,10 @@ namespace NAnt.Win32.Functions {
         /// </summary>
         /// <param name="project">The <see cref="Project" /> in which the class is used.</param>
         /// <param name="properties">The set of properties to use for macro expansion.</param>
-        public CygpathFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public CygpathFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        {
         }
+
         /// <summary>
         /// Gets the DOS (short) form of the specified path.
         /// </summary>
@@ -136,6 +138,7 @@ namespace NAnt.Win32.Functions {
             ExecTask execTask = new ExecTask();
             execTask.Parent = Project;
             execTask.Project = Project;
+            execTask.CallStack = CallStack;
             execTask.FileName = "cygpath";
             execTask.Threshold = Level.None;
             execTask.ErrorWriter = execTask.OutputWriter = new StreamWriter(stream);

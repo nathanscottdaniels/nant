@@ -20,6 +20,7 @@
 // Gert Driesen (drieseng@users.sourceforge.net)
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 // This will not compile with Visual Studio.  If you want to build a signed
 // executable use the NAnt build file.  To build under Visual Studio just
@@ -27,3 +28,5 @@ using System.Reflection;
 [assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile(@"..\NAnt.key")]
 [assembly: AssemblyKeyName("")]
+
+[assembly: InternalsVisibleTo("NAnt.Tests")]

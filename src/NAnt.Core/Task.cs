@@ -153,7 +153,15 @@ namespace NAnt.Core
         /// <see cref="CallTask"/> that call the target that owns this task, or container tasks such as
         /// <see cref="IfTask"/> that wrap this task.
         /// </summary>
-        public TargetCallStack CallStack { get; internal set; }
+        public override TargetCallStack CallStack { get; set; }
+
+        public PropertyAccessor PropertyAccessor
+        {
+            get
+            {
+                return new PropertyAccessor(this.Project, this.CallStack);
+            }
+        }
 
         /// <summary>
         /// Returns the TaskBuilder used to construct an instance of this
@@ -380,7 +388,7 @@ namespace NAnt.Core
                             try
                             {
                                 // expand attribute properites
-                                attributeValue = Project.TargetFramework.Project.Properties.ExpandProperties(
+                                attributeValue = this.PropertyAccessor.ExpandProperties(
                                     attributeValue, Location);
                             }
                             catch (Exception ex)

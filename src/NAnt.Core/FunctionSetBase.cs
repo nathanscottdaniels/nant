@@ -28,8 +28,10 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        protected FunctionSetBase(Project project, PropertyDictionary properties) {
+        protected FunctionSetBase(Project project, PropertyAccessor properties, TargetCallStack callStack) {
             _project = project;
+            this.PropertyAccesor = properties;
+            this.CallStack = callStack;
         }
 
 
@@ -45,6 +47,9 @@ namespace NAnt.Core {
             set { _project = value; }
         }
 
+        protected PropertyAccessor PropertyAccesor { get; private set; }
+
+        protected TargetCallStack CallStack { get; private set; }
 
         private Project _project;
     }

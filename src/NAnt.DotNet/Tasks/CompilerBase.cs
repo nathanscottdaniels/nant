@@ -1302,8 +1302,9 @@ namespace NAnt.DotNet.Tasks {
             // defer to the assembly linker task
             AssemblyLinkerTask alink = new AssemblyLinkerTask();
 
-            // inherit project from current task
+            // inherit project and callstack from current task
             alink.Project = Project;
+            alink.CallStack = this.CallStack;
 
             // inherit namespace manager from current task
             alink.NamespaceManager = NamespaceManager;
@@ -1352,6 +1353,7 @@ namespace NAnt.DotNet.Tasks {
 
             // inherit project from current task
             resgen.Project = Project;
+            resgen.CallStack = this.CallStack;
 
             // inherit namespace manager from current task
             resgen.NamespaceManager = NamespaceManager;
@@ -1370,6 +1372,7 @@ namespace NAnt.DotNet.Tasks {
 
             // inherit project from parent task
             resgen.Assemblies.Project = resgen.Project;
+            resgen.CallStack = this.CallStack;
 
             // inherit namespace manager from parent task
             resgen.Assemblies.NamespaceManager = resgen.NamespaceManager;

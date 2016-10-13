@@ -238,6 +238,7 @@ namespace NAnt.Win32.Tasks {
 
             // inherit project from current task
             ct.Project = Project;
+            ct.CallStack = this.CallStack;
 
             // inherit namespace manager from current task
             ct.NamespaceManager = NamespaceManager;
@@ -262,6 +263,7 @@ namespace NAnt.Win32.Tasks {
 
             // inherit project from solution task for child elements
             ct.CopyFileSet.Project = ct.Project;
+            ct.CopyFileSet.CallStack = ct.CallStack;
 
             // inherit namespace manager from solution task
             ct.CopyFileSet.NamespaceManager = ct.NamespaceManager;
@@ -382,6 +384,7 @@ namespace NAnt.Win32.Tasks {
                     // delete temporary directory and all files in it
                     DeleteTask deleteTask = new DeleteTask();
                     deleteTask.Project = Project;
+                    deleteTask.CallStack = this.CallStack;
                     deleteTask.Parent = this;
                     deleteTask.InitializeTaskConfiguration();
                     deleteTask.Directory = _workingDirectory;

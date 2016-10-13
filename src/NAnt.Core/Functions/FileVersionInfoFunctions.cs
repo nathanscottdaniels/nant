@@ -34,7 +34,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public FileVersionInfoFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
+        public FileVersionInfoFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {}
         /// <summary>
         /// Returns a <see cref="FileVersionInfo" /> representing the version 
         /// information associated with the specified file.

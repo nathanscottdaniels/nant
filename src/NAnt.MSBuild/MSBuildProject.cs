@@ -95,7 +95,7 @@ namespace NAnt.MSBuild {
                 string val;
                 // expand properties in context of current project for non-dynamic properties
                 if (!property.Dynamic) {
-                    val = solutionTask.Project.ExpandProperties(property.Value, solutionTask.GetLocation()  );
+                    val = solutionTask.PropertyAccessor.ExpandProperties(property.Value, solutionTask.GetLocation()  );
                 } else {
                     val = property.Value;
                 }

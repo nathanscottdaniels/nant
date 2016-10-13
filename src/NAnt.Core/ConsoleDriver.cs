@@ -21,6 +21,7 @@
 // Gert Driesen (drieseng@users.sourceforge.net)
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
@@ -101,7 +102,7 @@ namespace NAnt.Core {
                 // load extension asseemblies
                 LoadExtensionAssemblies(cmdlineOptions.ExtensionAssemblies, project);
 
-                PropertyDictionary buildOptionProps = new PropertyDictionary(project);
+                var buildOptionProps = new Dictionary<String, String>();
 
                 // add build logger and build listeners to project
                 ConsoleDriver.AddBuildListeners(cmdlineOptions, project);
@@ -114,21 +115,20 @@ namespace NAnt.Core {
                 // build collection of valid properties that were specified on 
                 // the command line.
                 foreach (string key in cmdlineOptions.Properties) {
-                    buildOptionProps.AddReadOnly(key, 
-                        cmdlineOptions.Properties.Get(key));
+                    buildOptionProps[key] = cmdlineOptions.Properties.Get(key);
                 }
 
                 // add valid properties to the project.
-                foreach (System.Collections.DictionaryEntry de in buildOptionProps) {
-                    project.Properties.AddReadOnly((string) de.Key, (string) de.Value);
+                foreach (var kvp in buildOptionProps) {
+                    project.SetGlobalProperty(kvp.Key, kvp.Value, true);
                 }
 
                 //add these here and in the project .ctor
                 Assembly ass = Assembly.GetExecutingAssembly();
 
-                project.Properties.AddReadOnly(Project.NAntPropertyFileName, ass.Location);
-                project.Properties.AddReadOnly(Project.NAntPropertyVersion,  ass.GetName().Version.ToString());
-                project.Properties.AddReadOnly(Project.NAntPropertyLocation, Path.GetDirectoryName(ass.Location));
+                project.SetGlobalProperty(Project.NAntPropertyFileName, ass.Location, true);
+                project.SetGlobalProperty(Project.NAntPropertyVersion,  ass.GetName().Version.ToString(), true);
+                project.SetGlobalProperty(Project.NAntPropertyLocation, Path.GetDirectoryName(ass.Location), true);
 
                 if (cmdlineOptions.TargetFramework != null) {
                     FrameworkInfo framework = project.Frameworks[cmdlineOptions.TargetFramework];
@@ -391,6 +391,7 @@ namespace NAnt.Core {
         private static void LoadExtensionAssemblies(StringCollection extensionAssemblies, Project project) {
             LoadTasksTask loadTasks = new LoadTasksTask();
             loadTasks.Project = project;
+            loadTasks.CallStack = project.RootTargetCallStack;
             loadTasks.NamespaceManager = project.NamespaceManager;
             loadTasks.Parent = project;
             loadTasks.Threshold = (project.Threshold == Level.Debug) ? 

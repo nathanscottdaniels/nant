@@ -35,7 +35,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public EnvironmentFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public EnvironmentFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
         /// <summary>
         /// Gets the path to the system special folder identified by the 

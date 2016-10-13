@@ -153,7 +153,8 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_NonExistingResource() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
-            
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
+
             ResourceFileSet resources = new ResourceFileSet();
             resources.BaseDirectory = TempDirectory;
             resources.DynamicPrefix = true;
@@ -165,6 +166,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx_StandAlone_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -224,6 +226,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx_StandAlone_DynamicPrefix_With_Prefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -287,6 +290,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx_StandAlone_Prefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -346,6 +350,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
                 
             ResourceFileSet resources = new ResourceFileSet();
@@ -359,6 +364,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
                 
             ResourceFileSet resources = new ResourceFileSet();
@@ -372,6 +378,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx_Prefix_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -387,6 +394,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_Resx_Prefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -402,6 +410,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_NonResx_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -461,6 +470,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_NonResx_Prefix_With_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -522,6 +532,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_NonResx_Prefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -573,6 +584,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_CompiledResource_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -632,6 +644,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_CompiledResource_Prefix_With_DynamicPrefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();
@@ -693,6 +706,7 @@ namespace Tests.NAnt.DotNet.Tasks {
         public void Test_ManifestResourceName_CompiledResource_Prefix() {
             VbcTask vbcTask = new VbcTask();
             vbcTask.Project = CreateEmptyProject();
+            vbcTask.CallStack = vbcTask.Project.RootTargetCallStack;
             vbcTask.RootNamespace = "TestRootNamespace";
             
             ResourceFileSet resources = new ResourceFileSet();

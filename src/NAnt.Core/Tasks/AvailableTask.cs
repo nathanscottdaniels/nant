@@ -183,7 +183,7 @@ namespace NAnt.Core.Tasks {
         /// </remarks>
         /// <exception cref="BuildException">The availability of the resource could not be evaluated.</exception>
         protected override void ExecuteTask() {
-            Project.Properties[PropertyName] = Evaluate().ToString(CultureInfo.InvariantCulture);
+            this.PropertyAccessor.Set(PropertyName, Evaluate().ToString(CultureInfo.InvariantCulture), PropertyScope.Unchanged);
         }
         /// <summary>
         /// Evaluates the availability of a resource.

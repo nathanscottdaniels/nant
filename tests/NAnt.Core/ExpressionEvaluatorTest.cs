@@ -48,7 +48,7 @@ namespace Tests.NAnt.Core {
             TempFile.CreateWithContents(FormatBuildFile("", ""), _buildFileName);
 
             _project = new Project(_buildFileName, Level.Info, 0);
-            _project.Properties["prop1"] = "asdf";
+            _project.GlobalProperties["prop1"] = "asdf";
         }
         [Test]
         public void TestRelationOperators() {
@@ -510,12 +510,12 @@ namespace Tests.NAnt.Core {
 
         [Test]
         public void TestStandaloneEvaluator() {
-            ExpressionEvaluator eval = 
-                new ExpressionEvaluator(_project, 
-                _project.Properties,
+            ExpressionEvaluator eval = new ExpressionEvaluator(_project,
+                new PropertyAccessor(_project, _project.RootTargetCallStack),
                 new Hashtable(),
-                new Stack());
-            
+                new Stack(),
+                _project.RootTargetCallStack);
+
             Assert.AreEqual(eval.Evaluate("1 + 2 * 3"), 7);
             eval.CheckSyntax("1 + 2 * 3");
         }
@@ -524,9 +524,10 @@ namespace Tests.NAnt.Core {
         [ExpectedException(typeof(ExpressionParseException))]
         public void TestStandaloneEvaluatorFailure() {
             ExpressionEvaluator eval = new ExpressionEvaluator(_project, 
-                _project.Properties,
+                new PropertyAccessor(_project, _project.RootTargetCallStack),
                 new Hashtable(), 
-                new Stack());
+                new Stack(),
+                _project.RootTargetCallStack);
 
             eval.Evaluate("1 + 2 * datetime::now(");
         }
@@ -534,10 +535,11 @@ namespace Tests.NAnt.Core {
         [Test]
         [ExpectedException(typeof(ExpressionParseException))]
         public void TestStandaloneEvaluatorFailure2() {
-            ExpressionEvaluator eval = new ExpressionEvaluator(_project, 
-                _project.Properties,
+            ExpressionEvaluator eval = new ExpressionEvaluator(_project,
+                new PropertyAccessor(_project, _project.RootTargetCallStack),
                 new Hashtable(),
-                new Stack());
+                new Stack(),
+                _project.RootTargetCallStack);
 
             eval.Evaluate("1 1");
         }
@@ -545,15 +547,19 @@ namespace Tests.NAnt.Core {
         [Test]
         [ExpectedException(typeof(ExpressionParseException))]
         public void TestStandaloneEvaluatorSyntaxCheckFailure() {
-            ExpressionEvaluator eval = new ExpressionEvaluator(_project, 
-                _project.Properties,
+            var accessor = new PropertyAccessor(_project, _project.RootTargetCallStack);
+            ExpressionEvaluator eval = new ExpressionEvaluator(_project,
+                accessor,
                 new Hashtable(),
-                new Stack());
+                new Stack(),
+                _project.RootTargetCallStack);
 
             eval.CheckSyntax("1 + 2 * 3 1");
         }
+
         private void AssertExpression(string expression, object expectedReturnValue) {
-            string value = _project.ExpandProperties("${" + expression + "}", Location.UnknownLocation);
+            var accessor = new PropertyAccessor(_project, _project.RootTargetCallStack);
+            string value = accessor.ExpandProperties("${" + expression + "}", Location.UnknownLocation);
             string expectedStringValue = Convert.ToString(expectedReturnValue, CultureInfo.InvariantCulture);
 
             _project.Log(Level.Debug, "expression: " + expression);
@@ -563,7 +569,7 @@ namespace Tests.NAnt.Core {
 
         private void AssertFailure(string expression) {
             try {
-                string value = _project.ExpandProperties("${" + expression + "}", Location.UnknownLocation);
+                string value = new PropertyAccessor(_project, _project.RootTargetCallStack).ExpandProperties("${" + expression + "}", Location.UnknownLocation);
                 // we shouldn't get here
                 Assert.Fail("Expected BuildException while evaluating ${" + expression + "}, nothing was thrown. The returned value was " + value);
             } catch (BuildException ex) {
@@ -582,8 +588,8 @@ namespace Tests.NAnt.Core {
 
     [FunctionSet("coercion", "Test Function Extensibility")]
     public class CoercionFunctions : FunctionSetBase {
-        public CoercionFunctions(Project project, PropertyDictionary propDict ) :
-            base(project, propDict) {
+        public CoercionFunctions(Project project, PropertyAccessor propDict , TargetCallStack tcs) :
+            base(project, propDict, tcs) {
         }
 
         [Function("create-foo")]

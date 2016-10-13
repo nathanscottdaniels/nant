@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -147,9 +148,7 @@ namespace NAnt.Core
         private StringCollection _buildTargets = new StringCollection();
         private TargetCollection _targets = new TargetCollection();
         private LocationMap _locationMap = new LocationMap();
-        private PropertyDictionary _properties;
         private PropertyDictionary _frameworkNeutralProperties;
-        private Target _currentTarget;
 
         // info about frameworks
         private FrameworkInfoDictionary _frameworks = new FrameworkInfoDictionary();
@@ -210,7 +209,7 @@ namespace NAnt.Core
             // initialize project
             CtorHelper(doc, threshold, indentLevel, Optimizations.None);
         }
-
+        
         /// <summary>
         /// Initializes a new <see cref="Project" /> class with the given 
         /// source, message threshold and indentation level.
@@ -411,7 +410,7 @@ namespace NAnt.Core
                         + "must be rooted.", value), Location.UnknownLocation);
                 }
 
-                Properties[NAntPropertyProjectBaseDir] = _baseDirectory = value;
+                this.SetGlobalProperty(NAntPropertyProjectBaseDir, _baseDirectory = value);
             }
         }
 
@@ -620,18 +619,6 @@ namespace NAnt.Core
         }
 
         /// <summary>
-        /// Gets the current target.
-        /// </summary>
-        /// <value>
-        /// The current target, or <see langword="null" /> if no target is
-        /// executing.
-        /// </value>
-        public Target CurrentTarget
-        {
-            get { return _currentTarget; }
-        }
-
-        /// <summary>
         /// Gets the path to the build file.
         /// </summary>
         /// <value>
@@ -726,48 +713,6 @@ namespace NAnt.Core
         }
 
         /// <summary>
-        /// Gets the properties defined in this project.
-        /// </summary>
-        /// <value>The properties defined in this project.</value>
-        /// <remarks>
-        /// <para>
-        /// This is the collection of properties that are defined by the system 
-        /// and property task statements.
-        /// </para>
-        /// <para>
-        /// These properties can be used in expansion.
-        /// </para>
-        /// </remarks>
-        public PropertyDictionary Properties
-        {
-            get { return _properties; }
-        }
-
-        /// <summary>
-        /// Gets the framework-neutral properties defined in the NAnt 
-        /// configuration file.
-        /// </summary>
-        /// <value>
-        /// The framework-neutral properties defined in the NAnt configuration 
-        /// file.
-        /// </value>
-        /// <remarks>
-        /// <para>
-        /// This is the collection of read-only properties that are defined in 
-        /// the NAnt configuration file.
-        /// </para>
-        /// <para>
-        /// These properties can only be used for expansion in framework-specific
-        /// and framework-neutral configuration settings.  These properties are 
-        /// not available for expansion in the build file.
-        /// </para>
-        /// </remarks>
-        public PropertyDictionary FrameworkNeutralProperties
-        {
-            get { return _frameworkNeutralProperties; }
-        }
-
-        /// <summary>
         /// Gets the <see cref="DataTypeBase" /> instances defined in this project.
         /// </summary>
         /// <value>
@@ -809,6 +754,54 @@ namespace NAnt.Core
         internal LocationMap LocationMap
         {
             get { return _locationMap; }
+        }
+
+        /// <summary>
+        /// Gets the root target call stack for the main thread of this project
+        /// </summary>
+        internal TargetCallStack RootTargetCallStack { get; private set; }
+
+        /// <summary>
+        /// Gets the properties defined in this project.
+        /// </summary>
+        /// <value>The properties defined in this project.</value>
+        /// <remarks>
+        /// <para>
+        /// This is the collection of properties that are defined by the system 
+        /// and property task statements.
+        /// </para>
+        /// <para>
+        /// These properties can be used in expansion.
+        /// </para>
+        /// </remarks>
+        internal PropertyDictionary GlobalProperties { get; private set; }
+
+        /// <summary>
+        /// Adds a new non-dynamic global property.
+        /// </summary>
+        /// <param name="name">The name of the property to add</param>
+        /// <param name="value">The value</param>
+        /// <param name="readOnly">Whether or not the property should be read only</param>
+        internal void SetGlobalProperty(String name, String value, Boolean readOnly = false)
+        {
+            if (readOnly)
+            {
+                this.GlobalProperties.AddReadOnly(name, value);
+            }
+            else
+            {
+                this.GlobalProperties[name] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of a global property
+        /// </summary>
+        /// <param name="name">The name of the property</param>
+        /// <returns>The value</returns>
+        internal String GetGlobalProperty(String name)
+        {
+            return this.GlobalProperties[name];
         }
 
         /// <summary>
@@ -1053,25 +1046,20 @@ namespace NAnt.Core
                 Log(Level.Info, string.Empty);
             }
 
-            var callStack = new TargetCallStack(this);
+            // initialize the list of Targets, and execute any global tasks.
+            InitializeProjectDocument(Document, this.RootTargetCallStack);
 
-            using (callStack.PushRoot())
+            if (BuildTargets.Count == 0)
             {
-                // initialize the list of Targets, and execute any global tasks.
-                InitializeProjectDocument(Document, callStack);
-
-                if (BuildTargets.Count == 0)
+                //It is okay if there are no targets defined in a build file. 
+                //It just means we have all global tasks. -- skot
+                //throw new BuildException("No Target Specified");
+            }
+            else {
+                foreach (string targetName in BuildTargets)
                 {
-                    //It is okay if there are no targets defined in a build file. 
-                    //It just means we have all global tasks. -- skot
-                    //throw new BuildException("No Target Specified");
-                }
-                else {
-                    foreach (string targetName in BuildTargets)
-                    {
-                        //do not force dependencies of build targets.
-                        Execute(targetName, false, null, callStack);
-                    }
+                    //do not force dependencies of build targets.
+                    Execute(targetName, false, null, this.RootTargetCallStack);
                 }
             }
         }
@@ -1112,16 +1100,10 @@ namespace NAnt.Core
             int currentIndex = 0;
             Target currentTarget;
 
-            // store calling target
-            Target callingTarget = _currentTarget;
-
             do
             {
                 // determine target that should be executed
                 currentTarget = (Target)sortedTargets[currentIndex++];
-
-                // store target that will be executed
-                _currentTarget = currentTarget;
 
                 // only execute targets that have not been executed already, if 
                 // we are not forcing.
@@ -1129,13 +1111,8 @@ namespace NAnt.Core
                 {
                     currentTarget.Execute(callStack);
                 }
-            } while (currentTarget.Name != targetName);
-
-            // restore calling target, as a <call> task might have caused the 
-            // current target to be executed and when finished executing this 
-            // target, the target that contained the <call> task should be 
-            // considered the current target again
-            _currentTarget = callingTarget;
+            }
+            while (currentTarget.Name != targetName);
         }
 
         /// <summary>
@@ -1201,10 +1178,10 @@ namespace NAnt.Core
 
                 if (error == null)
                 {
-                    endTarget = Properties[NAntPropertyOnSuccess];
+                    endTarget = this.GetGlobalProperty(NAntPropertyOnSuccess);
                 }
                 else {
-                    endTarget = Properties[NAntPropertyOnFailure];
+                    endTarget = GetGlobalProperty(NAntPropertyOnFailure);
                 }
 
                 if (!String.IsNullOrEmpty(endTarget))
@@ -1215,6 +1192,7 @@ namespace NAnt.Core
                     CallTask callTask = new CallTask();
                     callTask.Parent = this;
                     callTask.Project = this;
+                    callTask.CallStack = this.RootTargetCallStack;
                     callTask.NamespaceManager = NamespaceManager;
                     callTask.Verbose = Verbose;
                     callTask.FailOnError = false;
@@ -1234,12 +1212,14 @@ namespace NAnt.Core
         /// Creates the <see cref="DataTypeBase"/> instance from the passed XML node.
         /// </summary>
         /// <param name="elementNode">The element XML node.</param>
+        /// <param name="targetCallStack">The current target call stack.  Needed for accessing thread and target properties.</param>
         /// <returns>The created instance.</returns>
-        public DataTypeBase CreateDataTypeBase(XmlNode elementNode)
+        public DataTypeBase CreateDataTypeBase(XmlNode elementNode, TargetCallStack targetCallStack)
         {
-            DataTypeBase type = TypeFactory.CreateDataType(elementNode, this);
+            DataTypeBase type = TypeFactory.CreateDataType(elementNode, this, targetCallStack);
 
             type.Project = this;
+            type.CallStack = targetCallStack;
             type.Parent = this;
             type.NamespaceManager = NamespaceManager;
             type.Initialize(elementNode);
@@ -1267,28 +1247,26 @@ namespace NAnt.Core
         /// <returns>The new <see cref="Task" /> instance.</returns>
         public Task CreateTask(XmlNode taskNode, Target target, TargetCallStack callStack)
         {
-            Task task = TypeFactory.CreateTask(taskNode, this);
-
-            task.Project = this;
+            Task task = TypeFactory.CreateTask(taskNode, this, callStack);
+            
             task.Parent = target;
             task.NamespaceManager = NamespaceManager;
-            task.CallStack = callStack;
 
             task.Initialize(taskNode);
             return task;
         }
 
-        /// <summary>
-        /// Expands a <see cref="string" /> from known properties.
-        /// </summary>
-        /// <param name="input">The <see cref="string" /> with replacement tokens.</param>
-        /// <param name="location">The location in the build file. Used to throw more accurate exceptions.</param>
-        /// <returns>The expanded and replaced <see cref="string" />.</returns>
-        public string ExpandProperties(string input, Location location)
-        {
-            return Properties.ExpandProperties(input, location);
-        }
-
+        /*     /// <summary>
+             /// Expands a <see cref="string" /> from known properties.
+             /// </summary>
+             /// <param name="input">The <see cref="string" /> with replacement tokens.</param>
+             /// <param name="location">The location in the build file. Used to throw more accurate exceptions.</param>
+             /// <returns>The expanded and replaced <see cref="string" />.</returns>
+             public string ExpandProperties(string input, Location location)
+             {
+                 return Properties.ExpandProperties(input, location);
+             }
+             */
         /// <summary>
         /// Combines the specified path with the <see cref="BaseDirectory"/> of 
         /// the <see cref="Project" /> to form a full path to file or directory.
@@ -1457,8 +1435,9 @@ namespace NAnt.Core
 
             string newBaseDir = null;
 
-            _properties = new PropertyDictionary(this);
-            _frameworkNeutralProperties = new PropertyDictionary(this);
+            this.GlobalProperties = new PropertyDictionary(this, PropertyScope.Global);
+            this.RootTargetCallStack = new TargetCallStack(this);
+            this.RootTargetCallStack.PushRoot();
 
             // set the project definition
             _doc = doc;
@@ -1550,7 +1529,7 @@ namespace NAnt.Core
 
             // load project-level extensions assemblies
             bool scan = ((optimization & Optimizations.SkipAutomaticDiscovery) == 0);
-            TypeFactory.AddProject(this, scan);
+            TypeFactory.AddProject(this, scan, this.RootTargetCallStack);
 
             if ((optimization & Optimizations.SkipFrameworkConfiguration) == 0)
             {
@@ -1558,22 +1537,6 @@ namespace NAnt.Core
                 ProjectSettingsLoader psl = new ProjectSettingsLoader(this);
                 psl.ProcessSettings();
             }
-
-            // set here and in nant:Main
-            Assembly ass = Assembly.GetExecutingAssembly();
-
-            // TO-DO: remove these built-in properties after NAnt 0.87 (?)
-            // as these have been deprecated since NAnt 0.85
-            Properties.AddReadOnly(NAntPropertyFileName, ass.CodeBase);
-            Properties.AddReadOnly(NAntPropertyVersion, ass.GetName().Version.ToString());
-            Properties.AddReadOnly(NAntPropertyLocation, AppDomain.CurrentDomain.BaseDirectory);
-            Properties.AddReadOnly(NAntPropertyProjectName, ProjectName);
-            if (BuildFileUri != null)
-            {
-                Properties.AddReadOnly(NAntPropertyProjectBuildFile, BuildFileUri.ToString());
-            }
-            Properties.AddReadOnly(NAntPropertyProjectDefault,
-                StringUtils.ConvertNullToEmpty(DefaultTargetName));
         }
 
         /// <summary>
@@ -1595,6 +1558,7 @@ namespace NAnt.Core
                     Target target = new Target();
 
                     target.Project = this;
+                    target.CallStack = callStack;
                     target.Parent = this;
                     target.NamespaceManager = NamespaceManager;
                     target.Initialize(childNode);
@@ -1622,7 +1586,7 @@ namespace NAnt.Core
                 else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
                 {
                     // we are an datatype declaration
-                    DataTypeBase dataType = CreateDataTypeBase(childNode);
+                    DataTypeBase dataType = CreateDataTypeBase(childNode, callStack);
 
                     Log(Level.Debug, "Adding a {0} reference with id '{1}'.", childNode.Name, dataType.ID);
                     if (!DataTypeReferences.Contains(dataType.ID))
@@ -1705,17 +1669,17 @@ namespace NAnt.Core
         /// <exception cref="BuildException">NAnt does not support the current platform.</exception>
         private void ConfigurePlatformProperties()
         {
-            Properties.AddReadOnly(NAntPlatformName, PlatformName);
+            this.SetGlobalProperty(NAntPlatformName, PlatformName, true);
 
             switch (PlatformName)
             {
                 case "win32":
-                    Properties.AddReadOnly(NAntPlatform + ".unix", "false");
-                    Properties.AddReadOnly(NAntPlatform + "." + PlatformName, "true");
+                    this.SetGlobalProperty(NAntPlatform + ".unix", "false", true);
+                    this.SetGlobalProperty(NAntPlatform + "." + PlatformName, "true", true);
                     break;
                 case "unix":
-                    Properties.AddReadOnly(NAntPlatform + "." + PlatformName, "true");
-                    Properties.AddReadOnly(NAntPlatform + ".win32", "false");
+                    this.SetGlobalProperty(NAntPlatform + "." + PlatformName, "true", true);
+                    this.SetGlobalProperty(NAntPlatform + ".win32", "false", true);
                     break;
                 default:
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture,
@@ -1731,20 +1695,20 @@ namespace NAnt.Core
         /// </summary>
         private void UpdateTargetFrameworkProperties()
         {
-            Properties["nant.settings.currentframework"] = TargetFramework.Name;
-            Properties["nant.settings.currentframework.version"] = TargetFramework.Version.ToString();
-            Properties["nant.settings.currentframework.description"] = TargetFramework.Description;
-            Properties["nant.settings.currentframework.frameworkdirectory"] = TargetFramework.FrameworkDirectory.FullName;
+            this.SetGlobalProperty("nant.settings.currentframework", TargetFramework.Name);
+            this.SetGlobalProperty("nant.settings.currentframework.version", TargetFramework.Version.ToString());
+            this.SetGlobalProperty("nant.settings.currentframework.description", TargetFramework.Description);
+            this.SetGlobalProperty("nant.settings.currentframework.frameworkdirectory", TargetFramework.FrameworkDirectory.FullName);
             if (TargetFramework.SdkDirectory != null)
             {
-                Properties["nant.settings.currentframework.sdkdirectory"] = TargetFramework.SdkDirectory.FullName;
+                this.SetGlobalProperty("nant.settings.currentframework.sdkdirectory", TargetFramework.SdkDirectory.FullName);
             }
             else {
-                Properties["nant.settings.currentframework.sdkdirectory"] = "";
+                this.SetGlobalProperty("nant.settings.currentframework.sdkdirectory", "");
             }
 
-            Properties["nant.settings.currentframework.frameworkassemblydirectory"] = TargetFramework.FrameworkAssemblyDirectory.FullName;
-            Properties["nant.settings.currentframework.runtimeengine"] = TargetFramework.RuntimeEngine;
+            this.SetGlobalProperty("nant.settings.currentframework.frameworkassemblydirectory", TargetFramework.FrameworkAssemblyDirectory.FullName);
+            this.SetGlobalProperty("nant.settings.currentframework.runtimeengine", TargetFramework.RuntimeEngine);
         }
 
         private XmlNode GetConfigurationNode()

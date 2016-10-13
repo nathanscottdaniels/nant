@@ -226,7 +226,7 @@ namespace NAnt.Core.Tasks {
                 }
             } catch (BuildException be) {
                 if (CatchBlock != null) {
-                    CatchBlock.Catch(be, this.CallStack);
+                    CatchBlock.Catch(be, this.CallStack, this.PropertyAccessor);
                 } else {
                     throw;
                 }
@@ -258,14 +258,14 @@ namespace NAnt.Core.Tasks {
                 get { return _property; }
                 set { _property = StringUtils.ConvertEmptyToNull(value); }
             }
-            public void Catch(BuildException be, TargetCallStack callStack) {
+            public void Catch(BuildException be, TargetCallStack callStack, PropertyAccessor accessor) {
                 bool propertyExists = false;
                 string originalPropertyValue = null;
 
                 if (Property != null) {
-                    propertyExists = Project.Properties.Contains(Property);
-                    originalPropertyValue = Project.Properties[Property];
-                    Project.Properties[Property] = GetExceptionMessage(be);
+                    propertyExists = accessor.Contains(Property);
+                    originalPropertyValue = accessor[Property];
+                    accessor[Property] = GetExceptionMessage(be);
                 }
 
                 try {
@@ -274,10 +274,10 @@ namespace NAnt.Core.Tasks {
                     if (Property != null) {
                         if (!propertyExists) {
                             // if the property did not exist, then remove it again
-                            Project.Properties.Remove(Property);
+                            accessor.Remove(Property);
                         } else {
                             // restore original value
-                            Project.Properties[Property] = originalPropertyValue;
+                            accessor[Property] = originalPropertyValue;
                         }
                     }
                 }

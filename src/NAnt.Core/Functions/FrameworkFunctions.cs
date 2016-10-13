@@ -38,7 +38,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The parent project.</param>
         /// <param name="properties">The projects properties.</param>
-        public FrameworkFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public FrameworkFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 

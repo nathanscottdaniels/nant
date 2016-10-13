@@ -261,11 +261,11 @@ namespace NAnt.Core.Types {
         public void Append(PatternSet patternSet) {
             string[] includePatterns = patternSet.GetIncludePatterns();
             foreach (string includePattern in includePatterns) {
-                _include.Add(new Pattern(Project, includePattern));
+                _include.Add(new Pattern(Project, includePattern) { CallStack = this.CallStack });
             }
             string[] excludePatterns = patternSet.GetExcludePatterns();
             foreach (string excludePattern in excludePatterns) {
-                _exclude.Add(new Pattern(Project, excludePattern));
+                _exclude.Add(new Pattern(Project, excludePattern) { CallStack = this.CallStack });
             }
         }
 

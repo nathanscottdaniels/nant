@@ -101,19 +101,21 @@ namespace NAnt.Core {
                 FileSet platformTaskAssemblies = new FileSet();
                 platformTaskAssemblies.BaseDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                 platformTaskAssemblies.Project = Project;
+                platformTaskAssemblies.CallStack = this.Project.RootTargetCallStack;
+
                 platformTaskAssemblies.NamespaceManager = NamespaceManager;
                 platformTaskAssemblies.Parent = Project; // avoid warnings by setting the parent of the fileset
                 platformTaskAssemblies.ID = "platform-task-assemblies"; // avoid warnings by assigning an id
                 XmlNode taskAssembliesNode = platformNode.SelectSingleNode(
                     "nant:task-assemblies", NamespaceManager);
                 if (taskAssembliesNode != null) {
-                    platformTaskAssemblies.Initialize(taskAssembliesNode, 
-                        Project.Properties, null);
+                    platformTaskAssemblies.Initialize(taskAssembliesNode, null);
                 }
 
                 // scan platform extensions assemblies
                 LoadTasksTask loadTasks = new LoadTasksTask();
                 loadTasks.Project = Project;
+                loadTasks.CallStack = this.Project.RootTargetCallStack;
                 loadTasks.NamespaceManager = NamespaceManager;
                 loadTasks.Parent = Project;
                 loadTasks.TaskFileSet = platformTaskAssemblies;
@@ -139,6 +141,7 @@ namespace NAnt.Core {
             if (!ScannedTasks) {
                 LoadTasksTask loadTasks = new LoadTasksTask();
                 loadTasks.Project = Project;
+                loadTasks.CallStack = this.Project.RootTargetCallStack;
                 loadTasks.NamespaceManager = NamespaceManager;
                 loadTasks.Parent = Project;
                 loadTasks.TaskFileSet = Project.RuntimeFramework.TaskAssemblies;
@@ -196,6 +199,7 @@ namespace NAnt.Core {
                 // initialize task
                 PropertyTask propertyTask = new PropertyTask();
                 propertyTask.Parent = propertyTask.Project = Project;
+                propertyTask.CallStack = this.Project.RootTargetCallStack;
                 propertyTask.NamespaceManager = NamespaceManager;
                 propertyTask.InitializeTaskConfiguration();
                 // configure using xml node

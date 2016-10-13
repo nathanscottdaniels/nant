@@ -171,21 +171,21 @@ namespace NAnt.Core.Tasks {
             Log(Level.Info, "{0} {1}.", now.ToLongDateString(), now.ToLongTimeString());
 
             // set default properties
-            Properties["tstamp.date"] = now.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
-            Properties["tstamp.time"] = now.ToString("HHmm", CultureInfo.InvariantCulture);
-            Properties["tstamp.now"] = now.ToString(CultureInfo.InvariantCulture);
+            this.PropertyAccessor["tstamp.date"] = now.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+            this.PropertyAccessor["tstamp.time"] = now.ToString("HHmm", CultureInfo.InvariantCulture);
+            this.PropertyAccessor["tstamp.now"] = now.ToString(CultureInfo.InvariantCulture);
 
             // set custom property
             if (_property != null && _pattern != null) {
-                Properties[_property] = now.ToString(_pattern, CultureInfo.InvariantCulture);
-                Log(Level.Verbose, "{0} = {1}.", _property, Properties[_property].ToString(CultureInfo.InvariantCulture));
+                this.PropertyAccessor[_property] = now.ToString(_pattern, CultureInfo.InvariantCulture);
+                Log(Level.Verbose, "{0} = {1}.", _property, this.PropertyAccessor[_property].ToString(CultureInfo.InvariantCulture));
             }
 
             // set properties set in formatters nested elements
             foreach (Formatter f in Formatters) {
                 if (IfDefined && !UnlessDefined) {
-                    Properties[f.Property] = now.ToString(f.Pattern, CultureInfo.InvariantCulture);
-                    Log(Level.Verbose, "{0} = {1}.", f.Property, Properties[f.Property].ToString(CultureInfo.InvariantCulture));
+                    this.PropertyAccessor[f.Property] = now.ToString(f.Pattern, CultureInfo.InvariantCulture);
+                    Log(Level.Verbose, "{0} = {1}.", f.Property, this.PropertyAccessor[f.Property].ToString(CultureInfo.InvariantCulture));
                 }
             }
         }

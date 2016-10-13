@@ -27,6 +27,7 @@ namespace Tests.NAnt.Core.Functions {
     public class TargetFunctionsTest : BuildTestBase {
         [Test]
         public void Test_CurrentTarget() {
+
             string buildFragment = @"
                 <project default='A'>
                     <target name='A'>
@@ -45,19 +46,20 @@ namespace Tests.NAnt.Core.Functions {
                 </project>";
 
             Project project = CreateFilebasedProject(buildFragment);
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
             
             // check whether all expected properties exist
-            Assert.IsTrue(project.Properties.Contains("A.1"), "Property \"A.1\" does not exist.");
-            Assert.IsTrue(project.Properties.Contains("A.2"), "Property \"A.2\" does not exist.");
-            Assert.IsTrue(project.Properties.Contains("B"), "Property \"B\" does not exist.");
-            Assert.IsTrue(project.Properties.Contains("C"), "Property \"C\" does not exist.");
+            Assert.IsTrue(propertyAccessor.Contains("A.1"), "Property \"A.1\" does not exist.");
+            Assert.IsTrue(propertyAccessor.Contains("A.2"), "Property \"A.2\" does not exist.");
+            Assert.IsTrue(propertyAccessor.Contains("B"), "Property \"B\" does not exist.");
+            Assert.IsTrue(propertyAccessor.Contains("C"), "Property \"C\" does not exist.");
 
             // check values
-            Assert.AreEqual("A", project.Properties["A.1"], "A.1");
-            Assert.AreEqual("A", project.Properties["A.2"], "A.2");
-            Assert.AreEqual("B", project.Properties["B"], "B");
-            Assert.AreEqual("C", project.Properties["C"], "C");
+            Assert.AreEqual("A", propertyAccessor["A.1"], "A.1");
+            Assert.AreEqual("A", propertyAccessor["A.2"], "A.2");
+            Assert.AreEqual("B", propertyAccessor["B"], "B");
+            Assert.AreEqual("C", propertyAccessor["C"], "C");
         }
     }
 }

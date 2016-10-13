@@ -486,6 +486,7 @@ namespace NAnt.VSNet.Tasks {
                     // delete temporary directory and all files in it
                     DeleteTask deleteTask = new DeleteTask();
                     deleteTask.Project = Project;
+                    deleteTask.CallStack = CallStack;
                     deleteTask.Parent = this;
                     deleteTask.InitializeTaskConfiguration();
                     deleteTask.Directory = new DirectoryInfo(basePath);

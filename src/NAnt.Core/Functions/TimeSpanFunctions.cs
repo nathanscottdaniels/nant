@@ -32,7 +32,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public TimeSpanFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public TimeSpanFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 
@@ -291,7 +291,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public TimeSpanConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public TimeSpanConversionFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 

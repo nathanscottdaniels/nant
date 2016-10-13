@@ -129,16 +129,18 @@ namespace NAnt.Core.Filters {
             int lastExprEndIndex = bufferBeforeExpand.LastIndexOf('}');
             string bufferAfterExpand;
 
+            var propertyAccessor = new PropertyAccessor(this.Project, this.CallStack);
+
             // Expand properties from input into buffer for output.
             if (lastExprEndIndex < lastExprStartIndex) {
                 // There's an unfinished expression - don't attempt to expand it yet. Perhaps it will all fit in the buffer next time around.
-                bufferAfterExpand = Project.Properties.ExpandProperties(bufferBeforeExpand.Substring(0, lastExprStartIndex), Location);
+                bufferAfterExpand = propertyAccessor.ExpandProperties(bufferBeforeExpand.Substring(0, lastExprStartIndex), Location);
                 bufferBeforeExpand = bufferBeforeExpand.Substring(lastExprStartIndex);
                 _buffer = new StringBuilder(bufferAfterExpand, Math.Max(BUFFER_LENGTH, bufferAfterExpand.Length + bufferBeforeExpand.Length));
                 _buffer.Append(bufferBeforeExpand);
             } else {
                 // No partial expressions - keep it simple.
-                bufferAfterExpand = Project.Properties.ExpandProperties(bufferBeforeExpand, Location);
+                bufferAfterExpand = propertyAccessor.ExpandProperties(bufferBeforeExpand, Location);
                 _buffer = new StringBuilder(bufferAfterExpand, Math.Max(BUFFER_LENGTH, bufferAfterExpand.Length));
             }
         }

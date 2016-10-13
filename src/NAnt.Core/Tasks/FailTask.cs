@@ -128,7 +128,7 @@ namespace NAnt.Core.Tasks {
         }
 
         protected override void Initialize() {
-            Contents = Project.ExpandProperties(XmlNode.InnerText, Location);
+            Contents = this.PropertyAccessor.ExpandProperties(XmlNode.InnerText, Location);
         }
     }
 }

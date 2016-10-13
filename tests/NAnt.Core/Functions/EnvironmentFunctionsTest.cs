@@ -41,7 +41,7 @@ namespace Tests.NAnt.Core.Functions {
         }
 
         private void AssertExpression(string expression, object expectedReturnValue) {
-            string value = _project.ExpandProperties("${" + expression + "}", Location.UnknownLocation);
+            string value = new PropertyAccessor(_project, _project.RootTargetCallStack).ExpandProperties("${" + expression + "}", Location.UnknownLocation);
             string expectedStringValue = Convert.ToString(expectedReturnValue, CultureInfo.InvariantCulture);
 
             _project.Log(Level.Debug, "expression: " + expression);

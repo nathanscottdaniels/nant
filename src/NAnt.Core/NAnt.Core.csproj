@@ -72,6 +72,7 @@
     <Compile Include="Attributes\BaseBuildAttribute.cs" />
     <Compile Include="BuildException.cs" />
     <Compile Include="CallStack.cs" />
+    <Compile Include="PropertyAccessor.cs" />
     <Compile Include="TargetCallStack.cs" />
     <Compile Include="CommandLineOptions.cs" />
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -97,6 +98,7 @@
     <Compile Include="Location.cs" />
     <Compile Include="LocationMap.cs" />
     <Compile Include="Log.cs" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="NAnt.Core.build" />
     <Compile Include="PathScanner.cs" />
     <Compile Include="PlatformHelper.cs" />

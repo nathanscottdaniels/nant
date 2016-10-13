@@ -215,6 +215,8 @@ namespace NAnt.Core.Tasks {
         /// Outputs the message to the build log or the specified file.
         /// </summary>
         protected override void ExecuteTask() {
+            Contents = this.PropertyAccessor.ExpandProperties(XmlNode.InnerText, Location);
+
             if (File != null) { // output to file
                 try {
                     // ensure the output directory exists
@@ -253,8 +255,6 @@ namespace NAnt.Core.Tasks {
         protected override void Initialize() {
             if (XmlNode.ChildNodes.Count == 0)
                 return;
-
-            Contents = Project.ExpandProperties(XmlNode.InnerText, Location);
         }
     }
 }

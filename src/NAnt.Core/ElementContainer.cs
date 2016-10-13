@@ -82,7 +82,7 @@ namespace NAnt.Core
                     }
                 } else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name)) {
                     // we are an datatype declaration
-                    DataTypeBase dataType = CreateChildDataTypeBase(childNode);
+                    DataTypeBase dataType = CreateChildDataTypeBase(childNode, this.CallStack);
 
                     Log(Level.Debug, "Adding a {0} reference with id '{1}'.", childNode.Name, dataType.ID);
                     if (!Project.DataTypeReferences.Contains(dataType.ID)) {
@@ -107,8 +107,8 @@ namespace NAnt.Core
             return Project.CreateTask(node, callStack);
         }
 
-        protected virtual DataTypeBase CreateChildDataTypeBase(XmlNode node) {
-            return Project.CreateDataTypeBase(node);
+        protected virtual DataTypeBase CreateChildDataTypeBase(XmlNode node, TargetCallStack callStack) {
+            return Project.CreateDataTypeBase(node, callStack);
         }
         
         protected virtual bool IsPrivateXmlElement(XmlNode node) {

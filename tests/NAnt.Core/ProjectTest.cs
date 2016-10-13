@@ -59,16 +59,16 @@ namespace Tests.NAnt.Core {
 
             Project p = new Project(_buildFileName, Level.Error, 0);
 
-            Assert.IsNotNull(p.Properties["nant.version"], "Property ('nant.version') not defined.");
-            Assert.IsNotNull(p.Properties["nant.location"], "Property ('nant.location') not defined.");
+            Assert.IsNotNull(p.GlobalProperties["nant.version"], "Property ('nant.version') not defined.");
+            Assert.IsNotNull(p.GlobalProperties["nant.location"], "Property ('nant.location') not defined.");
 
-            Assert.AreEqual(new Uri(_buildFileName), p.Properties["nant.project.buildfile"]);
-            Assert.AreEqual(TempDirName, p.Properties["nant.project.basedir"]);
-            Assert.AreEqual("test", p.Properties["nant.project.default"]);
+            Assert.AreEqual(new Uri(_buildFileName), p.GlobalProperties["nant.project.buildfile"]);
+            Assert.AreEqual(TempDirName, p.GlobalProperties["nant.project.basedir"]);
+            Assert.AreEqual("test", p.GlobalProperties["nant.project.default"]);
 
             CheckCommon(p);
 
-            Assert.AreEqual("The value is " + Boolean.TrueString + ".", p.ExpandProperties("The value is ${task::exists('fail')}.", null));
+            Assert.AreEqual("The value is " + Boolean.TrueString + ".", new PropertyAccessor(p, p.RootTargetCallStack).ExpandProperties("The value is ${task::exists('fail')}.", null));
         }
 
         [Test]
@@ -77,15 +77,15 @@ namespace Tests.NAnt.Core {
             doc.LoadXml(FormatBuildFile("", ""));
             Project p = new Project(doc, Level.Error, 0);
 
-            Assert.IsNotNull(p.Properties["nant.version"], "Property not defined.");
-            Assert.IsNull(p.Properties["nant.project.buildfile"], "location of buildfile should not exist!");
-            Assert.IsNotNull(p.Properties["nant.project.basedir"], "nant.project.basedir should not be null");
-            Assert.AreEqual(TempDirName, p.Properties["nant.project.basedir"]);
-            Assert.AreEqual("test", p.Properties["nant.project.default"]);
+            Assert.IsNotNull(p.GlobalProperties["nant.version"], "Property not defined.");
+            Assert.IsNull(p.GlobalProperties["nant.project.buildfile"], "location of buildfile should not exist!");
+            Assert.IsNotNull(p.GlobalProperties["nant.project.basedir"], "nant.project.basedir should not be null");
+            Assert.AreEqual(TempDirName, p.GlobalProperties["nant.project.basedir"]);
+            Assert.AreEqual("test", p.GlobalProperties["nant.project.default"]);
 
             CheckCommon(p);
 
-            Assert.AreEqual("The value is " + Boolean.TrueString + ".", p.ExpandProperties("The value is ${task::exists('fail')}.", null));
+            Assert.AreEqual("The value is " + Boolean.TrueString + ".", new PropertyAccessor(p, p.RootTargetCallStack).ExpandProperties("The value is ${task::exists('fail')}.", null));
         }
 
         [Test]
@@ -176,15 +176,16 @@ namespace Tests.NAnt.Core {
         [Test] // bug #1556326 
         public void Remove_Readonly_Property () {
             Project p = CreateFilebasedProject("<project />");
-            p.Properties.AddReadOnly ("test", "value1");
-            Assert.IsTrue (p.Properties.IsReadOnlyProperty ("test"), "#1");
-            Assert.IsTrue (p.Properties.Contains ("test"), "#2");
-            p.Properties.Remove ("test");
-            Assert.IsFalse (p.Properties.IsReadOnlyProperty ("test"), "#3");
-            Assert.IsFalse (p.Properties.Contains ("test"), "#4");
-            p.Properties.Add ("test", "value2");
-            Assert.IsFalse (p.Properties.IsReadOnlyProperty ("test"), "#5");
-            Assert.IsTrue (p.Properties.Contains ("test"), "#6");
+            var propertyAccessor = new PropertyAccessor(p, p.RootTargetCallStack);
+            propertyAccessor.Set("test", "value1", readOnly: true);
+            Assert.IsTrue (propertyAccessor.IsReadOnlyProperty ("test"), "#1");
+            Assert.IsTrue (propertyAccessor.Contains ("test"), "#2");
+            propertyAccessor.Remove ("test");
+            Assert.IsFalse (propertyAccessor.IsReadOnlyProperty ("test"), "#3");
+            Assert.IsFalse (propertyAccessor.Contains ("test"), "#4");
+            propertyAccessor.Set("test", "value2");
+            Assert.IsFalse (propertyAccessor.IsReadOnlyProperty ("test"), "#5");
+            Assert.IsTrue (propertyAccessor.Contains ("test"), "#6");
         }
 
         [Test]
@@ -262,7 +263,7 @@ namespace Tests.NAnt.Core {
         }
         
         private void CheckCommon(Project p) {
-            Assert.AreEqual("ProjectTest", p.Properties["nant.project.name"], "#1");
+            Assert.AreEqual("ProjectTest", p.GlobalProperties["nant.project.name"], "#1");
             Assert.IsTrue(TaskExists(p, "al"), "#2");
             Assert.IsTrue(TaskExists(p, "attrib"), "#3");
             Assert.IsTrue(TaskExists(p, "call"), "#4");
@@ -289,7 +290,7 @@ namespace Tests.NAnt.Core {
         }
 
         private bool TaskExists (Project p, string taskName) {
-            string val = p.ExpandProperties("${task::exists('" + taskName + "')}", 
+            string val = new PropertyAccessor(p, p.RootTargetCallStack).ExpandProperties("${task::exists('" + taskName + "')}", 
                 Location.UnknownLocation);
             return val == Boolean.TrueString;
         }

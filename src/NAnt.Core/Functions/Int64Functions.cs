@@ -33,7 +33,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public Int64ConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public Int64ConversionFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 

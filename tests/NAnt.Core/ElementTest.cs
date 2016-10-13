@@ -54,7 +54,7 @@ namespace Tests.NAnt.Core {
             Log(Level.Info, "OutputType is \"{0}\".", Type.ToString());
 
             if (Uri != null) {
-                Properties.Add(ElementTest1Task.UriPropertyName, Uri.ToString());
+                this.PropertyAccessor.Set(ElementTest1Task.UriPropertyName, Uri.ToString());
             }
         }
         [TypeConverter(typeof(OutputTypeConverter))]
@@ -100,7 +100,7 @@ namespace Tests.NAnt.Core {
             string result = String.Format("The quote is \"{0}\".", Quote ?? String.Empty);
             Log(Level.Info, result);
 
-            Properties.Add(PropName, result);
+            this.PropertyAccessor.Set(PropName, result);
         }
     }
 
@@ -197,10 +197,11 @@ namespace Tests.NAnt.Core {
                 </project>";
 
             Project project = CreateFilebasedProject(build);
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
 
             // uri property should not be registered
-            Assert.IsFalse(project.Properties.Contains(ElementTest1Task.UriPropertyName));
+            Assert.IsFalse(propertyAccessor.Contains(ElementTest1Task.UriPropertyName));
         }
 
         [Test]
@@ -213,14 +214,15 @@ namespace Tests.NAnt.Core {
                 </project>";
 
             Project project = CreateFilebasedProject(build);
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
 
             Uri expectedUri = new Uri(project.GetFullPath("dir/test.txt"));
 
             // uri property should be registered
-            Assert.IsTrue(project.Properties.Contains(ElementTest1Task.UriPropertyName));
+            Assert.IsTrue(propertyAccessor.Contains(ElementTest1Task.UriPropertyName));
             // path should have been resolved to absolute path (in project dir)
-            Assert.AreEqual(expectedUri.ToString(), project.Properties[
+            Assert.AreEqual(expectedUri.ToString(), propertyAccessor[
                 ElementTest1Task.UriPropertyName]);
         }
 
@@ -234,13 +236,14 @@ namespace Tests.NAnt.Core {
                 </project>";
 
             Project project = CreateFilebasedProject(build);
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
 
             // uri property should be registered
-            Assert.IsTrue(project.Properties.Contains(ElementTest1Task.UriPropertyName));
+            Assert.IsTrue(propertyAccessor.Contains(ElementTest1Task.UriPropertyName));
             // ensure resulting property matches expected URI 
             Assert.AreEqual(new Uri("file:///test/file.txt"), 
-                new Uri(project.Properties[ElementTest1Task.UriPropertyName]));
+                new Uri(propertyAccessor[ElementTest1Task.UriPropertyName]));
         }
 
         [Test]
@@ -253,12 +256,13 @@ namespace Tests.NAnt.Core {
                 </project>";
 
             Project project = CreateFilebasedProject(build);
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
 
             // uri property should be registered
-            Assert.IsTrue(project.Properties.Contains(ElementTest1Task.UriPropertyName));
+            Assert.IsTrue(propertyAccessor.Contains(ElementTest1Task.UriPropertyName));
             // ensure resulting property matches expected URI 
-            Assert.AreEqual("http://nant.sourceforge.net/", project.Properties[
+            Assert.AreEqual("http://nant.sourceforge.net/", propertyAccessor[
                 ElementTest1Task.UriPropertyName]);
         }
 
@@ -306,20 +310,21 @@ namespace Tests.NAnt.Core {
                 </project>";
 
             Project project = CreateFilebasedProject(String.Format(build, quote, ifAttr));
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
             
             if (ifAttr)
             {
-                Assert.IsTrue(project.Properties.Contains(ConditionalElementTestTask.PropName),
+                Assert.IsTrue(propertyAccessor.Contains(ConditionalElementTestTask.PropName),
                     String.Format("Project does not contain expected property: '{0}'", 
                         ConditionalElementTestTask.PropName));
-                string result = project.Properties[ConditionalElementTestTask.PropName];
+                string result = propertyAccessor[ConditionalElementTestTask.PropName];
                 Assert.IsTrue(result.Contains(quote), 
                     String.Format("Result does not contain quote: '{0}' | '{1}'", result, quote));
             }
             else
             {
-                Assert.IsFalse(project.Properties.Contains(ConditionalElementTestTask.PropName),
+                Assert.IsFalse(propertyAccessor.Contains(ConditionalElementTestTask.PropName),
                     String.Format("Project does contain unexpected property: '{0}'", 
                         ConditionalElementTestTask.PropName));
             }
@@ -338,20 +343,21 @@ namespace Tests.NAnt.Core {
                 </project>";
 
             Project project = CreateFilebasedProject(String.Format(build, quote, unlessAttr));
+            var propertyAccessor = new PropertyAccessor(project, project.RootTargetCallStack);
             ExecuteProject(project);
             
             if (unlessAttr)
             {
-                Assert.IsFalse(project.Properties.Contains(ConditionalElementTestTask.PropName),
+                Assert.IsFalse(propertyAccessor.Contains(ConditionalElementTestTask.PropName),
                     String.Format("Project does contain unexpected property: '{0}'", 
                         ConditionalElementTestTask.PropName));
             }
             else
             {
-                Assert.IsTrue(project.Properties.Contains(ConditionalElementTestTask.PropName),
+                Assert.IsTrue(propertyAccessor.Contains(ConditionalElementTestTask.PropName),
                     String.Format("Project does not contain expected property: '{0}'", 
                         ConditionalElementTestTask.PropName));
-                string result = project.Properties[ConditionalElementTestTask.PropName];
+                string result = propertyAccessor[ConditionalElementTestTask.PropName];
                 Assert.IsTrue(result.Contains(quote), 
                     String.Format("Result does not contain quote: '{0}' | '{1}'", result, quote));
             }

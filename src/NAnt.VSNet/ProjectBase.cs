@@ -515,6 +515,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task
             attribTask.Project = SolutionTask.Project;
+            attribTask.CallStack = SolutionTask.CallStack;
 
             // inherit namespace manager from solution task
             attribTask.NamespaceManager = SolutionTask.NamespaceManager;
@@ -536,6 +537,7 @@ namespace NAnt.VSNet {
 
             // inherit project for child elements from containing task
             attribTask.AttribFileSet.Project = attribTask.Project;
+            attribTask.AttribFileSet.CallStack = attribTask.CallStack;
 
             // inherit namespace manager from containing task
             attribTask.AttribFileSet.NamespaceManager = attribTask.NamespaceManager;
@@ -582,6 +584,7 @@ namespace NAnt.VSNet {
 
             // inherit project from parent task
             ct.Project = parent.Project;
+            ct.CallStack = parent.CallStack;
 
             // inherit namespace manager from parent task
             ct.NamespaceManager = parent.NamespaceManager;
@@ -603,6 +606,7 @@ namespace NAnt.VSNet {
 
             // inherit project for child elements from containing task
             ct.CopyFileSet.Project = ct.Project;
+            ct.CopyFileSet.CallStack = ct.CallStack;
 
             // inherit namespace manager from containing task
             ct.CopyFileSet.NamespaceManager = ct.NamespaceManager;

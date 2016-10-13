@@ -441,6 +441,7 @@ namespace NAnt.VSNet {
                 foreach (LocalizedResourceSet localizedResourceSet in resourceSets.Values) {
                     AssemblyLinkerTask al = new AssemblyLinkerTask();
                     al.Project = SolutionTask.Project;
+                    al.CallStack = SolutionTask.CallStack;
                     al.NamespaceManager = SolutionTask.NamespaceManager;
                     al.Parent = SolutionTask;
                     al.BaseDirectory = cs.OutputDir;
@@ -797,6 +798,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task
             rt.Project = SolutionTask.Project;
+            rt.CallStack = SolutionTask.CallStack;
 
             // inherit namespace manager from solution task
             rt.NamespaceManager = SolutionTask.NamespaceManager;
@@ -815,6 +817,7 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task from parent task
             rt.Assemblies.Project = rt.Project;
+            rt.Assemblies.CallStack = rt.CallStack;
 
             // inherit namespace manager from parent task
             rt.Assemblies.NamespaceManager = rt.NamespaceManager;
@@ -1066,6 +1069,7 @@ namespace NAnt.VSNet {
             regasm.Parent = SolutionTask;
             // inherit project from solution task
             regasm.Parent = regasm.Project = SolutionTask.Project;
+            regasm.CallStack = SolutionTask.CallStack;
             // inherit verbose setting from solution task
             regasm.Verbose = SolutionTask.Verbose;
             // inherit namespace manager from solution task
@@ -1074,6 +1078,7 @@ namespace NAnt.VSNet {
             regasm.InitializeTaskConfiguration();
             // inherit project from parent task
             regasm.Assemblies.Project = regasm.Project;
+            regasm.Assemblies.CallStack = regasm.CallStack;
             // set parent of child elements
             regasm.Assemblies.Parent = regasm;
             // inherit namespace manager from parent task
@@ -1082,6 +1087,7 @@ namespace NAnt.VSNet {
             regasm.Assemblies.BaseDirectory = ProjectDirectory;
             // inherit project from parent task
             regasm.References.Project = regasm.Project;
+            regasm.References.CallStack = regasm.CallStack;
             // set parent of child elements
             regasm.References.Parent = regasm;
             // inherit namespace manager from parent task

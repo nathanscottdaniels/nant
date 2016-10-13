@@ -158,7 +158,7 @@ namespace NAnt.Core.Tasks {
 
                 Log(Level.Verbose, "Setting property '{0}' to '{1}'.", 
                     groupName, match.Groups[groupName].Value);
-                Properties[groupName] = match.Groups[groupName].Value;
+                this.PropertyAccessor.Set(groupName, match.Groups[groupName].Value);
             }
         }
     }

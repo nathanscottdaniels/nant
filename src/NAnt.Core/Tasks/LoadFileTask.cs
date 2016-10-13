@@ -148,7 +148,7 @@ namespace NAnt.Core.Tasks {
             }
 
             // add/update property
-            Properties[Property] = content;
+            this.PropertyAccessor.Set(Property, content);
         }
     }
 }

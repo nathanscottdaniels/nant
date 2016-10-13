@@ -242,6 +242,7 @@ namespace Tests.NAnt.VisualCpp.Tasks
 
             LinkTask lt = new LinkTask();
             lt.Project = project;
+            lt.CallStack = project.RootTargetCallStack;
             lt.Options = "-debug";
             lt.OutputFile = new FileInfo(Path.Combine(this.TempDirectory.FullName,
                 "bin/HelloWorld.exe"));

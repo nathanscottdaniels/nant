@@ -78,13 +78,13 @@ namespace NAnt.Win32.Tasks {
                 RegistryKey checkKey = Registry.LocalMachine.OpenSubKey(key);
 
                 if (checkKey != null) {
-                    Properties[_propName] = key;
+                    this.PropertyAccessor[_propName] = key;
                     return;
                 }
             }
             // If none of the paths found in the _regKeys array, assign the default value
             // to the property.
-            Properties[_propName] = _defaultRegKey;
+            this.PropertyAccessor[_propName] = _defaultRegKey;
         }
     }
 }

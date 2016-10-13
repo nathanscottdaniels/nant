@@ -39,7 +39,7 @@ namespace Tests.NAnt.Core
         {
             const string xml = "<project><property name='temp.var' value='some.value'/></project>";
             Project p = CreateFilebasedProject(xml);
-            PropertyDictionary d = new PropertyDictionary(p);
+            PropertyDictionary d = new PropertyDictionary(p, PropertyScope.Unchanged);
             TestDelegate assn = delegate() { d["temp.var"] = null; };
 
             Assert.Throws<BuildException>(assn,

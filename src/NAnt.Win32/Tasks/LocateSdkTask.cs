@@ -238,7 +238,7 @@ namespace NAnt.Win32.Tasks {
                                     // assign the value of the InstallationFolder key of the current subfolder
                                     // to the property name and exit the inner loop
                                     if (minNetVersion <= loopNetVersion) {
-                                        Properties[_propName] = netFxDir;
+                                        this.PropertyAccessor[_propName] = netFxDir;
                                         sdkFound = true;
                                         break;
                                     }

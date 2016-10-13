@@ -137,14 +137,14 @@ namespace NAnt.Win32.Tasks {
                 regKeyValue = mykey.GetValue(_regKeyValueName);
                 if (regKeyValue != null) {
                     string val = regKeyValue.ToString();
-                    Properties[_propName] = val;
+                    this.PropertyAccessor[_propName] = val;
                 } else {
                     throw new BuildException(String.Format(CultureInfo.InvariantCulture, "Registry Value Not Found! - key='{0}';hive='{1}';", _regKey + "\\" + _regKeyValueName, _regHiveString));
                 }
             } else if (_propName == null && _propPrefix != null) {
                 mykey = LookupRegKey(_regKey, _regHive);
                 foreach (string name in mykey.GetValueNames()) {
-                    Properties[_propPrefix + "." + name] = mykey.GetValue(name).ToString();
+                    this.PropertyAccessor[_propPrefix + "." + name] = mykey.GetValue(name).ToString();
                 }
             } else {
                 throw new BuildException("Missing both a property name and property prefix; atleast one if required!");

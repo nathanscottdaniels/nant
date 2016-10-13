@@ -849,7 +849,7 @@ namespace NAnt.Core {
 
             Encoding bodyEncoding = null;
             Project project = e.Project;
-            PropertyDictionary properties = project.Properties;
+            PropertyAccessor properties = new PropertyAccessor(project, project.RootTargetCallStack);
 
             bool success = (e.Exception == null);
             string prefix = success ? "success" : "failure";
@@ -979,9 +979,9 @@ namespace NAnt.Core {
         /// property is not present in <paramref name="properties" />.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="required" /> is <see langword="true" />, and the specified property is not present and no default value has been given.</exception>
-        private string GetPropertyValue(PropertyDictionary properties, string name, string defaultValue, bool required) {
+        private string GetPropertyValue(PropertyAccessor properties, string name, string defaultValue, bool required) {
             string propertyName = "MailLogger." + name;
-            string value = (string) properties[propertyName];
+            string value = (string) properties.Lookup(propertyName);
 
             if (value == null) {
                 value = defaultValue;
@@ -994,7 +994,7 @@ namespace NAnt.Core {
             return value;
         }
 
-        private bool IsSSLEnabled (PropertyDictionary properties) {
+        private bool IsSSLEnabled (PropertyAccessor properties) {
             string enableSSL = GetPropertyValue(properties, "smtp.enablessl", null, false);
             if (enableSSL != null) {
                 try {

@@ -103,7 +103,7 @@ namespace NAnt.Core.Tasks {
                     Log(Level.Verbose, "{0} is newer than {1}.", newerFile, primaryFile.Name);
                 }
             }
-            Project.Properties[PropertyName] = Convert.ToString(value, CultureInfo.InvariantCulture);
+            this.PropertyAccessor[PropertyName] = Convert.ToString(value, CultureInfo.InvariantCulture);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public NAntFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public NAntFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 
@@ -217,10 +217,10 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public ProjectFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public ProjectFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        {
         }
-
-
+        
         /// <summary>
         /// Gets the name of the current project.
         /// </summary>
@@ -297,7 +297,8 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public TargetFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public TargetFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        {
         }
 
 
@@ -336,7 +337,7 @@ namespace NAnt.Core.Functions {
         /// <exception cref="InvalidOperationException">No target is being executed.</exception>
         [Function("get-current-target")]
         public string GetCurrentTarget() {
-            Target target = Project.CurrentTarget;
+            Target target = null;
             if (target == null) {
                 throw new InvalidOperationException("No target is being executed.");
             }
@@ -375,7 +376,8 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public TaskFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public TaskFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        {
         }
 
 
@@ -424,7 +426,8 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public PropertyFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public PropertyFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        {
         }
 
 
@@ -453,7 +456,7 @@ namespace NAnt.Core.Functions {
         /// </example>
         [Function("exists")]
         public bool Exists(string name) {
-            return Project.Properties.Contains(name);
+            return this.PropertyAccesor.Contains(name);
         }
 
         /// <summary>
@@ -471,12 +474,12 @@ namespace NAnt.Core.Functions {
         /// <exception cref="ArgumentException">Property <paramref name="name" /> has not been set.</exception>
         [Function("is-readonly")]
         public bool IsReadOnly(string name) {
-            if (!Project.Properties.Contains(name)) {
+            if (!this.PropertyAccesor.Contains(name)) {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, 
                     ResourceUtils.GetString("NA1053"), name));
             }
 
-            return Project.Properties.IsReadOnlyProperty(name);
+            return this.PropertyAccesor.IsReadOnlyProperty(name);
         }
 
         /// <summary>
@@ -496,12 +499,12 @@ namespace NAnt.Core.Functions {
         /// </example>
         [Function("is-dynamic")]
         public bool IsDynamic(string name) {
-            if (!Project.Properties.Contains(name)) {
+            if (!this.PropertyAccesor.Contains(name)) {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, 
                     ResourceUtils.GetString("NA1053"), name));
             }
 
-            return Project.Properties.IsDynamicProperty(name);
+            return this.PropertyAccesor.IsDynamicProperty(name);
         }
     }
 
@@ -516,7 +519,8 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public PlatformFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public PlatformFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack)
+        {
         }
 
 

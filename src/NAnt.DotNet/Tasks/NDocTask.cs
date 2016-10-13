@@ -386,7 +386,7 @@ namespace NAnt.DotNet.Tasks {
                     ExpandPropertiesInNodes(node.ChildNodes);
                     foreach (XmlAttribute attr in node.Attributes) {
                         // use "this" keyword as workaround for Mono bug #71992
-                        attr.Value = this.Project.ExpandProperties(attr.Value, Location);
+                        attr.Value = this.PropertyAccessor.ExpandProperties(attr.Value, Location);
                     }
 
                     // convert output directory to full path relative to project base directory

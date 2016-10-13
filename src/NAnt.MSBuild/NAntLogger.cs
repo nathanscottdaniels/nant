@@ -175,29 +175,5 @@ namespace NAnt.MSBuild {
         }
     }
     ";
-
-        /// <summary>Sample task used for testing.</summary>
-        protected class DummyTask : Task {
-            string _name;
-            
-            /// <summary>
-            /// Sample task constructor.
-            /// </summary>
-            /// <param name="p">Project to assign task to.</param>
-            /// <param name="name">Sample name property.</param>
-            public DummyTask(Project p, string name) {
-                _name = name;
-                Project = p;
-            }
-
-            /// <summary>Gets sample name for task.</summary>
-            public override string Name {
-                get { return _name; }
-            }
-
-            /// <summary>Test method.</summary>
-            protected override void ExecuteTask() {
-            }
-        }
     }
 }

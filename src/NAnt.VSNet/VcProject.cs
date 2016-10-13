@@ -459,6 +459,7 @@ namespace NAnt.VSNet {
                 // execute command
                 ExecTask nmakeTask = new ExecTask();
                 nmakeTask.Project = SolutionTask.Project;
+                nmakeTask.CallStack = SolutionTask.CallStack;
                 nmakeTask.Parent = SolutionTask;
                 nmakeTask.Verbose = SolutionTask.Verbose;
                 nmakeTask.CommandLineArguments = 
@@ -484,6 +485,8 @@ namespace NAnt.VSNet {
             // inherit project from solution task
             clTask.Project = SolutionTask.Project;
 
+            clTask.CallStack = SolutionTask.CallStack;
+
             // inherit namespace manager from solution task
             clTask.NamespaceManager = SolutionTask.NamespaceManager;
 
@@ -504,9 +507,13 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task for child elements
             clTask.IncludeDirs.Project = clTask.Project;
+            clTask.IncludeDirs.CallStack = clTask.CallStack;
             clTask.Sources.Project = clTask.Project;
+            clTask.Sources.CallStack = clTask.CallStack;
             clTask.MetaDataIncludeDirs.Project = clTask.Project;
+            clTask.MetaDataIncludeDirs.CallStack = clTask.CallStack;
             clTask.ForcedUsingFiles.Project = clTask.Project;
+            clTask.ForcedUsingFiles.CallStack = clTask.CallStack;
 
             // set namespace manager of child elements
             clTask.IncludeDirs.NamespaceManager = clTask.NamespaceManager;
@@ -823,6 +830,8 @@ namespace NAnt.VSNet {
             // inherit project from solution task
             rcTask.Project = SolutionTask.Project;
 
+            rcTask.CallStack = SolutionTask.CallStack;
+
             // Set the base directory
             rcTask.BaseDirectory = ProjectDirectory;
 
@@ -843,6 +852,8 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task for child elements
             rcTask.IncludeDirs.Project = rcTask.Project;
+
+            rcTask.IncludeDirs.CallStack = rcTask.CallStack;
 
             // set namespace manager of child elements
             rcTask.IncludeDirs.NamespaceManager = rcTask.NamespaceManager;
@@ -932,6 +943,8 @@ namespace NAnt.VSNet {
             // inherit project from solution task
             midlTask.Project = SolutionTask.Project;
 
+            midlTask.CallStack = SolutionTask.CallStack;
+
             // Set the base directory
             midlTask.BaseDirectory = ProjectDirectory;
 
@@ -952,6 +965,8 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task for child elements
             midlTask.IncludeDirs.Project = midlTask.Project;
+
+            midlTask.IncludeDirs.CallStack = midlTask.CallStack;
 
             // set namespace manager of child elements
             midlTask.IncludeDirs.NamespaceManager = midlTask.NamespaceManager;
@@ -1204,6 +1219,8 @@ namespace NAnt.VSNet {
             // inherit project from solution task
             libTask.Project = SolutionTask.Project;
 
+            libTask.CallStack = SolutionTask.CallStack;
+
             // inherit namespace manager from solution task
             libTask.NamespaceManager = SolutionTask.NamespaceManager;
 
@@ -1221,6 +1238,8 @@ namespace NAnt.VSNet {
 
             // inherit project from solution task for child elements
             libTask.Sources.Project = libTask.Project;
+
+            libTask.Sources.CallStack = libTask.CallStack;
 
             // inherit namespace manager from parent
             libTask.Sources.NamespaceManager = libTask.NamespaceManager;
@@ -1310,6 +1329,8 @@ namespace NAnt.VSNet {
             // inherit project from solution task
             linkTask.Project = SolutionTask.Project;
 
+            linkTask.CallStack = SolutionTask.CallStack;
+
             // inherit namespace manager from solution task
             linkTask.NamespaceManager = SolutionTask.NamespaceManager;
 
@@ -1328,11 +1349,17 @@ namespace NAnt.VSNet {
             linkTask.Modules.Parent = linkTask;
             linkTask.EmbeddedResources.Project = linkTask.Project;
 
+            linkTask.EmbeddedResources.CallStack = linkTask.CallStack;
+
             // inherit project from solution task for child elements
             linkTask.Sources.Project = linkTask.Project;
+            linkTask.Sources.CallStack = linkTask.CallStack;
             linkTask.LibDirs.Project = linkTask.Project;
+            linkTask.LibDirs.CallStack = linkTask.CallStack;
             linkTask.Modules.Project = linkTask.Project;
+            linkTask.Modules.CallStack = linkTask.CallStack;
             linkTask.EmbeddedResources.Project = linkTask.Project;
+            linkTask.EmbeddedResources.CallStack = linkTask.CallStack;
 
             // inherit namespace manager from parent
             linkTask.Sources.NamespaceManager = linkTask.NamespaceManager;

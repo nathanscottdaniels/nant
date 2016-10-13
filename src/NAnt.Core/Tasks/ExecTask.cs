@@ -330,12 +330,10 @@ namespace NAnt.Core.Tasks {
         protected override void ExecuteTask() {
             base.ExecuteTask();
             if (ResultProperty != null) {
-                Properties[ResultProperty] = base.ExitCode.ToString(
-                    CultureInfo.InvariantCulture);
+                this.PropertyAccessor.Set(ResultProperty, base.ExitCode.ToString(CultureInfo.InvariantCulture));
             }
             if (Spawn && ProcessIdProperty != null) {
-                Properties[ProcessIdProperty] = base.ProcessId.ToString(
-                    CultureInfo.InvariantCulture);
+                this.PropertyAccessor.Set(ProcessIdProperty, base.ProcessId.ToString(CultureInfo.InvariantCulture));
             }
         }
 

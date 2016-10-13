@@ -324,7 +324,7 @@ namespace NAnt.Core {
                 AssertNotInvalid();
 
                 if (_frameworkDirectory == null) {
-                    string frameworkDir = Project.ExpandProperties(
+                    string frameworkDir = new PropertyAccessor(this.Project, this.Project.RootTargetCallStack).ExpandProperties(
                         GetXmlAttributeValue(_frameworkNode, "frameworkdirectory"),
                         Location.UnknownLocation);
                     if (frameworkDir != null) {
@@ -371,7 +371,7 @@ namespace NAnt.Core {
                 AssertNotInvalid();
 
                 if (_frameworkAssemblyDirectory == null) {
-                    string frameworkAssemblyDir = Project.ExpandProperties(
+                    string frameworkAssemblyDir = new PropertyAccessor(this.Project, this.Project.RootTargetCallStack).ExpandProperties(
                         GetXmlAttributeValue(_frameworkNode, "frameworkassemblydirectory"),
                         Location.UnknownLocation);
                     if (frameworkAssemblyDir != null) {
@@ -456,8 +456,7 @@ namespace NAnt.Core {
                     XmlNode taskAssembliesNode = _frameworkNode.SelectSingleNode(
                         "nant:task-assemblies", NamespaceManager);
                     if (taskAssembliesNode != null) {
-                        _taskAssemblies.Initialize(taskAssembliesNode, 
-                            Project.Properties, this);
+                        _taskAssemblies.Initialize(taskAssembliesNode, this);
                     }
                 }
                 return _taskAssemblies;
@@ -507,7 +506,7 @@ namespace NAnt.Core {
                         fileset.NamespaceManager = NamespaceManager;
                         fileset.Parent = Project;
                         fileset.ID = "reference-assemblies-" + i.ToString (CultureInfo.InvariantCulture);
-                        fileset.Initialize(node, Project.Properties, this);
+                        fileset.Initialize(node, this);
                         _referenceAssemblies [i] = fileset;
                     }
                 }
@@ -535,7 +534,7 @@ namespace NAnt.Core {
                         dirs.Project = Project;
                         dirs.NamespaceManager = NamespaceManager;
                         dirs.Parent = Project;
-                        dirs.Initialize(node, Project.Properties, this);
+                        dirs.Initialize(node, this);
                         _toolPaths = dirs.GetDirectories();
                     } else {
                         _toolPaths = new string[0];
@@ -729,13 +728,14 @@ namespace NAnt.Core {
             if (runtimeNode != null) {
                 _runtime = new Runtime ();
                 _runtime.Parent = _runtime.Project = frameworkProject;
+                _runtime.CallStack = frameworkProject.RootTargetCallStack;
                 _runtime.NamespaceManager = NamespaceManager;
-                _runtime.Initialize(runtimeNode, frameworkProject.Properties, this);
+                _runtime.Initialize(runtimeNode, this);
             }
 
             string sdkDir = GetXmlAttributeValue(_frameworkNode, "sdkdirectory");
             try {
-                sdkDir = frameworkProject.ExpandProperties(sdkDir,
+                sdkDir = new PropertyAccessor(frameworkProject, frameworkProject.RootTargetCallStack).ExpandProperties(sdkDir,
                     Location.UnknownLocation);
             } catch (BuildException) {
                 // do nothing with this exception as a framework is still

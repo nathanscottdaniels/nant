@@ -28,7 +28,7 @@ namespace NAnt.Core.Functions {
     [FunctionSet("version", "Version")]
     public class VersionFunctions : FunctionSetBase {
 
-        public VersionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public VersionFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 
@@ -99,7 +99,7 @@ namespace NAnt.Core.Functions {
     [FunctionSet("version", "Conversion")]
     public class VersionConversionFunctions : FunctionSetBase {
 
-        public VersionConversionFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public VersionConversionFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
 
 

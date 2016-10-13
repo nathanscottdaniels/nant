@@ -36,7 +36,7 @@ namespace NAnt.Core.Functions {
         /// </summary>
         /// <param name="project">The current project.</param>
         /// <param name="properties">The projects properties.</param>
-        public DirectoryFunctions(Project project, PropertyDictionary properties) : base(project, properties) {
+        public DirectoryFunctions(Project project, PropertyAccessor properties, TargetCallStack callStack) : base(project, properties, callStack) {
         }
         /// <summary>
         /// Returns the creation date and time of the specified directory.
