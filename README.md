@@ -13,7 +13,8 @@ https://github.com/nant/nant
 
 License
 -------
-Copyright (C) 2001-2012 Gerry Shaw
+Copyright (C) 2016 Nathan Daniels
+Original NAnt Copyright (C) 2001-2012 Gerry Shaw
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
