@@ -20,12 +20,14 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
 
-namespace NAnt.Core.Tasks {
+namespace NAnt.Core.Tasks
+{
     /// <summary>
     /// Sets a property in the current project.
     /// </summary>
@@ -86,7 +88,8 @@ namespace NAnt.Core.Tasks {
     ///   </code>
     /// </example>
     [TaskName("property")]
-    public class PropertyTask : Task {
+    public class PropertyTask : Task
+    {
         private string _name;
         private string _value = string.Empty;
         private bool _readOnly;
@@ -95,9 +98,10 @@ namespace NAnt.Core.Tasks {
         /// <summary>
         /// The name of the NAnt property to set.
         /// </summary>
-        [TaskAttribute("name", Required=true)]
-        [StringValidator(AllowEmpty=false)]
-        public string PropertyName {
+        [TaskAttribute("name", Required = true)]
+        [StringValidator(AllowEmpty = false)]
+        public string PropertyName
+        {
             get { return _name; }
             set { _name = value; }
         }
@@ -110,7 +114,7 @@ namespace NAnt.Core.Tasks {
         public string Value
         {
             get { return _value; }
-            set { _value = value; }
+            set { _value = value; }  
         }
 
         /// <summary>
@@ -124,9 +128,10 @@ namespace NAnt.Core.Tasks {
         /// Specifies whether the property is read-only or not. 
         /// The default is <see langword="false" />.
         /// </summary>
-        [TaskAttribute("readonly", Required=false)]
+        [TaskAttribute("readonly", Required = false)]
         [BooleanValidator()]
-        public bool ReadOnly {
+        public bool ReadOnly
+        {
             get { return _readOnly; }
             set { _readOnly = value; }
         }
@@ -137,9 +142,10 @@ namespace NAnt.Core.Tasks {
         /// the property is actually used.  By default, properties will be
         /// expanded when set.
         /// </summary>
-        [TaskAttribute("dynamic", Required=false)]
+        [TaskAttribute("dynamic", Required = false)]
         [BooleanValidator()]
-        public bool Dynamic {
+        public bool Dynamic
+        {
             get { return _dynamic; }
             set { _dynamic = value; }
         }
@@ -149,9 +155,10 @@ namespace NAnt.Core.Tasks {
         /// the property already exists (unless the property is read-only). 
         /// The default is <see langword="true" />.
         /// </summary>
-        [TaskAttribute("overwrite", Required=false)]
+        [TaskAttribute("overwrite", Required = false)]
         [BooleanValidator()]
-        public bool Overwrite {
+        public bool Overwrite
+        {
             get { return _overwrite; }
             set { _overwrite = value; }
         }
@@ -159,12 +166,13 @@ namespace NAnt.Core.Tasks {
         /// Executes the task.
         /// </summary>
         /// <exception cref="BuildException">If the target framework cannot be changed.</exception>
-        protected override void ExecuteTask() {
+        protected override void ExecuteTask()
+        {
             string propertyValue;
 
             var scope = PropertyScope.Unchanged;
 
-            if (!String.IsNullOrWhiteSpace(this.ScopeString)) 
+            if (!String.IsNullOrWhiteSpace(this.ScopeString))
             {
                 if (this.ScopeString.Equals("thread", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -173,8 +181,14 @@ namespace NAnt.Core.Tasks {
                 else if (this.ScopeString.Equals("target", StringComparison.CurrentCultureIgnoreCase))
                 {
                     scope = PropertyScope.Target;
+
+                    // The current target will be null if we are not in a target.  We should not allow this scope in that case
+                    if (this.CallStack.CurrentFrame.Target == null || this.Parent is Project)
+                    {
+                        throw new BuildException($"Cannot set the property \"{this.PropertyName}\" at the Target scope when not currently in a target.");
+                    }
                 }
-                else if(this.ScopeString.Equals("global", StringComparison.CurrentCultureIgnoreCase))
+                else if (this.ScopeString.Equals("global", StringComparison.CurrentCultureIgnoreCase))
                 {
                     scope = PropertyScope.Global;
                 }
@@ -182,56 +196,70 @@ namespace NAnt.Core.Tasks {
                 {
                     throw new BuildException($"\"{this.ScopeString}\" is not an expected scope value for property {this.Name}");
                 }
-            } 
+            }
 
-            if (!Dynamic) {
+            if (!Dynamic)
+            {
                 propertyValue = this.PropertyAccessor.ExpandProperties(Value, Location);
-            } else {
+            }
+            else {
                 propertyValue = Value;
             }
 
             // Special check for framework setting.
-            if (PropertyName == "nant.settings.currentframework") {
+            if (PropertyName == "nant.settings.currentframework")
+            {
                 FrameworkInfo newTargetFramework = Project.Frameworks[propertyValue];
 
                 // check if target framework exists
-                if (newTargetFramework != null) {
-                    if (Project.TargetFramework != null) {
-                        if (Project.TargetFramework != newTargetFramework) {
+                if (newTargetFramework != null)
+                {
+                    if (Project.TargetFramework != null)
+                    {
+                        if (Project.TargetFramework != newTargetFramework)
+                        {
                             Project.TargetFramework = newTargetFramework;
                             // only output message in build log if target 
                             // framework is actually changed
-                            Log(Level.Info, "Target framework changed to \"{0}\".", 
+                            Log(Level.Info, "Target framework changed to \"{0}\".",
                                 newTargetFramework.Description);
                         }
-                    } else {
+                    }
+                    else {
                         Project.TargetFramework = newTargetFramework;
-                        Log(Level.Info, "Target framework set to \"{0}\".", 
+                        Log(Level.Info, "Target framework set to \"{0}\".",
                             newTargetFramework.Description);
 
                     }
                     return;
-                } else {
+                }
+                else {
                     ArrayList validvalues = new ArrayList();
-                    foreach (FrameworkInfo framework in Project.Frameworks) {
+                    foreach (FrameworkInfo framework in Project.Frameworks)
+                    {
                         validvalues.Add(framework.Name);
                     }
                     string validvaluesare = string.Empty;
-                    if (validvalues.Count > 0) {
-                        validvaluesare = string.Format(CultureInfo.InvariantCulture, 
-                                                       ResourceUtils.GetString("String_ValidValues"), string.Join(", ", (string[]) validvalues.ToArray(typeof(string))));
+                    if (validvalues.Count > 0)
+                    {
+                        validvaluesare = string.Format(CultureInfo.InvariantCulture,
+                                                       ResourceUtils.GetString("String_ValidValues"), string.Join(", ", (string[])validvalues.ToArray(typeof(string))));
                     }
-                    throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
-                        ResourceUtils.GetString("NA1143"), 
+                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                        ResourceUtils.GetString("NA1143"),
                         propertyValue, validvaluesare), Location);
                 }
             }
 
-            if (!this.PropertyAccessor.Contains(PropertyName)) {
+            if (!this.PropertyAccessor.Contains(PropertyName))
+            {
                 this.PropertyAccessor.Set(PropertyName, propertyValue, scope, Dynamic, ReadOnly);
-            } else {
-                if (Overwrite) {
-                    if (this.PropertyAccessor.IsReadOnlyProperty(PropertyName)) {
+            }
+            else {
+                if (Overwrite)
+                {
+                    if (this.PropertyAccessor.IsReadOnlyProperty(PropertyName))
+                    {
                         // for now, just output a warning when attempting to 
                         // overwrite a readonly property
                         //
@@ -245,10 +273,12 @@ namespace NAnt.Core.Tasks {
                         // task, but these do not seem to be intuitive for users
                         Log(Level.Warning, "Read-only property \"{0}\" cannot"
                             + " be overwritten.", PropertyName);
-                    } else {
+                    }
+                    else {
                         this.PropertyAccessor.Set(PropertyName, propertyValue, scope, dynamic: Dynamic);
                     }
-                } else {
+                }
+                else {
                     Log(Level.Verbose, "Property \"{0}\" already exists, and \"overwrite\" is set to false.", PropertyName);
                 }
             }
