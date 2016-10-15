@@ -1,5 +1,5 @@
 // $Id: ConfigurationSection.cs,v 1.4 2004/04/28 07:36:11 drieseng Exp $
-// NAnt - A .NET build tool
+// pNAnt - A parallel .NET build tool
 // Copyright (C) 2003 Scott Hernandez
 //
 // This program is free software; you can redistribute it and/or modify

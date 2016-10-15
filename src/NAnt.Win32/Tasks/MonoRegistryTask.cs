@@ -1,4 +1,4 @@
-// NAnt - A .NET build tool
+// pNAnt - A parallel .NET build tool
 // Copyright (C) 2002 Ryan Boggs
 //
 // This program is free software; you can redistribute it and/or modify

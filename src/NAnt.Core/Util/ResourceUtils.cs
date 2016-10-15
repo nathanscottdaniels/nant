@@ -1,7 +1,8 @@
 // ResourceUtils.cs
 //
 // Giuseppe Greco <giuseppe.greco@agamura.com>
-// Copyright (C) 2005 Agamura, Inc.
+// Copyright (C) 2016 Nathan Daniels
+// Original Copyright (C) 2005 Agamura, Inc.
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

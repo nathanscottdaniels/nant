@@ -1,6 +1,7 @@
 //
 // NAntContrib
-// Copyright (C) 2001-2005 Gerry Shaw
+// Copyright (C) 2016 Nathan Daniels
+// Original NAnt Copyright (C) 2001-2005 Gerry Shaw
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public

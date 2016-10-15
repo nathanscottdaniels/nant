@@ -1,5 +1,6 @@
-﻿// NAnt - A .NET build tool
-// Copyright (C) 2001-2004 Gerry Shaw
+﻿// pNAnt - A parallel .NET build tool
+// Copyright (C) 2016 Nathan Daniels
+// Original NAnt Copyright (C) 2001-2004 Gerry Shaw
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
