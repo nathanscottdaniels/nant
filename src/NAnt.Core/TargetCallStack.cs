@@ -65,7 +65,7 @@ namespace NAnt.Core
         }
 
         /// <summary>
-        /// Clones this stack
+        /// Clones this stack.  This method is probably thread-safe.
         /// </summary>
         public override object Clone()
         {

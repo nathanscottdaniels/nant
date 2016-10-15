@@ -46,5 +46,12 @@ namespace NAnt.Core.Types
         [TaskAttribute("unless")]
         [BooleanValidator()]
         public bool UnlessDefined { get; set; } = false;
+
+        /// <summary>
+        /// Execute the specified targets dependencies -- even if they have been 
+        /// previously executed. The default is <see langword="true" />.
+        /// </summary>
+        [TaskAttribute("cascade")]
+        public bool CascadeDependencies { get; set; } = true;
     }
 }

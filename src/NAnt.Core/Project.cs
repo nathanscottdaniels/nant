@@ -64,7 +64,7 @@ namespace NAnt.Core
     ///   </code>
     /// </example>
     [Serializable()]
-    public class Project
+    public class Project: ITargetLogger
     {
 
         /// <summary>
@@ -1059,33 +1059,32 @@ namespace NAnt.Core
                 }
             }
         }
-
+        
         /// <summary>
-        /// Executes a specific target, and its dependencies.
+        /// Executes a specific target after first executing its dependencies.
         /// </summary>
         /// <param name="targetName">The name of the target to execute.</param>
-        /// <param name="caller">The task responsible for calling this target</param>
-        /// <param name="callStack">The current call stack for this task</param>
+        /// <param name="forceDependencies">Whether dependencies should be forced to execute.  Defaults to true</param>
+        /// <param name="caller">The task responsible for calling this target.  Not required if <paramref name="callStack"/> is provided</param>
+        /// <param name="callStack">Optionally, the current call stack for this task.  If not specified, the callstack of <paramref name="caller"/> is used.</param>
+        /// <param name="specialLogger">An optional <see cref="ITargetLogger"/> that this target should use
+        /// to log messages.  If not specified, the default logging will be used (<see cref="Project"/>)
+        /// </param>
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
-        public void Execute(string targetName, Task caller, TargetCallStack callStack)
+        public void Execute(
+            string targetName, 
+            bool forceDependencies = true, 
+            Task caller = null, 
+            TargetCallStack callStack = null,
+            ITargetLogger specialLogger = null)
         {
-            Execute(targetName, true, caller, callStack);
-        }
+            if (callStack == null && caller == null)
+            {
+                throw new ArgumentNullException(nameof(caller), $"Either {nameof(caller)} or {nameof(callStack)} must not be null");
+            }
 
-        /// <summary>
-        /// Executes a specific target.
-        /// </summary>
-        /// <param name="targetName">The name of the target to execute.</param>
-        /// <param name="forceDependencies">Whether dependencies should be forced to execute</param>
-        /// <param name="caller">The task responsible for calling this target</param>
-        /// <param name="callStack">The current call stack for this task</param>
-        /// <remarks>
-        /// Global tasks are not executed.
-        /// </remarks>
-        public void Execute(string targetName, bool forceDependencies, Task caller, TargetCallStack callStack)
-        {
             // sort the dependency tree, and run everything from the
             // beginning until we hit our targetName.
             // 
@@ -1105,7 +1104,7 @@ namespace NAnt.Core
                 // we are not forcing.
                 if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                 {
-                    currentTarget.Execute(callStack);
+                    currentTarget.Execute(callStack ?? caller.CallStack, specialLogger ?? this);
                 }
             }
             while (currentTarget.Name != targetName);

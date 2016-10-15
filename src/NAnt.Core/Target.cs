@@ -239,25 +239,31 @@ namespace NAnt.Core
         }
 
         /// <summary>
-        /// Executes dependent targets first, then the target.
+        /// Executes this target, after acquiring any necessary locks.
         /// </summary>
-        /// <param name="caller">The entity calling this target</param>
-        public void Execute(TargetCallStack callStack)
+        /// <param name="callStack">The current call stack on which this target will be pused</param>
+        /// <param name="logger">The logger this target and its stasks will use for logging messages</param>
+        public void Execute(TargetCallStack callStack, ITargetLogger logger)
         {
             if (this.Locked)
             {
                 lock (this)
                 {
-                    this.DoExecute(callStack);
+                    this.DoExecute(callStack, logger);
                 }
             }
             else
             {
-                this.DoExecute(callStack);
+                this.DoExecute(callStack, logger);
             }
         }
 
-        private void DoExecute(TargetCallStack callStack)
+        /// <summary>
+        /// Executes this target
+        /// </summary>
+        /// <param name="callStack">The current call stack on which this target will be pused</param>
+        /// <param name="logger">The logger this target and its stasks will use for logging messages</param>
+        private void DoExecute(TargetCallStack callStack, ITargetLogger logger)
         {
             var propertyAccessor = new PropertyAccessor(this.Project, callStack);
 
@@ -282,13 +288,14 @@ namespace NAnt.Core
                                 Task task = Project.CreateTask(childNode, this, callStack);
                                 if (task != null)
                                 {
+                                    task.Logger = logger;
                                     task.Execute();
                                 }
                             }
                             else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
                             {
                                 DataTypeBase dataType = Project.CreateDataTypeBase(childNode, callStack);
-                                Project.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
+                                logger.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
                                     childNode.Name, dataType.ID);
                                 if (!Project.DataTypeReferences.Contains(dataType.ID))
                                 {

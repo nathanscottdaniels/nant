@@ -113,7 +113,7 @@ namespace NAnt.Core
         public abstract object Clone();
 
         /// <summary>
-        /// Clones this stack
+        /// Clones this stack.  This method is thread-safe.
         /// </summary>
         protected static void PopulateClone(CallStack<TFrame> original, CallStack<TFrame> clone)
         {

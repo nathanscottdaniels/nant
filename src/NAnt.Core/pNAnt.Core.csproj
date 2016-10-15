@@ -72,6 +72,8 @@
     <Compile Include="Attributes\BaseBuildAttribute.cs" />
     <Compile Include="BuildException.cs" />
     <Compile Include="CallStack.cs" />
+    <Compile Include="ITargetLogger.cs" />
+    <Compile Include="BufferingTargetLogger.cs" />
     <Compile Include="PropertyAccessor.cs" />
     <Compile Include="TargetCallStack.cs" />
     <Compile Include="CommandLineOptions.cs" />

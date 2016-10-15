@@ -43,13 +43,18 @@ namespace NAnt.Core
     [Serializable()]
     public abstract class Task : Element, IConditional
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog systemLogger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _failOnError = true;
         private bool _verbose;
         private bool _ifDefined = true;
         private bool _unlessDefined;
         private Level _threshold = Level.Debug;
+
+        /// <summary>
+        /// A target logger that should be used instead of logging via the project
+        /// </summary>
+        private ITargetLogger specialLogger;
 
         /// <summary>
         /// Determines if task failure stops the build, or is just reported. 
@@ -150,12 +155,35 @@ namespace NAnt.Core
         }
 
         /// <summary>
+        /// Gets or set the target logger that should be used to log execution-time messages.  
+        /// If not specified before execution. defaults to logging via the <see cref="Project"/> log methods.
+        /// <para>
+        /// Note that system-level messages and errors will bypass this and log directly to the console.
+        /// </para>
+        /// </summary>
+        protected internal ITargetLogger Logger
+        {
+            protected get
+            {
+                 return this.specialLogger ?? this.Project;
+            }
+            set
+            {
+                this.specialLogger = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the task that is responsible for this task being executed.  This can be tasks such as 
         /// <see cref="CallTask"/> that call the target that owns this task, or container tasks such as
         /// <see cref="IfTask"/> that wrap this task.
         /// </summary>
         public override TargetCallStack CallStack { get; set; }
 
+        /// <summary>
+        /// Gets the <see cref="PropertyAccessor"/> to resolve properties within the current
+        /// project and call stack
+        /// </summary>
         public PropertyAccessor PropertyAccessor
         {
             get
@@ -181,7 +209,7 @@ namespace NAnt.Core
         /// </summary>
         public void Execute()
         {
-            logger.DebugFormat(CultureInfo.InvariantCulture,
+            systemLogger.DebugFormat(CultureInfo.InvariantCulture,
                 ResourceUtils.GetString("String_TaskExecute"),
                 Name);
 
@@ -203,7 +231,7 @@ namespace NAnt.Core
                     }
                     catch (Exception ex)
                     {
-                        logger.ErrorFormat(
+                        systemLogger.ErrorFormat(
                             CultureInfo.InvariantCulture,
                             ResourceUtils.GetString("NA1077"),
                             Name, ex);
@@ -287,10 +315,10 @@ namespace NAnt.Core
 
             if (_verbose && messageLevel == Level.Verbose && Project.Threshold == Level.Info)
             {
-                Project.Log(this, Level.Info, format);
+                this.Logger.Log(this, Level.Info, format);
             }
             else {
-                Project.Log(this, messageLevel, format);
+                this.Logger.Log(this, messageLevel, format);
             }
         }
 
@@ -430,7 +458,7 @@ namespace NAnt.Core
                             {
                                 foreach (ValidatorAttribute validator in validateAttributes)
                                 {
-                                    logger.InfoFormat(CultureInfo.InvariantCulture,
+                                    systemLogger.InfoFormat(CultureInfo.InvariantCulture,
                                         ResourceUtils.GetString("NA1074"),
                                         attributeValue, Name, validator.GetType().Name);
 
@@ -439,7 +467,7 @@ namespace NAnt.Core
                             }
                             catch (ValidationException ve)
                             {
-                                logger.Error("Validation Exception", ve);
+                                systemLogger.Error("Validation Exception", ve);
                                 throw new ValidationException("Validation failed on" + propertyInfo.DeclaringType.FullName, Location, ve);
                             }
 
