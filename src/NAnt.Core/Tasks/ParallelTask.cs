@@ -79,7 +79,7 @@ namespace NAnt.Core.Tasks
             var targets = this.Children.Where(t => t is ParallelTask ||  (t as ParallelTarget).IfDefined && !(t as ParallelTarget).UnlessDefined);
 
             // Sequential execution is simple
-            if (this.RunInSerial)
+            if (this.RunInSerial || this.Project.ForceSequential)
             {
                 foreach (var element in targets)
                 {

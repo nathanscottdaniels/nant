@@ -295,11 +295,9 @@ namespace NAnt.Core {
             get { return _targets; }
         }
 
-        [CommandLineArgument(CommandLineArgumentTypes.AtMostOnce, Name = "jobs", ShortName = "j", Description = "Starts targets as parallel jobs")]
-        public bool UseJobs {
-            get { return _useJobs; }
-            set { _useJobs = value; }
-        }
+        [CommandLineArgument(CommandLineArgumentTypes.AtMostOnce, Name = "prevent_parallel", ShortName = "j", Description = "When set, forces the <parallel> task to always run in sequence, disabling all parallelism.")]
+        public bool ForceSequential { get; set; }
+
         private string _targetFramework;
         private string _buildFile;
         private bool _noLogo;
@@ -318,6 +316,5 @@ namespace NAnt.Core {
         private StringCollection _targets = new StringCollection();
         private bool _showProjectHelp;
         private bool _pause;
-        private bool _useJobs;
     }
 }

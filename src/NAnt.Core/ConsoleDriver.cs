@@ -182,7 +182,7 @@ namespace NAnt.Core {
                 }
 
                 // Enable parallel execution of targets
-                project.RunTargetsInParallel = cmdlineOptions.UseJobs;
+                project.ForceSequential = cmdlineOptions.ForceSequential;
 
                 if (cmdlineOptions.ShowProjectHelp) {
                     Console.WriteLine();

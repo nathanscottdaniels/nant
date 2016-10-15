@@ -689,17 +689,7 @@ namespace NAnt.Core
         {
             get { return Level.Verbose >= Threshold; }
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether independent targets should be executed
-        /// in parallel execution threads.
-        /// </summary>
-        /// <value>
-        /// <see langword="true" /> if targets should be executed in parallel
-        /// otherwise, <see langword="false" />.
-        /// </value>
-        public bool RunTargetsInParallel { get; set; }
-
+        
         /// <summary>
         /// The list of targets to build.
         /// </summary>
@@ -728,6 +718,11 @@ namespace NAnt.Core
         {
             get { return _dataTypeReferences; }
         }
+
+        /// <summary>
+        /// When true, all parallelism should be disabled
+        /// </summary>
+        public Boolean ForceSequential { get; internal set; }
 
         /// <summary>
         /// Gets the targets defined in this project.
@@ -1869,34 +1864,7 @@ namespace NAnt.Core
             state[root] = Project.Visited;
             executeTargets.Add(target);
         }
-
-        private void PopulateExecutionGraph(string root, TargetCollection targets, ExecutionGraph graph)
-        {
-            Target target = targets.Find(root);
-
-            ExecutionNode node = graph.GetNode(root);
-
-            if (target == null)
-            {
-                target = targets.Find(WildTarget);
-            }
-
-            bool noDependencies = true;
-            foreach (string dependencyName in target.Dependencies)
-            {
-                PopulateExecutionGraph(dependencyName, targets, graph);
-
-                ExecutionNode dependencyNode = graph.GetNode(dependencyName);
-                dependencyNode.RegisterDependantNode(node);
-                noDependencies = false;
-            }
-
-            if (noDependencies)
-            {
-                graph.RegisterLeafNode(node);
-            }
-        }
-
+        
         /// <summary>
         /// Builds an appropriate exception detailing a specified circular
         /// dependency.
