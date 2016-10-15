@@ -121,7 +121,7 @@ namespace NAnt.Core.Tasks
         /// The value to assign to the NAnt property.
         /// </summary>
         [TaskAttribute("scope", Required = false, ExpandProperties = true)]
-        [StringValidator(AllowEmpty = false, Expression = "thread|global|target", ExpressionErrorMessage = "Scope must be either 'Target', 'Thread', or 'Global'")]
+        [StringValidator(AllowEmpty = false, Expression = "thread|global|target", ExpressionErrorMessage = "Scope must be either 'target', 'thread', or 'global'")]
         public string ScopeString { get; set; }
 
         /// <summary>

@@ -1,14 +1,10 @@
 ﻿using NAnt.Core.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NAnt.Core.Types
 {
     [Serializable]
-    [ElementName("pCall")]
+    [ElementName("pcall")]
     public class ParallelTarget : DataTypeBase
     {
         /// <summary>

@@ -115,6 +115,7 @@
     <Compile Include="TaskCallStack.cs" />
     <Compile Include="TaskContainer.cs" />
     <Compile Include="Tasks\MutexTask.cs" />
+    <Compile Include="Tasks\SequenceTask.cs" />
     <Compile Include="Tasks\ParallelTask.cs" />
     <Compile Include="TypeFactory.cs" />
     <Compile Include="Types\ParallelTarget.cs" />

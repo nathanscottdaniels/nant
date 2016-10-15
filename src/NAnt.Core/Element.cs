@@ -469,6 +469,7 @@ namespace NAnt.Core {
                 // initialize the object with context
                 buildElement.Project = parent.Project;
                 buildElement.Parent = parent;
+                buildElement.CallStack = parent.CallStack;
                 buildElement.NamespaceManager = parent.NamespaceManager;
 
                 // initialize element from XML
