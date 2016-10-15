@@ -94,61 +94,61 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <ProjectReference Include="..\NAnt.Compression\NAnt.Compression.csproj">
+    <ProjectReference Include="..\NAnt.Compression\pNAnt.Compression.csproj">
       <Project>{8F80C098-94A4-44DB-A25D-C9E455FC3120}</Project>
-      <Name>NAnt.Compression</Name>
+      <Name>pNAnt.Compression</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.Core\NAnt.Core.csproj">
+    <ProjectReference Include="..\NAnt.Core\pNAnt.Core.csproj">
       <Project>{8F5F8375-4097-4952-B860-784EB9961ABE}</Project>
-      <Name>NAnt.Core</Name>
+      <Name>pNAnt.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.DotNet\NAnt.DotNet.csproj">
+    <ProjectReference Include="..\NAnt.DotNet\pNAnt.DotNet.csproj">
       <Project>{B50A1067-785B-4686-8FFC-5AF424BEF163}</Project>
-      <Name>NAnt.DotNet</Name>
+      <Name>pNAnt.DotNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.MSBuild\NAnt.MSBuild.csproj">
+    <ProjectReference Include="..\NAnt.MSBuild\pNAnt.MSBuild.csproj">
       <Project>{318C04B2-D982-4243-9C6A-CA7E035E927D}</Project>
-      <Name>NAnt.MSBuild</Name>
+      <Name>pNAnt.MSBuild</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.MSNet\NAnt.MSNet.csproj">
+    <ProjectReference Include="..\NAnt.MSNet\pNAnt.MSNet.csproj">
       <Project>{ED13C268-36DE-49CE-B347-C2BE03F814B9}</Project>
-      <Name>NAnt.MSNet</Name>
+      <Name>pNAnt.MSNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.NUnit\NAnt.NUnit.csproj">
+    <ProjectReference Include="..\NAnt.NUnit\pNAnt.NUnit.csproj">
       <Project>{00F5C075-9874-4BCE-909A-99C1F600E047}</Project>
-      <Name>NAnt.NUnit</Name>
+      <Name>pNAnt.NUnit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.NUnit\NUnit1\NAnt.NUnit1.csproj">
+    <ProjectReference Include="..\NAnt.NUnit\NUnit1\pNAnt.NUnit1.csproj">
       <Project>{0F3EA7A9-C5F6-4254-820C-B5E0409B5B9D}</Project>
-      <Name>NAnt.NUnit1</Name>
+      <Name>pNAnt.NUnit1</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.NUnit\NUnit2\NAnt.NUnit2.csproj">
+    <ProjectReference Include="..\NAnt.NUnit\NUnit2\pNAnt.NUnit2.csproj">
       <Project>{47503BEE-27D9-4D1C-B8E1-6C9CCC19AEAA}</Project>
-      <Name>NAnt.NUnit2</Name>
+      <Name>pNAnt.NUnit2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.SourceControl\NAnt.SourceControl.csproj">
+    <ProjectReference Include="..\NAnt.SourceControl\pNAnt.SourceControl.csproj">
       <Project>{6B2EC648-8D69-4096-B4F9-6EDC0B2F98EF}</Project>
-      <Name>NAnt.SourceControl</Name>
+      <Name>pNAnt.SourceControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\tests\NAnt.Tests.csproj">
+    <ProjectReference Include="..\..\tests\pNAnt.Tests.csproj">
       <Project>{F77EA08E-9473-436A-BBA3-880139A341B1}</Project>
-      <Name>NAnt.Tests</Name>
+      <Name>pNAnt.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.VisualCpp\NAnt.VisualCpp.csproj">
+    <ProjectReference Include="..\NAnt.VisualCpp\pNAnt.VisualCpp.csproj">
       <Project>{A154DB17-7263-44E3-838E-1E4C4946B7D8}</Project>
-      <Name>NAnt.VisualCpp</Name>
+      <Name>pNAnt.VisualCpp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.VSNet\NAnt.VSNet.csproj">
+    <ProjectReference Include="..\NAnt.VSNet\pNAnt.VSNet.csproj">
       <Project>{DD434690-B4DF-4BF9-91FE-F139A41E2474}</Project>
-      <Name>NAnt.VSNet</Name>
+      <Name>pNAnt.VSNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.Win32\NAnt.Win32.csproj">
+    <ProjectReference Include="..\NAnt.Win32\pAnt.Win32.csproj">
       <Project>{C66545A2-6FEC-4A38-937A-5B25E61EE8A1}</Project>
-      <Name>NAnt.Win32</Name>
+      <Name>pAnt.Win32</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDoc.Documenter.NAnt\NDoc.Documenter.NAnt.csproj">
+    <ProjectReference Include="..\NDoc.Documenter.NAnt\pNDoc.Documenter.NAnt.csproj">
       <Project>{841FAEBA-4527-410A-B765-E2EDA47ABDCE}</Project>
-      <Name>NDoc.Documenter.NAnt</Name>
+      <Name>pNDoc.Documenter.NAnt</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

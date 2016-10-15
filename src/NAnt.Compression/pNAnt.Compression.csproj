@@ -4,9 +4,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{318C04B2-D982-4243-9C6A-CA7E035E927D}</ProjectGuid>
-    <RootNamespace>NAnt.MSBuild</RootNamespace>
-    <AssemblyName>NAnt.MSBuild</AssemblyName>
+    <ProjectGuid>{8F80C098-94A4-44DB-A25D-C9E455FC3120}</ProjectGuid>
+    <RootNamespace>NAnt.Compression</RootNamespace>
+    <AssemblyName>NAnt.CompressionTasks</AssemblyName>
     <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnSuccessfulBuild</RunPostBuildEvent>
     <PreBuildEvent />
@@ -39,54 +39,49 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <WarningLevel>4</WarningLevel>
     <OutputPath>..\..\build\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>..\..\build\Debug\NAnt.MSBuild.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Debug\NAnt.CompressionTasks.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <WarningLevel>4</WarningLevel>
     <OutputPath>..\..\build\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\build\Release\NAnt.MSBuild.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Release\NAnt.CompressionTasks.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib" />
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\common\neutral\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BuildEngine\BuildItem.cs" />
-    <Compile Include="BuildEngine\BuildItemGroup.cs" />
-    <Compile Include="BuildEngine\BuildPropertyGroup.cs" />
-    <Compile Include="BuildEngine\Engine.cs" />
-    <Compile Include="BuildEngine\Project.cs" />
-    <Compile Include="MSBuildAssemblyReference.cs" />
-    <Compile Include="MSBuildConfiguration.cs" />
-    <Compile Include="MSBuildEngine.cs" />
-    <Compile Include="MSBuildProject.cs" />
-    <Compile Include="MSBuildProjectProvider.cs" />
-    <Compile Include="MSBuildProjectReference.cs" />
-    <Compile Include="MSBuildReference.cs" />
-    <None Include="NAnt.MSBuild.build" />
-    <Compile Include="NAntLogger.cs" />
-    <Compile Include="Functions\MSBuildFunctions.cs" />
-    <Compile Include="VS2005\WhidbeySolution.cs" />
-    <Compile Include="VS2005\WhidbeySolutionProvider.cs" />
-    <Compile Include="VS2008\OrcasSolution.cs" />
-    <Compile Include="VS2008\OrcasSolutionProvider.cs" />
-    <Compile Include="VS2010\RosarioSolution.cs" />
-    <Compile Include="VS2010\RosarioSolutionProvider.cs" />
+    <None Include="NAnt.Compression.build" />
+    <Compile Include="Tasks\ExpandBaseTask.cs" />
+    <Compile Include="Tasks\GUnzip.cs" />
+    <Compile Include="Tasks\TarTask.cs" />
+    <Compile Include="Tasks\UnTarTask.cs" />
+    <Compile Include="Tasks\UnZipTask.cs" />
+    <Compile Include="Tasks\ZipTask.cs" />
+    <Compile Include="Types\DuplicateHandling.cs" />
+    <Compile Include="Types\TarCompressionMethod.cs" />
+    <Compile Include="Types\TarFileSet.cs" />
+    <Compile Include="Types\TarFileSetCollection.cs" />
+    <Compile Include="Types\ZipFileSet.cs" />
+    <Compile Include="Types\ZipFileSetCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -105,15 +100,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <ProjectReference Include="..\NAnt.Core\NAnt.Core.csproj">
+    <ProjectReference Include="..\NAnt.Core\pNAnt.Core.csproj">
       <Project>{8F5F8375-4097-4952-B860-784EB9961ABE}</Project>
-      <Name>NAnt.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NAnt.VSNet\NAnt.VSNet.csproj">
-      <Project>{DD434690-B4DF-4BF9-91FE-F139A41E2474}</Project>
-      <Name>NAnt.VSNet</Name>
+      <Name>pNAnt.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
 </Project>

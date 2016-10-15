@@ -4,9 +4,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A154DB17-7263-44E3-838E-1E4C4946B7D8}</ProjectGuid>
-    <RootNamespace>NAnt.VisualCpp</RootNamespace>
-    <AssemblyName>NAnt.VisualCppTasks</AssemblyName>
+    <ProjectGuid>{B50A1067-785B-4686-8FFC-5AF424BEF163}</ProjectGuid>
+    <RootNamespace>NAnt.DotNet</RootNamespace>
+    <AssemblyName>NAnt.DotNetTasks</AssemblyName>
     <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnSuccessfulBuild</RunPostBuildEvent>
     <PreBuildEvent />
@@ -43,7 +43,7 @@
     <OutputPath>..\..\build\Debug\</OutputPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>..\..\build\Debug\NAnt.VisualCppTasks.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Debug\NAnt.DotNetTasks.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -54,31 +54,57 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\build\Release\NAnt.VisualCppTasks.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Release\NAnt.DotNetTasks.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
+    <Reference Include="NDoc.Core">
+      <HintPath>..\..\lib\common\neutral\NDoc.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <None Include="NAnt.VisualCpp.build" />
-    <Compile Include="Tasks\ClTask.cs" />
-    <Compile Include="Tasks\LibTask.cs" />
-    <Compile Include="Tasks\LinkTask.cs" />
-    <Compile Include="Tasks\McTask.cs" />
-    <Compile Include="Tasks\MidlTask.cs" />
-    <Compile Include="Tasks\RcTask.cs" />
-    <Compile Include="Types\CharacterSet.cs" />
-    <Compile Include="Types\Library.cs" />
-    <Compile Include="Types\LibraryCollection.cs" />
-    <Compile Include="Types\Symbol.cs" />
-    <Compile Include="Types\SymbolCollection.cs" />
-    <Compile Include="Util\ArgumentUtils.cs" />
+    <None Include="NAnt.DotNet.build" />
+    <EmbeddedResource Include="Resources\Strings.resx" />
+    <Compile Include="Tasks\AssemblyInfoTask.cs" />
+    <Compile Include="Tasks\AssemblyLinkerTask.cs" />
+    <Compile Include="Tasks\CompilerBase.cs" />
+    <Compile Include="Tasks\CscTask.cs" />
+    <Compile Include="Tasks\DelaySignTask.cs" />
+    <Compile Include="Tasks\IlasmTask.cs" />
+    <Compile Include="Tasks\JscTask.cs" />
+    <Compile Include="Tasks\LicenseTask.cs" />
+    <Compile Include="Tasks\NDocTask.cs" />
+    <Compile Include="Tasks\RegSvcsTask.cs" />
+    <Compile Include="Tasks\ResGenTask.cs" />
+    <Compile Include="Tasks\ScriptTask.cs" />
+    <Compile Include="Tasks\VbcTask.cs" />
+    <Compile Include="Tasks\VjcTask.cs" />
+    <Compile Include="Types\AssemblyAttribute.cs" />
+    <Compile Include="Types\AssemblyAttributeCollection.cs" />
+    <Compile Include="Types\AssemblyFileSet.cs" />
+    <Compile Include="Types\CompilerWarning.cs" />
+    <Compile Include="Types\CompilerWarningCollection.cs" />
+    <Compile Include="Types\DebugOutput.cs" />
+    <Compile Include="Types\DelaySign.cs" />
+    <Compile Include="Types\EmbeddedResource.cs" />
+    <Compile Include="Types\EmbeddedResourceCollection.cs" />
+    <Compile Include="Types\Module.cs" />
+    <Compile Include="Types\ModuleCollection.cs" />
+    <Compile Include="Types\ModuleSet.cs" />
+    <Compile Include="Types\NamespaceImport.cs" />
+    <Compile Include="Types\NamespaceImportCollection.cs" />
+    <Compile Include="Types\Package.cs" />
+    <Compile Include="Types\PackageCollection.cs" />
+    <Compile Include="Types\ResourceFileSet.cs" />
+    <Compile Include="Types\ResourceFileSetCollection.cs" />
+    <Compile Include="Types\WarningAsError.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -99,9 +125,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <ProjectReference Include="..\NAnt.Core\NAnt.Core.csproj">
+    <ProjectReference Include="..\NAnt.Core\pNAnt.Core.csproj">
       <Project>{8F5F8375-4097-4952-B860-784EB9961ABE}</Project>
-      <Name>NAnt.Core</Name>
+      <Name>pNAnt.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

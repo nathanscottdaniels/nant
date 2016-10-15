@@ -4,9 +4,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{841FAEBA-4527-410A-B765-E2EDA47ABDCE}</ProjectGuid>
-    <RootNamespace>NDoc.Documenter.NAnt</RootNamespace>
-    <AssemblyName>NDoc.Documenter.NAnt</AssemblyName>
+    <ProjectGuid>{47503BEE-27D9-4D1C-B8E1-6C9CCC19AEAA}</ProjectGuid>
+    <RootNamespace>NAnt.NUnit2</RootNamespace>
+    <AssemblyName>NAnt.NUnit2Tasks</AssemblyName>
     <OutputType>Library</OutputType>
     <RunPostBuildEvent>OnSuccessfulBuild</RunPostBuildEvent>
     <PreBuildEvent />
@@ -43,7 +43,7 @@
     <OutputPath>..\..\build\Debug\</OutputPath>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>..\..\build\Debug\NDoc.Documenter.NAnt.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Debug\NAnt.NUnit2Tasks.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -54,35 +54,37 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\build\Release\NDoc.Documenter.NAnt.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Release\NAnt.NUnit2Tasks.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="NDoc.Core">
-      <HintPath>..\..\lib\common\neutral\NDoc.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Web" />
+    <Reference Include="System" />
+    <Reference Include="nunit.core">
+      <HintPath>..\..\..\lib\common\2.0\nunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>..\..\..\lib\common\2.0\nunit.core.interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\lib\common\2.0\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.util">
+      <HintPath>..\..\..\lib\common\2.0\nunit.util.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="..\CommonAssemblyInfo.cs">
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="NAntDocumenter.cs" />
-    <Compile Include="NAntDocumenterConfig.cs" />
-    <Compile Include="NAntXsltUtilities.cs" />
-    <Content Include="Resources\common.xslt" />
-    <Content Include="Resources\filter-index.xslt" />
-    <Content Include="Resources\function-doc.xslt" />
-    <Content Include="Resources\function-index.xslt" />
-    <Content Include="Resources\nant-attributes.xslt" />
-    <Content Include="Resources\tags.xslt" />
-    <Content Include="Resources\task-index.xslt" />
-    <Content Include="Resources\type-doc.xslt" />
-    <Content Include="Resources\type-index.xslt" />
+    <Compile Include="NUnit2Task.cs" />
+    <Compile Include="NUnit2Test.cs" />
+    <Compile Include="NUnit2TestDomain.cs" />
+    <Compile Include="Types\Categories.cs" />
+    <Compile Include="Types\Category.cs" />
+    <Compile Include="Types\CategoryCollection.cs" />
+    <Compile Include="NUNit2TestCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -103,9 +105,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <ProjectReference Include="..\NAnt.Core\NAnt.Core.csproj">
+    <ProjectReference Include="..\..\NAnt.Core\pNAnt.Core.csproj">
       <Project>{8F5F8375-4097-4952-B860-784EB9961ABE}</Project>
-      <Name>NAnt.Core</Name>
+      <Name>pNAnt.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NAnt.DotNet\pNAnt.DotNet.csproj">
+      <Project>{B50A1067-785B-4686-8FFC-5AF424BEF163}</Project>
+      <Name>pNAnt.DotNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pNAnt.NUnit.csproj">
+      <Project>{00F5C075-9874-4BCE-909A-99C1F600E047}</Project>
+      <Name>pNAnt.NUnit</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -101,13 +101,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\NAnt.Core\NAnt.Core.csproj">
+    <ProjectReference Include="..\..\NAnt.Core\pNAnt.Core.csproj">
       <Project>{8F5F8375-4097-4952-B860-784EB9961ABE}</Project>
-      <Name>NAnt.Core</Name>
+      <Name>pNAnt.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NAnt.NUnit.csproj">
+    <ProjectReference Include="..\pNAnt.NUnit.csproj">
       <Project>{00F5C075-9874-4BCE-909A-99C1F600E047}</Project>
-      <Name>NAnt.NUnit</Name>
+      <Name>pNAnt.NUnit</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
