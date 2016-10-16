@@ -17,6 +17,10 @@ The primary focus of pNAnt is to add the ability to run multiple build targets i
 ## Tasks
 The following tasks have been added:
 
+* [`<parallel/>`](#parallel): Specifies targets to run in parallel
+* [`<sequence/>`](#sequence): Specifies targets to tun in sequence
+* [`<mutex/>`](#mutex): Wraps a block of tasks in a mutual-exclusion lock
+
 ### `<parallel/>`
 
 The __`parallel`__ task is the primary addition made by pNAnt.  This task allows you to call multiple targets simultaneously.
@@ -39,6 +43,9 @@ The `pcall` element is the the most important element within the `<parallel>`' t
 __Examples:__
 >`<pcall target="target_name"/>`  
 >`<pcall target="${target_name}" if="${something}" unless="${something_else}/>`
+
+#### __`<sequence>`__
+The `sequence` task specifies targets that are to be run in sequence, but the sequence as a whole can be run in parallel with with other children on this __`<parallel>`__
 
 License
 -------
