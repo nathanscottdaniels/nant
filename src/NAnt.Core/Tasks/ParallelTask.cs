@@ -136,7 +136,7 @@ namespace NAnt.Core.Tasks
                         var targetElement = element as ParallelTarget;
                         this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in sequence.");
 
-                        this.Project.Execute(targetElement.TargetName, targetElement.CascadeDependencies, this, this.CloneCallStack());
+                        this.Project.Execute(targetElement.TargetName, targetElement.CascadeDependencies, this, this.CloneCallStack(), this.Logger);
                     }
                     else
                     {
@@ -186,12 +186,14 @@ namespace NAnt.Core.Tasks
                             {
                                 lock (this) // Prevent ourself from jumbling our logging, at least
                                 {
+                                    this.Logger.Unindent();
                                     var message = $"ERROR: An exception has been thrown by the \"{targetElement.TargetName}\" target of the parallel.  Any currently executing targets will run to completion but the build will fail.";
 
                                     this.Log(Level.Error, new string('=', message.Length));
                                     this.Log(Level.Error, message);
                                     this.Log(Level.Error, e.Message);
                                     this.Log(Level.Error, new string('=', message.Length) + "\r\n");
+                                    this.Logger.Indent();
                                     throw;
                                 }
                             }
@@ -204,17 +206,18 @@ namespace NAnt.Core.Tasks
                 }
                 catch (AggregateException agge) // This catch is outside the foreach so we only have aggregate exceptions but we know for sure that everything is stopped now.
                 {
-                    foreach (var inner in agge.InnerExceptions)
-                    {
-                        if (inner is BuildException)
-                        {
-                            throw inner;
-                        }
-                        else
-                        {
-                            throw new BuildException(inner.Message, inner);
-                        }
-                    }
+                    throw new BuildException(
+                        String.Concat(
+                            $"The following build errors were encountered during the parallel execution of targets:",
+                            Environment.NewLine,
+                            Environment.NewLine,
+                            String.Join(
+                                String.Concat(
+                                    Environment.NewLine, 
+                                    Environment.NewLine), 
+                                agge.InnerExceptions.Select(ex => ex.Message)),
+                        Environment.NewLine,
+                        "Please look earlier in the log to see the contexts in which these errors occurred"));
                 }
             }
 
@@ -248,6 +251,7 @@ namespace NAnt.Core.Tasks
         /// <param name="index">The index of this thread in the grand scheme of things</param>
         private void ExecuteWithCorrectLogging(ParallelTask task, Boolean cacophony, ConcurrencyState state, Int32 index)
         {
+            task.Logger = this.Logger;
             this.ExecuteWithCorrectLogging(
                 task.Execute,
                 logger => {
