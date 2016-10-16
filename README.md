@@ -1,8 +1,7 @@
-pNAnt
-====
+# pNAnt
 
-What is it? 
------------
+### What is it? 
+
 pNAnt is a fork of NAnt that provides parallelization support and fixes some of the more serious shortcomings of NAnt.  You can find the original NAnt project here:
 
 http://nant.sourceforge.net/
@@ -10,6 +9,36 @@ http://nant.sourceforge.net/
 and the source here:
 
 https://github.com/nant/nant
+
+# Additions to NAnt
+
+The primary focus of pNAnt is to add the ability to run multiple build targets in parallel.  To this end, several tasks and attributes were added which allow fine-grained control over which targets can be run in parallel and which must be run sequentially.
+
+## Tasks
+The following tasks have been added:
+
+### `<parallel/>`
+
+The __`parallel`__ task is the primary addition made by pNAnt.  This task allows you to call multiple targets simultaneously.
+The task has the following attributes (there are no required attributes):
+
+##### Optional Attributes:
+* __`name`__: Allows you to give a name to the task.  This serves both to increase build script readability and is also used by pNAnt when logging to the console.  
+* __`description`__: Allows you to describe this task to improve buildscript readability.  Unlike `name`, the value of this attribute is ignored by pNAnt.  
+* __`forceSequential`__: A boolean value that, when evaluated to `true`, foreces this `parallal` task to execute each target in order, rather than in parallel, thereby disabling any parallalization.  This is useful if you would like to run targets in parallel only under certain circumstances.  _The default value is `false`, obviously_.  
+* __`cacophony`__: A boolean value that, when evaluated to `true`, makes all children of this `parallel` task output their log messages immediately as they happen.  See below for more information about cacophony logging.  The use of this attribute is not recommended.  _The default value is `false`_.  
+* __`if`__: Same as the `if` attrubute of other NAnt tasks.
+* __`unless`__: Same as the `unless` attrubute of other NAnt tasks.
+
+#### Nested Elements
+The `parallel` task supports three nested element types which are used to specify the actions that should be performed in parallel:
+
+#### __`<pcall>`__
+The `pcall` element is the the most important element within the `<parallel>`' task.  It specifies a target to perform in parallel.  The `pcall` element has one required attrubute, __`target`__, which specifies the name of the target.  In addition, the __`if`__ and __`unless`__ attributes are supported and behave as expected.
+
+__Examples:__
+>`<pcall target="target_name"/>`  
+>`<pcall target="${target_name}" if="${something}" unless="${something_else}/>`
 
 License
 -------
