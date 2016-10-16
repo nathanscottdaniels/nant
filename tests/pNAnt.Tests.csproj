@@ -136,7 +136,6 @@
     <Compile Include="NAnt.Core\Util\ConsoleWriter.cs" />
     <Compile Include="NAnt.Core\Util\FileUtilsTest.cs" />
     <Compile Include="NAnt.Core\Util\MockDateTimeProvider.cs" />
-    <Compile Include="NAnt.Core\Util\StopWatchStackTest.cs" />
     <Compile Include="NAnt.Core\Util\TempDir.cs" />
     <Compile Include="NAnt.Core\Util\TempDirTest.cs" />
     <Compile Include="NAnt.Core\Util\TempFile.cs" />

@@ -126,8 +126,8 @@ namespace Tests.NAnt.Core {
             doc.LoadXml(FormatBuildFile("", ""));
             Project p = new Project(doc, Level.Info, 0);
 
-            p.TargetStarted += new BuildEventHandler(b.TargetStarted);
-            p.OnTargetStarted(this, new BuildEventArgs(p));
+            p.TargetStarted += new TargetBuildEventHandler(b.TargetStarted);
+            p.OnTargetStarted(this, new TargetBuildEventArgs(null,null));
 
             Assert.IsTrue(b._targetStarted);
         }
@@ -140,8 +140,8 @@ namespace Tests.NAnt.Core {
             doc.LoadXml(FormatBuildFile("", ""));
             Project p = new Project(doc, Level.Info, 0);
 
-            p.TargetFinished += new BuildEventHandler(b.TargetFinished);
-            p.OnTargetFinished(this, new BuildEventArgs(p));
+            p.TargetFinished += new TargetBuildEventHandler(b.TargetFinished);
+            p.OnTargetFinished(this, new TargetBuildEventArgs(null, null));
 
             Assert.IsTrue(b._targetFinished);
         }
@@ -154,8 +154,8 @@ namespace Tests.NAnt.Core {
             doc.LoadXml(FormatBuildFile("", ""));
             Project p = new Project(doc, Level.Info, 0);
 
-            p.TaskStarted += new BuildEventHandler(b.TaskStarted);
-            p.OnTaskStarted(this, new BuildEventArgs(p));
+            p.TaskStarted += new TaskBuildEventHandler(b.TaskStarted);
+            p.OnTaskStarted(this, new TaskBuildEventArgs(null, null));
 
             Assert.IsTrue(b._taskStarted);
         }
@@ -168,8 +168,8 @@ namespace Tests.NAnt.Core {
             doc.LoadXml(FormatBuildFile("", ""));
             Project p = new Project(doc, Level.Info, 0);
 
-            p.TaskFinished += new BuildEventHandler(b.TaskFinished);
-            p.OnTaskFinished(this, new BuildEventArgs(p));
+            p.TaskFinished += new TaskBuildEventHandler(b.TaskFinished);
+            p.OnTaskFinished(this, new TaskBuildEventArgs(null, null));
 
             Assert.IsTrue(b._taskFinished);
         }
@@ -312,24 +312,40 @@ namespace Tests.NAnt.Core {
                 _buildFinished = true;
             }
 
-            public void TargetStarted(object sender, BuildEventArgs e) {
+            public void TargetStarted(object sender, TargetBuildEventArgs e) {
                 _targetStarted = true;
             }
 
-            public void TargetFinished(object sender, BuildEventArgs e) {
+            public void TargetFinished(object sender, TargetBuildEventArgs e) {
                 _targetFinished = true;
             }
 
-            public void TaskStarted(object sender, BuildEventArgs e) {
+            public void TaskStarted(object sender, TaskBuildEventArgs e) {
                 _taskStarted = true;
             }
 
-            public void TaskFinished(object sender, BuildEventArgs e) {
+            public void TaskFinished(object sender, TaskBuildEventArgs e) {
                 _taskFinished = true;
             }
 
             public void MessageLogged(object sender, BuildEventArgs e) {
                 _messageLogged = true;
+            }
+           
+            public void TargetLoggingStarted(object sender, TargetBuildEventArgs e)
+            {
+            }
+
+            public void TargetLoggingFinished(object sender, TargetBuildEventArgs e)
+            {
+            }
+            
+            public void TaskLoggingStarted(object sender, TaskBuildEventArgs e)
+            {
+            }
+
+            public void TaskLoggingFinished(object sender, TaskBuildEventArgs e)
+            {
             }
         }
     }

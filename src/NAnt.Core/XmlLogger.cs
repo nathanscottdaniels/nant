@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
@@ -35,10 +36,11 @@ namespace NAnt.Core {
     /// </summary>
     [Serializable()]
     public class XmlLogger : IBuildLogger, ISerializable {
-        private readonly StopWatchStack _stopWatchStack;
         private TextWriter _outputWriter;
         private StringWriter _buffer = new StringWriter();
         private Level _threshold = Level.Info;
+
+        private readonly Stopwatch buildTimer = new Stopwatch();
 
         [NonSerialized()]
         private XmlTextWriter _xmlWriter;
@@ -47,18 +49,13 @@ namespace NAnt.Core {
         /// Holds the stack of currently executing projects.
         /// </summary>
         private Stack _projectStack = new Stack();
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XmlLogger" /> class.
-        /// </summary>
-        public XmlLogger() : this(new StopWatchStack(new DateTimeProvider())) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlLogger"/> class.
         /// </summary>
         /// <param name="stopWatchStack">The stop watch stack.</param>
-        public XmlLogger(StopWatchStack stopWatchStack) {
+        public XmlLogger() {
             _xmlWriter = new XmlTextWriter(_buffer);
-            _stopWatchStack = stopWatchStack;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlLogger" /> class 
@@ -100,8 +97,8 @@ namespace NAnt.Core {
         /// This event is fired before any targets have started.
         /// </remarks>
         public void BuildStarted(object sender, BuildEventArgs e) {
+            this.buildTimer.Start();
             lock (_xmlWriter) {
-                _stopWatchStack.PushStart();
                 _xmlWriter.WriteStartElement(Elements.BuildResults);
                 _xmlWriter.WriteAttributeString(Attributes.Project, e.Project.ProjectName);
             }
@@ -124,9 +121,9 @@ namespace NAnt.Core {
                     WriteErrorNode(e.Exception);
                     _xmlWriter.WriteEndElement();
                 }
-
+                this.buildTimer.Stop();
                 // output total build duration
-                WriteDuration();
+                WriteDuration(this.buildTimer);
 
                 // close buildresults node
                 _xmlWriter.WriteEndElement();
@@ -171,10 +168,32 @@ namespace NAnt.Core {
         /// Signals that a target has started.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        public void TargetStarted(object sender, BuildEventArgs e) {
-            lock (_xmlWriter) {
-                _stopWatchStack.PushStart();
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
+        public void TargetStarted(object sender, TargetBuildEventArgs e) {
+        }
+
+        /// <summary>
+        /// Signals that a target has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public void TargetFinished(object sender, TargetBuildEventArgs e) {
+
+        }
+
+        /// <summary>
+        /// Signals that logging for a target has started.  May not correspond with <see cref="TargetStarted(object, TargetBuildEventArgs)"/> if 
+        /// the target is running in parallel with buffered logging.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
+        public virtual void TargetLoggingStarted(object sender, TargetBuildEventArgs e)
+        {
+            lock (_xmlWriter)
+            {
                 _xmlWriter.WriteStartElement(Elements.Target);
                 WriteNameAttribute(e.Target.Name);
                 _xmlWriter.Flush();
@@ -182,17 +201,20 @@ namespace NAnt.Core {
         }
 
         /// <summary>
-        /// Signals that a target has finished.
+        /// Signals that logging for a target has finished.  May not correspond with <see cref="TargetFinished(object, TargetBuildEventArgs)"/> if 
+        /// the target is running in parallel with buffered logging.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public void TargetFinished(object sender, BuildEventArgs e) {
-            lock (_xmlWriter) {
+        public virtual void TargetLoggingFinished(object sender, TargetBuildEventArgs e)
+        {
+            lock (_xmlWriter)
+            {
                 // output total target duration
-                WriteDuration();
+                WriteDuration(e.Stopwatch);
                 // close target element
                 _xmlWriter.WriteEndElement();
                 _xmlWriter.Flush();
@@ -203,10 +225,19 @@ namespace NAnt.Core {
         /// Signals that a task has started.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        public void TaskStarted(object sender, BuildEventArgs e) {
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        public void TaskStarted(object sender, TaskBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a task has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        public void TaskLoggingStarted(object sender, TaskBuildEventArgs e)
+        {
             lock (_xmlWriter) {
-                _stopWatchStack.PushStart();
                 _xmlWriter.WriteStartElement(Elements.Task);
                 WriteNameAttribute(e.Task.Name);
                 _xmlWriter.Flush();
@@ -217,22 +248,35 @@ namespace NAnt.Core {
         /// Signals that a task has finished.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public void TaskFinished(object sender, BuildEventArgs e) {
+        public void TaskFinished(object sender, TaskBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a task has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public void TaskLoggingFinished(object sender, TaskBuildEventArgs e)
+        {
             lock (_xmlWriter) {
                 // output total target duration
-                WriteDuration();
+                WriteDuration(e.Stopwatch);
                 // close task element
                 _xmlWriter.WriteEndElement();
                 _xmlWriter.Flush();
             }
         }
 
-        private void WriteDuration() {
-            _xmlWriter.WriteElementString("duration", XmlConvert.ToString(_stopWatchStack.PopStop().TotalMilliseconds));
+        private void WriteDuration(Stopwatch sw) {
+            _xmlWriter.WriteElementString("duration", XmlConvert.ToString(sw.ElapsedMilliseconds));
         }
 
         /// <summary>
@@ -255,7 +299,7 @@ namespace NAnt.Core {
                     _xmlWriter.WriteStartElement(Elements.Message);
 
                     // write message level as attribute
-                    _xmlWriter.WriteAttributeString(Attributes.MessageLevel, e.MessageLevel.ToString(CultureInfo.InvariantCulture));
+                    _xmlWriter.WriteAttributeString(Attributes.MessageLevel, e.MessageLevel.ToString());
 
                     if (IsValidXml(rawMessage)) {
                         rawMessage = Regex.Replace(rawMessage, @"<\?.*\?>", string.Empty);

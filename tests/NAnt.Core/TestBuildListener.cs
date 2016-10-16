@@ -41,7 +41,7 @@ namespace Tests.NAnt.Core {
             _buildFinishedFired = true;
         }
 
-        public void TargetStarted(object sender, BuildEventArgs e) {
+        public void TargetStarted(object sender, TargetBuildEventArgs e) {
             _targetStartedFired = true;
 
             if (e.Target != null) {
@@ -54,7 +54,7 @@ namespace Tests.NAnt.Core {
             }
         }
 
-        public void TargetFinished(object sender, BuildEventArgs e) {
+        public void TargetFinished(object sender, TargetBuildEventArgs e) {
             _targetFinishedFired = true;
             _targetFinishTimes[e.Target.Name] = DateTime.UtcNow;
         }
@@ -63,7 +63,7 @@ namespace Tests.NAnt.Core {
             _loggedMessages.Add(e);
         }
 
-        public void TaskStarted(object sender, BuildEventArgs e) {
+        public void TaskStarted(object sender, TaskBuildEventArgs e) {
             _taskStartedFired = true;
 
             if (e.Task != null) {
@@ -75,7 +75,7 @@ namespace Tests.NAnt.Core {
             }
         }
 
-        public void TaskFinished(object sender, BuildEventArgs e) {
+        public void TaskFinished(object sender, TaskBuildEventArgs e) {
             _taskFinishedFired = true;
         }
         public int GetTargetExecutionCount(string target) {
@@ -138,6 +138,26 @@ namespace Tests.NAnt.Core {
             }
 
             return false;
+        }
+
+        public void TargetLoggingStarted(object sender, TargetBuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TargetLoggingFinished(object sender, TargetBuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TaskLoggingStarted(object sender, TaskBuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TaskLoggingFinished(object sender, TaskBuildEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public bool HasBuildStartedFired {

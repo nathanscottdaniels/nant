@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace NAnt.Core.Tasks
 {
@@ -91,9 +92,22 @@ namespace NAnt.Core.Tasks
         }
 
         /// <summary>
+        /// Perform initial checks
+        /// </summary>
+        protected override void Initialize()
+        {
+            base.Initialize();
+            if (this.Cacophony && this.Project.BuildListeners.ContainsType<XmlLogger>())
+            {
+                throw new BuildException($"Cacophony logging is impossible with the {nameof(XmlLogger)} logger");
+            }
+        }
+
+        /// <summary>
         /// Executes this task
         /// </summary>
         protected override void ExecuteTask()
+
         {
             this.Log(Level.Info, $"Begining {(this.RunInSerial ? "sequential" : "parallel")} execution of targets: {this.Description}");
             this.Logger.Indent();

@@ -31,6 +31,7 @@ using System.Xml;
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
 using NAnt.Core.Tasks;
+using System.Diagnostics;
 
 namespace NAnt.Core
 {
@@ -205,6 +206,11 @@ namespace NAnt.Core
         }
 
         /// <summary>
+        /// Gets or sets a stopwatch that times how long it takes to execute this task
+        /// </summary>
+        private Stopwatch Stopwatch { get; set; }
+
+        /// <summary>
         /// Executes the task unless it is skipped.
         /// </summary>
         public void Execute()
@@ -212,6 +218,8 @@ namespace NAnt.Core
             systemLogger.DebugFormat(CultureInfo.InvariantCulture,
                 ResourceUtils.GetString("String_TaskExecute"),
                 Name);
+
+            this.Stopwatch = Stopwatch.StartNew();
 
             if (IfDefined && !UnlessDefined)
             {
@@ -226,7 +234,9 @@ namespace NAnt.Core
                 {
                     try
                     {
-                        Project.OnTaskStarted(this, new BuildEventArgs(this));
+                        Project.OnTaskStarted(this, new TaskBuildEventArgs(this, this.Stopwatch));
+                        this.Logger.OnTaskLoggingStarted(this, new TaskBuildEventArgs(this, this.Stopwatch));
+
                         ExecuteTask();
                     }
                     catch (Exception ex)
@@ -274,7 +284,9 @@ namespace NAnt.Core
                     }
                     finally
                     {
-                        Project.OnTaskFinished(this, new BuildEventArgs(this));
+                        this.Stopwatch.Stop();
+                        Project.OnTaskFinished(this, new TaskBuildEventArgs(this, this.Stopwatch));
+                        this.Logger.OnTaskLoggingFinished(this, new TaskBuildEventArgs(this, this.Stopwatch));
                     }
                 }
             }
@@ -315,10 +327,10 @@ namespace NAnt.Core
 
             if (_verbose && messageLevel == Level.Verbose && Project.Threshold == Level.Info)
             {
-                this.Logger.Log(this, Level.Info, format);
+                this.Logger.Log(this, this.Stopwatch, Level.Info, format);
             }
             else {
-                this.Logger.Log(this, messageLevel, format);
+                this.Logger.Log(this, this.Stopwatch, messageLevel, format);
             }
         }
 

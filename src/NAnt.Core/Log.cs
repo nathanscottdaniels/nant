@@ -32,6 +32,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.Remoting.Lifetime;
@@ -150,29 +151,9 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="project">The <see cref="Project" /> that emitted the event.</param>
         public BuildEventArgs(Project project) {
-            _project = project;
+            this.Project = project;
         }
-    
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BuildEventArgs" />
-        /// class for a <see cref="Target" /> level event.
-        /// </summary>
-        /// <param name="target">The <see cref="Target" /> that emitted the event.</param>
-        public BuildEventArgs(Target target) {
-            _project = target.Project;
-            _target = target;
-        }
-    
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BuildEventArgs" />
-        /// class for a <see cref="Task" /> level event.
-        /// </summary>
-        /// <param name="task">The <see cref="Task" /> that emitted the event.</param>
-        public BuildEventArgs(Task task) {
-            _project = task.Project;
-            _target = task.Parent as Target;
-            _task = task;
-        }
+        
         /// <summary>
         /// Gets or sets the message associated with this event.
         /// </summary>
@@ -194,7 +175,7 @@ namespace NAnt.Core {
             get { return _messageLevel; }
             set { _messageLevel = value; }
         }
-    
+
         /// <summary>
         /// Gets or sets the <see cref="Exception" /> associated with this event.
         /// </summary>
@@ -212,20 +193,12 @@ namespace NAnt.Core {
         /// <value>
         /// The <see cref="Project" /> that fired this event.
         /// </value>
-        public Project Project {
-            get { return _project; }
-        }
+        public Project Project { get; protected set; }
 
         /// <summary>
-        /// Gets the <see cref="Target" /> that fired this event.
+        /// Gets the target this event is about
         /// </summary>
-        /// <value>
-        /// The <see cref="Target" /> that fired this event, or a null reference 
-        /// if this is a <see cref="Project" /> level event.
-        /// </value>
-        public Target Target {
-            get { return _target; }
-        }
+        public Target Target { get; protected set; }
 
         /// <summary>
         /// Gets the <see cref="Task" /> that fired this event.
@@ -235,15 +208,58 @@ namespace NAnt.Core {
         /// if this is a <see cref="Project" /> or <see cref="Target" /> level 
         /// event.
         /// </value>
-        public Task Task {
-            get { return _task; }
-        }
-        private readonly Project _project;
-        private readonly Target _target;
-        private readonly Task _task;
+        public Task Task { get; protected set; }
+        
         private string _message;
         private Level _messageLevel = Level.Verbose;
         private Exception _exception;
+    }
+
+    /// <summary>
+    /// Build event args specific to target events
+    /// </summary>
+    public class TargetBuildEventArgs : BuildEventArgs
+    {
+        /// <summary>
+        /// Creates a new instance of these arguments
+        /// </summary>
+        /// <param name="taregt">The target</param>
+        /// <param name="stopwatch">The stopwatch that was started when this target started</param>
+        public TargetBuildEventArgs(Target taregt, Stopwatch stopwatch)
+        {
+            this.Target = taregt;
+            this.Project = Target.Project;
+            this.Stopwatch = stopwatch;
+        }
+
+        /// <summary>
+        /// Gets the stopwatch that was started when the target started and stopped when it finished
+        /// </summary>
+        public Stopwatch Stopwatch { get; private set; }
+    }
+
+    /// <summary>
+    /// Build event args specific to task events
+    /// </summary>
+    public class TaskBuildEventArgs : BuildEventArgs
+    {
+        /// <summary>
+        /// Creates a new instance of these arguments
+        /// </summary>
+        /// <param name="task">The task</param>
+        /// <param name="stopwatch">The stopwatch that was started when this task started</param>
+        public TaskBuildEventArgs(Task task, Stopwatch stopwatch)
+        {
+            this.Task = task;
+            this.Project = task.Project;
+            this.Target = task.Parent as Target;
+            this.Stopwatch = stopwatch;
+        }
+
+        /// <summary>
+        /// Gets the stopwatch that was started when the task started and stopped when it finished
+        /// </summary>
+        public Stopwatch Stopwatch { get; private set; }
     }
 
     /// <summary>
@@ -252,6 +268,20 @@ namespace NAnt.Core {
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
     public delegate void BuildEventHandler(object sender, BuildEventArgs e);
+
+    /// <summary>
+    /// Represents the method that handles the build events.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
+    public delegate void TargetBuildEventHandler(object sender, TargetBuildEventArgs e);
+    
+    /// <summary>
+    /// Represents the method that handles the build events.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
+    public delegate void TaskBuildEventHandler(object sender, TaskBuildEventArgs e);
 
     /// <summary>
     /// Instances of classes that implement this interface can register to be 
@@ -282,35 +312,71 @@ namespace NAnt.Core {
         /// Signals that a target has started.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        void TargetStarted(object sender, BuildEventArgs e);
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
+        void TargetStarted(object sender, TargetBuildEventArgs e);
 
         /// <summary>
         /// Signals that a target has finished.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        void TargetFinished(object sender, BuildEventArgs e);
+        void TargetFinished(object sender, TargetBuildEventArgs e);
+
+        /// <summary>
+        /// Signals that logging for a target has started.  May not correspond with <see cref="TargetStarted(object, BuildEventArgs)"/> if 
+        /// the target is running in parallel with buffered logging.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
+        void TargetLoggingStarted(object sender, TargetBuildEventArgs e);
+
+        /// <summary>
+        /// Signals that logging for a target has finished.  May not correspond with <see cref="TargetFinished(object, BuildEventArgs)"/> if 
+        /// the target is running in parallel with buffered logging.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        void TargetLoggingFinished(object sender, TargetBuildEventArgs e);
 
         /// <summary>
         /// Signals that a task has started.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        void TaskStarted(object sender, BuildEventArgs e);
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        void TaskStarted(object sender, TaskBuildEventArgs e);
 
         /// <summary>
         /// Signals that a task has finished.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        void TaskFinished(object sender, BuildEventArgs e);
+        void TaskFinished(object sender, TaskBuildEventArgs e);
+
+        /// <summary>
+        /// Signals that a task has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        void TaskLoggingStarted(object sender, TaskBuildEventArgs e);
+
+        /// <summary>
+        /// Signals that a task has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        void TaskLoggingFinished(object sender, TaskBuildEventArgs e);
 
         /// <summary>
         /// Signals that a message has been logged.
@@ -527,7 +593,17 @@ namespace NAnt.Core {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        public virtual void TargetStarted(object sender, BuildEventArgs e) {
+        public virtual void TargetStarted(object sender, TargetBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that logging for a target has started.  May not correspond with <see cref="TargetStarted(object, TargetBuildEventArgs)"/> if 
+        /// the target is running in parallel with buffered logging.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        public virtual void TargetLoggingStarted(object sender, TargetBuildEventArgs e) {
             int indentationLevel = 0;
 
             if (e.Project != null) {
@@ -552,26 +628,63 @@ namespace NAnt.Core {
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public virtual void TargetFinished(object sender, BuildEventArgs e) {
+        public virtual void TargetFinished(object sender, TargetBuildEventArgs e)
+        {
         }
 
         /// <summary>
-        /// Signals that a task has started.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        public virtual void TaskStarted(object sender, BuildEventArgs e) {
-        }
-
-        /// <summary>
-        /// Signals that a task has finished.
+        /// Signals that logging for a target has finished.  May not correspond with <see cref="TargetFinished(object, TargetBuildEventArgs)"/> if 
+        /// the target is running in parallel with buffered logging.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public virtual void TaskFinished(object sender, BuildEventArgs e) {
+        public virtual void TargetLoggingFinished(object sender, TargetBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a task has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        public virtual void TaskStarted(object sender, TaskBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a task has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public virtual void TaskFinished(object sender, TaskBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a task has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        public virtual void TaskLoggingStarted(object sender, TaskBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a task has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public virtual void TaskLoggingFinished(object sender, TaskBuildEventArgs e)
+        {
         }
 
         /// <summary>
@@ -1114,7 +1227,7 @@ namespace NAnt.Core {
                 Add(items[i]);
             }
         }
-        
+
         /// <summary>
         /// Determines whether a <see cref="IBuildListener"/> is in the collection.
         /// </summary>
@@ -1123,10 +1236,32 @@ namespace NAnt.Core {
         /// <see langword="true" /> if <paramref name="item"/> is found in the 
         /// collection; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Contains(IBuildListener item) {
+        public bool Contains(IBuildListener item)
+        {
             return base.List.Contains(item);
         }
-        
+
+        /// <summary>
+        /// Determines whether a <see cref="IBuildListener"/> is in the collection.
+        /// </summary>
+        /// <param name="item">The <see cref="IBuildListener"/> to locate in the collection.</param> 
+        /// <returns>
+        /// <see langword="true" /> if <paramref name="item"/> is found in the 
+        /// collection; otherwise, <see langword="false" />.
+        /// </returns>
+        public bool ContainsType<T>() where T: IBuildListener
+        {
+            foreach(var x in this)
+            {
+                if (x.GetType().IsAssignableFrom(typeof(T)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Copies the entire collection to a compatible one-dimensional array, starting at the specified index of the target array.        
         /// </summary>

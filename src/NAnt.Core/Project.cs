@@ -118,22 +118,42 @@ namespace NAnt.Core
         /// <summary>
         /// Occurs when a target is started.
         /// </summary>
-        public event BuildEventHandler TargetStarted;
+        public event TargetBuildEventHandler TargetStarted;
 
         /// <summary>
         /// Occurs when a target has finished.
         /// </summary>
-        public event BuildEventHandler TargetFinished;
+        public event TargetBuildEventHandler TargetFinished;
 
         /// <summary>
         /// Occurs when a task is started.
         /// </summary>
-        public event BuildEventHandler TaskStarted;
+        public event TaskBuildEventHandler TaskStarted;
 
         /// <summary>
         /// Occurs when a task has finished.
         /// </summary>
-        public event BuildEventHandler TaskFinished;
+        public event TaskBuildEventHandler TaskFinished;
+
+        /// <summary>
+        /// Occurs when logging for  a target is started.
+        /// </summary>
+        public event TargetBuildEventHandler TargetLoggingStarted;
+
+        /// <summary>
+        /// Occurs when logging for  a target has finished.
+        /// </summary>
+        public event TargetBuildEventHandler TargetLoggingFinished;
+
+        /// <summary>
+        /// Occurs when logging for  a task is started.
+        /// </summary>
+        public event TaskBuildEventHandler TaskLoggingStarted;
+
+        /// <summary>
+        /// Occurs when logging for a task has finished.
+        /// </summary>
+        public event TaskBuildEventHandler TaskLoggingFinished;
 
         /// <summary>
         /// Occurs when a message is logged.
@@ -882,8 +902,8 @@ namespace NAnt.Core
         /// for this <see cref="Project" />.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTargetStarted(object sender, BuildEventArgs e)
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> that contains the event data.</param>
+        public void OnTargetStarted(object sender, TargetBuildEventArgs e)
         {
             if (TargetStarted != null)
             {
@@ -896,21 +916,50 @@ namespace NAnt.Core
         /// for this <see cref="Project" />.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTargetFinished(object sender, BuildEventArgs e)
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> that contains the event data.</param>
+        public void OnTargetFinished(object sender, TargetBuildEventArgs e)
         {
             if (TargetFinished != null)
             {
                 TargetFinished(sender, e);
             }
         }
+
+        /// <summary>
+        /// Dispatches a <see cref="TargetStarted" /> event to the build listeners 
+        /// for this <see cref="Project" />.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> that contains the event data.</param>
+        public void OnTargetLoggingStarted(object sender, TargetBuildEventArgs e)
+        {
+            if (TargetStarted != null)
+            {
+                TargetLoggingStarted(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Dispatches a <see cref="TargetFinished" /> event to the build listeners 
+        /// for this <see cref="Project" />.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TargetBuildEventArgs" /> that contains the event data.</param>
+        public void OnTargetLoggingFinished(object sender, TargetBuildEventArgs e)
+        {
+            if (TargetFinished != null)
+            {
+                TargetLoggingFinished(sender, e);
+            }
+        }
+
         /// <summary>
         /// Dispatches a <see cref="TaskStarted" /> event to the build listeners 
         /// for this <see cref="Project" />.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTaskStarted(object sender, BuildEventArgs e)
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> that contains the event data.</param>
+        public void OnTaskStarted(object sender, TaskBuildEventArgs e)
         {
             if (TaskStarted != null)
             {
@@ -923,12 +972,40 @@ namespace NAnt.Core
         /// for this <see cref="Project" />.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="BuildEventArgs" /> that contains the event data.</param>
-        public void OnTaskFinished(object sender, BuildEventArgs e)
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> that contains the event data.</param>
+        public void OnTaskFinished(object sender, TaskBuildEventArgs e)
         {
             if (TaskFinished != null)
             {
                 TaskFinished(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Dispatches a <see cref="TaskStarted" /> event to the build listeners 
+        /// for this <see cref="Project" />.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> that contains the event data.</param>
+        public void OnTaskLoggingStarted(object sender, TaskBuildEventArgs e)
+        {
+            if (TaskStarted != null)
+            {
+                TaskLoggingStarted(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Dispatches the <see cref="TaskFinished" /> event to the build listeners 
+        /// for this <see cref="Project" />.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="TaskBuildEventArgs" /> that contains the event data.</param>
+        public void OnTaskLoggingFinished(object sender, TaskBuildEventArgs e)
+        {
+            if (TaskFinished != null)
+            {
+                TaskLoggingFinished(sender, e);
             }
         }
 
@@ -981,11 +1058,12 @@ namespace NAnt.Core
         /// with the given <see cref="Level" />.
         /// </summary>
         /// <param name="task">The <see cref="Task" /> from which the message originated.</param>
+        /// <param name="stopwatch">The stopwatch of the task.</param>
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Task task, Level messageLevel, string message)
+        public void Log(Task task, Stopwatch stopwatch, Level messageLevel, string message)
         {
-            BuildEventArgs eventArgs = new BuildEventArgs(task);
+            BuildEventArgs eventArgs = new TaskBuildEventArgs(task, stopwatch);
 
             eventArgs.Message = message;
             eventArgs.MessageLevel = messageLevel;
@@ -997,11 +1075,12 @@ namespace NAnt.Core
         /// the given <see cref="Level" />.
         /// </summary>
         /// <param name="target">The <see cref="Target" /> from which the message orignated.</param>
+        /// <param name="stopwatch">The stopwatch of the target.</param>
         /// <param name="messageLevel">The level to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Target target, Level messageLevel, string message)
+        public void Log(Target target, Stopwatch stopwatch, Level messageLevel, string message)
         {
-            BuildEventArgs eventArgs = new BuildEventArgs(target);
+            BuildEventArgs eventArgs = new TargetBuildEventArgs(target, stopwatch);
 
             eventArgs.Message = message;
             eventArgs.MessageLevel = messageLevel;
@@ -1316,10 +1395,14 @@ namespace NAnt.Core
             // hook up to build events
             BuildStarted += new BuildEventHandler(buildLogger.BuildStarted);
             BuildFinished += new BuildEventHandler(buildLogger.BuildFinished);
-            TargetStarted += new BuildEventHandler(buildLogger.TargetStarted);
-            TargetFinished += new BuildEventHandler(buildLogger.TargetFinished);
-            TaskStarted += new BuildEventHandler(buildLogger.TaskStarted);
-            TaskFinished += new BuildEventHandler(buildLogger.TaskFinished);
+            TargetStarted += new TargetBuildEventHandler(buildLogger.TargetStarted);
+            TargetFinished += new TargetBuildEventHandler(buildLogger.TargetFinished);
+            TaskStarted += new TaskBuildEventHandler(buildLogger.TaskStarted);
+            TaskFinished += new TaskBuildEventHandler(buildLogger.TaskFinished);
+            TargetLoggingStarted += new TargetBuildEventHandler(buildLogger.TargetLoggingStarted);
+            TargetLoggingFinished += new TargetBuildEventHandler(buildLogger.TargetLoggingFinished);
+            TaskLoggingStarted += new TaskBuildEventHandler(buildLogger.TaskLoggingStarted);
+            TaskLoggingFinished += new TaskBuildEventHandler(buildLogger.TaskLoggingFinished);
             MessageLogged += new BuildEventHandler(buildLogger.MessageLogged);
 
             // set threshold of logger equal to threshold of the project
@@ -1354,11 +1437,15 @@ namespace NAnt.Core
             {
                 BuildStarted -= new BuildEventHandler(listener.BuildStarted);
                 BuildFinished -= new BuildEventHandler(listener.BuildFinished);
-                TargetStarted -= new BuildEventHandler(listener.TargetStarted);
-                TargetFinished -= new BuildEventHandler(listener.TargetFinished);
-                TaskStarted -= new BuildEventHandler(listener.TaskStarted);
-                TaskFinished -= new BuildEventHandler(listener.TaskFinished);
+                TargetStarted -= new TargetBuildEventHandler(listener.TargetStarted);
+                TargetFinished -= new TargetBuildEventHandler(listener.TargetFinished);
+                TaskStarted -= new TaskBuildEventHandler(listener.TaskStarted);
+                TaskFinished -= new TaskBuildEventHandler(listener.TaskFinished);
                 MessageLogged -= new BuildEventHandler(listener.MessageLogged);
+                TargetLoggingStarted -= new TargetBuildEventHandler(listener.TargetLoggingStarted);
+                TargetLoggingFinished -= new TargetBuildEventHandler(listener.TargetLoggingFinished);
+                TaskLoggingStarted -= new TaskBuildEventHandler(listener.TaskLoggingStarted);
+                TaskLoggingFinished -= new TaskBuildEventHandler(listener.TaskLoggingFinished);
 
                 IBuildLogger buildLogger = listener as IBuildLogger;
 
@@ -1389,11 +1476,15 @@ namespace NAnt.Core
                 // hook up listener to project build events
                 BuildStarted += new BuildEventHandler(listener.BuildStarted);
                 BuildFinished += new BuildEventHandler(listener.BuildFinished);
-                TargetStarted += new BuildEventHandler(listener.TargetStarted);
-                TargetFinished += new BuildEventHandler(listener.TargetFinished);
-                TaskStarted += new BuildEventHandler(listener.TaskStarted);
-                TaskFinished += new BuildEventHandler(listener.TaskFinished);
+                TargetStarted += new TargetBuildEventHandler(listener.TargetStarted);
+                TargetFinished += new TargetBuildEventHandler(listener.TargetFinished);
+                TaskStarted += new TaskBuildEventHandler(listener.TaskStarted);
+                TaskFinished += new TaskBuildEventHandler(listener.TaskFinished);
                 MessageLogged += new BuildEventHandler(listener.MessageLogged);
+                TargetLoggingStarted += new TargetBuildEventHandler(listener.TargetLoggingStarted);
+                TargetLoggingFinished += new TargetBuildEventHandler(listener.TargetLoggingFinished);
+                TaskLoggingStarted += new TaskBuildEventHandler(listener.TaskLoggingStarted);
+                TaskLoggingFinished += new TaskBuildEventHandler(listener.TaskLoggingFinished);
 
                 // add listener to project listener list
                 BuildListeners.Add(listener);

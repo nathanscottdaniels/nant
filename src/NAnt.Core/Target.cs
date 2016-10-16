@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Globalization;
 using System.Xml;
 
@@ -267,13 +268,16 @@ namespace NAnt.Core
         {
             var propertyAccessor = new PropertyAccessor(this.Project, callStack);
 
+            var sw = Stopwatch.StartNew();
+
             if (IfDefined(propertyAccessor) && !UnlessDefined(propertyAccessor))
             {
                 try
                 {
                     using (callStack.Push(this))
                     {
-                        Project.OnTargetStarted(this, new BuildEventArgs(this));
+                        Project.OnTargetStarted(this, new TargetBuildEventArgs(this, sw));
+                        logger.OnTargetLoggingStarted(this, new TargetBuildEventArgs(this, sw));
 
                         // select all the task nodes and execute them
                         foreach (XmlNode childNode in XmlNode)
@@ -316,7 +320,9 @@ namespace NAnt.Core
                 finally
                 {
                     _executed = true;
-                    Project.OnTargetFinished(this, new BuildEventArgs(this));
+                    sw.Stop();
+                    Project.OnTargetFinished(this, new TargetBuildEventArgs(this, sw));
+                    logger.OnTargetLoggingFinished(this, new TargetBuildEventArgs(this, sw));
                 }
             }
         }

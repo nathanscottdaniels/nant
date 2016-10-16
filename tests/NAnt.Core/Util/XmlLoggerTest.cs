@@ -29,6 +29,7 @@ using NUnit.Framework;
 using NAnt.Core;
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
+using System.Diagnostics;
 
 namespace Tests.NAnt.Core.Util {
     [TestFixture]
@@ -257,7 +258,7 @@ namespace Tests.NAnt.Core.Util {
             string expected = @"<target name=""foo""><duration>123</duration></target>";
             _log = CreateXmlLogger(CreateDateTimeProvider(123));
 
-            BuildEventArgs args = CreateBuildEventArgsWithTarget("foo");
+            TargetBuildEventArgs args = CreateBuildEventArgsWithTarget("foo");
             _log.TargetStarted(this, args);
             _log.TargetFinished(this, args);
             Assert.AreEqual(expected, _log.ToString());
@@ -268,7 +269,7 @@ namespace Tests.NAnt.Core.Util {
             string expected = @"<task name=""testtask""><duration>321</duration></task>";
             _log = CreateXmlLogger(CreateDateTimeProvider(321));
 
-            BuildEventArgs args = new BuildEventArgs(new TestTask());
+            TaskBuildEventArgs args = new TaskBuildEventArgs(new TestTask(), Stopwatch.StartNew());
             _log.TaskStarted(this, args);
             _log.TaskFinished(this, args);
             Assert.AreEqual(expected, _log.ToString());
@@ -286,15 +287,15 @@ namespace Tests.NAnt.Core.Util {
         }
 
         private XmlLogger CreateXmlLogger(DateTimeProvider dtProvider) {
-            XmlLogger logger = new XmlLogger(new StopWatchStack(dtProvider));
+            XmlLogger logger = new XmlLogger();
             logger.OutputWriter = new StringWriter();
             return logger;
         }
 
-        private BuildEventArgs CreateBuildEventArgsWithTarget(string targetName) {
+        private TargetBuildEventArgs CreateBuildEventArgsWithTarget(string targetName) {
             Target target = new Target();
             target.Name = targetName;
-            return new BuildEventArgs(target);
+            return new TargetBuildEventArgs(target, Stopwatch.StartNew());
         }
 
         private string FormatBuildFile(string globalTasks, string targetTasks, string projectName) {
@@ -302,7 +303,7 @@ namespace Tests.NAnt.Core.Util {
         }
 
         private BuildEventArgs CreateBuildEventArgs(string formattedMessage, Level level) {
-            BuildEventArgs args = new BuildEventArgs(new Target());
+            TargetBuildEventArgs args = new TargetBuildEventArgs(new Target(), Stopwatch.StartNew());
             args.Message = formattedMessage;
             args.MessageLevel = level;
             return args;
