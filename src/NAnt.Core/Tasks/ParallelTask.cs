@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace NAnt.Core.Tasks
 {
@@ -28,7 +27,7 @@ namespace NAnt.Core.Tasks
     /// Children of this task are run in parallel.
     /// </summary>
     [TaskName("parallel")]
-    public class ParallelTask : Task
+    public class ParallelTask : Task, IEquatable<ParallelTask>
     {
         /// <summary>
         /// The targets to execute in parallel
@@ -56,12 +55,36 @@ namespace NAnt.Core.Tasks
         {
             this.Children.Add(path);
         }
+
         /// <summary>
         /// The description of this task
         /// </summary>
         [TaskAttribute("description", Required = false)]
         [StringValidator(AllowEmpty = true)]
         public String Description { get; set; } = String.Empty;
+
+        /// <summary>
+        /// The name of this task
+        /// </summary>
+        [TaskAttribute("name", Required = false)]
+        [StringValidator(AllowEmpty = true)]
+        public String ShortName { get; set; } = String.Empty;
+
+        /// <summary>
+        /// Gets the name of this task
+        /// </summary>
+        public override string Name
+        {
+            get
+            {
+                if (String.IsNullOrWhiteSpace(this.ShortName))
+                {
+                    return base.Name;
+                }
+
+                return this.ShortName;
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not logging from child targets should happen simultaenoulsy 
@@ -94,12 +117,20 @@ namespace NAnt.Core.Tasks
         /// <summary>
         /// Perform initial checks
         /// </summary>
-        protected override void Initialize()
+        private void ValidateContext()
         {
             base.Initialize();
             if (this.Cacophony && this.Project.BuildListeners.ContainsType<XmlLogger>())
             {
                 throw new BuildException($"Cacophony logging is impossible with the {nameof(XmlLogger)} logger");
+            }
+
+            foreach(var parent in this.CallStack.GetEntireTaskAncestry())
+            {
+                if (parent.Task is ParallelTask && parent.Task != this && (parent.Task as ParallelTask).Equals(this))
+                {
+                    throw new BuildException($"Infinite loop detected!  Parallel/Sequence task \"{this.ShortName}\" is indirectly being called by itself.");
+                }
             }
         }
 
@@ -107,9 +138,9 @@ namespace NAnt.Core.Tasks
         /// Executes this task
         /// </summary>
         protected override void ExecuteTask()
-
         {
-            this.Log(Level.Info, $"Begining {(this.RunInSerial ? "sequential" : "parallel")} execution of targets: {this.Description}");
+            this.Log(Level.Info, $"Begining {(this.RunInSerial ? "sequential" : "parallel")} execution [{this.Name}: {this.Description}]");
+            this.ValidateContext();
             this.Logger.Indent();
 
             var cacophony = this.Cacophony;
@@ -134,8 +165,10 @@ namespace NAnt.Core.Tasks
                     if (element is ParallelTarget)
                     {
                         var targetElement = element as ParallelTarget;
-                        this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in sequence.");
 
+                        this.Logger.Unindent();
+                        this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in sequence.");
+                        this.Logger.Indent();
                         this.Project.Execute(targetElement.TargetName, targetElement.CascadeDependencies, this, this.CloneCallStack(), this.Logger);
                     }
                     else
@@ -341,6 +374,18 @@ namespace NAnt.Core.Tasks
         private TargetCallStack CloneCallStack()
         {
             return this.CallStack.Clone() as TargetCallStack;
+        }
+
+        /// <summary>
+        /// Checks if two parallel tasks contain the same inner xml
+        /// </summary>
+        /// <param name="other">The other task</param>
+        /// <returns>true if they are equal</returns>
+        public bool Equals(ParallelTask other)
+        {
+            return
+                this.XmlNode.OuterXml.GetHashCode() == other.XmlNode.OuterXml.GetHashCode()
+                && this.CallStack.CurrentFrame.Target == other.CallStack.CurrentFrame.Target;
         }
 
         /// <summary>

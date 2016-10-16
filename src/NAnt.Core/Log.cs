@@ -643,6 +643,7 @@ namespace NAnt.Core {
         /// </remarks>
         public virtual void TargetLoggingFinished(object sender, TargetBuildEventArgs e)
         {
+            OutputMessage(Level.Info, string.Empty, 0);
         }
 
         /// <summary>

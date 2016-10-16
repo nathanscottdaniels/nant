@@ -122,20 +122,7 @@ namespace NAnt.Core
                 return name;
             }
         }
-
-        /// <summary>
-        /// The prefix used when sending messages to the log.
-        /// </summary>
-        [Obsolete("Will be removed soon", false)]
-        public string LogPrefix
-        {
-            get
-            {
-                string prefix = "[" + Name + "] ";
-                return prefix.PadLeft(Project.IndentationSize);
-            }
-        }
-
+        
         /// <summary>
         /// Gets or sets the log threshold for this <see cref="Task" />. By
         /// default the threshold of a task is <see cref="Level.Debug" />,

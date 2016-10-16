@@ -28,7 +28,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using NAnt.Core.Util;
 
 namespace NAnt.Core {
     /// <summary>
