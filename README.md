@@ -17,9 +17,9 @@ The primary focus of pNAnt is to add the ability to run multiple build targets i
 ## Tasks
 The following tasks have been added:
 
-* [`<parallel/>`](wiki/parallel--task): Specifies targets to run in parallel
-* [`<sequence/>`](wiki/sequence--task): Specifies targets to tun in sequence
-* [`<mutex/>`](wiki/mutex--task): Wraps a block of tasks in a mutual-exclusion lock
+* [`<parallel/>`](https://github.com/nathanscottdaniels/pnant/wiki/parallel--task): Specifies targets to run in parallel
+* [`<sequence/>`](https://github.com/nathanscottdaniels/pnant/wiki/sequence--task): Specifies targets to tun in sequence
+* [`<mutex/>`](https://github.com/nathanscottdaniels/pnant/wiki/mutex--task): Wraps a block of tasks in a mutual-exclusion lock
 
 ## Property Scope
 No longer are all properties globally scoped.  Properties can now have one of three scopes:
@@ -27,10 +27,10 @@ No longer are all properties globally scoped.  Properties can now have one of th
 * `thread`: Visible to all targets and projects in the current thread and child threads.
 * `target`: Visible only to the target in which it is declared.
 
-See the [Property Scope](wiki/property-scope) page for more information.
+See the [Property Scope](https://github.com/nathanscottdaniels/pnant/wiki/property-scope) page for more information.
 
 ## Logging Changes
-See [Logging Parallel Activities](wiki/logging-parallel-activities) for information on how logging works when dealing with multiple threads.
+See [Logging Parallel Activities](https://github.com/nathanscottdaniels/pnant/wiki/logging-parallel-activities) for information on how logging works when dealing with multiple threads.
 
 ## Breaking Changes
 pNAnt now requires .NET Framework 4.6.  I am sorry.
