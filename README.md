@@ -10,6 +10,9 @@ and the source here:
 
 https://github.com/nant/nant
 
+#### How do I pronounce it?
+The 'p' is silent as in 'pneumatic'.  Or you can call it 'pea-nant'.
+
 # Additions to NAnt
 
 The primary focus of pNAnt is to add the ability to run multiple build targets in parallel.  To this end, several tasks and attributes were added which allow fine-grained control over which targets can be run in parallel and which must be run sequentially.
