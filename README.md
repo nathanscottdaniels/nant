@@ -2,7 +2,7 @@
 
 ### What is it? 
 
-pNAnt is a fork of NAnt that provides parallelization support and fixes some of the more serious shortcomings of NAnt.  You can find the original NAnt project here:
+pNAnt is a fork of NAnt and NAntContrib that provides parallelization support and fixes some of the more serious shortcomings of NAnt.  You can find the original NAnt project here:
 
 http://nant.sourceforge.net/
 
@@ -11,7 +11,7 @@ and the source here:
 https://github.com/nant/nant
 
 #### How do I pronounce it?
-The 'p' is silent as in 'pneumatic'.  Or you can call it 'pea-nant'.
+The 'p' is silent as in 'pneumatic'.  Or you can just call it 'pea-nant'.
 
 # Additions to NAnt
 
