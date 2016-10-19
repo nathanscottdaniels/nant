@@ -506,7 +506,7 @@ namespace NAnt.Contrib.Tasks {
             SqlStatementList list = new SqlStatementList(Delimiter, DelimiterStyle);
          
             if (ExpandProperties) {
-                list.Properties = Project.Properties;
+                list.Properties = this.PropertyAccessor;
             }
             return list;
         }

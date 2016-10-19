@@ -221,7 +221,7 @@ namespace NAnt.Contrib.Tasks {
         protected override void ExecuteTask() { 
             Log(Level.Info, "Building project '{0}'.", ProjectFile.FullName);
             if (CompiledProperty != null) {
-                Properties[CompiledProperty] = "false";
+                this.PropertyAccessor[CompiledProperty] = "false";
             }
 
             if (NeedsCompiling()) {
@@ -251,7 +251,7 @@ namespace NAnt.Contrib.Tasks {
                 // call base class to do the work
                 base.ExecuteTask();
                 if (CompiledProperty != null) {
-                    Properties[CompiledProperty] = "true";
+                    this.PropertyAccessor[CompiledProperty] = "true";
                 }
             }
         }

@@ -486,9 +486,9 @@ namespace NAnt.Core {
                         break;
                     }
                 }
-                catch (DirectoryNotFoundException dnfe)
+                catch (DirectoryNotFoundException)
                 {
-                    logger.Warn($"{tmp.FullName} does not exist!  It may be a junction to an invalid location.");
+                    logger.Warn(tmp.FullName + " does not exist!  It may be a junction to an invalid location.");
                 }
             }
         }
@@ -1031,9 +1031,9 @@ namespace NAnt.Core {
                     GetAllFileSystemInfo(d);
                 }
             }
-            catch (DirectoryNotFoundException dnfe)
+            catch (DirectoryNotFoundException)
             {
-                logger.Warn($"{rootDir.FullName} does not exist!  It may be a junction to an invalid location.");
+                logger.Warn(rootDir.FullName + " does not exist!  It may be a junction to an invalid location.");
             }
         }
         private static StringBuilder CleanPath(string nantPath) {

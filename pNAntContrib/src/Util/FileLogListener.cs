@@ -254,7 +254,7 @@ namespace NAnt.Contrib.Util {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        public virtual void TargetStarted(object sender, BuildEventArgs e) {
+        public virtual void TargetStarted(object sender, TargetBuildEventArgs e) {
             int indentationLevel = 0;
 
             if (e.Project != null) {
@@ -277,7 +277,7 @@ namespace NAnt.Contrib.Util {
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public virtual void TargetFinished(object sender, BuildEventArgs e) {
+        public virtual void TargetFinished(object sender, TargetBuildEventArgs e) {
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace NAnt.Contrib.Util {
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
-        public virtual void TaskStarted(object sender, BuildEventArgs e) {
+        public virtual void TaskStarted(object sender, TaskBuildEventArgs e) {
         }
 
         /// <summary>
@@ -296,7 +296,46 @@ namespace NAnt.Contrib.Util {
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public virtual void TaskFinished(object sender, BuildEventArgs e) {
+        public virtual void TaskFinished(object sender, TaskBuildEventArgs e) {
+        }
+    
+        /// <summary>
+        /// Signals that logging for a target has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        public void TargetLoggingStarted(object sender, TargetBuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Signals that logging for a target has stopped
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        public void TargetLoggingFinished(object sender, TargetBuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Signals that logging for a task has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        public void TaskLoggingStarted(object sender, TaskBuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that logging for a task has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        public void TaskLoggingFinished(object sender, TaskBuildEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -459,7 +498,6 @@ namespace NAnt.Contrib.Util {
             buildEvent.Message = message;
             return buildEvent;
         }
-
         #endregion Private Static Methods
 
         #region Private Instance Fields

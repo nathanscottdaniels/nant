@@ -24,6 +24,15 @@ namespace NAnt.Core.Types
     public class ParallelTarget : DataTypeBase
     {
         /// <summary>
+        /// Creates a new target
+        /// </summary>
+        public ParallelTarget()
+        {
+            this.IfDefined = true;
+            this.CascadeDependencies = true;
+        }
+
+        /// <summary>
         /// Value of the option. The default is <see langword="null" />.
         /// </summary>
         [TaskAttribute("target")]
@@ -36,7 +45,7 @@ namespace NAnt.Core.Types
         /// </summary>
         [TaskAttribute("if")]
         [BooleanValidator()]
-        public bool IfDefined { get; set; } = true;
+        public bool IfDefined { get; set; }
 
         /// <summary>
         /// Indicates if the option should not be passed to the task.
@@ -45,13 +54,13 @@ namespace NAnt.Core.Types
         /// </summary>
         [TaskAttribute("unless")]
         [BooleanValidator()]
-        public bool UnlessDefined { get; set; } = false;
+        public bool UnlessDefined { get; set; } 
 
         /// <summary>
         /// Execute the specified targets dependencies -- even if they have been 
         /// previously executed. The default is <see langword="true" />.
         /// </summary>
         [TaskAttribute("cascade")]
-        public bool CascadeDependencies { get; set; } = true;
+        public bool CascadeDependencies { get; set; }
     }
 }

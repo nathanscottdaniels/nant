@@ -206,10 +206,14 @@ namespace NAnt.Contrib.Tasks {
             // unhook up to build events
             Project.BuildStarted -= new BuildEventHandler(logger.BuildStarted);
             Project.BuildFinished -= new BuildEventHandler(logger.BuildFinished);
-            Project.TargetStarted -= new BuildEventHandler(logger.TargetStarted);
-            Project.TargetFinished -= new BuildEventHandler(logger.TargetFinished);
-            Project.TaskStarted -= new BuildEventHandler(logger.TaskStarted);
-            Project.TaskFinished -= new BuildEventHandler(logger.TaskFinished);
+            Project.TargetStarted -= new TargetBuildEventHandler(logger.TargetStarted);
+            Project.TargetFinished -= new TargetBuildEventHandler(logger.TargetFinished);
+            Project.TaskStarted -= new TaskBuildEventHandler(logger.TaskStarted);
+            Project.TaskFinished -= new TaskBuildEventHandler(logger.TaskFinished);
+            Project.TargetLoggingStarted -= new TargetBuildEventHandler(logger.TargetLoggingStarted);
+            Project.TargetLoggingFinished -= new TargetBuildEventHandler(logger.TargetLoggingFinished);
+            Project.TaskLoggingStarted -= new TaskBuildEventHandler(logger.TaskLoggingStarted);
+            Project.TaskLoggingFinished -= new TaskBuildEventHandler(logger.TaskLoggingFinished);
             Project.MessageLogged -= new BuildEventHandler(logger.MessageLogged);
 
             if (Project.BuildListeners.Contains(logger)) {
@@ -225,11 +229,15 @@ namespace NAnt.Contrib.Tasks {
             // hook up to build events
             Project.BuildStarted += new BuildEventHandler(logger.BuildStarted);
             Project.BuildFinished += new BuildEventHandler(logger.BuildFinished);
-            Project.TargetStarted += new BuildEventHandler(logger.TargetStarted);
-            Project.TargetFinished += new BuildEventHandler(logger.TargetFinished);
-            Project.TaskStarted += new BuildEventHandler(logger.TaskStarted);
-            Project.TaskFinished += new BuildEventHandler(logger.TaskFinished);
+            Project.TargetStarted += new TargetBuildEventHandler(logger.TargetStarted);
+            Project.TargetFinished += new TargetBuildEventHandler(logger.TargetFinished);
+            Project.TaskStarted += new TaskBuildEventHandler(logger.TaskStarted);
+            Project.TaskFinished += new TaskBuildEventHandler(logger.TaskFinished);
             Project.MessageLogged += new BuildEventHandler(logger.MessageLogged);
+            Project.TargetLoggingStarted += new TargetBuildEventHandler(logger.TargetLoggingStarted);
+            Project.TargetLoggingFinished += new TargetBuildEventHandler(logger.TargetLoggingFinished);
+            Project.TaskLoggingStarted += new TaskBuildEventHandler(logger.TaskLoggingStarted);
+            Project.TaskLoggingFinished += new TaskBuildEventHandler(logger.TaskLoggingFinished);
 
             Project.BuildListeners.Add(logger);
         }

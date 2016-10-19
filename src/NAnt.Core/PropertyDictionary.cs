@@ -83,7 +83,7 @@ namespace NAnt.Core
         /// <summary>
         /// Gets the scope this collection is for
         /// </summary>
-        public PropertyScope Scope { get; }
+        public PropertyScope Scope { get; private set; }
 
         internal string GetPropertyValue(string propertyName)
         {

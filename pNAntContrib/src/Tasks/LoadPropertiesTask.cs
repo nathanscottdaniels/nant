@@ -112,9 +112,7 @@ namespace NAnt.Contrib.Tasks {
                 throw new BuildException("The properties file could not be read.",
                     Location, ex);
             }
-
-            PropertyDictionary properties = Project.Properties;
-
+            
             PropertyTask propertyTask = new PropertyTask();
             propertyTask.Parent = this;
             propertyTask.Project = Project;
@@ -142,7 +140,7 @@ namespace NAnt.Contrib.Tasks {
                     string value = line.Substring (equals_pos + 1, 
                         line.Length - equals_pos - 1).Trim();
 
-                    string expandedValue = properties.ExpandProperties(value,
+                    string expandedValue = this.PropertyAccessor.ExpandProperties(value,
                         Location);
 
                     propertyTask.PropertyName = name;

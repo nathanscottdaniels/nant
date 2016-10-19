@@ -81,9 +81,9 @@ namespace NAnt.Contrib.Tasks {
                         foreach (object propValue in (Array) pathRoot.Properties[PropName].Value) {
                             sb.AppendFormat("{0}" + Environment.NewLine, propValue);
                         }
-                        Project.Properties[StoreIn] = sb.ToString();
+                        this.PropertyAccessor[StoreIn] = sb.ToString();
                     } else {
-                        Project.Properties[StoreIn] = pathRoot.Properties[PropName].Value.ToString();
+                        this.PropertyAccessor[StoreIn] = pathRoot.Properties[PropName].Value.ToString();
                     }
                 }
             } catch (Exception ex) {

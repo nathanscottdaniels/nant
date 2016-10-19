@@ -71,7 +71,7 @@ namespace NAnt.Core
         /// <summary>
         /// The task this frame is for
         /// </summary>
-        public Task Task { get; }
+        public Task Task { get; private set; }
 
         /// <summary>
         /// Clones this stack frame

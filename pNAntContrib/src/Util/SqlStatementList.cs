@@ -49,7 +49,7 @@ namespace NAnt.Contrib.Util {
         private readonly StringCollection _statements;
         private readonly string _delimiter;
         private readonly DelimiterStyle _style;
-        private PropertyDictionary _properties;
+        private PropertyAccessor _properties;
 
         /// <summary>
         /// Gets the number of statements in the list.
@@ -67,7 +67,7 @@ namespace NAnt.Contrib.Util {
         /// <summary>
         /// Project's properties for property expansion
         /// </summary>
-        public PropertyDictionary Properties {
+        public PropertyAccessor Properties {
             get { return _properties; }
             set { _properties = value; }
         }

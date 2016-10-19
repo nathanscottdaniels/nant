@@ -263,13 +263,13 @@ namespace NAnt.Contrib.Tasks.StarTeam {
             this.Label = string.Format(CultureInfo.InvariantCulture, 
                 "{0}{1}.{2}.{3}", this.Label, _versionMajor, _versionMinor, 
                 _versionBuild);
-            this.Properties["label"] = this.Label;
-            this.Properties["Version.text"] = _versionMajor.ToString(CultureInfo.InvariantCulture) + "." 
+            this.PropertyAccessor["label"] = this.Label;
+            this.PropertyAccessor["Version.text"] = _versionMajor.ToString(CultureInfo.InvariantCulture) + "." 
                 + _versionMinor.ToString(CultureInfo.InvariantCulture) + "." 
                 + _versionBuild.ToString(CultureInfo.InvariantCulture);
-            this.Properties["Version.major"] = _versionMajor.ToString(CultureInfo.InvariantCulture);
-            this.Properties["Version.minor"] = _versionMinor.ToString(CultureInfo.InvariantCulture);
-            this.Properties["Version.build"] = _versionBuild.ToString(CultureInfo.InvariantCulture);
+            this.PropertyAccessor["Version.major"] = _versionMajor.ToString(CultureInfo.InvariantCulture);
+            this.PropertyAccessor["Version.minor"] = _versionMinor.ToString(CultureInfo.InvariantCulture);
+            this.PropertyAccessor["Version.build"] = _versionBuild.ToString(CultureInfo.InvariantCulture);
 
             createLabel(snapshot);
         }

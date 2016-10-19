@@ -18,8 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NAnt.Core
 {
@@ -37,7 +35,7 @@ namespace NAnt.Core
         /// <summary>
         /// Gets the thread-scoped properties in this stack
         /// </summary>
-        public PropertyDictionary ThreadProperties { get; }
+        public PropertyDictionary ThreadProperties { get; private set; }
 
         /// <summary>
         /// Pushes a new target frame onto this stack
@@ -48,7 +46,7 @@ namespace NAnt.Core
         {
             if (target == null)
             {
-                throw new ArgumentNullException(nameof(target));
+                throw new ArgumentNullException("target");
             }
 
             return this.PushNewFrame(
@@ -118,16 +116,16 @@ namespace NAnt.Core
         /// <summary>
         /// The target-scoped properties
         /// </summary>
-        public PropertyDictionary TargetProperties { get; }
+        public PropertyDictionary TargetProperties { get; private set; }
 
         /// <summary>
         /// The target this frame is for
         /// </summary>
-        public Target Target { get; }
+        public Target Target { get; private set; }
 
         /// <summary>
         /// Gets a stack of all of the tasks that have been performed up to this point
-        /// in this target.  Tasks such as <see cref="IfTask"/> and <see cref="MutexTask"/> 
+        /// in this target.  Tasks such as if and mutex
         /// will be in here followed by tasks within them.
         /// </summary>
         public TaskCallStack TaskCallStack { get; private set; }

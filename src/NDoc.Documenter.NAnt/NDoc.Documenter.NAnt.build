@@ -9,6 +9,8 @@
     -->
     <target name="build">
         <!-- build main assembly -->
+		<echo message="${build.dir}"/>
+		<sleep seconds="10"/>
         <csc target="library" define="${current.build.defines}" warnaserror="${build.warnaserror}" debug="${build.debug}" output="${build.dir}/bin/${project::get-name()}.dll" doc="${build.dir}/bin/${project::get-name()}.xml">
             <nowarn>
                 <warning number="0612" />

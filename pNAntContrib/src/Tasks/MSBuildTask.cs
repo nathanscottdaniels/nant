@@ -156,7 +156,7 @@ namespace NAnt.Contrib.Tasks {
                         string val;
                         // expand properties in context of current project for non-dynamic properties
                         if (!property.Dynamic) {
-                            val = Project.ExpandProperties(property.Value, Location);
+                            val = this.PropertyAccessor.ExpandProperties(property.Value, Location);
                         } else {
                             val = property.Value;
                         }

@@ -13,7 +13,7 @@
     <PostBuildEvent />
     <NoConfig>false</NoConfig>
     <ProductVersion>8.0.50727</ProductVersion>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -57,6 +57,12 @@
     <DocumentationFile>..\..\build\Release\NAnt.Core.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>NAnt.key</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -72,6 +78,7 @@
     <Compile Include="Attributes\BaseBuildAttribute.cs" />
     <Compile Include="BuildException.cs" />
     <Compile Include="CallStack.cs" />
+    <Compile Include="Functions\DnsFunctions.cs" />
     <Compile Include="ITargetLogger.cs" />
     <Compile Include="BufferingTargetLogger.cs" />
     <Compile Include="PropertyAccessor.cs" />
@@ -261,6 +268,7 @@
     <Compile Include="Tasks\ChooseTask.cs" />
     <Compile Include="Tasks\TryCatchTask.cs" />
     <Compile Include="ElementContainer.cs" />
+    <None Include="NAnt.key" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

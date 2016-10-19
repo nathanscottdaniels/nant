@@ -13,7 +13,7 @@
     <PostBuildEvent />
     <NoConfig>false</NoConfig>
     <ProductVersion>8.0.50727</ProductVersion>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>

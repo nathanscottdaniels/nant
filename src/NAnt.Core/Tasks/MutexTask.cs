@@ -40,7 +40,7 @@ namespace NAnt.Core.Tasks
         /// </summary>
         [TaskAttribute("timeout", Required = true)]
         [Int32Validator(MinValue = 1)]
-        public Int32 Timeout { get; set; } = -1;
+        public Int32 Timeout { get; set; } 
 
         /// <summary>
         /// The mutex to use
@@ -56,7 +56,7 @@ namespace NAnt.Core.Tasks
 
             if (!this.chosenMutex.WaitOne(new TimeSpan(0, 0, this.Timeout)))
             {
-                throw new BuildException($"Timeout expired while waiting for mutext \"{this.Name}\".  The timeout was {this.Timeout} seconds.");
+                throw new BuildException(String.Format("Timeout expired while waiting for mutext \"{0}\".  The timeout was {1} seconds.", this.Name, this.Timeout));
             }
 
             try
@@ -92,7 +92,7 @@ namespace NAnt.Core.Tasks
                 {
                     if (task.Name.Equals(this.Name, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        throw new BuildException($"Deadlock detected!  A target is currently waiting for mutex \"{this.Name}\" which is held by a parent task.");
+                        throw new BuildException(String.Format("Deadlock detected!  A target is currently waiting for mutex \"{0}\" which is held by a parent task.", this.Name));
                     }
                 }
             }

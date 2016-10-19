@@ -589,7 +589,7 @@ namespace NAnt.Core {
                 get { return _elementXml; }
             }
 
-            public PropertyAccessor Properties { get; }
+            public PropertyAccessor Properties { get; private set; }
 
             public FrameworkInfo TargetFramework {
                 get { return _targetFramework; }

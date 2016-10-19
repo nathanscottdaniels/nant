@@ -159,7 +159,7 @@ namespace NAnt.Contrib.Tasks {
         private XsltArgumentList GetPropertyList() {
             XsltArgumentList args = new XsltArgumentList();
 
-            foreach ( DictionaryEntry entry in this.Project.Properties ) {
+            foreach ( DictionaryEntry entry in this.PropertyAccessor ) {
                 string value = (entry.Value!=null) ? (string)entry.Value : "";
                 args.AddParam((string)entry.Key, "", value);
             }

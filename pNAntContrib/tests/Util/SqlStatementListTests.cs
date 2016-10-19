@@ -189,8 +189,9 @@ namespace Tests.NAnt.Contrib.Util {
                 // create project for buildfile
                 Project project = new Project(buildFile, Level.Info, 0);
 
-                list.Properties = new PropertyDictionary(project);
-                list.Properties.Add("dbName", "master");
+                var callStack = typeof(Project).GetProperty("RootTargetCallStack", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(project) as TargetCallStack;
+                list.Properties = new PropertyAccessor(project, callStack);
+                list.Properties.Set("dbName", "master");
 
                 list.ParseSql(inputStatements);
 

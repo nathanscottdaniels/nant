@@ -1161,7 +1161,7 @@ namespace NAnt.Core
         {
             if (callStack == null && caller == null)
             {
-                throw new ArgumentNullException(nameof(caller), $"Either {nameof(caller)} or {nameof(callStack)} must not be null");
+                throw new ArgumentNullException("caller", "Either caller or callStack must not be null");
             }
 
             // sort the dependency tree, and run everything from the
@@ -1631,6 +1631,11 @@ namespace NAnt.Core
         /// </summary>
         internal void InitializeProjectDocument(XmlDocument doc, TargetCallStack callStack)
         {
+            if (callStack == null)
+            {
+                throw new ArgumentNullException("callStack");
+            }
+
             // load line and column number information into position map
             LocationMap.Add(doc);
 

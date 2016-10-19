@@ -66,9 +66,29 @@ namespace NAnt.Core {
                 } else {
                     // create new instance.
                     ConstructorInfo constructor = methodInfo.DeclaringType.GetConstructor(new Type[] {typeof(Project), typeof(PropertyAccessor), typeof(TargetCallStack)});
-                    var o = constructor.Invoke(new object[] {Project, this._properties, this.callStack});
 
-                    return methodInfo.Invoke(o, args);
+                    if (constructor != null)
+                    {
+                        var o = constructor.Invoke(new object[] { Project, this._properties, this.callStack });
+
+                        return methodInfo.Invoke(o, args);
+                    }
+                    else
+                    {
+                        // Old function set sub classes could be using the old constructor so lets hack our way through
+                        constructor = methodInfo.DeclaringType.GetConstructor(new Type[] { typeof(Project), typeof(PropertyDictionary)});
+
+                        if (constructor == null)
+                        {
+                            throw new TypeLoadException("A proper constuctor was not found for the class containing function " + methodInfo.Name + ".  Make sure your class has only the constructors necessary for superclass FunctionSetBase.");
+                        }
+
+#pragma warning disable CS0618 // We know this is obsolete.  It is obsolete so no one ELSE uses it
+                        var o = constructor.Invoke(new object[] { Project, new BackwardsCompatiblePropertyAccessor(this.Project, this._properties, this.callStack) });
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                        return methodInfo.Invoke(o, args);
+                    }
                 }
             } catch (TargetInvocationException ex) {
                 if (ex.InnerException != null) {

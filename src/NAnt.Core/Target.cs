@@ -87,7 +87,7 @@ namespace NAnt.Core
         /// </summary>
         [TaskAttribute("locked", Required = false, ExpandProperties = true)]
         [BooleanValidator()]
-        public Boolean Locked { get; set; } = false;
+        public Boolean Locked { get; set; }
 
         /// <summary>
         /// If <see langword="true" /> then the target will be executed; 

@@ -36,6 +36,7 @@ namespace NAnt.Core
         protected internal CallStack(Project project)
         {
             this.Project = project;
+            this.InnerStack = new Stack<TFrame>();
         }
 
         /// <summary>
@@ -70,12 +71,12 @@ namespace NAnt.Core
         /// <summary>
         /// The project
         /// </summary>
-        protected Project Project { get; }
+        protected Project Project { get; private set; }
 
         /// <summary>
         /// The backing stack
         /// </summary>
-        private Stack<TFrame> InnerStack { get; set; } = new Stack<TFrame>();
+        private Stack<TFrame> InnerStack { get; set; }
 
         /// <summary>
         /// Pushes a new frame onto this stack

@@ -194,11 +194,11 @@ namespace NAnt.Contrib.Tasks
         protected override void ExecuteTask()  {
             Version version = CalculateVersion();
 
-            Project.Properties[Prefix + ".version"] = version.ToString();
-            Project.Properties[Prefix + ".major"] = version.Major.ToString();
-            Project.Properties[Prefix + ".minor"] = version.Minor.ToString();
-            Project.Properties[Prefix + ".build"] = version.Build.ToString();
-            Project.Properties[Prefix + ".revision"] = version.Revision.ToString();
+            this.PropertyAccessor[Prefix + ".version"] = version.ToString();
+            this.PropertyAccessor[Prefix + ".major"] = version.Major.ToString();
+            this.PropertyAccessor[Prefix + ".minor"] = version.Minor.ToString();
+            this.PropertyAccessor[Prefix + ".build"] = version.Build.ToString();
+            this.PropertyAccessor[Prefix + ".revision"] = version.Revision.ToString();
 
             // write version back to file
             WriteVersionToFile(version);

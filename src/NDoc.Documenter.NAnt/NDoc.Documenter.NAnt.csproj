@@ -13,7 +13,7 @@
     <PostBuildEvent />
     <NoConfig>false</NoConfig>
     <ProductVersion>8.0.50727</ProductVersion>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -61,6 +61,13 @@
     <Reference Include="mscorlib" />
     <Reference Include="NDoc.Core">
       <HintPath>..\..\lib\common\neutral\NDoc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NDoc.Documenter.Msdn">
+      <HintPath>..\..\lib\common\neutral\NDoc.Documenter.Msdn.dll</HintPath>
+    </Reference>
+    <Reference Include="NDoc.ExtendedUI, Version=1.3.3152.0, Culture=neutral, PublicKeyToken=b9896512f28c0f09">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\common\neutral\NDoc.ExtendedUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

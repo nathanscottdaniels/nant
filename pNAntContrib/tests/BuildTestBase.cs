@@ -188,7 +188,11 @@ namespace Tests.NAnt.Contrib {
             return new Project(buildFileName, level, 0);
         }
 
-        /// <summary>        /// Creates an empty project <see cref="XmlDocument" /> and loads it         /// with a new project.        /// </summary>        /// <returns>
+        /// <summary>
+        /// Creates an empty project <see cref="XmlDocument" /> and loads it 
+        /// with a new project.
+        /// </summary>
+        /// <returns>
         /// The new <see cref="Project" />.
         /// </returns>
         protected Project CreateEmptyProject() {
@@ -261,7 +265,9 @@ namespace Tests.NAnt.Contrib {
             _tempDirName = TempDir.Create(this.GetType().FullName);
         }
 
-        /// <summary>        /// This method will be called by NUnit for setup.        /// </summary>
+        /// <summary>
+        /// This method will be called by NUnit for setup.
+        /// </summary>
         [SetUp]
         protected void NUnitSetUp() {
             SetUp();

@@ -33,7 +33,7 @@ namespace NAnt.Core.Functions {
     public class DnsFunctions : FunctionSetBase {
         #region Public Instance Constructors
 
-        public DnsFunctions(Project project, PropertyDictionary properties) : base(project, properties) {}
+        public DnsFunctions(Project project, PropertyAccessor properties, TargetCallStack cs) : base(project, properties, cs) {}
 
         #endregion Public Instance Constructors
 

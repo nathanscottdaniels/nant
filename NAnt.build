@@ -5,9 +5,9 @@
     <tstamp property="build.date" pattern="yyyy-MM-dd" />
 
     <!-- global project settings -->
-    <property name="project.name" value="nant" />
+    <property name="project.name" value="pnant" />
     <property name="project.version" value="0.93" unless="${property::exists('project.version')}" />
-    <property name="project.release.type" value="dev" unless="${property::exists('project.release.type')}" /> <!-- nightly | dev | alpha | beta# | rc# | release -->
+    <property name="project.release.type" value="alpha" unless="${property::exists('project.release.type')}" /> <!-- nightly | dev | alpha | beta# | rc# | release -->
 
     <if test="${project.release.type == 'nightly'}">
         <property name="project.version.full" value="${project.version + '-nightly-' + build.date}" />
@@ -30,7 +30,7 @@
 
     <!-- default configuration -->
     <property name="project.config" value="debug" /> <!-- debug | release -->
-    <property name="nant.console.name" value="NAnt" />
+    <property name="nant.console.name" value="pNAnt" />
     <property name="build.defines" value="" />
     <property name="build.number" value="${math::abs(math::floor(timespan::get-total-days(datetime::now() - datetime::parse('01/01/2000'))))}" />
 
@@ -200,7 +200,7 @@
     </target>
 
     <target name="build"
-         depends="build.core,build.console,build.ext,build.msbuild,build.ndoc,build.tests.core,build.tests.console,build.tests.ext"
+         depends="build.core,build.console,build.ext,build.msbuild,build.tests.core,build.tests.console,build.tests.ext"
          description="Builds current configuration"/>
 
     <!-- test the newly built NAnt -->

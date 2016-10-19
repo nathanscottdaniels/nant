@@ -212,7 +212,7 @@ namespace NAnt.Core
             {
                 if (this.CallStack == null)
                 {
-                    this.Log(Level.Warning, $"{this.Name} does not have a call stack");
+                    this.Log(Level.Warning, this.Name + " does not have a call stack");
                     this.CallStack = new TargetCallStack(this.Project);
                     this.CallStack.PushRoot();
                 }

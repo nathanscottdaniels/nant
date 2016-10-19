@@ -75,7 +75,7 @@ namespace NAnt.Contrib.Tasks {
                 ExpandPropertiesInNodes(taskXml.ChildNodes);
                 if (taskXml.Attributes != null) {
                     foreach (XmlAttribute attr in taskXml.Attributes) {
-                        attr.Value = Properties.ExpandProperties(attr.Value, Location);
+                        attr.Value = this.PropertyAccessor.ExpandProperties(attr.Value, Location);
                     }
                 }
             }
@@ -201,7 +201,7 @@ namespace NAnt.Contrib.Tasks {
                     ExpandPropertiesInNodes(node.ChildNodes);
                     if (node.Attributes != null) {
                         foreach (XmlAttribute attr in node.Attributes) {
-                            attr.Value = Properties.ExpandProperties(attr.Value, Location);
+                            attr.Value = this.PropertyAccessor.ExpandProperties(attr.Value, Location);
                         }
                     }
                 }

@@ -100,10 +100,10 @@ namespace NAnt.Contrib.Tasks.Perforce {
             string[] find = {"User name:", "Client name:", "Client host:", "Client root:"};
             string[] results = Perforce.GetP4Info(find);
             
-            Project.Properties[User] = results[0].ToString();
-            Project.Properties[Client] = results[1].ToString();
-            Project.Properties[Host] = results[2].ToString();
-            Project.Properties[Root] = results[3].ToString();
+            this.PropertyAccessor[User] = results[0].ToString();
+            this.PropertyAccessor[Client] = results[1].ToString();
+            this.PropertyAccessor[Host] = results[2].ToString();
+            this.PropertyAccessor[Root] = results[3].ToString();
         }
 
         #endregion Override implementation of Task

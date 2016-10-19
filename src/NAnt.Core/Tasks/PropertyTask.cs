@@ -186,7 +186,7 @@ namespace NAnt.Core.Tasks
                     // The current target will be null if we are not in a target.  We should not allow this scope in that case
                     if (this.CallStack.CurrentFrame.Target == null || this.Parent is Project)
                     {
-                        throw new BuildException($"Cannot set the property \"{this.PropertyName}\" at the Target scope when not currently in a target.");
+                        throw new BuildException("Cannot set the property \"" + this.PropertyName + "\" at the Target scope when not currently in a target.");
                     }
                 }
                 else if (this.ScopeString.Equals("global", StringComparison.CurrentCultureIgnoreCase))
@@ -195,7 +195,7 @@ namespace NAnt.Core.Tasks
                 }
                 else
                 {
-                    throw new BuildException($"\"{this.ScopeString}\" is not an expected scope value for property {this.Name}");
+                    throw new BuildException("\"" + this.ScopeString + "\" is not an expected scope value for property " + this.Name);
                 }
             }
 

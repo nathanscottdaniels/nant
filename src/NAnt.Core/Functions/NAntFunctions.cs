@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -128,7 +129,7 @@ namespace NAnt.Core.Functions {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string ScanProbingPaths(string fileName) {
             string libPath = null;
-
+            Debugger.Launch();
             FrameworkInfo fi = Project.TargetFramework;
             if (fi.Runtime != null) {
                 string[] probingPaths = fi.Runtime.ProbingPaths.GetDirectories();

@@ -29,10 +29,18 @@ namespace NAnt.Core.Tasks
     [TaskName("parallel")]
     public class ParallelTask : Task, IEquatable<ParallelTask>
     {
+
+        public ParallelTask()
+        {
+            this.Children = new List<Element>();
+            this.ShortName = String.Empty;
+            this.Description = String.Empty;
+        }
+
         /// <summary>
         /// The targets to execute in parallel
         /// </summary>
-        protected List<Element> Children { get; set; } = new List<Element>();
+        protected List<Element> Children { get; set; }
 
         /// <summary>
         /// If true, the targets within this parallel will not run in parallel but instead will run in sequential order.
@@ -61,14 +69,14 @@ namespace NAnt.Core.Tasks
         /// </summary>
         [TaskAttribute("description", Required = false)]
         [StringValidator(AllowEmpty = true)]
-        public String Description { get; set; } = String.Empty;
+        public String Description { get; set; }
 
         /// <summary>
         /// The name of this task
         /// </summary>
         [TaskAttribute("name", Required = false)]
         [StringValidator(AllowEmpty = true)]
-        public String ShortName { get; set; } = String.Empty;
+        public String ShortName { get; set; }
 
         /// <summary>
         /// Gets the name of this task
@@ -122,14 +130,14 @@ namespace NAnt.Core.Tasks
             base.Initialize();
             if (this.Cacophony && this.Project.BuildListeners.ContainsType<XmlLogger>())
             {
-                throw new BuildException($"Cacophony logging is impossible with the {nameof(XmlLogger)} logger");
+                throw new BuildException("Cacophony logging is impossible with the XmlLogger logger");
             }
 
             foreach(var parent in this.CallStack.GetEntireTaskAncestry())
             {
                 if (parent.Task is ParallelTask && parent.Task != this && (parent.Task as ParallelTask).Equals(this))
                 {
-                    throw new BuildException($"Infinite loop detected!  Parallel/Sequence task \"{this.ShortName}\" is indirectly being called by itself.");
+                    throw new BuildException("Infinite loop detected!  Parallel/Sequence task \"" + this.ShortName + "\" is indirectly being called by itself.");
                 }
             }
         }
@@ -139,7 +147,7 @@ namespace NAnt.Core.Tasks
         /// </summary>
         protected override void ExecuteTask()
         {
-            this.Log(Level.Info, $"Begining {(this.RunInSerial ? "sequential" : "parallel")} execution [{this.Name}: {this.Description}]");
+            this.Log(Level.Info, "Begining " +(this.RunInSerial ? "sequential" : "parallel") +" execution [" + this.Name + " : " + this.Description + "]");
             this.ValidateContext();
             this.Logger.Indent();
 
@@ -167,7 +175,7 @@ namespace NAnt.Core.Tasks
                         var targetElement = element as ParallelTarget;
 
                         this.Logger.Unindent();
-                        this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in sequence.");
+                        this.Log(Level.Info, "Executing \"" + targetElement.TargetName + "\" in sequence.");
                         this.Logger.Indent();
                         this.Project.Execute(targetElement.TargetName, targetElement.CascadeDependencies, this, this.CloneCallStack(), this.Logger);
                     }
@@ -190,7 +198,7 @@ namespace NAnt.Core.Tasks
                             if (element is ParallelTarget)
                             {
                                 var targetElement = element as ParallelTarget;
-                                this.Log(Level.Info, $"Executing \"{ targetElement.TargetName}\" in parallel.");
+                                this.Log(Level.Info, "Executing \"" + targetElement.TargetName + "\" in parallel.");
 
                                 if (!state.IsExceptional && !state.IsStopped)
                                 {
@@ -220,7 +228,7 @@ namespace NAnt.Core.Tasks
                                 lock (this) // Prevent ourself from jumbling our logging, at least
                                 {
                                     this.Logger.Unindent();
-                                    var message = $"ERROR: An exception has been thrown by the \"{targetElement.TargetName}\" target of the parallel.  Any currently executing targets will run to completion but the build will fail.";
+                                    var message = "ERROR: An exception has been thrown by the \"" + targetElement.TargetName + "\" target of the parallel.  Any currently executing targets will run to completion but the build will fail.";
 
                                     this.Log(Level.Error, new string('=', message.Length));
                                     this.Log(Level.Error, message);
@@ -241,7 +249,7 @@ namespace NAnt.Core.Tasks
                 {
                     throw new BuildException(
                         String.Concat(
-                            $"The following build errors were encountered during the parallel execution of targets:",
+                            "The following build errors were encountered during the parallel execution of targets:",
                             Environment.NewLine,
                             Environment.NewLine,
                             String.Join(

@@ -503,6 +503,7 @@ namespace NAnt.Core {
                         XmlNode node = referenceAssemblies [i];
                         FileSet fileset = new FileSet();
                         fileset.Project = Project;
+                        fileset.CallStack = this.Project.RootTargetCallStack;
                         fileset.NamespaceManager = NamespaceManager;
                         fileset.Parent = Project;
                         fileset.ID = "reference-assemblies-" + i.ToString (CultureInfo.InvariantCulture);

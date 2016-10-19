@@ -429,7 +429,7 @@ namespace NAnt.Contrib.Tasks.NUnit2Report {
             XsltArgumentList args = new XsltArgumentList();
 
             Log(Level.Verbose, "Processing XsltArgumentList");
-            foreach (DictionaryEntry entry in Project.Properties) {
+            foreach (DictionaryEntry entry in this.PropertyAccessor) {
                 string value = entry.Value as string;
                 if (value != null) {
                     args.AddParam((string) entry.Key, "", value);

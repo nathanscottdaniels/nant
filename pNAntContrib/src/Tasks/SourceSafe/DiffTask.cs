@@ -76,7 +76,7 @@ namespace NAnt.Contrib.Tasks.SourceSafe {
         protected override void ExecuteTask() {
             Open();
             try {
-                Log(Level.Info, LogPrefix + "Examining: " + this.Path);
+                Log(Level.Info, "Examining: " + this.Path);
 
                 //Setup the XmlOutput File
                 _outputDoc = new XmlDocument();
@@ -100,12 +100,12 @@ namespace NAnt.Contrib.Tasks.SourceSafe {
                 throw new BuildException("diff failed", Location, ex);
             }
 
-            Log(Level.Info, LogPrefix + "Diff File generated: " + _outputFile);
+            Log(Level.Info, "Diff File generated: " + _outputFile);
         }
 
         protected void ItemDiff(IVSSItem ssItem) {
             if (this.Verbose) {
-                Log(Level.Info, LogPrefix + "Processing item " + ssItem.Name );
+                Log(Level.Info, "Processing item " + ssItem.Name );
             }
             bool addVersion = true;
             foreach (IVSSVersion version in ssItem.get_Versions(0)) {
@@ -125,7 +125,7 @@ namespace NAnt.Contrib.Tasks.SourceSafe {
                     // Only add versions that have been added, created or checked in.  Ignore label actions.
                     if( (action.StartsWith("Add")) || (action.StartsWith("Create")) || (action.StartsWith("Check") )) {
                         if (this.Verbose) {
-                            Log(Level.Info, LogPrefix + "Adding: " + version.VSSItem.Name);
+                            Log(Level.Info, "Adding: " + version.VSSItem.Name);
                         }
 
                         // Build our XML Element with hopefully useful information.
@@ -166,7 +166,7 @@ namespace NAnt.Contrib.Tasks.SourceSafe {
         protected void ProjectDiff(string Project) {
             // Recursively loop through our vss projects
             if (this.Verbose) {
-                Log(Level.Info, LogPrefix + "Processing project " + Project);
+                Log(Level.Info, "Processing project " + Project);
             }
             IVSSItem ssProj = this.Database.get_VSSItem(Project,false);
             IVSSItems ssSubItems = ssProj.get_Items(false);

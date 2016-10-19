@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace NAnt.Core
 {
-    public sealed class PropertyAccessor
+    public sealed class PropertyAccessor: IEnumerable
     {
         /// <summary>
         /// The project from which to obtain global properties
@@ -101,7 +101,7 @@ namespace NAnt.Core
             var dict = this.Find(name);
             if (dict == null)
             {
-                throw new BuildException($"property \"{name}\" not found within the current scope.");
+                throw new BuildException(String.Format("property \"{0}\" not found within the current scope.", name));
             }
 
             return dict[name];
@@ -133,7 +133,7 @@ namespace NAnt.Core
                         dict = this.callStack.ThreadProperties;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(scope));
+                        throw new ArgumentOutOfRangeException("scope");
                 }
 
                 if (readOnly)
@@ -150,8 +150,11 @@ namespace NAnt.Core
                 if (scope != PropertyScope.Unchanged && dict.Scope != scope)
                 {
                     throw new BuildException(
-                        $"property {name} cannot be set at the {Enum.GetName(typeof(PropertyScope), scope)} scope because it was found to be set at the {Enum.GetName(typeof(PropertyScope), dict.Scope)} scope."
-                        + "  For your protection, this is not allowed.  Please note that the default scope for newly-defined properties is \"thread\".  Omit the scope if you are modifying an existing property.");
+                        String.Format("property {0} cannot be set at the {1} scope because it was found to be set at the {2} scope."
+                        + "  For your protection, this is not allowed.  Please note that the default scope for newly-defined properties is \"thread\".  Omit the scope if you are modifying an existing property.",
+                        name,
+                        Enum.GetName(typeof(PropertyScope), scope),
+                        Enum.GetName(typeof(PropertyScope), dict.Scope)));
                 }
 
                 dict[name] = value;
@@ -173,7 +176,7 @@ namespace NAnt.Core
             var dict = this.Find(propertyName);
             if (dict == null)
             {
-                throw new BuildException($"property \"{propertyName}\" not found within the current scope.");
+                throw new BuildException("property \"" + propertyName + "\" not found within the current scope.");
             }
 
             return dict.IsDynamicProperty(propertyName);
@@ -336,7 +339,11 @@ namespace NAnt.Core
         /// <param name="property">The property to remove</param>
         internal void Remove(string property)
         {
-            this.Find(property)?.Remove(property);
+            var d = this.Find(property);
+            if (d != null)
+            {
+                d.Remove(property);
+            }
         }
 
         /// <summary>
@@ -359,10 +366,35 @@ namespace NAnt.Core
             var dict = this.Find(propertyName);
             if (dict == null)
             {
-                throw new BuildException($"property \"{propertyName}\" not found within the current scope.");
+                throw new BuildException("property \"" + propertyName + "\" not found within the current scope.");
             }
 
             return dict.IsReadOnlyProperty(propertyName);
+        }
+        
+        /// <summary>
+        /// Gets an enumerator of all properties that are currently visible in this context
+        /// </summary>
+        /// <returns>The enumerator</returns>
+        [Obsolete("Do not try and enumerate all properties")]
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            var concatList = new ArrayList();
+
+            foreach (var x in this.project.GlobalProperties)
+            {
+                concatList.Add(x);
+            }
+            foreach (var x in this.callStack.ThreadProperties)
+            {
+                concatList.Add(x);
+            }
+            foreach (var x in this.callStack.CurrentFrame.TargetProperties)
+            {
+                concatList.Add(x);
+            }
+
+            return concatList.GetEnumerator();
         }
     }
 }

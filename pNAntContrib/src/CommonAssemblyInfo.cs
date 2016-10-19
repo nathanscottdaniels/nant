@@ -11,9 +11,9 @@ using System.Reflection;
 //------------------------------------------------------------------------------
 
 [assembly: AssemblyConfigurationAttribute("release")]
-[assembly: AssemblyCompanyAttribute("http://nantcontrib.sourceforge.net")]
-[assembly: AssemblyProductAttribute("NAntContrib")]
-[assembly: AssemblyCopyrightAttribute("Copyright (C) 2001-2012 Gerry Shaw")]
+[assembly: AssemblyCompanyAttribute("")]
+[assembly: AssemblyProductAttribute("pNAntContrib")]
+[assembly: AssemblyCopyrightAttribute("Copyright (C) 2016 Nathan Daniels.  Original Copyright (C) 2001-2012 Gerry Shaw")]
 [assembly: AssemblyTrademarkAttribute("")]
 [assembly: AssemblyCultureAttribute("")]
 [assembly: AssemblyVersionAttribute("0.92.4543.0")]

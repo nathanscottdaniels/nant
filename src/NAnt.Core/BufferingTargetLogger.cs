@@ -58,6 +58,7 @@ namespace NAnt.Core
         {
             this.DestinationLogger = destination;
             LoggerLocks.AddOrUpdate(destination, new object(), (key, old) => old);
+            this.LoggingQueue = new ConcurrentQueue<Action>();
         }
 
         /// <summary>
@@ -74,12 +75,12 @@ namespace NAnt.Core
         /// <summary>
         /// The destination logger that will be used when this logger is flushed
         /// </summary>
-        public ITargetLogger DestinationLogger { get; }
+        public ITargetLogger DestinationLogger { get; private set; }
 
         /// <summary>
         /// The queue of actions to be performed
         /// </summary>
-        private ConcurrentQueue<Action> LoggingQueue { get; } = new ConcurrentQueue<Action>();
+        private ConcurrentQueue<Action> LoggingQueue { get; set; } 
 
         /// <summary>
         /// Writes a <see cref="Project" /> level message to the build log with
