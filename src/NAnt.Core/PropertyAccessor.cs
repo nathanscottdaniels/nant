@@ -16,12 +16,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NAnt.Core
 {
@@ -105,6 +103,17 @@ namespace NAnt.Core
             }
 
             return dict[name];
+        }
+
+        /// <summary>
+        /// DEPRECATED: Adds a new property
+        /// </summary>
+        /// <param name="name">The name</param>
+        /// <param name="value">The value</param>
+        [Obsolete("Use PropertyAccessor.Set instead.  This method will default to Unchanged scope")]
+        public void Add(String name, String value)
+        {
+            this.Set(name, value);
         }
 
         /// <summary>

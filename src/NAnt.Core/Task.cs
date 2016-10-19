@@ -181,6 +181,18 @@ namespace NAnt.Core
         }
 
         /// <summary>
+        /// DEPRECATED: Gets the properties of the project
+        /// </summary>
+        [Obsolete("Properties is deprecated.  It now returns a PropertyAccessor and you should use Task.PropertyAccessor instead of this.")]
+        public PropertyAccessor Properties
+        {
+            get
+            {
+                return this.PropertyAccessor;
+            }
+        }
+
+        /// <summary>
         /// Returns the TaskBuilder used to construct an instance of this
         /// <see cref="Task" />.
         /// </summary>
