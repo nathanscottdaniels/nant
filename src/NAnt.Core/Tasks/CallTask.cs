@@ -18,7 +18,10 @@
 //
 // Gerry Shaw (gerry_shaw@yahoo.com)
 
+using System;
+using System.Collections.Generic;
 using NAnt.Core.Attributes;
+using NAnt.Core.Types;
 using NAnt.Core.Util;
 
 namespace NAnt.Core.Tasks {
@@ -140,10 +143,17 @@ namespace NAnt.Core.Tasks {
     ///   </code>
     /// </example>
     [TaskName("call")]
-    public class CallTask : Task {
+    public class CallTask : Task
+    {
         private string _target;
         private bool _force;
         private bool _cascade = true;
+
+        /// <summary>
+        /// The arguments to pass to the target
+        /// </summary>
+        private readonly IList<CallArgument> arguments = new List<CallArgument>();
+
         /// <summary>
         /// NAnt target to call.
         /// </summary>
@@ -176,6 +186,17 @@ namespace NAnt.Core.Tasks {
             get { return _cascade; }
             set { _cascade = value; }
         }
+
+        /// <summary>
+        /// Adds a new argument to be passed to the target
+        /// </summary>
+        /// <param name="arg"></param>
+        [BuildElement("argument")]
+        public void AddArgument(CallArgument arg)
+        {
+            this.arguments.Add(arg);
+        }
+
         /// <summary>
         /// Executes the specified target.
         /// </summary>
@@ -197,7 +218,14 @@ namespace NAnt.Core.Tasks {
                 }
             }
 
-            Project.Execute(TargetName, CascadeDependencies, this);
+            try
+            {
+                Project.Execute(TargetName, CascadeDependencies, this, arguments: this.arguments);
+            }
+            catch (ArgumentException e)
+            {
+                throw new BuildException(e.Message, this.Location);
+            }
         }
 
         /// <summary>

@@ -125,6 +125,9 @@
     <Compile Include="Tasks\SequenceTask.cs" />
     <Compile Include="Tasks\ParallelTask.cs" />
     <Compile Include="TypeFactory.cs" />
+    <Compile Include="Types\TargetParameterDeclarationCollection.cs" />
+    <Compile Include="Types\TargetParameterDeclaration.cs" />
+    <Compile Include="Types\CallArgument.cs" />
     <Compile Include="Types\ParallelTarget.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="XmlLogger.cs" />

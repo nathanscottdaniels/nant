@@ -23,15 +23,16 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Xml;
 using NAnt.Core.Tasks;
+using NAnt.Core.Types;
 using NAnt.Core.Util;
 
 namespace NAnt.Core
@@ -1138,7 +1139,7 @@ namespace NAnt.Core
                 }
             }
         }
-        
+
         /// <summary>
         /// Executes a specific target after first executing its dependencies.
         /// </summary>
@@ -1149,6 +1150,7 @@ namespace NAnt.Core
         /// <param name="specialLogger">An optional <see cref="ITargetLogger"/> that this target should use
         /// to log messages.  If not specified, the default logging will be used (<see cref="Project"/>)
         /// </param>
+        /// <param name="arguments">Optionally, the arguments to provide to the target.  Should match those required by <see cref="Target.Parameters"/></param>
         /// <remarks>
         /// Global tasks are not executed.
         /// </remarks>
@@ -1157,7 +1159,8 @@ namespace NAnt.Core
             bool forceDependencies = true, 
             Task caller = null, 
             TargetCallStack callStack = null,
-            ITargetLogger specialLogger = null)
+            ITargetLogger specialLogger = null,
+            IList<CallArgument> arguments = null)
         {
             if (callStack == null && caller == null)
             {
@@ -1173,7 +1176,7 @@ namespace NAnt.Core
             TargetCollection sortedTargets = TopologicalTargetSort(targetName, Targets);
             int currentIndex = 0;
             Target currentTarget;
-
+            
             do
             {
                 // determine target that should be executed
@@ -1183,7 +1186,22 @@ namespace NAnt.Core
                 // we are not forcing.
                 if (forceDependencies || !currentTarget.Executed || currentTarget.Name == targetName)
                 {
-                    currentTarget.Execute(callStack ?? caller.CallStack, specialLogger ?? this);
+                    try
+                    {
+                        currentTarget.Execute(callStack ?? caller.CallStack, specialLogger ?? this, currentTarget.Name == targetName ? arguments : null);
+                    }
+                    catch (ArgumentException)
+                    {
+                        if (currentTarget.Name != targetName)
+                        {
+                            throw new BuildException(
+                                String.Format(
+                                    @"Target ""{0}"" requires arguments and cannot be in the ""depends"" list of target ""{1}"".  Please <call/> this target instead.", 
+                                    currentTarget.Name, targetName));
+                        }
+
+                        throw;
+                    }
                 }
             }
             while (currentTarget.Name != targetName);

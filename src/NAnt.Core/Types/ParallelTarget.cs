@@ -16,9 +16,13 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 using NAnt.Core.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace NAnt.Core.Types
 {
+    /// <summary>
+    /// A target call within a parallel task
+    /// </summary>
     [Serializable]
     [ElementName("pcall")]
     public class ParallelTarget : DataTypeBase
@@ -30,6 +34,7 @@ namespace NAnt.Core.Types
         {
             this.IfDefined = true;
             this.CascadeDependencies = true;
+            this.Arguments = new List<CallArgument>();
         }
 
         /// <summary>
@@ -62,5 +67,20 @@ namespace NAnt.Core.Types
         /// </summary>
         [TaskAttribute("cascade")]
         public bool CascadeDependencies { get; set; }
+
+        /// <summary>
+        /// Gets the list of arguments to pass to the target
+        /// </summary>
+        public IList<CallArgument> Arguments { get; private set; }
+
+        /// <summary>
+        /// Adds a new argument to be passed to the target
+        /// </summary>
+        /// <param name="arg"></param>
+        [BuildElement("argument", Required = false)]
+        public void AddArgument(CallArgument arg)
+        {
+            this.Arguments.Add(arg);
+        }
     }
 }

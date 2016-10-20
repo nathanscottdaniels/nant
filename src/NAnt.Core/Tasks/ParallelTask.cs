@@ -133,7 +133,7 @@ namespace NAnt.Core.Tasks
                 throw new BuildException("Cacophony logging is impossible with the XmlLogger logger");
             }
 
-            foreach(var parent in this.CallStack.GetEntireTaskAncestry())
+            foreach (var parent in this.CallStack.GetEntireTaskAncestry())
             {
                 if (parent.Task is ParallelTask && parent.Task != this && (parent.Task as ParallelTask).Equals(this))
                 {
@@ -147,7 +147,7 @@ namespace NAnt.Core.Tasks
         /// </summary>
         protected override void ExecuteTask()
         {
-            this.Log(Level.Info, "Begining " +(this.RunInSerial ? "sequential" : "parallel") +" execution [" + this.Name + " : " + this.Description + "]");
+            this.Log(Level.Info, "Begining " + (this.RunInSerial ? "sequential" : "parallel") + " execution [" + this.Name + " : " + this.Description + "]");
             this.ValidateContext();
             this.Logger.Indent();
 
@@ -177,7 +177,14 @@ namespace NAnt.Core.Tasks
                         this.Logger.Unindent();
                         this.Log(Level.Info, "Executing \"" + targetElement.TargetName + "\" in sequence.");
                         this.Logger.Indent();
-                        this.Project.Execute(targetElement.TargetName, targetElement.CascadeDependencies, this, this.CloneCallStack(), this.Logger);
+                        try
+                        {
+                            this.Project.Execute(targetElement.TargetName, targetElement.CascadeDependencies, this, this.CloneCallStack(), this.Logger, targetElement.Arguments);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            throw new BuildException(e.Message, this.Location);
+                        }
                     }
                     else
                     {
@@ -203,10 +210,9 @@ namespace NAnt.Core.Tasks
                                 if (!state.IsExceptional && !state.IsStopped)
                                 {
                                     this.ExecuteWithCorrectLogging(
-                                        targetElement.TargetName,
-                                        targetElement.CascadeDependencies, 
-                                        cacophony, 
-                                        concurrencyState, 
+                                        targetElement,
+                                        cacophony,
+                                        concurrencyState,
                                         Array.IndexOf(targets, element));
                                 }
                             }
@@ -254,8 +260,8 @@ namespace NAnt.Core.Tasks
                             Environment.NewLine,
                             String.Join(
                                 String.Concat(
-                                    Environment.NewLine, 
-                                    Environment.NewLine), 
+                                    Environment.NewLine,
+                                    Environment.NewLine),
                                 agge.InnerExceptions.Select(ex => ex.Message)),
                         Environment.NewLine,
                         "Please look earlier in the log to see the contexts in which these errors occurred"));
@@ -268,19 +274,25 @@ namespace NAnt.Core.Tasks
         /// <summary>
         /// Executes a parallel target using the correct <see cref="ITargetLogger"/>
         /// </summary>
-        /// <param name="targetName">The name of the target</param>
-        /// <param name="cascade">Whether or not to cascade dependencies</param>
+        /// <param name="pcall">The target</param>
         /// <param name="cacophony">Whether or not cacophany logging is requested</param>
         /// <param name="state">The concurrency state used to synchonize the threads</param>
         /// <param name="index">The index of this thread in the grand scheme of things</param>
-        private void ExecuteWithCorrectLogging(String targetName, Boolean cascade, Boolean cacophony, ConcurrencyState state, Int32 index)
+        private void ExecuteWithCorrectLogging(ParallelTarget pcall, Boolean cacophony, ConcurrencyState state, Int32 index)
         {
-            this.ExecuteWithCorrectLogging(
-                () => this.Project.Execute(targetName, cascade, this, this.CloneCallStack()),   
-                logger => this.Project.Execute(targetName, cascade, this, this.CloneCallStack(), logger),
-                cacophony,
-                state,
-                index);
+            try
+            {
+                this.ExecuteWithCorrectLogging(
+                    () => this.Project.Execute(pcall.TargetName, pcall.CascadeDependencies, this, this.CloneCallStack(), this.Logger, pcall.Arguments),
+                    logger => this.Project.Execute(pcall.TargetName, pcall.CascadeDependencies, this, this.CloneCallStack(), logger, pcall.Arguments),
+                    cacophony,
+                    state,
+                    index);
+            }
+            catch (ArgumentException e)
+            {
+                throw new BuildException(e.Message, this.Location);
+            }
         }
 
         /// <summary>
@@ -295,12 +307,13 @@ namespace NAnt.Core.Tasks
             task.Logger = this.Logger;
             this.ExecuteWithCorrectLogging(
                 task.Execute,
-                logger => {
+                logger =>
+                {
                     task.Logger = logger;
                     task.Execute();
                 },
-                cacophony, 
-                state, 
+                cacophony,
+                state,
                 index);
         }
 

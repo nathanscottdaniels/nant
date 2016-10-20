@@ -22,12 +22,15 @@
 // William E. Caputo (wecaputo@thoughtworks.com | logosity@yahoo.com)
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Xml;
 
 using NAnt.Core.Attributes;
+using NAnt.Core.Types;
 using NAnt.Core.Util;
 
 namespace NAnt.Core
@@ -101,6 +104,12 @@ namespace NAnt.Core
         }
 
         /// <summary>
+        /// Gets or sets the parameters for this target
+        /// </summary>
+        [BuildElement("parameters", Required = false)]
+        public TargetParameterDeclarationCollection Parameters { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether the target should be executed.
         /// </summary>
         /// <value>
@@ -151,26 +160,26 @@ namespace NAnt.Core
         /// </value>
         public bool UnlessDefined(PropertyAccessor propertyAccesor)
         {
-                // expand properties in condition
-                string expandedCondition = propertyAccesor.ExpandProperties(UnlessCondition, Location);
+            // expand properties in condition
+            string expandedCondition = propertyAccesor.ExpandProperties(UnlessCondition, Location);
 
-                // if a condition is supplied, it should evaluate to a bool
-                if (!String.IsNullOrEmpty(expandedCondition))
+            // if a condition is supplied, it should evaluate to a bool
+            if (!String.IsNullOrEmpty(expandedCondition))
+            {
+                try
                 {
-                    try
-                    {
-                        return Convert.ToBoolean(expandedCondition, CultureInfo.InvariantCulture);
-                    }
-                    catch (FormatException)
-                    {
-                        throw new BuildException(string.Format(CultureInfo.InvariantCulture,
-                            ResourceUtils.GetString("NA1069"), expandedCondition),
-                            Location);
-                    }
+                    return Convert.ToBoolean(expandedCondition, CultureInfo.InvariantCulture);
                 }
+                catch (FormatException)
+                {
+                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                        ResourceUtils.GetString("NA1069"), expandedCondition),
+                        Location);
+                }
+            }
 
-                // no condition is supplied
-                return false;
+            // no condition is supplied
+            return false;
         }
 
         /// <summary>
@@ -236,6 +245,7 @@ namespace NAnt.Core
             clone._ifCondition = _ifCondition;
             clone._name = _name;
             clone._unlessCondition = _unlessCondition;
+            clone.Parameters = this.Parameters;
             return clone;
         }
 
@@ -244,18 +254,20 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="callStack">The current call stack on which this target will be pused</param>
         /// <param name="logger">The logger this target and its stasks will use for logging messages</param>
-        public void Execute(TargetCallStack callStack, ITargetLogger logger)
+        /// <param name="arguments">Optionally, the arguments to provide to the target.  Should match those required by <see cref="Parameters"/></param>
+        /// <exception cref="ArgumentException">If one of the non-defaulted parameters is not satisfied by an argument.</exception>
+        public void Execute(TargetCallStack callStack, ITargetLogger logger, IList<CallArgument> arguments = null)
         {
             if (this.Locked)
             {
                 lock (this)
                 {
-                    this.DoExecute(callStack, logger);
+                    this.DoExecute(callStack, logger, arguments);
                 }
             }
             else
             {
-                this.DoExecute(callStack, logger);
+                this.DoExecute(callStack, logger, arguments);
             }
         }
 
@@ -264,7 +276,9 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="callStack">The current call stack on which this target will be pused</param>
         /// <param name="logger">The logger this target and its stasks will use for logging messages</param>
-        private void DoExecute(TargetCallStack callStack, ITargetLogger logger)
+        /// <param name="arguments">Optionally, the arguments to provide to the target.  Should match those required by <see cref="Parameters"/></param>
+        /// <exception cref="ArgumentException">If one of the non-defaulted parameters is not satisfied by an argument.</exception>
+        private void DoExecute(TargetCallStack callStack, ITargetLogger logger, IList<CallArgument> arguments = null)
         {
             var propertyAccessor = new PropertyAccessor(this.Project, callStack);
 
@@ -276,8 +290,12 @@ namespace NAnt.Core
                 {
                     using (callStack.Push(this))
                     {
+                        this.PrepareArguments(arguments, callStack);
+
                         Project.OnTargetStarted(this, new TargetBuildEventArgs(this, sw));
                         logger.OnTargetLoggingStarted(this, new TargetBuildEventArgs(this, sw));
+
+                        var paramtersDone = false;
 
                         // select all the task nodes and execute them
                         foreach (XmlNode childNode in XmlNode)
@@ -287,32 +305,46 @@ namespace NAnt.Core
                                 continue;
                             }
 
-                            if (TypeFactory.TaskBuilders.Contains(childNode.Name))
+                            if (childNode.Name.Equals("parameters"))
                             {
-                                Task task = Project.CreateTask(childNode, this, callStack);
-                                if (task != null)
+                                if (paramtersDone)
                                 {
-                                    task.Logger = logger;
-                                    task.Execute();
+                                    throw new BuildException("parameters must appear before all tasks", this.Location);
                                 }
+
+                                continue;
                             }
-                            else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
+                            else
                             {
-                                DataTypeBase dataType = Project.CreateDataTypeBase(childNode, callStack);
-                                logger.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
-                                    childNode.Name, dataType.ID);
-                                if (!Project.DataTypeReferences.Contains(dataType.ID))
+                                paramtersDone = true;
+                                if (TypeFactory.TaskBuilders.Contains(childNode.Name))
                                 {
-                                    Project.DataTypeReferences.Add(dataType.ID, dataType);
+                                    Task task = Project.CreateTask(childNode, this, callStack);
+                                    if (task != null)
+                                    {
+                                        task.Logger = logger;
+                                        task.Execute();
+                                    }
                                 }
-                                else {
-                                    Project.DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
+                                else if (TypeFactory.DataTypeBuilders.Contains(childNode.Name))
+                                {
+                                    DataTypeBase dataType = Project.CreateDataTypeBase(childNode, callStack);
+                                    logger.Log(Level.Verbose, "Adding a {0} reference with id '{1}'.",
+                                        childNode.Name, dataType.ID);
+                                    if (!Project.DataTypeReferences.Contains(dataType.ID))
+                                    {
+                                        Project.DataTypeReferences.Add(dataType.ID, dataType);
+                                    }
+                                    else {
+                                        Project.DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
+                                    }
                                 }
-                            }
-                            else {
-                                throw new BuildException(string.Format(CultureInfo.InvariantCulture,
-                                    ResourceUtils.GetString("NA1071"),
-                                    childNode.Name), Project.LocationMap.GetLocation(childNode));
+                                else
+                                {
+                                    throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                                        ResourceUtils.GetString("NA1071"),
+                                        childNode.Name), Project.LocationMap.GetLocation(childNode));
+                                }
                             }
                         }
                     }
@@ -325,6 +357,61 @@ namespace NAnt.Core
                     logger.OnTargetLoggingFinished(this, new TargetBuildEventArgs(this, sw));
                 }
             }
+        }
+
+        /// <summary>
+        /// Extracts up the paramters specified in <see cref="Parameters"/> from <paramref name="arguments"/> 
+        /// and ddds the necessary properties to the call stack's target properties.
+        /// </summary>
+        /// <param name="arguments">The arguments being passed in to the this target</param>
+        /// <param name="callStack">The call stack where the properties will be placed</param>
+        /// <exception cref="ArgumentException">If one of the non-defaulted parameters is not satisfied by an argument.</exception>
+        private void PrepareArguments(IList<CallArgument> arguments, TargetCallStack callStack)
+        {
+            if (this.Parameters == null || !this.Parameters.Parameters.Any())
+            {
+                return;
+            }
+
+            var accessor = new PropertyAccessor(this.Project, callStack);
+
+            var matchedProperties = new HashSet<String>();
+
+            foreach (var param in this.Parameters.Parameters)
+            {
+                if (matchedProperties.Contains(param.PropertyName))
+                {
+                    throw new BuildException(String.Format(@"Paramter ""{0}"" was declared more than once", param.PropertyName));
+                }
+
+                matchedProperties.Add(param.PropertyName);
+
+                CallArgument arg = null;
+
+                if (arguments != null)
+                {
+                    arg = arguments.FirstOrDefault(a => a.PropertyName.Equals(param.PropertyName));
+                }
+
+                if (arg == null && param.DefaultValue != null)
+                {
+                    accessor.Set(param.PropertyName, param.DefaultValue, PropertyScope.Target, false, true);
+                }
+                else if (arg != null)
+                {
+                    if (arguments.Count(a => a.PropertyName.Equals(arg.PropertyName)) > 1)
+                    {
+                        throw new ArgumentException(String.Format(@"Argument ""{0}"" was specified more than once.", param.PropertyName));
+                    }
+
+                    accessor.Set(param.PropertyName, arg.PropertyValue, PropertyScope.Target, false, true);
+                }
+                else
+                {
+                    throw new ArgumentException(String.Format(@"Target ""{0}"" requires parameter ""{1}"" but it was not provided and has no default.", this.Name, param.PropertyName));
+                }
+            }
+
         }
     }
 }
