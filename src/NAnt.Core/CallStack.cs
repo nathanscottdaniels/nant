@@ -1,4 +1,4 @@
-﻿// pNAnt - A parallel .NET build tool
+// pNAnt - A parallel .NET build tool
 // Copyright (C) 2016 Nathan Daniels
 //
 // This program is free software; you can redistribute it and/or modify
@@ -64,7 +64,7 @@ namespace NAnt.Core
         {
             get
             {
-                return this.InnerStack;
+                return this.InnerStack.Reverse();
             }
         }
 
