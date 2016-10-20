@@ -22,8 +22,11 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
@@ -67,13 +70,14 @@ namespace NAnt.Core.Tasks {
     [TaskName("include")]
     public class IncludeTask : Task {
         private string _buildFileName;
+
         /// <summary>
         /// Used to check for recursived includes.
         /// </summary>
-        private static Stack _includedFileNames = new Stack();
+        private String fullPath = String.Empty;
 
-        private static string _currentBasedir = "";
-        private static int _nestinglevel = 0;
+        private string currentBasedir = "";
+
         /// <summary>
         /// Build file to include.
         /// </summary>
@@ -83,36 +87,28 @@ namespace NAnt.Core.Tasks {
             get { return _buildFileName; }
             set { _buildFileName = value; }
         }
+
+        /// <summary>
+        /// Gets all parent <see cref="IncludeTask"/>s.
+        /// </summary>
+        private IEnumerable<IncludeTask> AncestorIncludes
+        {
+            get
+            {
+                return this.CallStack == null ? new IncludeTask[0] : this.CallStack.GetEntireTaskAncestry().Select(t=>t.Task).OfType<IncludeTask>().Where(t => t != this);
+            }
+        }
+
         /// <summary>
         /// Verifies parameters.
         /// </summary>
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             // Task can only be included as a global task.
             // This might not be a firm requirement but you could get some real 
             // funky errors if you start including targets wily-nily.
             if (Parent != null && !(Parent is Project)) {
                 throw new BuildException(ResourceUtils.GetString("NA1180"), Location);
-            }
-            if (String.IsNullOrEmpty(_currentBasedir) || _nestinglevel == 0) {
-                _currentBasedir = Project.BaseDirectory;
-            }
-
-            string buildFileName = null;
-
-            try {
-                // check if build file is valid file name
-                buildFileName = Path.GetFullPath(Path.Combine(_currentBasedir, BuildFileName));
-            } catch (Exception ex) {
-                throw new BuildException(string.Format(CultureInfo.InvariantCulture,
-                    ResourceUtils.GetString("NA1128"), BuildFileName),
-                    Location, ex);
-            }
-
-            // check for recursive includes
-            foreach (string currentFileName in _includedFileNames) {
-                if (currentFileName == buildFileName) {
-                    throw new BuildException(ResourceUtils.GetString("NA1179"), Location);
-                }
             }
         }
 
@@ -121,8 +117,11 @@ namespace NAnt.Core.Tasks {
         /// </summary>
         /// <exception cref="BuildException">If the build file to include doesn't exist.
         /// </exception>
-        protected override void ExecuteTask() {
-            string includedFileName = Path.GetFullPath(Path.Combine(_currentBasedir, 
+        protected override void ExecuteTask()
+        {
+            this.ValidatePath();
+
+            string includedFileName = Path.GetFullPath(Path.Combine(currentBasedir, 
                 BuildFileName));
 
             // check if build file exists
@@ -144,21 +143,17 @@ namespace NAnt.Core.Tasks {
             }
             
             // push ourselves onto the stack (prevents recursive includes)
-            _includedFileNames.Push(includedFileName);
-
-            // increment the nesting level
-            _nestinglevel ++;
-            
+            fullPath = includedFileName;
+                        
             Log(Level.Verbose, "Including file {0}.", includedFileName);
 
-            // store original base directory
-            string oldBaseDir = _currentBasedir;
-            
             // set basedir to be used by the nested calls (if any)
-            _currentBasedir = Path.GetDirectoryName(includedFileName);
-            
-            try {
-            
+            var oldBaseDir = this.currentBasedir;
+            currentBasedir = Path.GetDirectoryName(includedFileName);
+
+            try
+            {
+
                 // This section addresses SF Bug#:2824210..
                 // 
                 // Description of issue:
@@ -173,88 +168,129 @@ namespace NAnt.Core.Tasks {
                 // Rather than remove the Namespace checks in the Project class, I decided to
                 // copy the project's namespace into the include file prior to importing into the
                 // main file.  Unfortunately, it is not an easy task.
-                
+
                 // Create two XmlDocument variables. One to sanitize the include file (doc) 
                 // and one to pass to the project class (loadDoc).
                 XmlDocument doc = new XmlDocument();
                 XmlDocument loadDoc = new XmlDocument();
-                
+
                 // Gets the namespace from the main project.
                 string projectNamespaceURI = Project.Document.DocumentElement.NamespaceURI;
-                
+
                 // String variable to hold the main build file's namespace.
                 string projectURI = "";
-                
+
                 // Rather than loading the xml file directly into the XmlDocument, it is loaded
                 // into an XmlTextReader so any NamespaceURI may be stripped out before proceeding
                 // further.
                 XmlTextReader includeXmlReader = new XmlTextReader(includedFileName);
-                
+
                 // Turn the namespaces off
                 includeXmlReader.Namespaces = false;
-                
+
                 // Load the contents of the XmlTextReader into the doc XmlDocument
                 doc.Load(includeXmlReader);
-                
+
                 // Strip the namespace attribute.
                 doc.DocumentElement.Attributes.RemoveNamedItem("xmlns");
-                
+
                 // Kill the XmlTextReader
                 ((IDisposable)includeXmlReader).Dispose();
                 includeXmlReader = null;
-                
+
                 // Assigns the main build file's namespace to the
                 // local string variable if it is not blank.
-                if (!String.IsNullOrEmpty(projectNamespaceURI)) {
+                if (!String.IsNullOrEmpty(projectNamespaceURI))
+                {
                     projectURI = projectNamespaceURI;
                 }
-                
+
                 // If the projectURI is not empty at this point, add
                 // the Namespace attribute to the doc XmlDocument.
-                if (!String.IsNullOrEmpty(projectURI)) {
+                if (!String.IsNullOrEmpty(projectURI))
+                {
                     XmlAttribute projAttr = doc.CreateAttribute("xmlns");
                     projAttr.Value = projectURI;
                     doc.DocumentElement.Attributes.Append(projAttr);
                 }
-                
+
                 // Set up a stringwriter and XmlTextWriter variable to pass the
                 // contents of the doc XmlDocument variable to.
-                using (StringWriter includeFileSW = new StringWriter()) {
+                using (StringWriter includeFileSW = new StringWriter())
+                {
                     XmlTextWriter includeFileXW = new XmlTextWriter(includeFileSW);
-                    
+
                     // Loads the contents from doc to the XmlTextWriter.
                     doc.WriteTo(includeFileXW);
-                    
+
                     // Then the contents of the XmlTextWriter to the loadDoc XmlDocument
                     // var.  This will ensure that the main build file's Namespace
                     // is loaded into the include file before it's passed to the Project
                     // class.
                     loadDoc.LoadXml(includeFileSW.ToString());
-                    
+
                     // Kill the XmlTextWriter
                     ((IDisposable)includeFileXW).Dispose();
                     includeFileXW = null;
                 }
                 // Pass the loadDoc XmlDocument to the project.
                 Project.InitializeProjectDocument(loadDoc, this.CallStack);
-                
-            } catch (BuildException) {
-                // rethrow exception
+
+            }
+            catch (BuildException)
+            {
                 throw;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                     ResourceUtils.GetString("NA1128"), includedFileName),
                     Location, ex);
-            } finally {
-                // pop off the stack
-                _includedFileNames.Pop();
+            }
+            finally
+            {
+                this.currentBasedir = oldBaseDir;
+            }
+        }
 
-                // decrease the nesting level
-                _nestinglevel--;
-                
-                 // restore original base directory
-               _currentBasedir = oldBaseDir;
-           }
+        /// <summary>
+        /// Validates that the path is correct
+        /// </summary>
+        private void ValidatePath()
+        {
+            var previousInclude = this.AncestorIncludes.FirstOrDefault();
+            
+            if (previousInclude == null)
+            {
+                currentBasedir = Project.BaseDirectory;
+            }
+            else
+            {
+                currentBasedir = previousInclude.currentBasedir;
+            }
+
+            string buildFileName = null;
+
+            try
+            {
+                // check if build file is valid file name
+                buildFileName = Path.GetFullPath(Path.Combine(currentBasedir, BuildFileName));
+            }
+            catch (Exception ex)
+            {
+                throw new BuildException(string.Format(CultureInfo.InvariantCulture,
+                    ResourceUtils.GetString("NA1128"), BuildFileName),
+                    Location, ex);
+            }
+
+            // check for recursive includes
+            foreach (var ancestor in this.AncestorIncludes)
+            {
+                if (ancestor.fullPath.Equals(buildFileName))
+                {
+                    throw new BuildException(ResourceUtils.GetString("NA1179"), Location);
+                }
+            }
         }
     }
 }
