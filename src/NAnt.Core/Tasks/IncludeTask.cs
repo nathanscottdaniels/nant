@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using NAnt.Core.Attributes;
 using NAnt.Core.Util;
@@ -67,12 +68,16 @@ namespace NAnt.Core.Tasks {
     [TaskName("include")]
     public class IncludeTask : Task {
         private string _buildFileName;
+
         /// <summary>
         /// Used to check for recursived includes.
         /// </summary>
-        private static Stack _includedFileNames = new Stack();
+        private String fullPath = String.Empty;
 
+        [ThreadStatic]
         private static string _currentBasedir = "";
+
+        [ThreadStatic]
         private static int _nestinglevel = 0;
         /// <summary>
         /// Build file to include.
@@ -109,8 +114,10 @@ namespace NAnt.Core.Tasks {
             }
 
             // check for recursive includes
-            foreach (string currentFileName in _includedFileNames) {
-                if (currentFileName == buildFileName) {
+            foreach (var ancestor in this.CallStack.GetEntireTaskAncestry().OfType<IncludeTask>())
+            {
+                if (ancestor.fullPath.Equals(buildFileName))
+                {
                     throw new BuildException(ResourceUtils.GetString("NA1179"), Location);
                 }
             }
@@ -144,7 +151,7 @@ namespace NAnt.Core.Tasks {
             }
             
             // push ourselves onto the stack (prevents recursive includes)
-            _includedFileNames.Push(includedFileName);
+            fullPath = includedFileName;
 
             // increment the nesting level
             _nestinglevel ++;
@@ -246,9 +253,6 @@ namespace NAnt.Core.Tasks {
                     ResourceUtils.GetString("NA1128"), includedFileName),
                     Location, ex);
             } finally {
-                // pop off the stack
-                _includedFileNames.Pop();
-
                 // decrease the nesting level
                 _nestinglevel--;
                 

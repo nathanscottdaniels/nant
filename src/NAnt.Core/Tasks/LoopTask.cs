@@ -193,7 +193,7 @@ namespace NAnt.Core.Tasks {
                 _prop = value;
                 _props = _prop.Split(',');
                 foreach (string prop in _props) {
-                    if (this.PropertyAccessor.IsReadOnlyProperty(prop)) {
+                    if (this.PropertyAccessor.Contains(prop) && this.PropertyAccessor.IsReadOnlyProperty(prop)) {
                         throw new BuildException("Property is readonly! :" + prop, Location); 
                     }
                 }
@@ -289,7 +289,10 @@ namespace NAnt.Core.Tasks {
             string[] oldPropVals = new string[_props.Length];
             // Save all of the old property values
             for (int nIndex = 0; nIndex < oldPropVals.Length; nIndex++) {
-                oldPropVals[nIndex] = this.PropertyAccessor.Lookup(_props[nIndex]);
+                if (this.PropertyAccessor.Contains(_props[nIndex]))
+                {
+                    oldPropVals[nIndex] = this.PropertyAccessor.Lookup(_props[nIndex]);
+                }
             }
             
             try {
