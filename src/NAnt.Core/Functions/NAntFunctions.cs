@@ -339,7 +339,7 @@ namespace NAnt.Core.Functions {
         /// <exception cref="InvalidOperationException">No target is being executed.</exception>
         [Function("get-current-target")]
         public string GetCurrentTarget() {
-            Target target = null;
+            Target target = this.CallStack.CurrentFrame.Target;
             if (target == null) {
                 throw new InvalidOperationException("No target is being executed.");
             }

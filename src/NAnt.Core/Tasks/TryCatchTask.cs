@@ -264,7 +264,12 @@ namespace NAnt.Core.Tasks {
 
                 if (Property != null) {
                     propertyExists = accessor.Contains(Property);
-                    originalPropertyValue = accessor[Property];
+
+                    if (accessor.Contains(Property))
+                    {
+                        originalPropertyValue = accessor[Property];
+                    }
+
                     accessor[Property] = GetExceptionMessage(be);
                 }
 
@@ -277,11 +282,15 @@ namespace NAnt.Core.Tasks {
                             accessor.Remove(Property);
                         } else {
                             // restore original value
-                            accessor[Property] = originalPropertyValue;
+                            if (!String.IsNullOrWhiteSpace(originalPropertyValue))
+                            {
+                                accessor[Property] = originalPropertyValue;
+                            }
                         }
                     }
                 }
             }
+            
             /// <summary>
             /// Parses out the complete exception and inner exception information to be
             /// consumed by the catch element.
