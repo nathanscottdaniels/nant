@@ -40,11 +40,17 @@ namespace NAnt.Core {
         private ExpressionTokenizer _tokenizer;
         private readonly Project _project;
 
-        public ExpressionEvalBase(Project project) {
+        /// <summary>
+        /// The call stack needed for executing certain functions along the way
+        /// </summary>
+        protected readonly TargetCallStack callStack;
+
+        public ExpressionEvalBase(Project project, TargetCallStack callstack) {
             if (project == null)
                 throw new ArgumentNullException("project");
 
             _project = project;
+            this.callStack = callstack;
         }
         public Project Project {
             get { return _project; }
@@ -953,7 +959,7 @@ namespace NAnt.Core {
                         // lookup function matching name and argument count
                         try {
                             function = TypeFactory.LookupFunction(functionOrPropertyName,
-                                functionArgs, Project);
+                                functionArgs, Project, this.callStack);
                         } catch (BuildException ex) {
                             throw BuildParseError(ex.Message, p0, _tokenizer.CurrentPosition);
                         }

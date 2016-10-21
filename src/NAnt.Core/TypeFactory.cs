@@ -294,12 +294,13 @@ namespace NAnt.Core {
         /// <param name="functionName">The name of the function to lookup, including namespace prefix.</param>
         /// <param name="args">The argument of the function to lookup.</param>
         /// <param name="project">The <see cref="Project" /> in which the function is invoked.</param>
+        /// <param name="callstack">The current call stack</param>
         /// <returns>
         /// A <see cref="MethodInfo" /> representing the function, or 
         /// <see langword="null" /> if a function with the given name and
         /// arguments does not exist.
         /// </returns>
-        internal static MethodInfo LookupFunction(string functionName, FunctionArgument[] args, Project project) {
+        internal static MethodInfo LookupFunction(string functionName, FunctionArgument[] args, Project project, TargetCallStack callstack) {
             object function = _methodInfoCollection[functionName];
             if (function == null)
                 throw new BuildException(string.Format(CultureInfo.InvariantCulture,
@@ -308,7 +309,7 @@ namespace NAnt.Core {
             MethodInfo mi = function as MethodInfo;
             if (mi != null) {
                 if (mi.GetParameters ().Length == args.Length) {
-                    CheckDeprecation(functionName, mi, project);
+                    CheckDeprecation(functionName, mi, project, callstack);
                     return mi;
                 }
             } else {
@@ -316,7 +317,7 @@ namespace NAnt.Core {
                 for (int i = 0; i < matches.Count; i++) {
                     mi = (MethodInfo) matches [i];
                     if (mi.GetParameters ().Length == args.Length) {
-                        CheckDeprecation(functionName, mi, project);
+                        CheckDeprecation(functionName, mi, project, callstack);
                         return mi;
                     }
                 }
@@ -326,7 +327,7 @@ namespace NAnt.Core {
                 ResourceUtils.GetString("NA1044"), functionName, args.Length));
         }
 
-        private static void CheckDeprecation(string functionName, MethodInfo function, Project project) {
+        private static void CheckDeprecation(string functionName, MethodInfo function, Project project, TargetCallStack callstack) {
             // check whether the function is deprecated
             ObsoleteAttribute obsoleteAttribute = (ObsoleteAttribute) 
                 Attribute.GetCustomAttribute(function, 
@@ -347,7 +348,14 @@ namespace NAnt.Core {
                 if (obsoleteAttribute.IsError) {
                     throw new BuildException(obsoleteMessage, Location.UnknownLocation);
                 } else {
-                    project.Log(Level.Warning, "{0}", obsoleteMessage);
+                    if (callstack.CurrentFrame != null && callstack.CurrentFrame.TaskCallStack.CurrentFrame != null)
+                    {
+                        callstack.CurrentFrame.TaskCallStack.CurrentFrame.Task.Log(Level.Warning, obsoleteMessage);
+                    }
+                    else
+                    {
+                        (project as ITargetLogger).Log(Level.Warning, obsoleteMessage);
+                    }
                 }
             }
         }
@@ -397,7 +405,14 @@ namespace NAnt.Core {
                 if (obsoleteAttribute.IsError) {
                     throw new BuildException(obsoleteMessage, location);
                 } else {
-                    proj.Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    if (targetCallStack.CurrentFrame != null && targetCallStack.CurrentFrame.TaskCallStack.CurrentFrame != null)
+                    {
+                        targetCallStack.CurrentFrame.TaskCallStack.CurrentFrame.Task.Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    }
+                    else
+                    {
+                        (proj as ITargetLogger).Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    }
                 }
             }
 
@@ -441,8 +456,14 @@ namespace NAnt.Core {
                 if (obsoleteAttribute.IsError) {
                     throw new BuildException(obsoleteMessage, location);
                 } else {
-                    parent.Project.Log(Level.Warning, "{0} {1}", location, 
-                        obsoleteMessage);
+                    if (callStack.CurrentFrame != null && callStack.CurrentFrame.TaskCallStack.CurrentFrame != null)
+                    {
+                        callStack.CurrentFrame.TaskCallStack.CurrentFrame.Task.Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    }
+                    else
+                    {
+                        (parent.Project as ITargetLogger).Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    }
                 }
             }
             return filter;
@@ -494,11 +515,19 @@ namespace NAnt.Core {
                 if (obsoleteAttribute.IsError) {
                     throw new BuildException(obsoleteMessage, location);
                 } else {
-                    proj.Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    if (targetCallStack.CurrentFrame != null && targetCallStack.CurrentFrame.TaskCallStack.CurrentFrame != null)
+                    {
+                        targetCallStack.CurrentFrame.TaskCallStack.CurrentFrame.Task.Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    }
+                    else
+                    {
+                        (proj as ITargetLogger).Log(Level.Warning, "{0} {1}", location, obsoleteMessage);
+                    }
                 }
             }
             return element;
         }
+
         /// <summary>
         /// Scans a given <see cref="Type" /> for tasks.
         /// </summary>

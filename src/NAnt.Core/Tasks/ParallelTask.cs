@@ -352,35 +352,40 @@ namespace NAnt.Core.Tasks
                     }
                 }
 
-                if (newLoggerAction != null)
+                try
                 {
-                    newLoggerAction(logger);
-                }
-                else
-                {
-                    something();
-                }
-
-                lock (state)
-                {
-                    state.CompletedList[index] = true;
-                    if (logger.IsDismantled)
+                    if (newLoggerAction != null)
                     {
-                        // If our logger has been dismanted, then we are the thread that the others are waiting on to complete
-                        // Dismantle the next logger, assuming there is one.  Keep dismantling until we find one that belongs to
-                        // A still-running task
-                        for (var i = index + 1; i < state.Loggers.Length; i++)
+                        newLoggerAction(logger);
+                    }
+                    else
+                    {
+                        something();
+                    }
+                }
+                finally
+                {
+                    lock (state)
+                    {
+                        state.CompletedList[index] = true;
+                        if (logger.IsDismantled)
                         {
-                            if (state.Loggers[i] == null || state.Loggers[i].IsDismantled)
+                            // If our logger has been dismanted, then we are the thread that the others are waiting on to complete
+                            // Dismantle the next logger, assuming there is one.  Keep dismantling until we find one that belongs to
+                            // A still-running task
+                            for (var i = index + 1; i < state.Loggers.Length; i++)
                             {
-                                break;
-                            }
+                                if (state.Loggers[i] == null || state.Loggers[i].IsDismantled)
+                                {
+                                    break;
+                                }
 
-                            state.Loggers[i].FlushAndDismantle();
+                                state.Loggers[i].FlushAndDismantle();
 
-                            if (!state.CompletedList[i])
-                            {
-                                break;
+                                if (!state.CompletedList[i])
+                                {
+                                    break;
+                                }
                             }
                         }
                     }

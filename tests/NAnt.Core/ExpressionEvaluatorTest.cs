@@ -563,8 +563,8 @@ namespace Tests.NAnt.Core {
             string value = accessor.ExpandProperties("${" + expression + "}", Location.UnknownLocation);
             string expectedStringValue = Convert.ToString(expectedReturnValue, CultureInfo.InvariantCulture);
 
-            _project.Log(Level.Debug, "expression: " + expression);
-            _project.Log(Level.Debug, "value: " + value + ", expected: " + expectedStringValue);
+            (_project as ITargetLogger).Log(Level.Debug, "expression: " + expression);
+            (_project as ITargetLogger).Log(Level.Debug, "value: " + value + ", expected: " + expectedStringValue);
             Assert.AreEqual(expectedStringValue, value, expression);
         }
 
@@ -574,7 +574,7 @@ namespace Tests.NAnt.Core {
                 // we shouldn't get here
                 Assert.Fail("Expected BuildException while evaluating ${" + expression + "}, nothing was thrown. The returned value was " + value);
             } catch (BuildException ex) {
-                _project.Log(Level.Debug, "Got expected failure on ${" + expression + "}: " + ((ex.InnerException != null) ? ex.InnerException.Message : ""));
+                (_project as ITargetLogger).Log(Level.Debug, "Got expected failure on ${" + expression + "}: " + ((ex.InnerException != null) ? ex.InnerException.Message : ""));
                 // ok - this one should have been thrown
             } catch (Exception ex) {
                 // some other exception has been thrown - fail

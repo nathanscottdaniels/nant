@@ -67,9 +67,10 @@ namespace NAnt.Core.Types {
         /// </summary>
         /// <param name="project">The <see cref="Project" /> to be used to resolve relative paths.</param>
         /// <param name="path">The string representing a path.</param>
-        public PathSet(Project project, string path) {
+        /// <param name="logger">The logger.</param>
+        public PathSet(Project project, string path, ITargetLogger logger) {
             base.Project = project;
-            _translatedElements = PathSet.TranslatePath(project, path);
+            _translatedElements = PathSet.TranslatePath(project, path, logger);
         }
         /// <summary>
         /// Returns a textual representation of the path, which can be used as
@@ -150,11 +151,12 @@ namespace NAnt.Core.Types {
         /// </summary>
         /// <param name="project">The <see cref="Project" /> to be used to resolve relative paths.</param>
         /// <param name="source">The path to translate.</param>
+        /// <param name="logger">The logger.</param>
         /// <returns>
         /// A PATH split up its parts, with references to environment variables
         /// resolved and duplicate entries removed.
         /// </returns>
-        public static StringCollection TranslatePath(Project project, string source) {
+        public static StringCollection TranslatePath(Project project, string source, ITargetLogger logger) {
             StringCollection result = new StringCollection();
 
             if (source == null) {
@@ -195,7 +197,7 @@ namespace NAnt.Core.Types {
                             result.Add(absolutePath);
                         }
                     } catch (Exception ex) {
-                        project.Log(Level.Verbose, "Dropping path element '{0}'"
+                        logger.Log(Level.Verbose, "Dropping path element '{0}'"
                             + " as it could not be resolved to a full path. {1}", 
                             path, ex.Message);
                     }

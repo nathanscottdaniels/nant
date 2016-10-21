@@ -149,7 +149,7 @@ namespace NAnt.Core
         /// Note that system-level messages and errors will bypass this and log directly to the console.
         /// </para>
         /// </summary>
-        protected internal ITargetLogger Logger
+        protected internal override ITargetLogger Logger
         {
             protected get
             {

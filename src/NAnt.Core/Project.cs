@@ -164,7 +164,7 @@ namespace NAnt.Core
         private string _baseDirectory;
         private string _projectName = "";
         private string _defaultTargetName;
-        private int _indentationSize = 4;
+        private int _indentationSize = 2;
         private int _indentationLevel = 0;
         private BuildListenerCollection _buildListeners = new BuildListenerCollection();
         private StringCollection _buildTargets = new StringCollection();
@@ -1029,7 +1029,7 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Level messageLevel, string message)
+        void ITargetLogger.Log(Level messageLevel, string message)
         {
             BuildEventArgs eventArgs = new BuildEventArgs(this);
 
@@ -1045,7 +1045,7 @@ namespace NAnt.Core
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log, containing zero or more format items.</param>
         /// <param name="args">An <see cref="object" /> array containing zero or more objects to format.</param>
-        public void Log(Level messageLevel, string message, params object[] args)
+        void ITargetLogger.Log(Level messageLevel, string message, params object[] args)
         {
             BuildEventArgs eventArgs = new BuildEventArgs(this);
 
@@ -1062,7 +1062,7 @@ namespace NAnt.Core
         /// <param name="stopwatch">The stopwatch of the task.</param>
         /// <param name="messageLevel">The <see cref="Level" /> to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Task task, Stopwatch stopwatch, Level messageLevel, string message)
+        void ITargetLogger.Log(Task task, Stopwatch stopwatch, Level messageLevel, string message)
         {
             BuildEventArgs eventArgs = new TaskBuildEventArgs(task, stopwatch);
 
@@ -1079,7 +1079,7 @@ namespace NAnt.Core
         /// <param name="stopwatch">The stopwatch of the target.</param>
         /// <param name="messageLevel">The level to log at.</param>
         /// <param name="message">The message to log.</param>
-        public void Log(Target target, Stopwatch stopwatch, Level messageLevel, string message)
+        void ITargetLogger.Log(Target target, Stopwatch stopwatch, Level messageLevel, string message)
         {
             BuildEventArgs eventArgs = new TargetBuildEventArgs(target, stopwatch);
 
@@ -1115,11 +1115,11 @@ namespace NAnt.Core
 
             if (sb.Length > 0)
             {
-                Log(Level.Info, "Target(s) specified: " + sb.ToString());
-                Log(Level.Info, string.Empty);
+                (this as ITargetLogger).Log(Level.Info, "Target(s) specified: " + sb.ToString());
+                (this as ITargetLogger).Log(Level.Info, string.Empty);
             }
             else {
-                Log(Level.Info, string.Empty);
+                (this as ITargetLogger).Log(Level.Info, string.Empty);
             }
 
             // initialize the list of Targets, and execute any global tasks.
@@ -1224,15 +1224,15 @@ namespace NAnt.Core
                 OnBuildStarted(this, new BuildEventArgs(this));
 
                 // output build file that we're running
-                Log(Level.Info, "Buildfile: {0}", BuildFileUri);
+                (this as ITargetLogger).Log(Level.Info, "Buildfile: {0}", BuildFileUri);
 
                 // output current target framework in build log
-                Log(Level.Info, "Target framework: {0}", TargetFramework != null
+                (this as ITargetLogger).Log(Level.Info, "Target framework: {0}", TargetFramework != null
                     ? TargetFramework.Description : "None");
 
                 // write verbose project information after Initialize to make 
                 // sure properties are correctly initialized
-                Log(Level.Verbose, "Base Directory: {0}.", BaseDirectory);
+                (this as ITargetLogger).Log(Level.Verbose, "Base Directory: {0}.", BaseDirectory);
 
                 // execute the project
                 Execute();
@@ -1547,7 +1547,7 @@ namespace NAnt.Core
             _doc = doc;
 
             // set the indentation size of the build output
-            _indentationSize = 12;
+            _indentationSize = 4;
 
             // set the indentation level of the build output
             _indentationLevel = indentLevel;
@@ -1697,7 +1697,7 @@ namespace NAnt.Core
                     // we are an datatype declaration
                     DataTypeBase dataType = CreateDataTypeBase(childNode, callStack);
 
-                    Log(Level.Debug, "Adding a {0} reference with id '{1}'.", childNode.Name, dataType.ID);
+                    (this as ITargetLogger).Log(Level.Debug, "Adding a {0} reference with id '{1}'.", childNode.Name, dataType.ID);
                     if (!DataTypeReferences.Contains(dataType.ID))
                     {
                         DataTypeReferences.Add(dataType.ID, dataType);
@@ -1857,7 +1857,7 @@ namespace NAnt.Core
             // dependency tree, not just on the Targets that depend on the
             // build Target.
             TopologicalTargetSort(root, targets, state, visiting, executeTargets);
-            Log(Level.Debug, "Build sequence for target `{0}' is {1}", root, executeTargets);
+            (this as ITargetLogger).Log(Level.Debug, "Build sequence for target `{0}' is {1}", root, executeTargets);
             foreach (Target target in targets)
             {
                 string st = (string)state[target.Name];
@@ -1872,7 +1872,7 @@ namespace NAnt.Core
                 }
             }
 
-            Log(Level.Debug, "Complete build sequence is {0}", executeTargets);
+            (this as ITargetLogger).Log(Level.Debug, "Complete build sequence is {0}", executeTargets);
             return executeTargets;
         }
 

@@ -45,8 +45,8 @@ namespace Tests.NAnt.Core.Functions {
             string value = new PropertyAccessor(_project, _project.RootTargetCallStack).ExpandProperties("${" + expression + "}", Location.UnknownLocation);
             string expectedStringValue = Convert.ToString(expectedReturnValue, CultureInfo.InvariantCulture);
 
-            _project.Log(Level.Debug, "expression: " + expression);
-            _project.Log(Level.Debug, "value: " + value + ", expected: " + expectedStringValue);
+            (_project as ITargetLogger).Log(Level.Debug, "expression: " + expression);
+            (_project as ITargetLogger).Log(Level.Debug, "value: " + value + ", expected: " + expectedStringValue);
             Assert.AreEqual(expectedStringValue, value, expression);
         }
     }

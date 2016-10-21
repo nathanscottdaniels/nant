@@ -31,12 +31,7 @@ namespace NAnt.Core {
         private PropertyAccessor _properties;
         private Hashtable _state;
         private Stack _visiting;
-
-        /// <summary>
-        /// The call stack needed for executing certain functions along the way
-        /// </summary>
-        private readonly TargetCallStack callStack;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionEvaluator"/> class.
         /// </summary>
@@ -46,11 +41,10 @@ namespace NAnt.Core {
         /// <param name="visiting">The visiting.</param>
         /// <param name="targetCallStack">The call stack needed for executing certain functions along the way</param>
         public ExpressionEvaluator(Project project, PropertyAccessor properties, Hashtable state, Stack visiting, TargetCallStack targetCallStack)
-            : base(project) {
+            : base(project, targetCallStack) {
             _properties = properties;
             _state = state;
             _visiting = visiting;
-            this.callStack = targetCallStack;
         }
 
         protected override object EvaluateProperty(string propertyName) {

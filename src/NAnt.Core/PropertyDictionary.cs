@@ -360,76 +360,76 @@ namespace NAnt.Core
             switch (name)
             {
                 case Project.NAntPropertyFileName:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use assembly::get-location(nant::get-assembly()) expression instead.", name);
                     break;
                 case Project.NAntPropertyVersion:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the assemblyname::get-version(assembly::get-name(nant::get-assembly))"
                         + " expression instead.", name);
                     break;
                 case Project.NAntPropertyLocation:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the nant::get-base-directory() function instead.",
                         name);
                     break;
                 case Project.NAntPropertyProjectBaseDir:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the project::get-base-directory() function instead.",
                         name);
                     break;
                 case Project.NAntPropertyProjectName:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the project::get-name() function instead.",
                         name);
                     break;
                 case Project.NAntPropertyProjectBuildFile:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the project::get-buildfile-uri() function"
                         + " instead.", name);
                     break;
                 case Project.NAntPropertyProjectDefault:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the project::get-default-target() function"
                         + " instead.", name);
                     break;
                 case Project.NAntPlatformName:
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the platform::get-name() function instead.",
                         name);
                     break;
                 case Project.NAntPlatform + ".win32":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the platform::is-win32() function instead.",
                         name);
                     break;
                 case Project.NAntPlatform + ".unix":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the platform::is-unix() function instead.",
                         name);
                     break;
                 case "nant.settings.currentframework.description":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the framework::get-description(framework::get-target-framework())"
                         + " function instead.", name);
                     break;
                 case "nant.settings.currentframework.frameworkdirectory":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the framework::get-framework-directory(framework::get-target-framework())"
                         + " function instead.", name);
                     break;
                 case "nant.settings.currentframework.sdkdirectory":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the framework::get-sdk-directory(framework::get-target-framework())"
                         + " function instead.", name);
                     break;
                 case "nant.settings.currentframework.frameworkassemblydirectory":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the framework::get-assembly-directory(framework::get-target-framework())"
                         + " function instead.", name);
                     break;
                 case "nant.settings.currentframework.runtimeengine":
-                    this.Project.Log(Level.Warning, "Built-in property '{0}' is deprecated."
+                    (this.Project as ITargetLogger).Log(Level.Warning, "Built-in property '{0}' is deprecated."
                         + " Use the framework::get-runtime-engine(framework::get-target-framework())"
                         + " function instead.", name);
                     break;

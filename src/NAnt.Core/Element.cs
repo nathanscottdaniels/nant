@@ -32,7 +32,6 @@ using System.Text;
 using System.Xml;
 
 using NAnt.Core.Attributes;
-using NAnt.Core.Configuration;
 using NAnt.Core.Types;
 using NAnt.Core.Util;
  
@@ -109,6 +108,18 @@ namespace NAnt.Core {
         /// </value>
         public virtual Project Project { get; set; }
 
+        protected internal virtual ITargetLogger Logger
+        {
+            protected get
+            {
+                return this.Project;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Gets or sets the call stack for this element
         /// </summary>
@@ -124,18 +135,7 @@ namespace NAnt.Core {
                 return this.propertyAccessorLazy.Value;
             }
         }
-
-        /// <summary>
-        /// Gets the properties local to this <see cref="Element" /> and the 
-        /// <see cref="Project" />.
-        /// </summary>
-        /// <value>
-        /// The properties local to this <see cref="Element" /> and the <see cref="Project" />.
-        /// </value>
-    /*    public virtual PropertyDictionary Properties {
-            get { return Project.Properties; }
-        } */
-
+        
         /// <summary>
         /// Gets or sets the <see cref="XmlNamespaceManager" />.
         /// </summary>
@@ -225,7 +225,7 @@ namespace NAnt.Core {
         /// </remarks>
         public virtual void Log(Level messageLevel, string format) {
             if (Project != null) {
-                Project.Log(messageLevel, format);
+                this.Logger.Log(messageLevel, format);
             }
         }
 
@@ -240,7 +240,7 @@ namespace NAnt.Core {
         /// </remarks>
         public virtual void Log(Level messageLevel, string format, params object[] args) {
             if (Project != null) {
-                Project.Log(messageLevel, format, args);
+                this.Logger.Log(messageLevel, format, args);
             }
         }
 
@@ -1615,7 +1615,7 @@ namespace NAnt.Core {
             private class PathSetAttributeSetter : IAttributeSetter {
                 public void Set(XmlNode attributeNode, Element parent, PropertyInfo property, string value) {
                     try {
-                        PathSet propertyValue = new PathSet(parent.Project, value);
+                        PathSet propertyValue = new PathSet(parent.Project, value, parent.Logger);
                         propertyValue.CallStack = parent.CallStack;
                         property.SetValue(parent, propertyValue, BindingFlags.Public | BindingFlags.Instance, null, null, CultureInfo.InvariantCulture);
                     } catch (Exception ex) {

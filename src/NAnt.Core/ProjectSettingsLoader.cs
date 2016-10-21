@@ -273,9 +273,9 @@ namespace NAnt.Core {
 
             FrameworkInfo framework = Project.Frameworks [defaultTargetFramework];
             if (framework == null) {
-                Project.Log(Level.Warning, ResourceUtils.GetString("NA1178"),
+                (Project as ITargetLogger).Log(Level.Warning, ResourceUtils.GetString("NA1178"),
                     defaultTargetFramework, Project.RuntimeFramework.Name);
-                Project.Log(Level.Warning, "");
+                (Project as ITargetLogger).Log(Level.Warning, "");
                 return null;
             }
 
