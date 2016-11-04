@@ -160,6 +160,16 @@ namespace Tests.NAnt.Core {
             throw new NotImplementedException();
         }
 
+        public void BuildLoggingFinished(object sender, BuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildLoggingStarted(object sender, BuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool HasBuildStartedFired {
             get { return _buildStartedFired; }
         }

@@ -53,11 +53,6 @@ namespace NAnt.Core
         private Level _threshold = Level.Debug;
 
         /// <summary>
-        /// A target logger that should be used instead of logging via the project
-        /// </summary>
-        private ITargetLogger specialLogger;
-
-        /// <summary>
         /// Determines if task failure stops the build, or is just reported. 
         /// The default is <see langword="true" />.
         /// </summary>
@@ -122,7 +117,7 @@ namespace NAnt.Core
                 return name;
             }
         }
-        
+
         /// <summary>
         /// Gets or sets the log threshold for this <see cref="Task" />. By
         /// default the threshold of a task is <see cref="Level.Debug" />,
@@ -141,33 +136,7 @@ namespace NAnt.Core
             get { return _threshold; }
             set { _threshold = value; }
         }
-
-        /// <summary>
-        /// Gets or set the target logger that should be used to log execution-time messages.  
-        /// If not specified before execution. defaults to logging via the <see cref="Project"/> log methods.
-        /// <para>
-        /// Note that system-level messages and errors will bypass this and log directly to the console.
-        /// </para>
-        /// </summary>
-        protected internal override ITargetLogger Logger
-        {
-            protected get
-            {
-                 return this.specialLogger ?? this.Project;
-            }
-            set
-            {
-                this.specialLogger = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the task that is responsible for this task being executed.  This can be tasks such as 
-        /// <see cref="CallTask"/> that call the target that owns this task, or container tasks such as
-        /// <see cref="IfTask"/> that wrap this task.
-        /// </summary>
-        public override TargetCallStack CallStack { get; set; }
-
+        
         /// <summary>
         /// Gets the <see cref="PropertyAccessor"/> to resolve properties within the current
         /// project and call stack
@@ -249,13 +218,15 @@ namespace NAnt.Core
                         {
                             throw;
                         }
-                        else {
+                        else
+                        {
                             if (this.Verbose)
                             {
                                 // output exception (with stacktrace) to build log
                                 Log(Level.Error, ex.ToString());
                             }
-                            else {
+                            else
+                            {
                                 string msg = ex.Message;
                                 // get first nested exception
                                 Exception nestedException = ex.InnerException;
@@ -328,7 +299,8 @@ namespace NAnt.Core
             {
                 this.Logger.Log(this, this.Stopwatch, Level.Info, format);
             }
-            else {
+            else
+            {
                 this.Logger.Log(this, this.Stopwatch, messageLevel, format);
             }
         }
@@ -445,7 +417,8 @@ namespace NAnt.Core
                             }
                         }
                     }
-                    else {
+                    else
+                    {
                         // check if its required
                         if (frameworkAttribute.Required)
                         {
@@ -495,7 +468,8 @@ namespace NAnt.Core
                                     {
                                         propertyValue = tc.ConvertFrom(attributeValue);
                                     }
-                                    else {
+                                    else
+                                    {
                                         propertyValue = Enum.Parse(propertyType, attributeValue);
                                     }
                                 }
@@ -512,7 +486,8 @@ namespace NAnt.Core
                                     throw new BuildException(message, Location);
                                 }
                             }
-                            else {
+                            else
+                            {
                                 propertyValue = Convert.ChangeType(attributeValue, propertyInfo.PropertyType, CultureInfo.InvariantCulture);
                             }
 

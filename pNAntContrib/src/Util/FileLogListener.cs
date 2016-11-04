@@ -338,6 +338,16 @@ namespace NAnt.Contrib.Util {
             throw new NotImplementedException();
         }
 
+        public void BuildLoggingFinished(object sender, BuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildLoggingStarted(object sender, BuildEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Signals that a message has been logged.
         /// </summary>
@@ -498,6 +508,7 @@ namespace NAnt.Contrib.Util {
             buildEvent.Message = message;
             return buildEvent;
         }
+
         #endregion Private Static Methods
 
         #region Private Instance Fields

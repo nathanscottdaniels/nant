@@ -24,7 +24,8 @@ using NAnt.Core.Attributes;
 using NAnt.Core.Types;
 using NAnt.Core.Util;
 
-namespace NAnt.Core.Tasks {
+namespace NAnt.Core.Tasks
+{
     /// <summary>
     /// Calls a NAnt target in the current project.
     /// </summary>
@@ -157,9 +158,10 @@ namespace NAnt.Core.Tasks {
         /// <summary>
         /// NAnt target to call.
         /// </summary>
-        [TaskAttribute("target", Required=true)]
-        [StringValidator(AllowEmpty=false)]
-        public string TargetName {
+        [TaskAttribute("target", Required = true)]
+        [StringValidator(AllowEmpty = false)]
+        public string TargetName
+        {
             get { return _target; }
             set { _target = StringUtils.ConvertEmptyToNull(value); }
         }
@@ -172,17 +174,19 @@ namespace NAnt.Core.Tasks {
         /// </summary>
         [TaskAttribute("force")]
         [System.Obsolete("Use the \"cascase\" attribute to control whether dependencies should be re-executed.", false)]
-        public bool ForceExecute {
+        public bool ForceExecute
+        {
             get { return _force; }
             set { _force = value; }
         }
-        
+
         /// <summary>
         /// Execute the specified targets dependencies -- even if they have been 
         /// previously executed. The default is <see langword="true" />.
         /// </summary>
-        [TaskAttribute("cascade")] 
-        public bool CascadeDependencies {
+        [TaskAttribute("cascade")]
+        public bool CascadeDependencies
+        {
             get { return _cascade; }
             set { _cascade = value; }
         }
@@ -200,19 +204,23 @@ namespace NAnt.Core.Tasks {
         /// <summary>
         /// Executes the specified target.
         /// </summary>
-        protected override void ExecuteTask() {
+        protected override void ExecuteTask()
+        {
             Target owningTarget = Parent as Target;
 
-            if (owningTarget != null) {
+            if (owningTarget != null)
+            {
                 // topologically sorted list of targets that will be executed
                 TargetCollection targets = Project.TopologicalTargetSort(TargetName, Project.Targets);
 
                 // check if owning target is part of list of targets that will
                 // be executed again
-                if (targets.Find(owningTarget.Name) != null) {
+                if (targets.Find(owningTarget.Name) != null)
+                {
                     // check if owning target is actually a dependency of the 
                     // target that should be executed
-                    if (targets.IndexOf(targets.Find(owningTarget.Name)) < targets.IndexOf(targets.Find(TargetName))) {
+                    if (targets.IndexOf(targets.Find(owningTarget.Name)) < targets.IndexOf(targets.Find(TargetName)))
+                    {
                         throw new BuildException("Circular dependency: " + targets.ToString(" <- ") + " <- " + owningTarget.Name);
                     }
                 }
@@ -220,7 +228,7 @@ namespace NAnt.Core.Tasks {
 
             try
             {
-                Project.Execute(TargetName, CascadeDependencies, this, arguments: this.arguments);
+                Project.Execute(TargetName, CascadeDependencies, this, this.CallStack, this.Logger, this.arguments);
             }
             catch (ArgumentException e)
             {
@@ -232,13 +240,16 @@ namespace NAnt.Core.Tasks {
         /// Makes sure the <see cref="CallTask" /> is not calling its own 
         /// parent.
         /// </summary>
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             Target target = Project.Targets.Find(TargetName);
-            if (target != null) {
+            if (target != null)
+            {
                 Target owningTarget = Parent as Target;
 
-                if (target == owningTarget) {
-                    throw new BuildException("Call task cannot call its own parent.", 
+                if (target == owningTarget)
+                {
+                    throw new BuildException("Call task cannot call its own parent.",
                         Location);
                 }
             }

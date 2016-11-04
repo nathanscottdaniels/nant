@@ -301,6 +301,56 @@ namespace NAnt.Core
             this.disablingLock.ReleaseReaderLock();
         }
 
+
+        /// <summary>
+        /// Signals that the last target has finished and logging for the build is complete.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public void OnBuildLoggingFinished(object sender, BuildEventArgs e)
+        {
+            this.disablingLock.AcquireReaderLock(1000);
+
+            if (disabled)
+            {
+                this.DestinationLogger.OnBuildLoggingFinished(sender, e);
+            }
+            else
+            {
+                this.LoggingQueue.Enqueue(() => { this.DestinationLogger.OnBuildLoggingFinished(sender, e); });
+            }
+
+            this.disablingLock.ReleaseReaderLock();
+        }
+
+        /// <summary>
+        /// Signals that logging for a build has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event is fired before any targets have started.
+        /// </remarks>
+        public void OnBuildLoggingStarted(object sender, BuildEventArgs e)
+        {
+            this.disablingLock.AcquireReaderLock(1000);
+
+            if (disabled)
+            {
+                this.DestinationLogger.OnBuildLoggingStarted(sender, e);
+            }
+            else
+            {
+                this.LoggingQueue.Enqueue(() => { this.DestinationLogger.OnBuildLoggingStarted(sender, e); });
+            }
+
+            this.disablingLock.ReleaseReaderLock();
+        }
+
+
         /// <summary>
         /// Permanently disables the buffer.  Any queued log messages are immedately passed on to the <see cref="DestinationLogger"/>
         /// and any future log messages are logged immediately instead of placed into the buffer.  Dismantling this <see cref="BufferingTargetLogger"/>

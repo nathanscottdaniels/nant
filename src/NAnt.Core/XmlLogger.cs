@@ -38,9 +38,7 @@ namespace NAnt.Core {
         private TextWriter _outputWriter;
         private StringWriter _buffer = new StringWriter();
         private Level _threshold = Level.Info;
-
-        private readonly Stopwatch buildTimer = new Stopwatch();
-
+        
         [NonSerialized()]
         private XmlTextWriter _xmlWriter;
 
@@ -52,7 +50,6 @@ namespace NAnt.Core {
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlLogger"/> class.
         /// </summary>
-        /// <param name="stopWatchStack">The stop watch stack.</param>
         public XmlLogger() {
             _xmlWriter = new XmlTextWriter(_buffer);
         }
@@ -87,6 +84,7 @@ namespace NAnt.Core {
         public override string ToString() {
             return _buffer.ToString();
         }
+
         /// <summary>
         /// Signals that a build has started.
         /// </summary>
@@ -95,9 +93,34 @@ namespace NAnt.Core {
         /// <remarks>
         /// This event is fired before any targets have started.
         /// </remarks>
-        public void BuildStarted(object sender, BuildEventArgs e) {
-            this.buildTimer.Start();
-            lock (_xmlWriter) {
+        public void BuildStarted(object sender, BuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that the last target has finished.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public void BuildFinished(object sender, BuildEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Signals that a build has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event is fired before any targets have started.
+        /// </remarks>
+        public void BuildLoggingStarted(object sender, BuildEventArgs e)
+        {
+            lock (_xmlWriter)
+            {
                 _xmlWriter.WriteStartElement(Elements.BuildResults);
                 _xmlWriter.WriteAttributeString(Attributes.Project, e.Project.ProjectName);
             }
@@ -113,16 +136,18 @@ namespace NAnt.Core {
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public void BuildFinished(object sender, BuildEventArgs e) {
-            lock (_xmlWriter) {
-                if (e.Exception != null) {
+        public void BuildLoggingFinished(object sender, BuildEventArgs e)
+        {
+            lock (_xmlWriter)
+            {
+                if (e.Exception != null)
+                {
                     _xmlWriter.WriteStartElement("failure");
                     WriteErrorNode(e.Exception);
                     _xmlWriter.WriteEndElement();
                 }
-                this.buildTimer.Stop();
-                // output total build duration
-                WriteDuration(this.buildTimer);
+
+                WriteDuration(e.Stopwatch);
 
                 // close buildresults node
                 _xmlWriter.WriteEndElement();
@@ -133,32 +158,39 @@ namespace NAnt.Core {
             _projectStack.Pop();
 
             // check if there are still nested projects executing
-            if (_projectStack.Count != 0) {
+            if (_projectStack.Count != 0)
+            {
                 // do not yet persist build results, as the main project is 
                 // not finished yet
                 return;
             }
 
-            try {
+            try
+            {
                 // write results to file
-                if (OutputWriter != null) {
+                if (OutputWriter != null)
+                {
                     OutputWriter.Write(_buffer.ToString());
                     OutputWriter.Flush();
                 }
-                else { // Xmlogger is used as BuildListener
+                else
+                { // Xmlogger is used as BuildListener
                     string outFileName = e.Project.GetGlobalProperty("XmlLogger.file");
-                    if (outFileName == null) {
+                    if (outFileName == null)
+                    {
                         outFileName = "log.xml";
                     }
                     // convert to full path relative to project base directory
                     outFileName = e.Project.GetFullPath(outFileName);
                     // write build log to file
-                    using (StreamWriter writer = new StreamWriter(new FileStream(outFileName, FileMode.Create, FileAccess.Write, FileShare.Read), Encoding.UTF8)) {
+                    using (StreamWriter writer = new StreamWriter(new FileStream(outFileName, FileMode.Create, FileAccess.Write, FileShare.Read), Encoding.UTF8))
+                    {
                         writer.Write(_buffer.ToString());
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw new BuildException("Unable to write to log file.", ex);
             }
         }

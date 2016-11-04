@@ -135,7 +135,7 @@ namespace Tests.NAnt.Core {
             using (ConsoleCapture c = new ConsoleCapture()) {
                 string output = null;
                 try {
-                    p.Execute();
+                    p.Execute(p.RootTargetCallStack);
                 } catch (BuildException e) {
                     output = c.Close();
                     throw new TestBuildException("Error Executing Project", output, e);

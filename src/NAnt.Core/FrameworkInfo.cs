@@ -722,7 +722,7 @@ namespace NAnt.Core {
             // create and execute project
             Project frameworkProject = new Project(projectDoc);
             frameworkProject.BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            frameworkProject.Execute();
+            frameworkProject.Execute(frameworkProject.RootTargetCallStack);
 
             XmlNode runtimeNode = _frameworkNode.SelectSingleNode ("runtime",
                 NamespaceManager);

@@ -288,7 +288,7 @@ namespace NAnt.Core
             {
                 try
                 {
-                    using (callStack.Push(this))
+                    using (callStack.Push(this, logger))
                     {
                         this.PrepareArguments(arguments, callStack);
 
@@ -322,7 +322,6 @@ namespace NAnt.Core
                                     Task task = Project.CreateTask(childNode, this, callStack);
                                     if (task != null)
                                     {
-                                        task.Logger = logger;
                                         task.Execute();
                                     }
                                 }

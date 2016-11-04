@@ -65,7 +65,7 @@ namespace NAnt.Core
     ///   </code>
     /// </example>
     [Serializable()]
-    public class Project: ITargetLogger
+    public class Project : ITargetLogger
     {
 
         /// <summary>
@@ -115,6 +115,16 @@ namespace NAnt.Core
         /// Occurs when a build has finished.
         /// </summary>
         public event BuildEventHandler BuildFinished;
+
+        /// <summary>
+        /// Occurs when logging a build is started.
+        /// </summary>
+        public event BuildEventHandler BuildLoggingStarted;
+
+        /// <summary>
+        /// Occurs when logging a build has finished.
+        /// </summary>
+        public event BuildEventHandler BuildLoggingFinished;
 
         /// <summary>
         /// Occurs when a target is started.
@@ -231,7 +241,7 @@ namespace NAnt.Core
             // initialize project
             CtorHelper(doc, threshold, indentLevel, Optimizations.None);
         }
-        
+
         /// <summary>
         /// Initializes a new <see cref="Project" /> class with the given 
         /// source, message threshold and indentation level.
@@ -466,7 +476,8 @@ namespace NAnt.Core
                 {
                     return null; //new Uri("http://localhost");
                 }
-                else {
+                else
+                {
                     // manually escape '#' in URI (why doesn't .NET do this?) to allow
                     // projects in paths containing a '#' character
                     string escapedUri = Document.BaseURI.Replace("#", Uri.HexEscape('#'));
@@ -631,7 +642,8 @@ namespace NAnt.Core
                 {
                     return "unix";
                 }
-                else {
+                else
+                {
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                         ResourceUtils.GetString("NA1060"),
                         Environment.OSVersion.Platform.ToString(CultureInfo.InvariantCulture),
@@ -655,7 +667,8 @@ namespace NAnt.Core
                 {
                     return BuildFileUri.LocalPath;
                 }
-                else {
+                else
+                {
                     return null;
                 }
             }
@@ -711,7 +724,7 @@ namespace NAnt.Core
         {
             get { return Level.Verbose >= Threshold; }
         }
-        
+
         /// <summary>
         /// The list of targets to build.
         /// </summary>
@@ -868,6 +881,38 @@ namespace NAnt.Core
         public Location GetLocation(XmlNode node)
         {
             return LocationMap.GetLocation(node);
+        }
+
+        /// <summary>
+        /// Signals that the last target has finished and logging for the build is complete.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        void ITargetLogger.OnBuildLoggingFinished(object sender, BuildEventArgs e)
+        {
+            if (BuildLoggingFinished != null)
+            {
+                BuildLoggingFinished(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Signals that logging for a build has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event is fired before any targets have started.
+        /// </remarks>
+        void ITargetLogger.OnBuildLoggingStarted(object sender, BuildEventArgs e)
+        {
+            if (BuildLoggingStarted != null)
+            {
+                BuildLoggingStarted(sender, e);
+            }
         }
 
         /// <summary>
@@ -1095,7 +1140,7 @@ namespace NAnt.Core
         /// No top level error handling is done. Any <see cref="BuildException" /> 
         /// will be passed onto the caller.
         /// </remarks>
-        public virtual void Execute()
+        public virtual void Execute(TargetCallStack callStack)
         {
             if (BuildTargets.Count == 0 && !String.IsNullOrEmpty(DefaultTargetName))
             {
@@ -1118,12 +1163,13 @@ namespace NAnt.Core
                 (this as ITargetLogger).Log(Level.Info, "Target(s) specified: " + sb.ToString());
                 (this as ITargetLogger).Log(Level.Info, string.Empty);
             }
-            else {
+            else
+            {
                 (this as ITargetLogger).Log(Level.Info, string.Empty);
             }
 
             // initialize the list of Targets, and execute any global tasks.
-            InitializeProjectDocument(Document, this.RootTargetCallStack);
+            InitializeProjectDocument(Document, callStack);
 
             if (BuildTargets.Count == 0)
             {
@@ -1131,11 +1177,12 @@ namespace NAnt.Core
                 //It just means we have all global tasks. -- skot
                 //throw new BuildException("No Target Specified");
             }
-            else {
+            else
+            {
                 foreach (string targetName in BuildTargets)
                 {
                     //do not force dependencies of build targets.
-                    Execute(targetName, false, null, this.RootTargetCallStack);
+                    Execute(targetName, false, null, callStack);
                 }
             }
         }
@@ -1155,9 +1202,9 @@ namespace NAnt.Core
         /// Global tasks are not executed.
         /// </remarks>
         public void Execute(
-            string targetName, 
-            bool forceDependencies = true, 
-            Task caller = null, 
+            string targetName,
+            bool forceDependencies = true,
+            Task caller = null,
             TargetCallStack callStack = null,
             ITargetLogger specialLogger = null,
             IList<CallArgument> arguments = null)
@@ -1176,7 +1223,7 @@ namespace NAnt.Core
             TargetCollection sortedTargets = TopologicalTargetSort(targetName, Targets);
             int currentIndex = 0;
             Target currentTarget;
-            
+
             do
             {
                 // determine target that should be executed
@@ -1188,7 +1235,12 @@ namespace NAnt.Core
                 {
                     try
                     {
-                        currentTarget.Execute(callStack ?? caller.CallStack, specialLogger ?? this, currentTarget.Name == targetName ? arguments : null);
+                        currentTarget.Execute(
+                            callStack ?? caller.CallStack, 
+                            specialLogger ?? (callStack ?? caller.CallStack).HeadLogger,
+                            currentTarget.Name == targetName 
+                                ? arguments 
+                                : null);
                     }
                     catch (ArgumentException)
                     {
@@ -1196,7 +1248,7 @@ namespace NAnt.Core
                         {
                             throw new BuildException(
                                 String.Format(
-                                    @"Target ""{0}"" requires arguments and cannot be in the ""depends"" list of target ""{1}"".  Please <call/> this target instead.", 
+                                    @"Target ""{0}"" requires arguments and cannot be in the ""depends"" list of target ""{1}"".  Please <call/> this target instead.",
                                     currentTarget.Name, targetName));
                         }
 
@@ -1212,33 +1264,37 @@ namespace NAnt.Core
         /// stamping.
         /// </summary>
         /// <returns>
-        /// <see langword="true" /> if the build was successful; otherwise, 
-        /// <see langword="false" />.
+        /// A <see cref="ProjectRunResult"/> with the results of the run
         /// </returns>
-        public bool Run()
+        public ProjectRunResult Run(TargetCallStack callStack)
         {
             Exception error = null;
 
+            var specialLogger = callStack.HeadLogger;
+
+            var args = new BuildEventArgs(this, Stopwatch.StartNew());
+
             try
             {
-                OnBuildStarted(this, new BuildEventArgs(this));
+                OnBuildStarted(this, args);
+                specialLogger.OnBuildLoggingStarted(this, args);
 
                 // output build file that we're running
-                (this as ITargetLogger).Log(Level.Info, "Buildfile: {0}", BuildFileUri);
+                specialLogger.Log(Level.Info, "Buildfile: {0}", BuildFileUri);
 
                 // output current target framework in build log
-                (this as ITargetLogger).Log(Level.Info, "Target framework: {0}", TargetFramework != null
+                specialLogger.Log(Level.Info, "Target framework: {0}", TargetFramework != null
                     ? TargetFramework.Description : "None");
 
                 // write verbose project information after Initialize to make 
                 // sure properties are correctly initialized
-                (this as ITargetLogger).Log(Level.Verbose, "Base Directory: {0}.", BaseDirectory);
+                specialLogger.Log(Level.Verbose, "Base Directory: {0}.", BaseDirectory);
 
                 // execute the project
-                Execute();
+                Execute(callStack);
 
                 // signal build success
-                return true;
+                return new ProjectRunResult() { Success = true };
             }
             catch (BuildException e)
             {
@@ -1250,7 +1306,7 @@ namespace NAnt.Core
                 logger.Error("Build failed.", e);
 
                 // signal build failure
-                return false;
+                return new ProjectRunResult() { Exception = e };
             }
             catch (Exception e)
             {
@@ -1262,7 +1318,7 @@ namespace NAnt.Core
                 logger.Fatal("Build failed.", e);
 
                 // signal build failure
-                return false;
+                return new ProjectRunResult() { Exception = e };
             }
             finally
             {
@@ -1272,7 +1328,8 @@ namespace NAnt.Core
                 {
                     endTarget = this.GetGlobalProperty(NAntPropertyOnSuccess);
                 }
-                else {
+                else
+                {
                     endTarget = GetGlobalProperty(NAntPropertyOnFailure);
                 }
 
@@ -1284,7 +1341,7 @@ namespace NAnt.Core
                     CallTask callTask = new CallTask();
                     callTask.Parent = this;
                     callTask.Project = this;
-                    callTask.CallStack = this.RootTargetCallStack;
+                    callTask.CallStack = callStack;
                     callTask.NamespaceManager = NamespaceManager;
                     callTask.Verbose = Verbose;
                     callTask.FailOnError = false;
@@ -1293,10 +1350,12 @@ namespace NAnt.Core
                 }
 
                 // fire BuildFinished event with details of build outcome
-                BuildEventArgs buildFinishedArgs = new BuildEventArgs(this);
+                args.Stopwatch.Start();
+                BuildEventArgs buildFinishedArgs = new BuildEventArgs(this, args.Stopwatch);
 
                 buildFinishedArgs.Exception = error;
                 OnBuildFinished(this, buildFinishedArgs);
+                specialLogger.OnBuildLoggingStarted(this, buildFinishedArgs);
             }
         }
 
@@ -1340,7 +1399,7 @@ namespace NAnt.Core
         public Task CreateTask(XmlNode taskNode, Target target, TargetCallStack callStack)
         {
             Task task = TypeFactory.CreateTask(taskNode, this, callStack);
-            
+
             task.Parent = target;
             task.NamespaceManager = NamespaceManager;
 
@@ -1348,17 +1407,6 @@ namespace NAnt.Core
             return task;
         }
 
-        /*     /// <summary>
-             /// Expands a <see cref="string" /> from known properties.
-             /// </summary>
-             /// <param name="input">The <see cref="string" /> with replacement tokens.</param>
-             /// <param name="location">The location in the build file. Used to throw more accurate exceptions.</param>
-             /// <returns>The expanded and replaced <see cref="string" />.</returns>
-             public string ExpandProperties(string input, Location location)
-             {
-                 return Properties.ExpandProperties(input, location);
-             }
-             */
         /// <summary>
         /// Combines the specified path with the <see cref="BaseDirectory"/> of 
         /// the <see cref="Project" /> to form a full path to file or directory.
@@ -1383,7 +1431,8 @@ namespace NAnt.Core
                 {
                     path = uri.LocalPath;
                 }
-                else {
+                else
+                {
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                         ResourceUtils.GetString("NA1061"),
                         path, uri.Scheme), Location.UnknownLocation);
@@ -1413,6 +1462,8 @@ namespace NAnt.Core
             // hook up to build events
             BuildStarted += new BuildEventHandler(buildLogger.BuildStarted);
             BuildFinished += new BuildEventHandler(buildLogger.BuildFinished);
+            BuildLoggingStarted += new BuildEventHandler(buildLogger.BuildLoggingStarted);
+            BuildLoggingFinished += new BuildEventHandler(buildLogger.BuildLoggingFinished);
             TargetStarted += new TargetBuildEventHandler(buildLogger.TargetStarted);
             TargetFinished += new TargetBuildEventHandler(buildLogger.TargetFinished);
             TaskStarted += new TaskBuildEventHandler(buildLogger.TaskStarted);
@@ -1455,6 +1506,8 @@ namespace NAnt.Core
             {
                 BuildStarted -= new BuildEventHandler(listener.BuildStarted);
                 BuildFinished -= new BuildEventHandler(listener.BuildFinished);
+                BuildLoggingStarted -= new BuildEventHandler(listener.BuildLoggingStarted);
+                BuildLoggingFinished -= new BuildEventHandler(listener.BuildLoggingFinished);
                 TargetStarted -= new TargetBuildEventHandler(listener.TargetStarted);
                 TargetFinished -= new TargetBuildEventHandler(listener.TargetFinished);
                 TaskStarted -= new TaskBuildEventHandler(listener.TaskStarted);
@@ -1494,6 +1547,8 @@ namespace NAnt.Core
                 // hook up listener to project build events
                 BuildStarted += new BuildEventHandler(listener.BuildStarted);
                 BuildFinished += new BuildEventHandler(listener.BuildFinished);
+                BuildLoggingStarted += new BuildEventHandler(listener.BuildLoggingStarted);
+                BuildLoggingFinished += new BuildEventHandler(listener.BuildLoggingFinished);
                 TargetStarted += new TargetBuildEventHandler(listener.TargetStarted);
                 TargetFinished += new TargetBuildEventHandler(listener.TargetFinished);
                 TaskStarted += new TaskBuildEventHandler(listener.TaskStarted);
@@ -1572,7 +1627,8 @@ namespace NAnt.Core
                 {
                     defURI = @"http://none";
                 }
-                else {
+                else
+                {
                     defURI = nantNS.Value;
                 }
 
@@ -1613,11 +1669,13 @@ namespace NAnt.Core
                 {
                     newBaseDir = Path.GetDirectoryName(BuildFileLocalName);
                 }
-                else {
+                else
+                {
                     newBaseDir = Environment.CurrentDirectory;
                 }
             }
-            else {
+            else
+            {
                 // if basedir attribute is set to a relative path, then resolve 
                 // it relative to the build file path
                 if (!String.IsNullOrEmpty(BuildFileLocalName) && !Path.IsPathRooted(newBaseDir))
@@ -1702,11 +1760,13 @@ namespace NAnt.Core
                     {
                         DataTypeReferences.Add(dataType.ID, dataType);
                     }
-                    else {
+                    else
+                    {
                         DataTypeReferences[dataType.ID] = dataType; // overwrite with the new reference.
                     }
                 }
-                else {
+                else
+                {
                     throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                         ResourceUtils.GetString("NA1071"), childNode.Name),
                         LocationMap.GetLocation(childNode));
@@ -1812,7 +1872,8 @@ namespace NAnt.Core
             {
                 this.SetGlobalProperty("nant.settings.currentframework.sdkdirectory", TargetFramework.SdkDirectory.FullName);
             }
-            else {
+            else
+            {
                 this.SetGlobalProperty("nant.settings.currentframework.sdkdirectory", "");
             }
 
@@ -1933,7 +1994,8 @@ namespace NAnt.Core
                     target = target.Clone();
                     target.Name = root;
                 }
-                else {
+                else
+                {
                     StringBuilder sb = new StringBuilder("Target '");
                     sb.Append(root);
                     sb.Append("' does not exist in this project.");
@@ -1978,7 +2040,7 @@ namespace NAnt.Core
             state[root] = Project.Visited;
             executeTargets.Add(target);
         }
-        
+
         /// <summary>
         /// Builds an appropriate exception detailing a specified circular
         /// dependency.
@@ -2004,6 +2066,13 @@ namespace NAnt.Core
             } while (!c.Equals(end));
 
             return new BuildException(sb.ToString());
+        }
+
+        public struct ProjectRunResult
+        {
+            public Exception Exception { get; set; }
+
+            public Boolean Success { get; set; }
         }
     }
 

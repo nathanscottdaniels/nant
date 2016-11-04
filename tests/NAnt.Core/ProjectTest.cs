@@ -347,6 +347,14 @@ namespace Tests.NAnt.Core {
             public void TaskLoggingFinished(object sender, TaskBuildEventArgs e)
             {
             }
+
+            public void BuildLoggingFinished(object sender, BuildEventArgs e)
+            {
+            }
+
+            public void BuildLoggingStarted(object sender, BuildEventArgs e)
+            {
+            }
         }
     }
 }

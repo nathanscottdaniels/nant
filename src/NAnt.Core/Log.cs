@@ -150,10 +150,23 @@ namespace NAnt.Core {
         /// class for a <see cref="Project" /> level event.
         /// </summary>
         /// <param name="project">The <see cref="Project" /> that emitted the event.</param>
-        public BuildEventArgs(Project project) {
+        /// <param name="sw">The stopwatch for this build.</param>
+        public BuildEventArgs(Project project, Stopwatch sw)
+        {
+            this.Project = project;
+            this.Stopwatch = sw;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BuildEventArgs" />
+        /// class for a <see cref="Project" /> level event.
+        /// </summary>
+        /// <param name="project">The <see cref="Project" /> that emitted the event.</param>
+        public BuildEventArgs(Project project)
+        {
             this.Project = project;
         }
-        
+
         /// <summary>
         /// Gets or sets the message associated with this event.
         /// </summary>
@@ -209,7 +222,12 @@ namespace NAnt.Core {
         /// event.
         /// </value>
         public Task Task { get; protected set; }
-        
+
+        /// <summary>
+        /// Gets the stopwatch that was started when the target started and stopped when it finished
+        /// </summary>
+        public Stopwatch Stopwatch { get; protected set; }
+
         private string _message;
         private Level _messageLevel = Level.Verbose;
         private Exception _exception;
@@ -231,11 +249,6 @@ namespace NAnt.Core {
             this.Project = Target.Project;
             this.Stopwatch = stopwatch;
         }
-
-        /// <summary>
-        /// Gets the stopwatch that was started when the target started and stopped when it finished
-        /// </summary>
-        public Stopwatch Stopwatch { get; private set; }
     }
 
     /// <summary>
@@ -255,11 +268,6 @@ namespace NAnt.Core {
             this.Target = task.Parent as Target;
             this.Stopwatch = stopwatch;
         }
-
-        /// <summary>
-        /// Gets the stopwatch that was started when the task started and stopped when it finished
-        /// </summary>
-        public Stopwatch Stopwatch { get; private set; }
     }
 
     /// <summary>
@@ -287,7 +295,8 @@ namespace NAnt.Core {
     /// Instances of classes that implement this interface can register to be 
     /// notified when things happen during a build.
     /// </summary>
-    public interface IBuildListener {
+    public interface IBuildListener
+    {
         /// <summary>
         /// Signals that a build has started.
         /// </summary>
@@ -297,6 +306,26 @@ namespace NAnt.Core {
         /// This event is fired before any targets have started.
         /// </remarks>
         void BuildStarted(object sender, BuildEventArgs e);
+
+        /// <summary>
+        /// Signals that the last target has finished and logging for the build is complete.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        void BuildLoggingFinished(object sender, BuildEventArgs e);
+
+        /// <summary>
+        /// Signals that logging for a build has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event is fired before any targets have started.
+        /// </remarks>
+        void BuildLoggingStarted(object sender, BuildEventArgs e);
 
         /// <summary>
         /// Signals that the last target has finished.
@@ -507,7 +536,6 @@ namespace NAnt.Core {
         /// This event is fired before any targets have started.
         /// </remarks>
         public virtual void BuildStarted(object sender, BuildEventArgs e) {
-            _buildReports.Push(new BuildReport(DateTime.Now));
         }
 
         /// <summary>
@@ -518,42 +546,69 @@ namespace NAnt.Core {
         /// <remarks>
         /// This event will still be fired if an error occurred during the build.
         /// </remarks>
-        public virtual void BuildFinished(object sender, BuildEventArgs e) {
+        public virtual void BuildFinished(object sender, BuildEventArgs e) {          
+        }
+
+        /// <summary>
+        /// Signals that the last target has finished and logging for the build is complete.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        public void BuildLoggingFinished(object sender, BuildEventArgs e)
+        {
             Exception error = e.Exception;
             int indentationLevel = 0;
 
-            if (e.Project != null) {
+            if (e.Project != null)
+            {
                 indentationLevel = e.Project.IndentationLevel * e.Project.IndentationSize;
             }
 
-            BuildReport report = (BuildReport) _buildReports.Pop();
+            BuildReport report = (BuildReport)_buildReports.Pop();
 
-            if (error == null) {
+            if (error == null)
+            {
                 OutputMessage(Level.Info, string.Empty, indentationLevel);
-                if (report.Errors == 0 && report.Warnings == 0) {
+                if (report.Errors == 0 && report.Warnings == 0)
+                {
                     OutputMessage(Level.Info, "BUILD SUCCEEDED", indentationLevel);
-                } else {
+                }
+                else
+                {
                     OutputMessage(Level.Info, string.Format(CultureInfo.InvariantCulture,
-                        ResourceUtils.GetString("String_BuildSucceeded"), 
+                        ResourceUtils.GetString("String_BuildSucceeded"),
                         report.Errors, report.Warnings), indentationLevel);
                 }
                 OutputMessage(Level.Info, string.Empty, indentationLevel);
-            } else {
+            }
+            else
+            {
                 OutputMessage(Level.Error, string.Empty, indentationLevel);
-                if (report.Errors == 0 && report.Warnings == 0) {
+                if (report.Errors == 0 && report.Warnings == 0)
+                {
                     OutputMessage(Level.Error, "BUILD FAILED", indentationLevel);
-                } else {
+                }
+                else
+                {
                     OutputMessage(Level.Info, string.Format(CultureInfo.InvariantCulture,
-                        ResourceUtils.GetString("String_BuildFailed"), 
+                        ResourceUtils.GetString("String_BuildFailed"),
                         report.Errors, report.Warnings), indentationLevel);
                 }
                 OutputMessage(Level.Error, string.Empty, indentationLevel);
 
-                if (error is BuildException) {
-                    if (Threshold <= Level.Verbose) {
+                if (error is BuildException)
+                {
+                    if (Threshold <= Level.Verbose)
+                    {
                         OutputMessage(Level.Error, error.ToString(), indentationLevel);
-                    } else {
-                        if (error.Message != null) {
+                    }
+                    else
+                    {
+                        if (error.Message != null)
+                        {
                             OutputMessage(Level.Error, error.Message, indentationLevel);
                         }
 
@@ -561,13 +616,16 @@ namespace NAnt.Core {
                         Exception nestedException = error.InnerException;
                         int exceptionIndentationLevel = indentationLevel;
                         int indentShift = 4; //e.Project.IndentationSize;
-                        while (nestedException != null && !String.IsNullOrEmpty(nestedException.Message)) {
+                        while (nestedException != null && !String.IsNullOrEmpty(nestedException.Message))
+                        {
                             exceptionIndentationLevel += indentShift;
                             OutputMessage(Level.Error, nestedException.Message, exceptionIndentationLevel);
                             nestedException = nestedException.InnerException;
                         }
                     }
-                } else {
+                }
+                else
+                {
                     OutputMessage(Level.Error, "INTERNAL ERROR", indentationLevel);
                     OutputMessage(Level.Error, string.Empty, indentationLevel);
                     OutputMessage(Level.Error, error.ToString(), indentationLevel);
@@ -579,13 +637,26 @@ namespace NAnt.Core {
             }
 
             // output total build time
-            TimeSpan buildTime = DateTime.Now - report.StartTime;
-            OutputMessage(Level.Info, string.Format(CultureInfo.InvariantCulture, 
-                ResourceUtils.GetString("String_TotalTime") + Environment.NewLine, 
+            TimeSpan buildTime = e.Stopwatch.Elapsed;
+            OutputMessage(Level.Info, string.Format(CultureInfo.InvariantCulture,
+                ResourceUtils.GetString("String_TotalTime") + Environment.NewLine,
                 Math.Round(buildTime.TotalSeconds, 1)), indentationLevel);
 
             // make sure all messages are written to the underlying storage
             Flush();
+        }
+
+        /// <summary>
+        /// Signals that logging for a build has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event is fired before any targets have started.
+        /// </remarks>
+        public void BuildLoggingStarted(object sender, BuildEventArgs e)
+        {
+            _buildReports.Push(new BuildReport());
         }
 
         /// <summary>
@@ -827,16 +898,9 @@ namespace NAnt.Core {
         public int Warnings;
 
         /// <summary>
-        /// The start time of the build process.
-        /// </summary>
-        public readonly DateTime StartTime;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BuildReport"/> class.
         /// </summary>
-        /// <param name="startTime">The start time.</param>
-        public BuildReport(DateTime startTime) {
-            StartTime = startTime;
+        public BuildReport() {
             Errors = 0;
             Warnings = 0;
         }

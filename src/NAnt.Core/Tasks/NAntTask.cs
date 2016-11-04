@@ -27,7 +27,8 @@ using NAnt.Core.Attributes;
 using NAnt.Core.Util;
 using NAnt.Core.Types;
 
-namespace NAnt.Core.Tasks {
+namespace NAnt.Core.Tasks
+{
     /// <summary>
     /// Runs NAnt on a supplied build file, or a set of build files.
     /// </summary>
@@ -95,7 +96,8 @@ namespace NAnt.Core.Tasks {
     ///   </code>
     /// </example>
     [TaskName("nant")]
-    public class NAntTask : Task {
+    public class NAntTask : Task
+    {
         private FileInfo _buildFile;
         private FileSet _buildFiles = new FileSet();
         private string _target;
@@ -106,7 +108,8 @@ namespace NAnt.Core.Tasks {
         /// The build file to build.
         /// </summary>
         [TaskAttribute("buildfile")]
-        public FileInfo BuildFile {
+        public FileInfo BuildFile
+        {
             get { return _buildFile; }
             set { _buildFile = value; }
         }
@@ -118,7 +121,8 @@ namespace NAnt.Core.Tasks {
         /// attribute.
         /// </summary>
         [TaskAttribute("target")]
-        public string DefaultTarget {
+        public string DefaultTarget
+        {
             get { return _target; }
             set { _target = StringUtils.ConvertEmptyToNull(value); }
         }
@@ -127,7 +131,8 @@ namespace NAnt.Core.Tasks {
         /// Used to specify a set of build files to process.
         /// </summary>
         [BuildElement("buildfiles")]
-        public virtual FileSet BuildFiles {
+        public virtual FileSet BuildFiles
+        {
             get { return _buildFiles; }
             set { _buildFiles = value; }
         }
@@ -138,7 +143,8 @@ namespace NAnt.Core.Tasks {
         /// </summary>
         [TaskAttribute("inheritall")]
         [BooleanValidator()]
-        public bool InheritAll {
+        public bool InheritAll
+        {
             get { return _inheritAll; }
             set { _inheritAll = value; }
         }
@@ -149,7 +155,8 @@ namespace NAnt.Core.Tasks {
         /// </summary>
         [TaskAttribute("inheritrefs")]
         [BooleanValidator()]
-        public bool InheritRefs {
+        public bool InheritRefs
+        {
             get { return _inheritRefs; }
             set { _inheritRefs = value; }
         }
@@ -159,16 +166,19 @@ namespace NAnt.Core.Tasks {
         /// executed project.  Note, existing properties with identical names 
         /// that are not read-only will be overwritten.
         /// </summary>
-        [BuildElementCollection("properties", "property", ElementType=typeof(PropertyTask))]
-        public ArrayList OverrideProperties {
+        [BuildElementCollection("properties", "property", ElementType = typeof(PropertyTask))]
+        public ArrayList OverrideProperties
+        {
             get { return _overrideProperties; }
         }
         /// <summary>
         /// Validates the <see cref="NAntTask" /> element.
         /// </summary>
-        protected override void Initialize() {
-            if (BuildFile != null && BuildFiles != null && BuildFiles.Includes.Count > 0) {
-                throw new BuildException(string.Format(CultureInfo.InvariantCulture, 
+        protected override void Initialize()
+        {
+            if (BuildFile != null && BuildFiles != null && BuildFiles.Includes.Count > 0)
+            {
+                throw new BuildException(string.Format(CultureInfo.InvariantCulture,
                     ResourceUtils.GetString("NA1141")), Location);
             }
         }
@@ -176,24 +186,31 @@ namespace NAnt.Core.Tasks {
         /// <summary>
         /// Executes the task.
         /// </summary>
-        protected override void ExecuteTask() {
+        protected override void ExecuteTask()
+        {
             // run the build file specified in an attribute
-            if (BuildFile != null) {
+            if (BuildFile != null)
+            {
                 RunBuild(BuildFile);
-            } else {
-                if (BuildFiles.FileNames.Count == 0) {
+            }
+            else
+            {
+                if (BuildFiles.FileNames.Count == 0)
+                {
                     Log(Level.Warning, "No matching build files found to run.");
                     return;
                 }
 
                 // run all build files specified in the fileset
-                foreach (string buildFile in BuildFiles.FileNames) {
+                foreach (string buildFile in BuildFiles.FileNames)
+                {
                     RunBuild(new FileInfo(buildFile));
                 }
             }
         }
 
-        private void RunBuild(FileInfo buildFile) {
+        private void RunBuild(FileInfo buildFile)
+        {
             Log(Level.Info, "{0} {1}", buildFile.FullName, DefaultTarget);
 
             // create new project with same threshold as current project and 
@@ -202,7 +219,8 @@ namespace NAnt.Core.Tasks {
             Project project = new Project(buildFile.FullName, Project);
 
             // have the new project inherit properties from the current project
-            if (InheritAll) {
+            if (InheritAll)
+            {
                 StringCollection excludes = new StringCollection();
                 excludes.Add(Project.NAntPropertyFileName);
                 excludes.Add(Project.NAntPropertyLocation);
@@ -217,10 +235,12 @@ namespace NAnt.Core.Tasks {
             }
 
             // add/overwrite properties
-            foreach (PropertyTask property in OverrideProperties) {
+            foreach (PropertyTask property in OverrideProperties)
+            {
                 // expand properties in context of current project for non-dynamic
                 // properties
-                if (!property.Dynamic) {
+                if (!property.Dynamic)
+                {
                     property.Value = this.PropertyAccessor.ExpandProperties(property.Value, Location);
                 }
                 property.Project = project;
@@ -228,24 +248,39 @@ namespace NAnt.Core.Tasks {
                 property.Execute();
             }
 
-            if (InheritRefs) {
+            if (InheritRefs)
+            {
                 // pass datatypes thru to the child project
                 project.DataTypeReferences.Inherit(Project.DataTypeReferences);
             }
-            
+
             // handle multiple targets
-            if (DefaultTarget != null) {
-                foreach (string t in DefaultTarget.Split(' ')) {
+            if (DefaultTarget != null)
+            {
+                foreach (string t in DefaultTarget.Split(' '))
+                {
                     string target = t.Trim();
-                    if (target.Length > 0) {
+                    if (target.Length > 0)
+                    {
                         project.BuildTargets.Add(target);
                     }
                 }
             }
 
+            Project.ProjectRunResult result;
+            if (this.InheritAll)
+            {
+                result = project.Run(this.CallStack.Clone() as TargetCallStack);
+            }
+            else
+            {
+                result = project.Run(project.RootTargetCallStack);
+            }
+
             // run the given build
-            if (!project.Run()) {
-                throw new BuildException("Nested build failed.  Refer to build log for exact reason.");
+            if (!result.Success)
+            {
+                throw new BuildException(string.Concat("Nested build failed: ", result.Exception.Message), result.Exception);
             }
         }
     }

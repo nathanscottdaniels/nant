@@ -29,12 +29,35 @@ namespace NAnt.Core.Tasks
     [TaskName("parallel")]
     public class ParallelTask : Task, IEquatable<ParallelTask>
     {
+        /// <summary>
+        /// The logger the parent <see cref="ParallelTaask"/> wants us to use
+        /// </summary>
+        protected ITargetLogger loggerFromParent;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ParallelTask"/> class.
+        /// </summary>
         public ParallelTask()
         {
             this.Children = new List<Element>();
             this.ShortName = String.Empty;
             this.Description = String.Empty;
+        }
+
+        /// <summary>
+        /// Gets the logger to use
+        /// </summary>
+        protected new ITargetLogger Logger
+        {
+            get
+            {
+                if (this.loggerFromParent == null)
+                {
+                    return base.Logger;
+                }
+
+                return this.loggerFromParent;
+            }
         }
 
         /// <summary>
@@ -304,12 +327,13 @@ namespace NAnt.Core.Tasks
         /// <param name="index">The index of this thread in the grand scheme of things</param>
         private void ExecuteWithCorrectLogging(ParallelTask task, Boolean cacophony, ConcurrencyState state, Int32 index)
         {
-            task.Logger = this.Logger;
+
+            (task as ParallelTask).loggerFromParent = this.Logger;
             this.ExecuteWithCorrectLogging(
                 task.Execute,
                 logger =>
                 {
-                    task.Logger = logger;
+                    (task as ParallelTask).loggerFromParent = logger;
                     task.Execute();
                 },
                 cacophony,

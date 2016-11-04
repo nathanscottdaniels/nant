@@ -189,7 +189,7 @@ namespace NAnt.Core {
                     Console.WriteLine();
                     ConsoleDriver.ShowProjectHelp(project.Document);
                 } else {
-                    if (!project.Run()) {
+                    if (!project.Run(project.RootTargetCallStack).Success) {
                         return 1;
                     }
                 }

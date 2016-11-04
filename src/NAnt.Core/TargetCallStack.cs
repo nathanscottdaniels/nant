@@ -38,11 +38,28 @@ namespace NAnt.Core
         public PropertyDictionary ThreadProperties { get; private set; }
 
         /// <summary>
+        /// Gets the <see cref="ITargetLogger"/> that should be used for the current point in the stack.
+        /// </summary>
+        public ITargetLogger HeadLogger
+        {
+            get
+            {
+                if (this.CurrentFrame == null)
+                {
+                    return this.Project;
+                }
+
+                return this.CurrentFrame.Logger;
+            }
+        }
+
+        /// <summary>
         /// Pushes a new target frame onto this stack
         /// </summary>
         /// <param name="target">The target to push</param>
+        /// <param name="logger">The logger that tasks on this frame shoudl use, if different than the current one</param>
         /// <returns>An <see cref="IDisposable"/> that, when disposed, pops the frame from the stack</returns>
-        public IDisposable Push(Target target)
+        public IDisposable Push(Target target, ITargetLogger logger = null)
         {
             if (target == null)
             {
@@ -50,7 +67,7 @@ namespace NAnt.Core
             }
 
             return this.PushNewFrame(
-                new TargetStackFrame(target, this.Project));
+                new TargetStackFrame(target, this.Project, logger ?? this.CurrentFrame.Logger));
         }
 
         /// <summary>
@@ -84,7 +101,7 @@ namespace NAnt.Core
             if (this.CurrentFrame == null)
             {
                 return this.PushNewFrame(
-                    new TargetStackFrame(null, this.Project));
+                    new TargetStackFrame(null, this.Project, this.Project));
             }
             else
             {
@@ -104,13 +121,16 @@ namespace NAnt.Core
         /// </summary>
         /// <param name="target">The new target</param>
         /// <param name="project">The project</param>
+        /// <param name="logger">The logger to be used</param>
         internal TargetStackFrame(
             Target target,
-            Project project)
+            Project project,
+            ITargetLogger logger)
         {
             this.Target = target;
             this.TargetProperties = new PropertyDictionary(project, PropertyScope.Target);
             this.TaskCallStack = new TaskCallStack(project);
+            this.Logger = logger;
         }
 
         /// <summary>
@@ -131,13 +151,18 @@ namespace NAnt.Core
         public TaskCallStack TaskCallStack { get; private set; }
 
         /// <summary>
+        /// Gets or sets the logger to be used for tasks in this frame
+        /// </summary>
+        internal ITargetLogger Logger { get; private set; }
+
+        /// <summary>
         /// Clones this stack frame
         /// </summary>
         /// <returns>The clone</returns>
         internal override StackFrame Clone()
         {
             // Intentionally don't include the target properties
-            return new TargetStackFrame(this.Target, this.TargetProperties.Project)
+            return new TargetStackFrame(this.Target, this.TargetProperties.Project, this.Logger)
             {
                 TaskCallStack = this.TaskCallStack.Clone() as TaskCallStack
             };

@@ -93,6 +93,26 @@ namespace NAnt.Core
         void OnTargetLoggingStarted(object sender, TargetBuildEventArgs e);
 
         /// <summary>
+        /// Signals that the last target has finished and logging for the build is complete.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event will still be fired if an error occurred during the build.
+        /// </remarks>
+        void OnBuildLoggingFinished(object sender, BuildEventArgs e);
+
+        /// <summary>
+        /// Signals that logging for a build has started.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="BuildEventArgs" /> object that contains the event data.</param>
+        /// <remarks>
+        /// This event is fired before any targets have started.
+        /// </remarks>
+        void OnBuildLoggingStarted(object sender, BuildEventArgs e);
+
+        /// <summary>
         /// Increases the indentation level of the log
         /// </summary>
         void Indent();
